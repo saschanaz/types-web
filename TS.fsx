@@ -210,11 +210,15 @@ let EmitMethod flavor prefix (i:Browser.Interface) (m:Browser.Method) =
                         if isNullable then makeNullable returnType else returnType
                     Pt.printl "%s%s(%s): %s;" prefix (if m.Name.IsSome then m.Name.Value else "") paramsString returnString
 
-let EmitCallBackInterface (i:Browser.Interface) =
-    Pt.printl "interface %s {" i.Name
-    Pt.printWithAddedIndent "(evt: Event): void;"
-    Pt.printl "}"
-    Pt.printl ""
+
+let EmitCallBackInterfaces interfaces = 
+    let EmitCallBackInterface (i:Browser.Interface) =
+        Pt.printl "interface %s {" i.Name
+        Pt.printWithAddedIndent "(evt: Event): void;"
+        Pt.printl "}"
+        Pt.printl ""
+
+    interfaces |> Array.iter EmitCallBackInterface
 
 let EmitCallBackFunctions flavor =
     let emitCallbackFunctionsFromJson (cb: JsonItems.ItemsType.Root) =
@@ -697,7 +701,7 @@ let EmitTheWholeThing flavor (target:TextWriter) =
     Pt.printl ""
 
     EmitDictionaries flavor
-    EmitCallBackInterface browser.CallbackInterfaces.Interface
+    EmitCallBackInterfaces browser.CallbackInterfaces.Interfaces
     EmitNonCallbackInterfaces flavor
 
     // Add missed interface definition from the spec
