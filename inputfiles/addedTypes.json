@@ -653,7 +653,7 @@
         "extends": "Algorithm",
         "properties": [
             {
-                "name": "typedCurve",
+                "name": "namedCurve",
                 "type": "string"
             }
         ]
@@ -1101,5 +1101,31 @@
         "interface": "Element",
         "name": "insertAdjacentText",
         "signatures": ["insertAdjacentText(where: string, text: string): void"]
+    },
+    {
+        "kind": "property",
+        "name": "secureConnectionStart",
+        "interface": "PerformanceTiming",
+        "readonly": true,
+        "type": "number"
+    },
+    {
+        "kind": "property",
+        "interface": "HTMLLinkElement",
+        "name": "integrity",
+        "type": "string"
+    },
+    {
+        "kind": "property",
+        "interface": "HTMLScriptElement",
+        "name": "integrity",
+        "type": "string"
+    },
+    {
+        "kind": "property",
+        "interface": "KeyboardEvent",
+        "readonly": true,
+        "name": "code",
+        "type": "string"
     }
 ]

@@ -5896,6 +5896,7 @@ interface HTMLLinkElement extends HTMLElement, LinkStyle {
       */
     type: string;
     import?: Document;
+    integrity: string;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
@@ -6757,6 +6758,7 @@ interface HTMLScriptElement extends HTMLElement {
       * Sets or retrieves the MIME type for the associated scripting engine.
       */
     type: string;
+    integrity: string;
 }
 
 declare var HTMLScriptElement: {
@@ -7762,6 +7764,7 @@ interface KeyboardEvent extends UIEvent {
     readonly repeat: boolean;
     readonly shiftKey: boolean;
     readonly which: number;
+    readonly code: string;
     getModifierState(keyArg: string): boolean;
     initKeyboardEvent(typeArg: string, canBubbleArg: boolean, cancelableArg: boolean, viewArg: Window, keyArg: string, locationArg: number, modifiersListArg: string, repeat: boolean, locale: string): void;
     readonly DOM_KEY_LOCATION_JOYSTICK: number;
@@ -9134,6 +9137,7 @@ interface PerformanceTiming {
     readonly responseStart: number;
     readonly unloadEventEnd: number;
     readonly unloadEventStart: number;
+    readonly secureConnectionStart: number;
     toJSON(): any;
 }
 
@@ -11411,8 +11415,8 @@ declare var StereoPannerNode: {
 interface Storage {
     readonly length: number;
     clear(): void;
-    getItem(key: string): string;
-    key(index: number): string;
+    getItem(key: string): string | null;
+    key(index: number): string | null;
     removeItem(key: string): void;
     setItem(key: string, data: string): void;
     [key: string]: any;
@@ -14095,7 +14099,7 @@ interface EcdsaParams extends Algorithm {
 }
 
 interface EcKeyGenParams extends Algorithm {
-    typedCurve: string;
+    namedCurve: string;
 }
 
 interface EcKeyAlgorithm extends KeyAlgorithm {

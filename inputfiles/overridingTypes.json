@@ -580,7 +580,13 @@
         "kind": "method",
         "interface": "Storage",
         "name": "getItem",
-        "signatures": ["getItem(key: string): string"]
+        "signatures": ["getItem(key: string): string | null"]
+    },
+    {
+        "kind": "method",
+        "interface": "Storage",
+        "name": "key",
+        "signatures": ["key(index: number): string | null"]
     },
     {
         "kind": "method",
