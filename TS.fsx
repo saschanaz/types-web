@@ -385,6 +385,11 @@ let EmitConstructorSignature (i:Browser.Interface) =
     let emitConstructorSigFromJson (c: ItemsType.Root) =
         c.Signatures |> Array.iter (Pt.printl "%s;")
 
+    let emitConstructorSingleSignature (ctor: Browser.Constructor) = 
+        for { ParamCombinations = pCombList } in GetOverloads (Ctor ctor) false do
+            let paramsString = ParamsToString pCombList
+            Pt.printl "new (%s): %s;" paramsString i.Name
+
     let removedCtor = getRemovedItems ItemKind.Constructor Flavor.All  |> Array.tryFind (matchInterface i.Name)
     if Option.isNone removedCtor then
         let overriddenCtor = getOverriddenItems ItemKind.Constructor Flavor.All  |> Array.tryFind (matchInterface i.Name)
@@ -392,12 +397,13 @@ let EmitConstructorSignature (i:Browser.Interface) =
         | Some c' -> emitConstructorSigFromJson c'
         | _ ->
             //Emit constructor signature
-            match i.Constructor with
-            | Some ctor ->
-                for { ParamCombinations = pCombList } in GetOverloads (Ctor ctor) false do
-                    let paramsString = ParamsToString pCombList
-                    Pt.printl "new(%s): %s;" paramsString i.Name
-            | _ -> Pt.printl "new(): %s;" i.Name
+            match i.Constructors with
+            | Some ctors ->
+                i.Constructors.Value.Constructors |> Array.iter emitConstructorSingleSignature
+            | _ ->
+                match i.Constructor with
+                | Some ctor -> emitConstructorSingleSignature ctor
+                | _ -> Pt.printl "new (): %s;" i.Name
 
     getAddedItems ItemKind.Constructor Flavor.All
     |> Array.filter (matchInterface i.Name)

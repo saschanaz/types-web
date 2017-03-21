@@ -4643,11 +4643,22 @@
         <property name="oldVersion" read-only="1" type="signed long long"/>
       </properties>
     </interface>
-    <interface extends="Object" name="ImageData">
+    <interface name="ImageData" extends="Object" tags="Window,Worker">
+      <constructors>
+        <constructor>
+          <param name="sw" type="unsigned long"/>
+          <param name="sh" type="unsigned long"/>
+        </constructor>
+        <constructor>
+          <param name="data" type="Uint8ClampedArray"/>
+          <param name="sw" type="unsigned long"/>
+          <param name="sh" optional="1" type="unsigned long"/>
+        </constructor>
+      </constructors>
       <properties>
-        <property name="data" read-only="1" type="CanvasPixelArray"/>
-        <property name="height" read-only="1" type="unsigned long"/>
         <property name="width" read-only="1" type="unsigned long"/>
+        <property name="height" read-only="1" type="unsigned long"/>
+        <property name="data" read-only="1" type="Uint8ClampedArray"/>
       </properties>
     </interface>
     <interface extends="Object" name="Key">
