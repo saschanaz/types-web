@@ -282,7 +282,7 @@ let inline ShouldKeep flavor (i : ^a when ^a : (member Tags : string option)) =
 let allWebNonCallbackInterfaces = Array.concat [| browser.Interfaces; browser.MixinInterfaces.Interfaces |]
 
 let allWebInterfaces =
-    Array.concat [| browser.Interfaces; [| browser.CallbackInterfaces.Interface |]; browser.MixinInterfaces.Interfaces |]
+    Array.concat [| browser.Interfaces; browser.CallbackInterfaces.Interfaces; browser.MixinInterfaces.Interfaces |]
 
 let allWorkerAdditionalInterfaces = Array.concat [| worker.Interfaces; worker.MixinInterfaces.Interfaces |]
 let allInterfaces = Array.concat [| allWebInterfaces; allWorkerAdditionalInterfaces |]

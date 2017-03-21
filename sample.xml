@@ -43,6 +43,31 @@
         </method>
       </methods>
     </interface>
+    <interface name="NodeFilter" extends="Object" tags="Window">
+      <constants>
+        <constant name="FILTER_ACCEPT" type="unsigned short" value="1"/>
+        <constant name="FILTER_REJECT" type="unsigned short" value="2"/>
+        <constant name="FILTER_SKIP" type="unsigned short" value="3"/>
+        <constant name="SHOW_ALL" type="unsigned long" value="4294967295"/>
+        <constant name="SHOW_ELEMENT" type="unsigned long" value="1"/>
+        <constant name="SHOW_ATTRIBUTE" type="unsigned long" value="2"/>
+        <constant name="SHOW_TEXT" type="unsigned long" value="4"/>
+        <constant name="SHOW_CDATA_SECTION" type="unsigned long" value="8"/>
+        <constant name="SHOW_ENTITY_REFERENCE" type="unsigned long" value="16"/>
+        <constant name="SHOW_ENTITY" type="unsigned long" value="32"/>
+        <constant name="SHOW_PROCESSING_INSTRUCTION" type="unsigned long" value="64"/>
+        <constant name="SHOW_COMMENT" type="unsigned long" value="128"/>
+        <constant name="SHOW_DOCUMENT" type="unsigned long" value="256"/>
+        <constant name="SHOW_DOCUMENT_TYPE" type="unsigned long" value="512"/>
+        <constant name="SHOW_DOCUMENT_FRAGMENT" type="unsigned long" value="1024"/>
+        <constant name="SHOW_NOTATION" type="unsigned long" value="2048"/>
+      </constants>
+      <methods>
+        <method name="acceptNode" type="unsigned short">
+          <param name="node" type="Node"/>
+        </method>
+      </methods>
+    </interface>
   </callback-interfaces>
   <dictionaries>
     <dictionary extends="Object" name="Algorithm">
@@ -5861,31 +5886,6 @@
         <property name="previousSibling" read-only="1" tags="TreeNavigation" type="Node"/>
         <property name="textContent" nullable="1" tags="TreeMutation" treat-null-as="EmptyString" type="DOMString"/>
       </properties>
-    </interface>
-    <interface extends="Object" name="NodeFilter" static="1">
-      <constants>
-        <constant name="FILTER_ACCEPT" tags="TreeNavigation" type="short" value="1"/>
-        <constant name="FILTER_REJECT" tags="TreeNavigation" type="short" value="2"/>
-        <constant name="FILTER_SKIP" tags="TreeNavigation" type="short" value="3"/>
-        <constant name="SHOW_ALL" tags="TreeNavigation" type="unsigned long" value="0xFFFFFFFF"/>
-        <constant name="SHOW_ATTRIBUTE" tags="TreeNavigation" type="unsigned long" value="0x00000002"/>
-        <constant name="SHOW_CDATA_SECTION" tags="TreeNavigation" type="unsigned long" value="0x00000008"/>
-        <constant name="SHOW_COMMENT" tags="TreeNavigation" type="unsigned long" value="0x00000080"/>
-        <constant name="SHOW_DOCUMENT" tags="TreeNavigation" type="unsigned long" value="0x00000100"/>
-        <constant name="SHOW_DOCUMENT_FRAGMENT" tags="TreeNavigation" type="unsigned long" value="0x00000400"/>
-        <constant name="SHOW_DOCUMENT_TYPE" tags="TreeNavigation" type="unsigned long" value="0x00000200"/>
-        <constant name="SHOW_ELEMENT" tags="TreeNavigation" type="unsigned long" value="0x00000001"/>
-        <constant name="SHOW_ENTITY" tags="TreeNavigation" type="unsigned long" value="0x00000020"/>
-        <constant name="SHOW_ENTITY_REFERENCE" tags="TreeNavigation" type="unsigned long" value="0x00000010"/>
-        <constant name="SHOW_NOTATION" tags="TreeNavigation" type="unsigned long" value="0x00000800"/>
-        <constant name="SHOW_PROCESSING_INSTRUCTION" tags="TreeNavigation" type="unsigned long" value="0x00000040"/>
-        <constant name="SHOW_TEXT" tags="TreeNavigation" type="unsigned long" value="0x00000004"/>
-      </constants>
-      <methods>
-        <method name="acceptNode" type="short">
-          <param name="n" type="Node"/>
-        </method>
-      </methods>
     </interface>
     <interface extends="Object" name="NodeIterator">
       <methods>
