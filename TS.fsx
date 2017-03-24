@@ -1090,13 +1090,10 @@ module Emit =
             | Some c' -> emitConstructorSigFromJson c'
             | _ ->
                 //Emit constructor signature
-                match i.Constructors with
-                | Some ctors ->
-                    i.Constructors.Value.Constructors |> Array.iter emitConstructorSingleSignature
-                | _ ->
-                    match i.Constructor with
-                    | Some ctor -> emitConstructorSingleSignature ctor
-                    | _ -> Pt.Printl "new(): %s;" i.Name
+                if not (Array.isEmpty i.Constructors) then
+                    i.Constructors |> Array.iter emitConstructorSingleSignature
+                else
+                    Pt.Printl "new(): %s;" i.Name
 
         getAddedItems ItemKind.Constructor Flavor.All
         |> Array.filter (matchInterface i.Name)
