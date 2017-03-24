@@ -6275,17 +6275,15 @@
       </methods>
     </interface>
     <interface name="ImageData" extends="Object">
-      <constructors>
-        <constructor>
-          <param name="sw" type="unsigned long"/>
-          <param name="sh" type="unsigned long"/>
-        </constructor>
-        <constructor>
-          <param name="data" type="Uint8ClampedArray"/>
-          <param name="sw" type="unsigned long"/>
-          <param name="sh" optional="1" type="unsigned long"/>
-        </constructor>
-      </constructors>
+      <constructor>
+        <param name="sw" type="unsigned long"/>
+        <param name="sh" type="unsigned long"/>
+      </constructor>
+      <constructor>
+        <param name="data" type="Uint8ClampedArray"/>
+        <param name="sw" type="unsigned long"/>
+        <param name="sh" optional="1" type="unsigned long"/>
+      </constructor>
       <properties>
         <property name="width" read-only="1" type="unsigned long"/>
         <property name="height" read-only="1" type="unsigned long"/>
