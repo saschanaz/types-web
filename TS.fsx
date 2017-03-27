@@ -701,6 +701,7 @@ module Emit =
         | "EventListener" -> "EventListenerOrEventListenerObject"
         | "double" | "float" -> "number"
         | "Function" -> "Function"
+        | "FrozenArray" -> "Array"
         | "long" | "long long" | "signed long" | "signed long long" | "unsigned long" | "unsigned long long" -> "number"
         | "octet" | "byte" -> "number"
         | "object" -> "any"
