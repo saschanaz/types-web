@@ -703,7 +703,7 @@ module Emit =
         | "DOMTimeStamp" -> "number"
         | "EndOfStreamError" -> "number"
         | "EventListener" -> "EventListenerOrEventListenerObject"
-        | "double" | "float" -> "number"
+        | "double" | "float" | "unrestricted float" -> "number"
         | "Function" -> "Function"
         | "FrozenArray" -> "Array"
         | "object" -> "any"
