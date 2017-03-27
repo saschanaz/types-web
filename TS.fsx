@@ -699,7 +699,7 @@ module Emit =
         | "DOMTimeStamp" -> "number"
         | "EndOfStreamError" -> "number"
         | "EventListener" -> "EventListenerOrEventListenerObject"
-        | "double" | "float" -> "number"
+        | "double" | "float" | "unrestricted float" -> "number"
         | "Function" -> "Function"
         | "FrozenArray" -> "Array"
         | "long" | "long long" | "signed long" | "signed long long" | "unsigned long" | "unsigned long long" -> "number"
