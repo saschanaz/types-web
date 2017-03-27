@@ -718,12 +718,11 @@ module Emit =
                 // Name of an interface / enum / dict. Just return itself
                 if allInterfacesMap.ContainsKey objDomType ||
                     allCallbackFuncs.ContainsKey objDomType ||
-                    allDictionariesMap.ContainsKey objDomType then
+                    allDictionariesMap.ContainsKey objDomType || 
+                    allEnumsMap.ContainsKey objDomType then
                     objDomType
                 // Name of a type alias. Just return itself
                 elif typeDefSet.Contains objDomType then objDomType
-                // Enum types are all treated as string
-                elif allEnumsMap.ContainsKey objDomType then "string"
                 // Union types
                 elif objDomType.Contains(" or ") then
                     let allTypes = objDomType.Trim('(', ')').Split([|" or "|], StringSplitOptions.None)
@@ -884,7 +883,8 @@ module Emit =
         GetCallbackFuncsByFlavor flavor |> Array.iter emitCallBackFunction
 
     let EmitEnums () =
-        let emitEnum (e: Browser.Enum) = Pt.Printl "declare var %s: string;" e.Name
+        let emitEnum (e: Browser.Enum) =
+            Pt.Printl "type %s = %s;" e.Name (String.Join(" | ", e.Values |> Array.map (fun value -> "\"" + value + "\"")))
         browser.Enums |> Array.iter emitEnum
 
     let EmitEventHandlerThis flavor (prefix: string) (i: Browser.Interface) =
@@ -1488,6 +1488,7 @@ module Emit =
         | _ -> ()
 
         EmitTypeDefs flavor
+        EmitEnums()
 
         fprintf target "%s" (Pt.GetResult())
         target.Flush()
