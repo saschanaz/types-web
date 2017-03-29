@@ -705,7 +705,7 @@ module Emit =
         | "EventListener" -> "EventListenerOrEventListenerObject"
         | "double" | "float" | "unrestricted float" -> "number"
         | "Function" -> "Function"
-        | "FrozenArray" -> "Array"
+        | "FrozenArray" -> "ReadonlyArray"
         | "object" -> "any"
         | "Promise" -> "Promise"
         | "ReadyState" -> "string"
