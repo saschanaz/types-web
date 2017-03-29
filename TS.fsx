@@ -689,15 +689,12 @@ module Emit =
     /// Get typescript type using object dom type, object name, and it's associated interface name
     let rec DomTypeToTsType (objDomType: string) =
         match objDomType.Trim('?') with
-        | "AbortMode" -> "String"
         | "any" -> "any"
         | "bool" | "boolean" | "Boolean" -> "boolean"
-        | "CanvasPixelArray" -> "number[]"
         | "Date" -> "Date"
         | "DOMHighResTimeStamp" -> "number"
         | "DOMString" -> "string"
         | "DOMTimeStamp" -> "number"
-        | "EndOfStreamError" -> "number"
         | "EventListener" -> "EventListenerOrEventListenerObject"
         | "double" | "float" -> "number"
         | "Function" -> "Function"
