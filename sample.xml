@@ -3066,77 +3066,6 @@
         <property name="locale" read-only="1" type="DOMString" />
       </properties>
     </interface>
-    <interface name="Console" extends="Object">
-      <methods>
-        <method name="assert" type="void">
-          <param name="test" optional="1" type="boolean" />
-          <param name="message" optional="1" type="DOMString" />
-          <param name="optionalParams" type="any" variadic="1" />
-        </method>
-        <method name="clear" type="void" />
-        <method name="count" type="void">
-          <param name="countTitle" optional="1" type="DOMString" />
-        </method>
-        <method name="debug" type="void">
-          <param name="message" optional="1" type="DOMString" />
-          <param name="optionalParams" type="any" variadic="1" />
-        </method>
-        <method name="dir" type="void">
-          <param name="value" optional="1" type="any" />
-          <param name="optionalParams" type="any" variadic="1" />
-        </method>
-        <method name="dirxml" type="void">
-          <param name="value" type="any" />
-        </method>
-        <method name="error" type="void">
-          <param name="message" optional="1" type="DOMString" />
-          <param name="optionalParams" type="any" variadic="1" />
-        </method>
-        <method name="exception" type="void">
-          <param name="message" optional="1" type="DOMString" />
-          <param name="optionalParams" type="any" variadic="1" />
-        </method>
-        <method name="group" type="void">
-          <param name="groupTitle" optional="1" type="DOMString" />
-        </method>
-        <method name="groupCollapsed" type="void">
-          <param name="groupTitle" optional="1" type="DOMString" />
-        </method>
-        <method name="groupEnd" type="void" />
-        <method name="info" type="void">
-          <param name="message" optional="1" type="DOMString" />
-          <param name="optionalParams" type="any" variadic="1" />
-        </method>
-        <method name="log" type="void">
-          <param name="message" optional="1" type="DOMString" />
-          <param name="optionalParams" type="any" variadic="1" />
-        </method>
-        <method name="msIsIndependentlyComposed" type="boolean">
-          <param name="element" type="Element" />
-        </method>
-        <method name="profile" type="void">
-          <param name="reportName" optional="1" type="DOMString" />
-        </method>
-        <method name="profileEnd" type="void" />
-        <method name="select" type="void">
-          <param name="element" type="Element" />
-        </method>
-        <method name="table" type="void">
-          <param name="data" type="any" variadic="1" />
-        </method>
-        <method name="time" type="void">
-          <param name="timerName" optional="1" type="DOMString" />
-        </method>
-        <method name="timeEnd" type="void">
-          <param name="timerName" optional="1" type="DOMString" />
-        </method>
-        <method name="trace" type="void" />
-        <method name="warn" type="void">
-          <param name="message" optional="1" type="DOMString" />
-          <param name="optionalParams" type="any" variadic="1" />
-        </method>
-      </methods>
-    </interface>
     <interface name="ConvolverNode" extends="AudioNode">
       <properties>
         <property name="buffer" nullable="1" type="AudioBuffer" />
@@ -13521,4 +13450,64 @@
     <typedef new-type="USVString" type="DOMString" />
     <typedef new-type="payloadtype" type="octet" />
   </typedefs>
+  <namespaces>
+    <namespace name="console" exposed="Window Worker Worklet">
+      <methods>
+        <method name="assert" type="void">
+          <param name="condition" default="false" optional="1" type="boolean"/>
+          <param name="data" type="any" variadic="1"/>
+        </method>
+        <method name="clear" type="void"/>
+        <method name="count" type="void">
+          <param name="label" default="&quot;default&quot;" optional="1" type="DOMString"/>
+        </method>
+        <method name="debug" type="void">
+          <param name="data" type="any" variadic="1"/>
+        </method>
+        <method name="error" type="void">
+          <param name="data" type="any" variadic="1"/>
+        </method>
+        <method name="info" type="void">
+          <param name="data" type="any" variadic="1"/>
+        </method>
+        <method name="log" type="void">
+          <param name="data" type="any" variadic="1"/>
+        </method>
+        <method name="table" type="void">
+          <param name="tabularData" type="any"/>
+          <param name="properties" optional="1" type="sequence&lt;DOMString>"/>
+        </method>
+        <method name="trace" type="void">
+          <param name="data" type="any" variadic="1"/>
+        </method>
+        <method name="warn" type="void">
+          <param name="data" type="any" variadic="1"/>
+        </method>
+        <method name="dir" type="void">
+          <param name="item" type="any"/>
+        </method>
+        <method name="dirxml" type="void">
+          <param name="data" type="any" variadic="1"/>
+        </method>
+        <method name="group" type="void">
+          <param name="data" type="any" variadic="1"/>
+        </method>
+        <method name="groupCollapsed" type="void">
+          <param name="data" type="any" variadic="1"/>
+        </method>
+        <method name="groupEnd" type="void"/>
+        <method name="time" type="void">
+          <param name="label" default="&quot;default&quot;" optional="1" type="DOMString"/>
+        </method>
+        <method name="timeEnd" type="void">
+          <param name="label" default="&quot;default&quot;" optional="1" type="DOMString"/>
+        </method>
+      </methods>
+    </namespace>
+    <namespace name="someNamespace" exposed="Window Worker Worklet">
+      <properties>
+        <property name="someProperty" type="double" />
+      </properties>
+    </namespace>
+  </namespaces>
 </webidl-xml>
