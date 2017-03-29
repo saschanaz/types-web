@@ -328,6 +328,11 @@ module Data =
         |> KnownWorkerInterfaceType.Parse
         |> set
 
+    let knownWorkerEnums =
+        File.ReadAllText(Path.Combine(GlobalVars.inputFolder, "knownWorkerEnums.json"))
+        |> KnownWorkerInterfaceType.Parse
+        |> set
+
     let GetAllInterfacesByFlavor flavor =
         match flavor with
         | Flavor.Web -> allWebInterfaces |> Array.filter (ShouldKeep Web)
@@ -354,6 +359,13 @@ module Data =
     let GetCallbackFuncsByFlavor flavor =
         browser.CallbackFunctions
         |> Array.filter (fun cb -> (flavor <> Flavor.Worker || knownWorkerInterfaces.Contains cb.Name) && ShouldKeep flavor cb)
+
+    let GetEnumsByFlavor flavor =
+        match flavor with
+        | Flavor.Web | Flavor.All -> browser.Enums
+        | Flavor.Worker ->
+            let isFromBrowserXml = browser.Enums |> Array.filter (fun i -> knownWorkerEnums.Contains i.Name)
+            Array.append isFromBrowserXml worker.Enums
 
     /// Event name to event type map
     let eNameToEType =
@@ -878,11 +890,11 @@ module Emit =
         |> Array.iter emitCallbackFunctionsFromJson
 
         GetCallbackFuncsByFlavor flavor |> Array.iter emitCallBackFunction
-
-    let EmitEnums () =
+        
+    let EmitEnums flavor =
         let emitEnum (e: Browser.Enum) =
             Pt.Printl "type %s = %s;" e.Name (String.Join(" | ", e.Values |> Array.map (fun value -> "\"" + value + "\"")))
-        browser.Enums |> Array.iter emitEnum
+        GetEnumsByFlavor flavor |> Array.iter emitEnum
 
     let EmitEventHandlerThis flavor (prefix: string) (i: Browser.Interface) =
         if prefix = "" then "this: " + i.Name + ", "
@@ -1485,7 +1497,7 @@ module Emit =
         | _ -> ()
 
         EmitTypeDefs flavor
-        EmitEnums()
+        EmitEnums flavor
 
         fprintf target "%s" (Pt.GetResult())
         target.Flush()

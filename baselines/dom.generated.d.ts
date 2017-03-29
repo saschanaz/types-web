@@ -78,8 +78,8 @@ interface ConstrainLongRange extends LongRange {
 }
 
 interface ConstrainVideoFacingModeParameters {
-    exact?: string | string[];
-    ideal?: string | string[];
+    exact?: VideoFacingModeEnum | VideoFacingModeEnum[];
+    ideal?: VideoFacingModeEnum | VideoFacingModeEnum[];
 }
 
 interface CustomEventInit extends EventInit {
@@ -308,7 +308,7 @@ interface MSAudioSendSignal {
 }
 
 interface MSConnectivity {
-    iceType?: string;
+    iceType?: MSIceType;
     iceWarningFlags?: MSIceWarningFlags;
     relayAddress?: MSRelayAddress;
 }
@@ -318,11 +318,11 @@ interface MSCredentialFilter {
 }
 
 interface MSCredentialParameters {
-    type?: string;
+    type?: MSCredentialType;
 }
 
 interface MSCredentialSpec {
-    type?: string;
+    type?: MSCredentialType;
     id?: string;
 }
 
@@ -333,7 +333,7 @@ interface MSDelay {
 
 interface MSDescription extends RTCStats {
     connectivity?: MSConnectivity;
-    transport?: string;
+    transport?: RTCIceProtocol;
     networkconnectivity?: MSNetworkConnectivityInfo;
     localAddr?: MSIPAddressInfo;
     remoteAddr?: MSIPAddressInfo;
@@ -457,11 +457,11 @@ interface MSTransportDiagnosticsStats extends RTCStats {
     numConsentRespReceived?: number;
     interfaces?: MSNetworkInterfaceType;
     baseInterface?: MSNetworkInterfaceType;
-    protocol?: string;
+    protocol?: RTCIceProtocol;
     localInterface?: MSNetworkInterfaceType;
-    localAddrType?: string;
-    remoteAddrType?: string;
-    iceRole?: string;
+    localAddrType?: MSIceAddrType;
+    remoteAddrType?: MSIceAddrType;
+    iceRole?: RTCIceRole;
     rtpRtcpMux?: boolean;
     allocationTimeInMs?: number;
     msRtcEngineVersion?: string;
@@ -534,7 +534,7 @@ interface MediaEncryptedEventInit extends EventInit {
 }
 
 interface MediaKeyMessageEventInit extends EventInit {
-    messageType?: string;
+    messageType?: MediaKeyMessageType;
     message?: ArrayBuffer;
 }
 
@@ -542,8 +542,8 @@ interface MediaKeySystemConfiguration {
     initDataTypes?: string[];
     audioCapabilities?: MediaKeySystemMediaCapability[];
     videoCapabilities?: MediaKeySystemMediaCapability[];
-    distinctiveIdentifier?: string;
-    persistentState?: string;
+    distinctiveIdentifier?: MediaKeysRequirement;
+    persistentState?: MediaKeysRequirement;
 }
 
 interface MediaKeySystemMediaCapability {
@@ -667,7 +667,7 @@ interface MutationObserverInit {
 }
 
 interface NotificationOptions {
-    dir?: string;
+    dir?: NotificationDirection;
     lang?: string;
     body?: string;
     tag?: string;
@@ -766,8 +766,8 @@ interface PushSubscriptionOptionsInit {
 
 interface RTCConfiguration {
     iceServers?: RTCIceServer[];
-    iceTransportPolicy?: string;
-    bundlePolicy?: string;
+    iceTransportPolicy?: RTCIceTransportPolicy;
+    bundlePolicy?: RTCBundlePolicy;
     peerIdentity?: string;
 }
 
@@ -781,7 +781,7 @@ interface RTCDtlsFingerprint {
 }
 
 interface RTCDtlsParameters {
-    role?: string;
+    role?: RTCDtlsRole;
     fingerprints?: RTCDtlsFingerprint[];
 }
 
@@ -789,7 +789,7 @@ interface RTCIceCandidateAttributes extends RTCStats {
     ipAddress?: string;
     portNumber?: number;
     transport?: string;
-    candidateType?: string;
+    candidateType?: RTCStatsIceCandidateType;
     priority?: number;
     addressSourceUrl?: string;
 }
@@ -801,10 +801,10 @@ interface RTCIceCandidateDictionary {
     foundation?: string;
     priority?: number;
     ip?: string;
-    protocol?: string;
+    protocol?: RTCIceProtocol;
     port?: number;
-    type?: string;
-    tcpType?: string;
+    type?: RTCIceCandidateType;
+    tcpType?: RTCIceTcpCandidateType;
     relatedAddress?: string;
     relatedPort?: number;
     msMTurnSessionId?: string;
@@ -825,7 +825,7 @@ interface RTCIceCandidatePairStats extends RTCStats {
     transportId?: string;
     localCandidateId?: string;
     remoteCandidateId?: string;
-    state?: string;
+    state?: RTCStatsIceCandidatePairState;
     priority?: number;
     nominated?: boolean;
     writable?: boolean;
@@ -838,7 +838,7 @@ interface RTCIceCandidatePairStats extends RTCStats {
 }
 
 interface RTCIceGatherOptions {
-    gatherPolicy?: string;
+    gatherPolicy?: RTCIceGatherPolicy;
     iceservers?: RTCIceServer[];
     portRange?: MSPortRange;
 }
@@ -1003,7 +1003,7 @@ interface RTCRtpParameters {
     headerExtensions?: RTCRtpHeaderExtensionParameters[];
     encodings?: RTCRtpEncodingParameters[];
     rtcp?: RTCRtcpParameters;
-    degradationPreference?: string;
+    degradationPreference?: RTCDegradationPreference;
 }
 
 interface RTCRtpRtxParameters {
@@ -1017,7 +1017,7 @@ interface RTCRtpUnhandled {
 }
 
 interface RTCSessionDescriptionInit {
-    type?: string;
+    type?: RTCSdpType;
     sdp?: string;
 }
 
@@ -1043,9 +1043,9 @@ interface RTCSsrcRange {
 
 interface RTCStats {
     timestamp?: number;
-    type?: string;
+    type?: RTCStatsType;
     id?: string;
-    msType?: string;
+    msType?: MSStatsType;
 }
 
 interface RTCStatsReport {
@@ -1070,11 +1070,11 @@ interface RequestInit {
     headers?: any;
     body?: any;
     referrer?: string;
-    referrerPolicy?: string;
-    mode?: string;
-    credentials?: string;
-    cache?: string;
-    redirect?: string;
+    referrerPolicy?: ReferrerPolicy;
+    mode?: RequestMode;
+    credentials?: RequestCredentials;
+    cache?: RequestCache;
+    redirect?: RequestRedirect;
     integrity?: string;
     keepalive?: boolean;
     window?: any;
@@ -1087,9 +1087,9 @@ interface ResponseInit {
 }
 
 interface ScopedCredentialDescriptor {
-    type?: string;
+    type?: ScopedCredentialType;
     id?: any;
-    transports?: string[];
+    transports?: Transport[];
 }
 
 interface ScopedCredentialOptions {
@@ -1100,7 +1100,7 @@ interface ScopedCredentialOptions {
 }
 
 interface ScopedCredentialParameters {
-    type?: string;
+    type?: ScopedCredentialType;
     algorithm?: string | Algorithm;
 }
 
@@ -1330,7 +1330,7 @@ interface AudioContextBase extends EventTarget {
     readonly listener: AudioListener;
     onstatechange: (this: AudioContext, ev: Event) => any;
     readonly sampleRate: number;
-    readonly state: string;
+    readonly state: AudioContextState;
     close(): Promise<void>;
     createAnalyser(): AnalyserNode;
     createBiquadFilter(): BiquadFilterNode;
@@ -1390,8 +1390,8 @@ declare var AudioListener: {
 
 interface AudioNode extends EventTarget {
     channelCount: number;
-    channelCountMode: string;
-    channelInterpretation: string;
+    channelCountMode: ChannelCountMode;
+    channelInterpretation: ChannelInterpretation;
     readonly context: AudioContext;
     readonly numberOfInputs: number;
     readonly numberOfOutputs: number;
@@ -1494,7 +1494,7 @@ interface BiquadFilterNode extends AudioNode {
     readonly detune: AudioParam;
     readonly frequency: AudioParam;
     readonly gain: AudioParam;
-    type: string;
+    type: BiquadFilterType;
     getFrequencyResponse(frequencyHz: Float32Array, magResponse: Float32Array, phaseResponse: Float32Array): void;
 }
 
@@ -2134,7 +2134,7 @@ interface CanvasRenderingContext2D extends Object, CanvasPathMethods {
     lineJoin: string;
     lineWidth: number;
     miterLimit: number;
-    msFillRule: string;
+    msFillRule: CanvasFillRule;
     shadowBlur: number;
     shadowColor: string;
     shadowOffsetX: number;
@@ -2147,7 +2147,7 @@ interface CanvasRenderingContext2D extends Object, CanvasPathMethods {
     oImageSmoothingEnabled: boolean;
     beginPath(): void;
     clearRect(x: number, y: number, w: number, h: number): void;
-    clip(fillRule?: string): void;
+    clip(fillRule?: CanvasFillRule): void;
     createImageData(imageDataOrSw: number | ImageData, sh?: number): ImageData;
     createLinearGradient(x0: number, y0: number, x1: number, y1: number): CanvasGradient;
     createPattern(image: HTMLImageElement | HTMLCanvasElement | HTMLVideoElement, repetition: string): CanvasPattern;
@@ -2156,12 +2156,12 @@ interface CanvasRenderingContext2D extends Object, CanvasPathMethods {
     drawImage(image: HTMLImageElement | HTMLCanvasElement | HTMLVideoElement | ImageBitmap, dstX: number, dstY: number): void;
     drawImage(image: HTMLImageElement | HTMLCanvasElement | HTMLVideoElement | ImageBitmap, dstX: number, dstY: number, dstW: number, dstH: number): void;
     drawImage(image: HTMLImageElement | HTMLCanvasElement | HTMLVideoElement | ImageBitmap, srcX: number, srcY: number, srcW: number, srcH: number, dstX: number, dstY: number, dstW: number, dstH: number): void;
-    fill(fillRule?: string): void;
+    fill(fillRule?: CanvasFillRule): void;
     fillRect(x: number, y: number, w: number, h: number): void;
     fillText(text: string, x: number, y: number, maxWidth?: number): void;
     getImageData(sx: number, sy: number, sw: number, sh: number): ImageData;
     getLineDash(): number[];
-    isPointInPath(x: number, y: number, fillRule?: string): boolean;
+    isPointInPath(x: number, y: number, fillRule?: CanvasFillRule): boolean;
     measureText(text: string): TextMetrics;
     putImageData(imagedata: ImageData, dx: number, dy: number, dirtyX?: number, dirtyY?: number, dirtyWidth?: number, dirtyHeight?: number): void;
     restore(): void;
@@ -2574,7 +2574,7 @@ declare var DataTransferItemList: {
 
 interface DeferredPermissionRequest {
     readonly id: number;
-    readonly type: string;
+    readonly type: MSWebViewPermissionType;
     readonly uri: string;
     allow(): void;
     deny(): void;
@@ -3192,7 +3192,7 @@ interface Document extends Node, GlobalEventHandlers, NodeSelector, DocumentEven
       * Contains the title of the document.
       */
     title: string;
-    readonly visibilityState: string;
+    readonly visibilityState: VisibilityState;
     /** 
       * Sets or gets the color of the links that the user has visited.
       */
@@ -3781,7 +3781,7 @@ declare var FocusEvent: {
 }
 
 interface FocusNavigationEvent extends Event {
-    readonly navigationReason: string;
+    readonly navigationReason: NavigationReason;
     readonly originHeight: number;
     readonly originLeft: number;
     readonly originTop: number;
@@ -6957,7 +6957,7 @@ declare var History: {
 }
 
 interface IDBCursor {
-    readonly direction: string;
+    readonly direction: IDBCursorDirection;
     key: IDBKeyRange | IDBValidKey;
     readonly primaryKey: any;
     source: IDBObjectStore | IDBIndex;
@@ -7109,7 +7109,7 @@ interface IDBRequest extends EventTarget {
     readonly error: DOMError;
     onerror: (this: IDBRequest, ev: Event) => any;
     onsuccess: (this: IDBRequest, ev: Event) => any;
-    readonly readyState: string;
+    readonly readyState: IDBRequestReadyState;
     readonly result: any;
     source: IDBObjectStore | IDBIndex | IDBCursor;
     readonly transaction: IDBTransaction;
@@ -7131,7 +7131,7 @@ interface IDBTransactionEventMap {
 interface IDBTransaction extends EventTarget {
     readonly db: IDBDatabase;
     readonly error: DOMError;
-    readonly mode: string;
+    readonly mode: IDBTransactionMode;
     onabort: (this: IDBTransaction, ev: Event) => any;
     oncomplete: (this: IDBTransaction, ev: Event) => any;
     onerror: (this: IDBTransaction, ev: Event) => any;
@@ -7249,7 +7249,7 @@ declare var KeyboardEvent: {
 
 interface ListeningStateChangedEvent extends Event {
     readonly label: string;
-    readonly state: string;
+    readonly state: ListeningState;
 }
 
 declare var ListeningStateChangedEvent: {
@@ -7340,7 +7340,7 @@ declare var MSAppAsyncOperation: {
 
 interface MSAssertion {
     readonly id: string;
-    readonly type: string;
+    readonly type: MSCredentialType;
 }
 
 declare var MSAssertion: {
@@ -7372,7 +7372,7 @@ interface MSFIDOCredentialAssertion extends MSAssertion {
     readonly algorithm: string | Algorithm;
     readonly attestation: any;
     readonly publicKey: string;
-    readonly transportHints: string[];
+    readonly transportHints: MSTransportType[];
 }
 
 declare var MSFIDOCredentialAssertion: {
@@ -7476,7 +7476,7 @@ interface MSHTMLWebViewElement extends HTMLElement {
     goForward(): void;
     invokeScriptAsync(scriptName: string, ...args: any[]): MSWebViewAsyncOperation;
     navigate(uri: string): void;
-    navigateFocus(navigationReason: string, origin: FocusNavigationOrigin): void;
+    navigateFocus(navigationReason: NavigationReason, origin: FocusNavigationOrigin): void;
     navigateToLocalStreamUri(source: string, streamResolver: any): void;
     navigateToString(contents: string): void;
     navigateWithHttpRequestMessage(requestMessage: any): void;
@@ -7731,7 +7731,7 @@ declare var MSWebViewSettings: {
 interface MediaDeviceInfo {
     readonly deviceId: string;
     readonly groupId: string;
-    readonly kind: string;
+    readonly kind: MediaDeviceKind;
     readonly label: string;
 }
 
@@ -7798,7 +7798,7 @@ declare var MediaError: {
 
 interface MediaKeyMessageEvent extends Event {
     readonly message: ArrayBuffer;
-    readonly messageType: string;
+    readonly messageType: MediaKeyMessageType;
 }
 
 declare var MediaKeyMessageEvent: {
@@ -7826,7 +7826,7 @@ declare var MediaKeySession: {
 interface MediaKeyStatusMap {
     readonly size: number;
     forEach(callback: ForEachCallback): void;
-    get(keyId: any): string;
+    get(keyId: any): MediaKeyStatus;
     has(keyId: any): boolean;
 }
 
@@ -7847,7 +7847,7 @@ declare var MediaKeySystemAccess: {
 }
 
 interface MediaKeys {
-    createSession(sessionType?: string): MediaKeySession;
+    createSession(sessionType?: MediaKeySessionType): MediaKeySession;
     setServerCertificate(serverCertificate: any): Promise<void>;
 }
 
@@ -7985,7 +7985,7 @@ interface MediaStreamTrack extends EventTarget {
     onoverconstrained: (this: MediaStreamTrack, ev: MediaStreamErrorEvent) => any;
     onunmute: (this: MediaStreamTrack, ev: Event) => any;
     readonly readonly: boolean;
-    readonly readyState: string;
+    readonly readyState: MediaStreamTrackState;
     readonly remote: boolean;
     applyConstraints(constraints: MediaTrackConstraints): Promise<void>;
     clone(): MediaStreamTrack;
@@ -8206,7 +8206,7 @@ declare var NavigationEventWithReferrer: {
 interface Navigator extends Object, NavigatorID, NavigatorOnLine, NavigatorContentUtils, NavigatorStorageUtils, NavigatorGeolocation, MSNavigatorDoNotTrack, MSFileSaver, NavigatorBeacon, NavigatorConcurrentHardware, NavigatorUserMedia {
     readonly authentication: WebAuthentication;
     readonly cookieEnabled: boolean;
-    gamepadInputEmulation: string;
+    gamepadInputEmulation: GamepadInputEmulationType;
     readonly language: string;
     readonly maxTouchPoints: number;
     readonly mimeTypes: MimeTypeArray;
@@ -8363,14 +8363,14 @@ interface NotificationEventMap {
 
 interface Notification extends EventTarget {
     readonly body: string;
-    readonly dir: string;
+    readonly dir: NotificationDirection;
     readonly icon: string;
     readonly lang: string;
     onclick: (this: Notification, ev: Event) => any;
     onclose: (this: Notification, ev: Event) => any;
     onerror: (this: Notification, ev: Event) => any;
     onshow: (this: Notification, ev: Event) => any;
-    readonly permission: string;
+    readonly permission: NotificationPermission;
     readonly tag: string;
     readonly title: string;
     close(): void;
@@ -8381,7 +8381,7 @@ interface Notification extends EventTarget {
 declare var Notification: {
     prototype: Notification;
     new(title: string, options?: NotificationOptions): Notification;
-    requestPermission(callback?: NotificationPermissionCallback): Promise<string>;
+    requestPermission(callback?: NotificationPermissionCallback): Promise<NotificationPermission>;
 }
 
 interface OES_element_index_uint {
@@ -8471,7 +8471,7 @@ interface OscillatorNode extends AudioNode {
     readonly detune: AudioParam;
     readonly frequency: AudioParam;
     onended: (this: OscillatorNode, ev: MediaStreamErrorEvent) => any;
-    type: string;
+    type: OscillatorType;
     setPeriodicWave(periodicWave: PeriodicWave): void;
     start(when?: number): void;
     stop(when?: number): void;
@@ -8514,9 +8514,9 @@ interface PannerNode extends AudioNode {
     coneInnerAngle: number;
     coneOuterAngle: number;
     coneOuterGain: number;
-    distanceModel: string;
+    distanceModel: DistanceModelType;
     maxDistance: number;
-    panningModel: string;
+    panningModel: PanningModelType;
     refDistance: number;
     rolloffFactor: number;
     setOrientation(x: number, y: number, z: number): void;
@@ -8567,7 +8567,7 @@ interface PaymentRequest extends EventTarget {
     onshippingoptionchange: (this: PaymentRequest, ev: Event) => any;
     readonly shippingAddress: PaymentAddress | null;
     readonly shippingOption: string | null;
-    readonly shippingType: string | null;
+    readonly shippingType: PaymentShippingType | null;
     abort(): Promise<void>;
     show(): Promise<PaymentResponse>;
     addEventListener<K extends keyof PaymentRequestEventMap>(type: K, listener: (this: PaymentRequest, ev: PaymentRequestEventMap[K]) => any, useCapture?: boolean): void;
@@ -8596,7 +8596,7 @@ interface PaymentResponse {
     readonly payerPhone: string | null;
     readonly shippingAddress: PaymentAddress | null;
     readonly shippingOption: string | null;
-    complete(result?: string): Promise<void>;
+    complete(result?: PaymentComplete): Promise<void>;
     toJSON(): any;
 }
 
@@ -8724,7 +8724,7 @@ interface PerformanceNavigationTiming extends PerformanceEntry {
     readonly requestStart: number;
     readonly responseEnd: number;
     readonly responseStart: number;
-    readonly type: string;
+    readonly type: NavigationType;
     readonly unloadEventEnd: number;
     readonly unloadEventStart: number;
 }
@@ -8793,7 +8793,7 @@ declare var PeriodicWave: {
 }
 
 interface PermissionRequest extends DeferredPermissionRequest {
-    readonly state: string;
+    readonly state: MSWebViewPermissionState;
     defer(): void;
 }
 
@@ -8923,7 +8923,7 @@ declare var ProgressEvent: {
 
 interface PushManager {
     getSubscription(): Promise<PushSubscription>;
-    permissionState(options?: PushSubscriptionOptionsInit): Promise<string>;
+    permissionState(options?: PushSubscriptionOptionsInit): Promise<PushPermissionState>;
     subscribe(options?: PushSubscriptionOptionsInit): Promise<PushSubscription>;
 }
 
@@ -8935,7 +8935,7 @@ declare var PushManager: {
 interface PushSubscription {
     readonly endpoint: USVString;
     readonly options: PushSubscriptionOptions;
-    getKey(name: string): ArrayBuffer | null;
+    getKey(name: PushEncryptionKeyName): ArrayBuffer | null;
     toJSON(): any;
     unsubscribe(): Promise<boolean>;
 }
@@ -8972,7 +8972,7 @@ interface RTCDtlsTransportEventMap {
 interface RTCDtlsTransport extends RTCStatsProvider {
     ondtlsstatechange: ((this: RTCDtlsTransport, ev: RTCDtlsTransportStateChangedEvent) => any) | null;
     onerror: ((this: RTCDtlsTransport, ev: Event) => any) | null;
-    readonly state: string;
+    readonly state: RTCDtlsTransportState;
     readonly transport: RTCIceTransport;
     getLocalParameters(): RTCDtlsParameters;
     getRemoteCertificates(): ArrayBuffer[];
@@ -8989,7 +8989,7 @@ declare var RTCDtlsTransport: {
 }
 
 interface RTCDtlsTransportStateChangedEvent extends Event {
-    readonly state: string;
+    readonly state: RTCDtlsTransportState;
 }
 
 declare var RTCDtlsTransportStateChangedEvent: {
@@ -9045,7 +9045,7 @@ interface RTCIceGathererEventMap {
 }
 
 interface RTCIceGatherer extends RTCStatsProvider {
-    readonly component: string;
+    readonly component: RTCIceComponent;
     onerror: ((this: RTCIceGatherer, ev: Event) => any) | null;
     onlocalcandidate: ((this: RTCIceGatherer, ev: RTCIceGathererEvent) => any) | null;
     createAssociatedGatherer(): RTCIceGatherer;
@@ -9075,19 +9075,19 @@ interface RTCIceTransportEventMap {
 }
 
 interface RTCIceTransport extends RTCStatsProvider {
-    readonly component: string;
+    readonly component: RTCIceComponent;
     readonly iceGatherer: RTCIceGatherer | null;
     oncandidatepairchange: ((this: RTCIceTransport, ev: RTCIceCandidatePairChangedEvent) => any) | null;
     onicestatechange: ((this: RTCIceTransport, ev: RTCIceTransportStateChangedEvent) => any) | null;
-    readonly role: string;
-    readonly state: string;
+    readonly role: RTCIceRole;
+    readonly state: RTCIceTransportState;
     addRemoteCandidate(remoteCandidate: RTCIceCandidateDictionary | RTCIceCandidateComplete): void;
     createAssociatedTransport(): RTCIceTransport;
     getNominatedCandidatePair(): RTCIceCandidatePair | null;
     getRemoteCandidates(): RTCIceCandidateDictionary[];
     getRemoteParameters(): RTCIceParameters | null;
     setRemoteCandidates(remoteCandidates: RTCIceCandidateDictionary[]): void;
-    start(gatherer: RTCIceGatherer, remoteParameters: RTCIceParameters, role?: string): void;
+    start(gatherer: RTCIceGatherer, remoteParameters: RTCIceParameters, role?: RTCIceRole): void;
     stop(): void;
     addEventListener<K extends keyof RTCIceTransportEventMap>(type: K, listener: (this: RTCIceTransport, ev: RTCIceTransportEventMap[K]) => any, useCapture?: boolean): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
@@ -9099,7 +9099,7 @@ declare var RTCIceTransport: {
 }
 
 interface RTCIceTransportStateChangedEvent extends Event {
-    readonly state: string;
+    readonly state: RTCIceTransportState;
 }
 
 declare var RTCIceTransportStateChangedEvent: {
@@ -9119,8 +9119,8 @@ interface RTCPeerConnectionEventMap {
 
 interface RTCPeerConnection extends EventTarget {
     readonly canTrickleIceCandidates: boolean | null;
-    readonly iceConnectionState: string;
-    readonly iceGatheringState: string;
+    readonly iceConnectionState: RTCIceConnectionState;
+    readonly iceGatheringState: RTCIceGatheringState;
     readonly localDescription: RTCSessionDescription | null;
     onaddstream: (this: RTCPeerConnection, ev: MediaStreamEvent) => any;
     onicecandidate: (this: RTCPeerConnection, ev: RTCPeerConnectionIceEvent) => any;
@@ -9130,7 +9130,7 @@ interface RTCPeerConnection extends EventTarget {
     onremovestream: (this: RTCPeerConnection, ev: MediaStreamEvent) => any;
     onsignalingstatechange: (this: RTCPeerConnection, ev: Event) => any;
     readonly remoteDescription: RTCSessionDescription | null;
-    readonly signalingState: string;
+    readonly signalingState: RTCSignalingState;
     addIceCandidate(candidate: RTCIceCandidate, successCallback?: VoidFunction, failureCallback?: RTCPeerConnectionErrorCallback): Promise<void>;
     addStream(stream: MediaStream): void;
     close(): void;
@@ -9213,7 +9213,7 @@ declare var RTCRtpSender: {
 
 interface RTCSessionDescription {
     sdp: string | null;
-    type: string | null;
+    type: RTCSdpType | null;
     toJSON(): any;
 }
 
@@ -9272,7 +9272,7 @@ interface Range {
     createContextualFragment(fragment: string): DocumentFragment;
     deleteContents(): void;
     detach(): void;
-    expand(Unit: string): boolean;
+    expand(Unit: ExpandGranularity): boolean;
     extractContents(): DocumentFragment;
     getBoundingClientRect(): ClientRect;
     getClientRects(): ClientRectList;
@@ -9325,18 +9325,18 @@ declare var ReadableStreamReader: {
 }
 
 interface Request extends Object, Body {
-    readonly cache: string;
-    readonly credentials: string;
-    readonly destination: string;
+    readonly cache: RequestCache;
+    readonly credentials: RequestCredentials;
+    readonly destination: RequestDestination;
     readonly headers: Headers;
     readonly integrity: string;
     readonly keepalive: boolean;
     readonly method: string;
-    readonly mode: string;
-    readonly redirect: string;
+    readonly mode: RequestMode;
+    readonly redirect: RequestRedirect;
     readonly referrer: string;
-    readonly referrerPolicy: string;
-    readonly type: string;
+    readonly referrerPolicy: ReferrerPolicy;
+    readonly type: RequestType;
     readonly url: string;
     clone(): Request;
 }
@@ -9352,7 +9352,7 @@ interface Response extends Object, Body {
     readonly ok: boolean;
     readonly status: number;
     readonly statusText: string;
-    readonly type: string;
+    readonly type: ResponseType;
     readonly url: string;
     clone(): Response;
 }
@@ -11152,7 +11152,7 @@ declare var SVGZoomEvent: {
 
 interface ScopedCredential {
     readonly id: ArrayBuffer;
-    readonly type: string;
+    readonly type: ScopedCredentialType;
 }
 
 declare var ScopedCredential: {
@@ -11269,7 +11269,7 @@ interface ServiceWorkerEventMap extends AbstractWorkerEventMap {
 interface ServiceWorker extends EventTarget, AbstractWorker {
     onstatechange: (this: ServiceWorker, ev: Event) => any;
     readonly scriptURL: USVString;
-    readonly state: string;
+    readonly state: ServiceWorkerState;
     postMessage(message: any, transfer?: any[]): void;
     addEventListener<K extends keyof ServiceWorkerEventMap>(type: K, listener: (this: ServiceWorker, ev: ServiceWorkerEventMap[K]) => any, useCapture?: boolean): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
@@ -11345,7 +11345,7 @@ interface SourceBuffer extends EventTarget {
     appendWindowStart: number;
     readonly audioTracks: AudioTrackList;
     readonly buffered: TimeRanges;
-    mode: string;
+    mode: AppendMode;
     timestampOffset: number;
     readonly updating: boolean;
     readonly videoTracks: VideoTrackList;
@@ -11970,7 +11970,7 @@ declare var WEBGL_depth_texture: {
 
 interface WaveShaperNode extends AudioNode {
     curve: Float32Array | null;
-    oversample: string;
+    oversample: OverSampleType;
 }
 
 declare var WaveShaperNode: {
@@ -13239,7 +13239,7 @@ interface Window extends EventTarget, WindowTimers, WindowSessionStorage, Window
     captureEvents(): void;
     close(): void;
     confirm(message?: string): boolean;
-    departFocus(navigationReason: string, origin: FocusNavigationOrigin): void;
+    departFocus(navigationReason: NavigationReason, origin: FocusNavigationOrigin): void;
     focus(): void;
     getComputedStyle(elt: Element, pseudoElt?: string): CSSStyleDeclaration;
     getMatchedCSSRules(elt: Element, pseudoElt?: string): CSSRuleList;
@@ -13314,7 +13314,7 @@ interface XMLHttpRequest extends EventTarget, XMLHttpRequestEventTarget {
     readonly readyState: number;
     readonly response: any;
     readonly responseText: string;
-    responseType: string;
+    responseType: XMLHttpRequestResponseType;
     readonly responseURL: string;
     readonly responseXML: Document | null;
     readonly status: number;
@@ -14228,10 +14228,10 @@ interface NavigatorUserMediaErrorCallback {
     (error: MediaStreamError): void;
 }
 interface ForEachCallback {
-    (keyId: any, status: string): void;
+    (keyId: any, status: MediaKeyStatus): void;
 }
 interface NotificationPermissionCallback {
-    (permission: string): void;
+    (permission: NotificationPermission): void;
 }
 interface IntersectionObserverCallback {
     (entries: IntersectionObserverEntry[], observer: IntersectionObserver): void;
@@ -14838,7 +14838,7 @@ declare function cancelAnimationFrame(handle: number): void;
 declare function captureEvents(): void;
 declare function close(): void;
 declare function confirm(message?: string): boolean;
-declare function departFocus(navigationReason: string, origin: FocusNavigationOrigin): void;
+declare function departFocus(navigationReason: NavigationReason, origin: FocusNavigationOrigin): void;
 declare function focus(): void;
 declare function getComputedStyle(elt: Element, pseudoElt?: string): CSSStyleDeclaration;
 declare function getMatchedCSSRules(elt: Element, pseudoElt?: string): CSSRuleList;
@@ -14940,3 +14940,74 @@ type IDBValidKey = number | string | Date | IDBArrayKey;
 type BufferSource = ArrayBuffer | ArrayBufferView;
 type MouseWheelEvent = WheelEvent;
 type ScrollRestoration = "auto" | "manual";
+type AppendMode = "segments" | "sequence";
+type AudioContextState = "suspended" | "running" | "closed";
+type BiquadFilterType = "lowpass" | "highpass" | "bandpass" | "lowshelf" | "highshelf" | "peaking" | "notch" | "allpass";
+type CanvasFillRule = "nonzero" | "evenodd";
+type ChannelCountMode = "max" | "clamped-max" | "explicit";
+type ChannelInterpretation = "speakers" | "discrete";
+type DistanceModelType = "linear" | "inverse" | "exponential";
+type ExpandGranularity = "character" | "word" | "sentence" | "textedit";
+type GamepadInputEmulationType = "mouse" | "keyboard" | "gamepad";
+type IDBCursorDirection = "next" | "nextunique" | "prev" | "prevunique";
+type IDBRequestReadyState = "pending" | "done";
+type IDBTransactionMode = "readonly" | "readwrite" | "versionchange";
+type ListeningState = "inactive" | "active" | "disambiguation";
+type MSCredentialType = "FIDO_2_0";
+type MSIceAddrType = "os" | "stun" | "turn" | "peer-derived";
+type MSIceType = "failed" | "direct" | "relay";
+type MSStatsType = "description" | "localclientevent" | "inbound-network" | "outbound-network" | "inbound-payload" | "outbound-payload" | "transportdiagnostics";
+type MSTransportType = "Embedded" | "USB" | "NFC" | "BT";
+type MSWebViewPermissionState = "unknown" | "defer" | "allow" | "deny";
+type MSWebViewPermissionType = "geolocation" | "unlimitedIndexedDBQuota" | "media" | "pointerlock" | "webnotifications";
+type MediaDeviceKind = "audioinput" | "audiooutput" | "videoinput";
+type MediaKeyMessageType = "license-request" | "license-renewal" | "license-release" | "individualization-request";
+type MediaKeySessionType = "temporary" | "persistent-license" | "persistent-release-message";
+type MediaKeyStatus = "usable" | "expired" | "output-downscaled" | "output-not-allowed" | "status-pending" | "internal-error";
+type MediaKeysRequirement = "required" | "optional" | "not-allowed";
+type MediaStreamTrackState = "live" | "ended";
+type NavigationReason = "up" | "down" | "left" | "right";
+type NavigationType = "navigate" | "reload" | "back_forward" | "prerender";
+type NotificationDirection = "auto" | "ltr" | "rtl";
+type NotificationPermission = "default" | "denied" | "granted";
+type OscillatorType = "sine" | "square" | "sawtooth" | "triangle" | "custom";
+type OverSampleType = "none" | "2x" | "4x";
+type PanningModelType = "equalpower";
+type PaymentComplete = "success" | "fail" | "";
+type PaymentShippingType = "shipping" | "delivery" | "pickup";
+type PushEncryptionKeyName = "p256dh" | "auth";
+type PushPermissionState = "granted" | "denied" | "prompt";
+type RTCBundlePolicy = "balanced" | "max-compat" | "max-bundle";
+type RTCDegradationPreference = "maintain-framerate" | "maintain-resolution" | "balanced";
+type RTCDtlsRole = "auto" | "client" | "server";
+type RTCDtlsTransportState = "new" | "connecting" | "connected" | "closed";
+type RTCIceCandidateType = "host" | "srflx" | "prflx" | "relay";
+type RTCIceComponent = "RTP" | "RTCP";
+type RTCIceConnectionState = "new" | "checking" | "connected" | "completed" | "failed" | "disconnected" | "closed";
+type RTCIceGatherPolicy = "all" | "nohost" | "relay";
+type RTCIceGathererState = "new" | "gathering" | "complete";
+type RTCIceGatheringState = "new" | "gathering" | "complete";
+type RTCIceProtocol = "udp" | "tcp";
+type RTCIceRole = "controlling" | "controlled";
+type RTCIceTcpCandidateType = "active" | "passive" | "so";
+type RTCIceTransportPolicy = "none" | "relay" | "all";
+type RTCIceTransportState = "new" | "checking" | "connected" | "completed" | "disconnected" | "closed";
+type RTCSdpType = "offer" | "pranswer" | "answer";
+type RTCSignalingState = "stable" | "have-local-offer" | "have-remote-offer" | "have-local-pranswer" | "have-remote-pranswer" | "closed";
+type RTCStatsIceCandidatePairState = "frozen" | "waiting" | "inprogress" | "failed" | "succeeded" | "cancelled";
+type RTCStatsIceCandidateType = "host" | "serverreflexive" | "peerreflexive" | "relayed";
+type RTCStatsType = "inboundrtp" | "outboundrtp" | "session" | "datachannel" | "track" | "transport" | "candidatepair" | "localcandidate" | "remotecandidate";
+type ReferrerPolicy = "" | "no-referrer" | "no-referrer-when-downgrade" | "origin-only" | "origin-when-cross-origin" | "unsafe-url";
+type RequestCache = "default" | "no-store" | "reload" | "no-cache" | "force-cache";
+type RequestCredentials = "omit" | "same-origin" | "include";
+type RequestDestination = "" | "document" | "sharedworker" | "subresource" | "unknown" | "worker";
+type RequestMode = "navigate" | "same-origin" | "no-cors" | "cors";
+type RequestRedirect = "follow" | "error" | "manual";
+type RequestType = "" | "audio" | "font" | "image" | "script" | "style" | "track" | "video";
+type ResponseType = "basic" | "cors" | "default" | "error" | "opaque" | "opaqueredirect";
+type ScopedCredentialType = "ScopedCred";
+type ServiceWorkerState = "installing" | "installed" | "activating" | "activated" | "redundant";
+type Transport = "usb" | "nfc" | "ble";
+type VideoFacingModeEnum = "user" | "environment" | "left" | "right";
+type VisibilityState = "hidden" | "visible" | "prerender" | "unloaded";
+type XMLHttpRequestResponseType = "" | "arraybuffer" | "blob" | "document" | "json" | "text";
