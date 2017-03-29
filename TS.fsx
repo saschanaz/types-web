@@ -119,6 +119,10 @@ module Types =
         | Ctor of Browser.Constructor
         | CallBackFun of Browser.CallbackFunction
 
+    type InterfaceOrNamespace = 
+        | Interface of Browser.Interface
+        | Namespace of Browser.Namespace
+
     // Note:
     // Eventhandler's name and the eventName are not just off by "on".
     // For example, handlers named "onabort" may handle "SVGAbort" event in the XML file
@@ -160,6 +164,7 @@ module InputJson =
         | SignatureOverload
         | TypeDef
         | Extends
+        | Namespace
         override x.ToString() =
             match x with
             | Property _ -> "property"
@@ -172,6 +177,7 @@ module InputJson =
             | SignatureOverload _ -> "signatureoverload"
             | TypeDef _ -> "typedef"
             | Extends _ -> "extends"
+            | Namespace _ -> "namespace"
 
     let getItemByName (allItems: InputJsonType.Root []) (itemName: string) (kind: ItemKind) otherFilter =
         let filter (item: InputJsonType.Root) =
@@ -367,6 +373,11 @@ module Data =
         | Flavor.Worker ->
             let isFromBrowserXml = browser.Enums |> Array.filter (fun i -> knownWorkerEnums.Contains i.Name)
             Array.append isFromBrowserXml worker.Enums
+
+    let GetNamespacesByFlavor flavor =
+        match flavor with
+        | Flavor.Web | Flavor.All -> browser.Namespaces
+        | Flavor.Worker -> worker.Namespaces
 
     /// Event name to event type map
     let eNameToEType =
@@ -890,7 +901,16 @@ module Emit =
              | Some pollutor -> "this: " + pollutor.Name + ", "
              | _ -> ""
 
-    let EmitProperties flavor prefix (emitScope: EmitScope) (i: Browser.Interface) (conflictedMembers: Set<string>) =
+    let EmitProperties flavor prefix (emitScope: EmitScope) (i: InterfaceOrNamespace) (conflictedMembers: Set<string>) =
+        let name = 
+            match i with
+                | InterfaceOrNamespace.Interface it -> it.Name
+                | InterfaceOrNamespace.Namespace n -> n.Name
+        let properties = 
+            match i with
+                | InterfaceOrNamespace.Interface it -> it.Properties
+                | InterfaceOrNamespace.Namespace n -> n.Properties
+
         let emitPropertyFromJson (p: InputJsonType.Root) =
             let readOnlyModifier =
                 match p.Readonly with
@@ -899,7 +919,7 @@ module Emit =
             Pt.Printl "%s%s%s: %s;" prefix readOnlyModifier p.Name.Value p.Type.Value
 
         let emitCommentForProperty (printLine: Printf.StringFormat<_, unit> -> _) pName =
-            match CommentJson.GetCommentForProperty i.Name pName with
+            match CommentJson.GetCommentForProperty name pName with
             | Some comment -> printLine "%s" comment
             | _ -> ()
 
@@ -909,24 +929,24 @@ module Emit =
             emitCommentForProperty printLine p.Name
 
             // Treat window.name specially because of https://github.com/Microsoft/TypeScript/issues/9850
-            if p.Name = "name" && i.Name = "Window" && emitScope = EmitScope.All then
+            if p.Name = "name" && name = "Window" && emitScope = EmitScope.All then
                 printLine "declare const name: never;"
-            elif Option.isNone (getRemovedItemByName p.Name ItemKind.Property i.Name) then
-                match getOverriddenItemByName p.Name ItemKind.Property i.Name with
+            elif Option.isNone (getRemovedItemByName p.Name ItemKind.Property name) then
+                match getOverriddenItemByName p.Name ItemKind.Property name with
                 | Some p' -> emitPropertyFromJson p'
                 | None ->
                     let pType =
-                        match p.Type with
-                        | "EventHandler" ->
+                        match (i, p.Type) with
+                        | (InterfaceOrNamespace.Interface it, "EventHandler") ->
                             // Sometimes event handlers with the same name may actually handle different
                             // events in different interfaces. For example, "onerror" handles "ErrorEvent"
                             // normally, but in "SVGSVGElement" it handles "SVGError" event instead.
                             let eType =
                                 if p.EventHandler.IsSome then
-                                    getEventTypeInInterface p.EventHandler.Value i
+                                    getEventTypeInInterface p.EventHandler.Value it
                                 else
                                     "Event"
-                            String.Format("({0}ev: {1}) => any", EmitEventHandlerThis flavor prefix i, eType)
+                            String.Format("({0}ev: {1}) => any", EmitEventHandlerThis flavor prefix it, eType)
                         | _ -> DomTypeToTsType p.Type
                     let pTypeAndNull = if p.Nullable.IsSome then makeNullable pType else pType
                     let readOnlyModifier = if p.ReadOnly.IsSome && prefix = "" then "readonly " else ""
@@ -935,7 +955,7 @@ module Emit =
         // Note: the schema file shows the property doesn't have "static" attribute,
         // therefore all properties are emited for the instance type.
         if emitScope <> StaticOnly then
-            match i.Properties with
+            match properties with
             | Some ps ->
                 ps.Properties
                 |> Array.filter (ShouldKeep flavor)
@@ -943,11 +963,21 @@ module Emit =
             | None -> ()
 
             for addedItem in getAddedItems ItemKind.Property flavor do
-                if (matchInterface i.Name addedItem) && (prefix <> "declare var " || addedItem.ExposeGlobally.IsNone || addedItem.ExposeGlobally.Value) then
+                if (matchInterface name addedItem) && (prefix <> "declare var " || addedItem.ExposeGlobally.IsNone || addedItem.ExposeGlobally.Value) then
                     emitCommentForProperty Pt.Printl addedItem.Name.Value
                     emitPropertyFromJson addedItem
 
-    let EmitMethods flavor prefix (emitScope: EmitScope) (i: Browser.Interface) (conflictedMembers: Set<string>) =
+    let EmitMethods flavor prefix (emitScope: EmitScope) (i: InterfaceOrNamespace) (conflictedMembers: Set<string>) =
+        let name =
+            match i with
+            | InterfaceOrNamespace.Interface it -> it.Name
+            | InterfaceOrNamespace.Namespace n -> n.Name
+
+        let methods =
+            match i with
+            | InterfaceOrNamespace.Interface it -> it.Methods
+            | InterfaceOrNamespace.Namespace n -> n.Methods
+
         // Note: two cases:
         // 1. emit the members inside a interface -> no need to add prefix
         // 2. emit the members outside to expose them (for "Window") -> need to add "declare"
@@ -956,7 +986,7 @@ module Emit =
 
         let emitCommentForMethod (printLine: Printf.StringFormat<_, unit> -> _) (mName: string option) =
             if mName.IsSome then
-                match CommentJson.GetCommentForMethod i.Name mName.Value with
+                match CommentJson.GetCommentForMethod name mName.Value with
                 | Some comment -> printLine "%s" comment
                 | _ -> ()
 
@@ -966,7 +996,7 @@ module Emit =
             matchScope emitScope m &&
             not (prefix <> "" && OptionCheckValue "addEventListener" m.Name)
 
-        let emitMethod flavor prefix (i:Browser.Interface) (m:Browser.Method) =
+        let emitMethod flavor prefix (i: InterfaceOrNamespace) (m:Browser.Method) =
             let printLine content =
                 if m.Name.IsSome && conflictedMembers.Contains m.Name.Value then Pt.PrintlToStack content else Pt.Printl content
             // print comment
@@ -977,8 +1007,8 @@ module Emit =
             // - removedType: meaning the type is marked as removed in the json file
             // if there is any conflicts between the two, the "removedType" has a higher priority over
             // the "overridenType".
-            let removedType = Option.bind (fun name -> InputJson.getRemovedItemByName name InputJson.ItemKind.Method i.Name) m.Name
-            let overridenType = Option.bind (fun mName -> InputJson.getOverriddenItemByName mName InputJson.ItemKind.Method i.Name) m.Name
+            let removedType = Option.bind (fun name -> InputJson.getRemovedItemByName name InputJson.ItemKind.Method name) m.Name
+            let overridenType = Option.bind (fun mName -> InputJson.getOverriddenItemByName mName InputJson.ItemKind.Method name) m.Name
 
             if removedType.IsNone then
                 match overridenType with
@@ -988,7 +1018,7 @@ module Emit =
                     | _ -> ()
                     t.Signatures |> Array.iter (printLine "%s%s;" prefix)
                 | None ->
-                    match i.Name, m.Name with
+                    match name, m.Name with
                     | _, Some "createElement" -> EmitCreateElementOverloads m
                     | _, Some "createEvent" -> EmitCreateEventOverloads m
                     | _, Some "getElementsByTagName" -> EmitGetElementsByTagNameOverloads m
@@ -997,7 +1027,7 @@ module Emit =
                     | _ ->
                         if m.Name.IsSome then
                             // If there are added overloads from the json files, print them first
-                            match getAddedItemByName m.Name.Value ItemKind.SignatureOverload i.Name with
+                            match getAddedItemByName m.Name.Value ItemKind.SignatureOverload name with
                             | Some ol -> ol.Signatures |> Array.iter (printLine "%s;")
                             | _ -> ()
 
@@ -1009,25 +1039,29 @@ module Emit =
                                 if isNullable then makeNullable returnType else returnType
                             printLine "%s%s(%s): %s;" prefix (if m.Name.IsSome then m.Name.Value else "") paramsString returnString
 
-        if i.Methods.IsSome then
-            i.Methods.Value.Methods
+        if methods.IsSome then
+            methods.Value.Methods
             |> Array.filter mFilter
             |> Array.iter (emitMethod flavor prefix i)
 
         for addedItem in getAddedItems ItemKind.Method flavor do
-            if (matchInterface i.Name addedItem && matchScope emitScope addedItem) then
+            if (matchInterface name addedItem && matchScope emitScope addedItem) then
                 emitCommentForMethod Pt.Printl addedItem.Name
                 emitMethodFromJson addedItem
 
         // The window interface inherited some methods from "Object",
         // which need to explicitly exposed
-        if i.Name = "Window" && prefix = "declare function " then
+        if name = "Window" && prefix = "declare function " then
             Pt.Printl "declare function toString(): string;"
 
     /// Emit the properties and methods of a given interface
-    let EmitMembers flavor (prefix: string) (emitScope: EmitScope) (i:Browser.Interface) =
+    let EmitMembers flavor (prefix: string) (emitScope: EmitScope) (i: InterfaceOrNamespace) =
+        let name =
+            match i with
+            | InterfaceOrNamespace.Interface it -> it.Name
+            | InterfaceOrNamespace.Namespace n -> n.Name
         let conflictedMembers =
-            match Map.tryFind i.Name extendConflictsBaseTypes with
+            match Map.tryFind name extendConflictsBaseTypes with
             | Some conflict -> conflict.MemberNames
             | _ -> []
             |> Set.ofList
@@ -1039,7 +1073,7 @@ module Emit =
     /// Called only once on the global polluter object
     let rec EmitAllMembers flavor (i:Browser.Interface) =
         let prefix = "declare var "
-        EmitMembers flavor prefix EmitScope.All i
+        EmitMembers flavor prefix EmitScope.All (InterfaceOrNamespace.Interface i)
 
         for relatedIName in iNameToIDependList.[i.Name] do
             match GetInterfaceByName relatedIName with
@@ -1105,7 +1139,7 @@ module Emit =
         EmitConstructorSignature flavor i
         EmitConstants i
         let prefix = ""
-        EmitMembers flavor prefix EmitScope.StaticOnly i
+        EmitMembers flavor prefix EmitScope.StaticOnly (InterfaceOrNamespace.Interface i)
 
         Pt.DecreaseIndent()
         Pt.Printl "};"
@@ -1253,7 +1287,7 @@ module Emit =
         Pt.IncreaseIndent()
 
         let prefix = ""
-        EmitMembers flavor prefix EmitScope.InstanceOnly i
+        EmitMembers flavor prefix EmitScope.InstanceOnly (InterfaceOrNamespace.Interface i)
         EmitConstants i
         EmitEventHandlers flavor prefix i
         EmitIndexers EmitScope.InstanceOnly i
@@ -1312,7 +1346,7 @@ module Emit =
             Pt.IncreaseIndent()
 
             let prefix = ""
-            EmitMembers flavor prefix EmitScope.InstanceOnly i
+            EmitMembers flavor prefix EmitScope.InstanceOnly (InterfaceOrNamespace.Interface i)
             EmitEventHandlers flavor prefix i
             EmitIndexers EmitScope.InstanceOnly i
 
@@ -1322,7 +1356,7 @@ module Emit =
             Pt.Printl "declare var %s: {" i.Name
             Pt.IncreaseIndent()
             EmitConstants i
-            EmitMembers flavor prefix EmitScope.StaticOnly i
+            EmitMembers flavor prefix EmitScope.StaticOnly (InterfaceOrNamespace.Interface i)
             emitAddedConstructor ()
             Pt.DecreaseIndent()
             Pt.Printl "};"
@@ -1334,7 +1368,7 @@ module Emit =
             Pt.IncreaseIndent()
 
             let prefix = ""
-            EmitMembers flavor prefix EmitScope.StaticOnly i
+            EmitMembers flavor prefix EmitScope.StaticOnly (InterfaceOrNamespace.Interface i)
             EmitConstants i
             EmitEventHandlers flavor prefix i
             EmitIndexers EmitScope.StaticOnly i
@@ -1454,6 +1488,17 @@ module Emit =
 
         InputJson.getAddedItems ItemKind.TypeDef flavor
         |> Array.iter emitTypeDefFromJson
+    
+    let EmitNamespaces flavor =
+        let EmitNamespace (n: Browser.Namespace) = 
+            Pt.Printl "declare namespace %s {" n.Name
+            Pt.IncreaseIndent()
+            EmitMembers flavor "" EmitScope.All (InterfaceOrNamespace.Namespace n)
+            Pt.DecreaseIndent()
+            Pt.Printl "}"
+            Pt.Printl ""
+
+        GetNamespacesByFlavor flavor |> Array.iter EmitNamespace
 
     let EmitTheWholeThing flavor (target:TextWriter) =
         Pt.Reset()
@@ -1467,6 +1512,7 @@ module Emit =
         EmitDictionaries flavor
         browser.CallbackInterfaces.Interfaces |> Array.iter EmitCallBackInterface
         EmitNonCallbackInterfaces flavor
+        EmitNamespaces flavor
 
         // Add missed interface definition from the spec
         InputJson.getAddedItems InputJson.Interface flavor |> Array.iter EmitAddedInterface
