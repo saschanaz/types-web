@@ -696,7 +696,7 @@ module Emit =
 
     // Extended types used but not defined in the spec
     let extendedTypes =
-        ["ArrayBuffer";"ArrayBufferView";"Int8Array";"Uint8Array";"Int16Array";"Uint16Array";"Int32Array";"Uint32Array";"Float32Array";"Float64Array"]
+        ["ArrayBuffer";"ArrayBufferView";"Int8Array";"Uint8Array";"Int16Array";"Uint16Array";"Int32Array";"Uint32Array";"Uint8ClampedArray";"Float32Array";"Float64Array";"DataView"]
 
     let integerTypes =
         ["byte";"octet";"short";"unsigned short";"long";"unsigned long";"long long";"unsigned long long"]
@@ -708,7 +708,7 @@ module Emit =
         | "bool" | "boolean" | "Boolean" -> "boolean"
         | "Date" -> "Date"
         | "DOMHighResTimeStamp" -> "number"
-        | "DOMString" -> "string"
+        | "DOMString" | "USVString" -> "string"
         | "DOMTimeStamp" -> "number"
         | "EventListener" -> "EventListenerOrEventListenerObject"
         | "double" | "float" | "unrestricted float" -> "number"
