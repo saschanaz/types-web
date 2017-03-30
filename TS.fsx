@@ -961,8 +961,13 @@ module Emit =
                             String.Format("({0}ev: {1}) => any", EmitEventHandlerThis flavor prefix it, eType)
                         | _ -> DomTypeToTsType p.Type
                     let pTypeAndNull = if p.Nullable.IsSome then makeNullable pType else pType
-                    let readOnlyModifier = if p.ReadOnly.IsSome && prefix = "" then "readonly " else ""
-                    printLine "%s%s%s: %s;" prefix readOnlyModifier p.Name pTypeAndNull
+                    let modifierOrStatement = 
+                        match (p.ReadOnly, prefix, i) with
+                        | (Some r, "", InterfaceOrNamespace.Interface it) -> "readonly "
+                        | (None, "", InterfaceOrNamespace.Namespace n) -> "var "
+                        | (Some r, "", InterfaceOrNamespace.Namespace n) -> "const "
+                        | (_, _, _) -> ""
+                    printLine "%s%s%s: %s;" prefix modifierOrStatement p.Name pTypeAndNull
 
         // Note: the schema file shows the property doesn't have "static" attribute,
         // therefore all properties are emited for the instance type.
@@ -1498,15 +1503,16 @@ module Emit =
         |> Array.iter emitTypeDefFromJson
     
     let EmitNamespaces flavor =
-        let EmitNamespace (n: Browser.Namespace) = 
+        let emitNamespace (n: Browser.Namespace) = 
             Pt.Printl "declare namespace %s {" n.Name
             Pt.IncreaseIndent()
-            EmitMembers flavor "" EmitScope.All (InterfaceOrNamespace.Namespace n)
+            EmitProperties flavor "" EmitScope.All (InterfaceOrNamespace.Namespace n) Set.empty
+            EmitMethods flavor "function " EmitScope.All (InterfaceOrNamespace.Namespace n) Set.empty
             Pt.DecreaseIndent()
             Pt.Printl "}"
             Pt.Printl ""
 
-        GetNamespacesByFlavor flavor |> Array.iter EmitNamespace
+        GetNamespacesByFlavor flavor |> Array.iter emitNamespace
 
     let EmitTheWholeThing flavor (target:TextWriter) =
         Pt.Reset()
