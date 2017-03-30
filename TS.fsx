@@ -711,7 +711,7 @@ module Emit =
         | "DOMString" | "USVString" -> "string"
         | "DOMTimeStamp" -> "number"
         | "EventListener" -> "EventListenerOrEventListenerObject"
-        | "double" | "float" | "unrestricted float" -> "number"
+        | "double" | "float" | "unrestricted double" | "unrestricted float" -> "number"
         | "Function" -> "Function"
         | "FrozenArray" -> "ReadonlyArray"
         | "object" -> "any"
@@ -857,7 +857,7 @@ module Emit =
             (if p.Variadic then "..." else "") +
             (AdjustParamName p.Name) +
             (if isOptional then "?: " else ": ") +
-            pType +
+            (if p.Variadic && pType.Contains(" | ") then "(" + pType + ")" else pType) +
             (if p.Variadic then "[]" else "")
         String.Join(", ", (List.map paramToString ps))
 
