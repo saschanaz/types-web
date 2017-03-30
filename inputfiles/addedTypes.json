@@ -417,12 +417,6 @@
         "signatures": [ "closest(selector: string): Element | null" ]
     },
     {
-        "kind": "typedef",
-        "flavor": "Web",
-        "name": "ScrollBehavior",
-        "type": "\"auto\" | \"instant\" | \"smooth\""
-    },
-    {
         "kind": "interface",
         "flavor": "Web",
         "name": "ScrollOptions",
@@ -463,12 +457,6 @@
         "kind": "method",
         "interface": "Window",
         "signatures": [ "scrollBy(options?: ScrollToOptions): void" ]
-    },
-    {
-        "kind": "typedef",
-        "flavor": "Web",
-        "name": "ScrollLogicalPosition",
-        "type": "\"start\" | \"center\" | \"end\" | \"nearest\""
     },
     {
         "kind": "interface",
@@ -728,11 +716,6 @@
         "interface": "WebGLContextAttributes",
         "name": "failIfMajorPerformanceCaveat?",
         "type": "boolean"
-    },
-    {
-        "kind": "typedef",
-        "name": "BufferSource",
-        "type": "ArrayBuffer | ArrayBufferView"
     },
     {
         "kind": "interface",
@@ -1364,12 +1347,6 @@
         "interface": "DocumentFragment"
     },
     {
-        "kind": "typedef",
-        "name": "ScrollRestoration",
-        "flavor": "DOM",
-        "type": "\"auto\" | \"manual\""
-    },
-    {
         "kind": "property",
         "interface": "History",
         "name": "scrollRestoration",
@@ -1454,21 +1431,6 @@
         "name": "shadowRoot",
         "type": "ShadowRoot | null",
         "readonly": true
-    },
-    {
-        "kind": "interface",
-        "name": "ShadowRootInit",
-        "flavor": "DOM",
-        "properties": [
-            {
-                "name": "mode",
-                "type": "\"open\" | \"closed\""
-            },
-            {
-                "name": "delegatesFocus?",
-                "type": "boolean"
-            }
-        ]
     },
     {
         "kind": "property",
