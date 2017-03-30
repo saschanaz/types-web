@@ -520,16 +520,10 @@
         "type": "HTMLCollectionOf<HTMLTableRowElement>"
     },
     {
-        "kind": "method",
-        "interface": "HTMLTableRowElement",
-        "name": "insertCell",
-        "signatures": ["insertCell(index?: number): HTMLTableDataCellElement"]
-    },
-    {
         "kind": "property",
         "interface": "HTMLTableRowElement",
         "name": "cells",
-        "type": "HTMLCollectionOf<HTMLTableDataCellElement | HTMLTableHeaderCellElement>"
+        "type": "HTMLCollectionOf<HTMLTableCellElement>"
     },
     {
         "kind": "method",
@@ -859,96 +853,6 @@
         "baseInterface": "HTMLCollectionOf<HTMLOptionElement>",
         "interface": "HTMLOptionsCollection"
     },
-     {
-         "kind": "property",
-         "interface": "Algorithm",
-         "name": "name",
-         "type": "string"
-     },
-     {
-         "kind": "method",
-         "interface": "SubtleCrypto",
-         "name": "decrypt",
-         "signatures": ["decrypt(algorithm: string | RsaOaepParams | AesCtrParams | AesCbcParams | AesCmacParams | AesGcmParams | AesCfbParams, key: CryptoKey, data: BufferSource): PromiseLike<ArrayBuffer>"]
-     },
-     {
-         "kind": "method",
-         "interface": "SubtleCrypto",
-         "name": "deriveBits",
-         "signatures": ["deriveBits(algorithm: string | EcdhKeyDeriveParams | DhKeyDeriveParams | ConcatParams | HkdfCtrParams | Pbkdf2Params, baseKey: CryptoKey, length: number): PromiseLike<ArrayBuffer>"]
-     },
-     {
-         "kind": "method",
-         "interface": "SubtleCrypto",
-         "name": "deriveKey",
-         "signatures": ["deriveKey(algorithm: string | EcdhKeyDeriveParams | DhKeyDeriveParams | ConcatParams | HkdfCtrParams | Pbkdf2Params, baseKey: CryptoKey, derivedKeyType: string | AesDerivedKeyParams | HmacImportParams | ConcatParams | HkdfCtrParams | Pbkdf2Params, extractable: boolean, keyUsages: string[]): PromiseLike<CryptoKey>"]
-     },
-     {
-         "kind": "method",
-         "interface": "SubtleCrypto",
-         "name": "digest",
-         "signatures": ["digest(algorithm: AlgorithmIdentifier, data: BufferSource): PromiseLike<ArrayBuffer>"]
-     },
-     {
-         "kind": "method",
-         "interface": "SubtleCrypto",
-         "name": "encrypt",
-         "signatures": ["encrypt(algorithm: string | RsaOaepParams | AesCtrParams | AesCbcParams | AesCmacParams | AesGcmParams | AesCfbParams, key: CryptoKey, data: BufferSource): PromiseLike<ArrayBuffer>"]
-     },
-     {
-         "kind": "method",
-         "interface": "SubtleCrypto",
-         "name": "exportKey",
-         "signatures": [
-             "exportKey(format: \"jwk\", key: CryptoKey): PromiseLike<JsonWebKey>",
-             "exportKey(format: \"raw\" | \"pkcs8\" | \"spki\", key: CryptoKey): PromiseLike<ArrayBuffer>",
-             "exportKey(format: string, key: CryptoKey): PromiseLike<JsonWebKey | ArrayBuffer>"
-         ]
-     },
-     {
-         "kind": "method",
-         "interface": "SubtleCrypto",
-         "name": "generateKey",
-         "signatures": [
-             "generateKey(algorithm: string, extractable: boolean, keyUsages: string[]): PromiseLike<CryptoKeyPair | CryptoKey>",
-             "generateKey(algorithm: RsaHashedKeyGenParams | EcKeyGenParams | DhKeyGenParams, extractable: boolean, keyUsages: string[]): PromiseLike<CryptoKeyPair>",
-             "generateKey(algorithm: AesKeyGenParams | HmacKeyGenParams | Pbkdf2Params, extractable: boolean, keyUsages: string[]): PromiseLike<CryptoKey>"
-         ]
-     },
-     {
-         "kind": "method",
-         "interface": "SubtleCrypto",
-         "name": "importKey",
-         "signatures": [
-             "importKey(format: \"jwk\", keyData: JsonWebKey, algorithm: string | RsaHashedImportParams | EcKeyImportParams | HmacImportParams | DhImportKeyParams, extractable: boolean, keyUsages: string[]): PromiseLike<CryptoKey>",
-             "importKey(format: \"raw\" | \"pkcs8\" | \"spki\", keyData: BufferSource, algorithm: string | RsaHashedImportParams | EcKeyImportParams | HmacImportParams | DhImportKeyParams, extractable: boolean, keyUsages: string[]): PromiseLike<CryptoKey>",
-             "importKey(format: string, keyData: JsonWebKey | BufferSource, algorithm: string | RsaHashedImportParams | EcKeyImportParams | HmacImportParams | DhImportKeyParams, extractable: boolean, keyUsages: string[]): PromiseLike<CryptoKey>"
-         ]
-     },
-     {
-         "kind": "method",
-         "interface": "SubtleCrypto",
-         "name": "sign",
-         "signatures": ["sign(algorithm: string | RsaPssParams | EcdsaParams | AesCmacParams, key: CryptoKey, data: BufferSource): PromiseLike<ArrayBuffer>"]
-     },
-     {
-         "kind": "method",
-         "interface": "SubtleCrypto",
-         "name": "unwrapKey",
-         "signatures": ["unwrapKey(format: string, wrappedKey: BufferSource, unwrappingKey: CryptoKey, unwrapAlgorithm: AlgorithmIdentifier, unwrappedKeyAlgorithm: AlgorithmIdentifier, extractable: boolean, keyUsages: string[]): PromiseLike<CryptoKey>"]
-     },
-     {
-         "kind": "method",
-         "interface": "SubtleCrypto",
-         "name": "verify",
-         "signatures": ["verify(algorithm: string | RsaPssParams | EcdsaParams | AesCmacParams, key: CryptoKey, signature: BufferSource, data: BufferSource): PromiseLike<boolean>"]
-     },
-     {
-         "kind": "method",
-         "interface": "SubtleCrypto",
-         "name": "wrapKey",
-         "signatures": ["wrapKey(format: string, key: CryptoKey, wrappingKey: CryptoKey, wrapAlgorithm: AlgorithmIdentifier): PromiseLike<ArrayBuffer>"]
-     },
      {
         "kind": "method",
         "name": "setTimeout",
