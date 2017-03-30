@@ -904,7 +904,8 @@ module Emit =
         
     let EmitEnums flavor =
         let emitEnum (e: Browser.Enum) =
-            Pt.Printl "type %s = %s;" e.Name (String.Join(" | ", e.Values |> Array.map (fun value -> "\"" + value + "\"")))
+            if not (Array.isEmpty e.Values) then
+                Pt.Printl "type %s = %s;" e.Name (String.Join(" | ", e.Values |> Array.map (fun value -> "\"" + value + "\"")))
         GetEnumsByFlavor flavor |> Array.iter emitEnum
 
     let EmitEventHandlerThis flavor (prefix: string) (i: Browser.Interface) =
