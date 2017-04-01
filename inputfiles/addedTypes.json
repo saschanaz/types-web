@@ -532,12 +532,6 @@
         "signatures": ["insertAdjacentText(where: string, text: string): void"]
     },
     {
-        "kind": "property",
-        "interface": "HTMLScriptElement",
-        "name": "integrity",
-        "type": "string"
-    },
-    {
         "kind": "interface",
         "name": "ParentNode",
         "flavor": "DOM",
