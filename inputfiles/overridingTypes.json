@@ -631,11 +631,6 @@
         ]
     },
     {
-        "kind": "callback",
-        "name": "DecodeErrorCallback",
-        "signatures": ["(error: DOMException): void"]
-    },
-    {
         "kind": "property",
         "name": "ontouchcancel",
         "type": "(ev: TouchEvent) => any"
