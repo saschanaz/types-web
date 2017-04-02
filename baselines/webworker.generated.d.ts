@@ -1,6 +1,6 @@
 
 /////////////////////////////
-/// IE Worker APIs
+/// Worker APIs
 /////////////////////////////
 
 interface EventInit {
@@ -216,8 +216,8 @@ declare var Event: {
 }
 
 interface EventTarget {
-    addEventListener(type: string, callback: EventListenerOrEventListenerObject | null, options?: AddEventListenerOptions | boolean): void;
-    removeEventListener(type: string, callback: EventListenerOrEventListenerObject | null, options?: EventListenerOptions | boolean): void;
+    addEventListener(type: string, listener?: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener(type: string, listener?: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     dispatchEvent(event: Event): boolean;
 }
 
@@ -909,6 +909,64 @@ declare var CacheStorage: {
     new (): CacheStorage;
 }
 
+interface URL {
+    href: string;
+    readonly origin: string;
+    protocol: string;
+    username: string;
+    password: string;
+    host: string;
+    hostname: string;
+    port: string;
+    pathname: string;
+    search: string;
+    readonly searchParams: URLSearchParams;
+    hash: string;
+    toJSON(): string;
+}
+
+declare var URL: {
+    prototype: URL;
+    new (url: string, base?: string): URL;
+    createObjectURL(blob: Blob): string;
+    createFor(blob: Blob): string;
+    revokeObjectURL(url: string): void;
+    createObjectURL(mediaSource: MediaSource): string;
+}
+
+interface URLSearchParams {
+    /**
+      * Appends a specified key/value pair as a new search parameter.
+      */
+    append(name: string, value: string): void;
+    /**
+      * Deletes the given search parameter, and its associated value, from the list of all search parameters.
+      */
+    delete(name: string): void;
+    /**
+      * Returns the first value associated to the given search parameter.
+      */
+    get(name: string): string | null;
+    /**
+      * Returns all the values association with a given search parameter.
+      */
+    getAll(name: string): string[];
+    /**
+      * Returns a Boolean indicating if such a search parameter exists.
+      */
+    has(name: string): boolean;
+    /**
+      * Sets the value associated to a given search parameter to the given value. If there were several values, delete the others.
+      */
+    set(name: string, value: string): void;
+    sort(): void;
+}
+
+declare var URLSearchParams: {
+    prototype: URLSearchParams;
+    new (init?: any): URLSearchParams;
+}
+
 interface AudioBuffer {
     readonly sampleRate: number;
     readonly length: number;
@@ -1423,7 +1481,7 @@ declare var self: WorkerGlobalScope;
 declare function msWriteProfilerMark(profilerMarkName: string): void;
 declare function createImageBitmap(image: ImageBitmap | ImageData | Blob, options?: ImageBitmapOptions): Promise<ImageBitmap>;
 declare function createImageBitmap(image: ImageBitmap | ImageData | Blob, sx: number, sy: number, sw: number, sh: number, options?: ImageBitmapOptions): Promise<ImageBitmap>;
-declare function removeEventListener(type: string, callback: EventListenerOrEventListenerObject | null, options?: EventListenerOptions | boolean): void;
+declare function removeEventListener(type: string, listener?: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
 declare function dispatchEvent(event: Event): boolean;
 declare var indexedDB: IDBFactory;
 declare var msIndexedDB: IDBFactory;
@@ -1438,7 +1496,7 @@ declare function setInterval(handler: (...args: any[]) => void, timeout: number)
 declare function setInterval(handler: any, timeout?: any, ...args: any[]): number;
 declare function setTimeout(handler: (...args: any[]) => void, timeout: number): number;
 declare function setTimeout(handler: any, timeout?: any, ...args: any[]): number;
-declare function removeEventListener(type: string, callback: EventListenerOrEventListenerObject | null, options?: EventListenerOptions | boolean): void;
+declare function removeEventListener(type: string, listener?: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
 declare function dispatchEvent(event: Event): boolean;
 declare function addEventListener<K extends keyof DedicatedWorkerGlobalScopeEventMap>(type: K, listener: (this: DedicatedWorkerGlobalScope, ev: DedicatedWorkerGlobalScopeEventMap[K]) => any, useCapture?: boolean): void;
 declare function addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;

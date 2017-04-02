@@ -1,6 +1,6 @@
 
 /////////////////////////////
-/// IE DOM APIs
+/// DOM APIs
 /////////////////////////////
 
 interface ClipboardEventInit extends EventInit {
@@ -511,6 +511,22 @@ interface IDBIndexParameters {
 interface IDBVersionChangeEventInit extends EventInit {
     oldVersion?: number;
     newVersion?: number;
+}
+
+interface IntersectionObserverEntryInit {
+    time?: number;
+    rootBounds?: DOMRectInit;
+    boundingClientRect?: DOMRectInit;
+    intersectionRect?: DOMRectInit;
+    isIntersecting?: boolean;
+    intersectionRatio?: number;
+    target?: Element;
+}
+
+interface IntersectionObserverInit {
+    root?: Element;
+    rootMargin?: string;
+    threshold?: number | number[];
 }
 
 interface MediaTrackSupportedConstraints {
@@ -2006,8 +2022,8 @@ declare var CustomEvent: {
 }
 
 interface EventTarget {
-    addEventListener(type: string, callback: EventListenerOrEventListenerObject | null, options?: AddEventListenerOptions | boolean): void;
-    removeEventListener(type: string, callback: EventListenerOrEventListenerObject | null, options?: EventListenerOptions | boolean): void;
+    addEventListener(type: string, listener?: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener(type: string, listener?: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     dispatchEvent(event: Event): boolean;
 }
 
@@ -2105,10 +2121,10 @@ interface Node extends EventTarget {
     lookupPrefix(namespace: string | null): string | null;
     lookupNamespaceURI(prefix: string | null): string | null;
     isDefaultNamespace(namespace: string | null): boolean;
-    insertBefore(newChild: Node, refChild: Node | null): Node;
+    insertBefore<T extends Node>(newChild: T, refChild: Node | null): T;
     appendChild<T extends Node>(newChild: T): T;
-    replaceChild(node: Node, child: Node): Node;
-    removeChild(child: Node): Node;
+    replaceChild<T extends Node>(newChild: Node, oldChild: T): T;
+    removeChild<T extends Node>(oldChild: T): T;
     readonly ELEMENT_NODE: number;
     readonly ATTRIBUTE_NODE: number;
     readonly TEXT_NODE: number;
@@ -2393,8 +2409,8 @@ interface Document extends Node, NonElementParentNode, DocumentOrShadowRoot, Par
       */
     createComment(data: string): Comment;
     createProcessingInstruction(target: string, data: string): ProcessingInstruction;
-    importNode(node: Node, deep?: boolean): Node;
-    adoptNode(node: Node): Node;
+    importNode<T extends Node>(importedNode: T, deep: boolean): T;
+    adoptNode<T extends Node>(source: T): T;
     /**
       * Creates an attribute object with a specified name.
       * @param name String that sets the attribute object's name.
@@ -7685,6 +7701,36 @@ declare var IDBTransaction: {
     new (): IDBTransaction;
 }
 
+interface IntersectionObserver {
+    readonly root: Element | null;
+    readonly rootMargin: string;
+    readonly thresholds: ReadonlyArray<number>;
+    observe(target: Element): void;
+    unobserve(target: Element): void;
+    disconnect(): void;
+    takeRecords(): IntersectionObserverEntry[];
+}
+
+declare var IntersectionObserver: {
+    prototype: IntersectionObserver;
+    new (callback: IntersectionObserverCallback, options?: IntersectionObserverInit): IntersectionObserver;
+}
+
+interface IntersectionObserverEntry {
+    readonly time: number;
+    readonly rootBounds: DOMRectReadOnly;
+    readonly boundingClientRect: DOMRectReadOnly;
+    readonly intersectionRect: DOMRectReadOnly;
+    readonly isIntersecting: boolean;
+    readonly intersectionRatio: number;
+    readonly target: Element;
+}
+
+declare var IntersectionObserverEntry: {
+    prototype: IntersectionObserverEntry;
+    new (intersectionObserverEntryInit: IntersectionObserverEntryInit): IntersectionObserverEntry;
+}
+
 interface MediaStreamEventMap {
     "addtrack": TrackEvent;
     "removetrack": TrackEvent;
@@ -11298,8 +11344,8 @@ declare var XMLHttpRequest: {
 }
 
 interface FormData {
-    append(name: string, value: string): void;
-    append(name: string, blobValue: Blob, filename?: string): void;
+    append(name: string, value: string | Blob, fileName?: string): void;
+    append(name: string, value: string | Blob, fileName?: string): void;
     delete(name: string): void;
     get(name: string): FormDataEntryValue | null;
     getAll(name: string): FormDataEntryValue[];
@@ -12607,6 +12653,9 @@ interface OnErrorEventHandlerNonNull {
 interface OnBeforeUnloadEventHandlerNonNull {
     (event: Event): string;
 }
+interface IntersectionObserverCallback {
+    (entries: IntersectionObserverEntry[], observer: IntersectionObserver): void;
+}
 interface NavigatorUserMediaSuccessCallback {
     (stream: MediaStream): void;
 }
@@ -12728,7 +12777,7 @@ declare function getSelection(): Selection | null;
 declare function createImageBitmap(image: HTMLImageElement | SVGImageElement | HTMLVideoElement | HTMLCanvasElement | ImageBitmap | ImageData | Blob, options?: ImageBitmapOptions): Promise<ImageBitmap>;
 declare function createImageBitmap(image: HTMLImageElement | SVGImageElement | HTMLVideoElement | HTMLCanvasElement | ImageBitmap | ImageData | Blob, sx: number, sy: number, sw: number, sh: number, options?: ImageBitmapOptions): Promise<ImageBitmap>;
 declare function toString(): string;
-declare function removeEventListener(type: string, callback: EventListenerOrEventListenerObject | null, options?: EventListenerOptions | boolean): void;
+declare function removeEventListener(type: string, listener?: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
 declare function dispatchEvent(event: Event): boolean;
 declare var onabort: (this: Window, ev: undefined) => any;
 declare var onauxclick: (this: Window, ev: MouseEvent) => any;
