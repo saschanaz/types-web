@@ -245,13 +245,13 @@
         "kind": "method",
         "interface": "SVGSVGElement",
         "name": "getEnclosureList",
-        "signatures": ["getEnclosureList(rect: SVGRect, referenceElement: SVGElement): NodeListOf<SVGCircleElement | SVGEllipseElement | SVGImageElement | SVGLineElement | SVGPathElement | SVGPolygonElement | SVGPolylineElement | SVGRectElement | SVGTextElement | SVGUseElement>"]
+        "signatures": ["getEnclosureList(rect: DOMRectReadOnly, referenceElement: SVGElement): NodeListOf<SVGCircleElement | SVGEllipseElement | SVGImageElement | SVGLineElement | SVGPathElement | SVGPolygonElement | SVGPolylineElement | SVGRectElement | SVGTextElement | SVGUseElement>"]
     },
     {
         "kind": "method",
         "interface": "SVGSVGElement",
         "name": "getIntersectionList",
-        "signatures": ["getIntersectionList(rect: SVGRect, referenceElement: SVGElement): NodeListOf<SVGCircleElement | SVGEllipseElement | SVGImageElement | SVGLineElement | SVGPathElement | SVGPolygonElement | SVGPolylineElement | SVGRectElement | SVGTextElement | SVGUseElement>"]
+        "signatures": ["getIntersectionList(rect: DOMRectReadOnly, referenceElement: SVGElement): NodeListOf<SVGCircleElement | SVGEllipseElement | SVGImageElement | SVGLineElement | SVGPathElement | SVGPolygonElement | SVGPolylineElement | SVGRectElement | SVGTextElement | SVGUseElement>"]
     },
     {
         "kind": "property",
