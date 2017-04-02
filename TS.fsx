@@ -715,6 +715,7 @@ module Emit =
         | "any" -> "any"
         | "bool" | "boolean" | "Boolean" -> "boolean"
         | "Date" -> "Date"
+        | "DOMException" -> "Error"
         | "DOMHighResTimeStamp" -> "number"
         | "DOMString" | "USVString" -> "string"
         | "DOMTimeStamp" -> "number"
