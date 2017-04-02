@@ -1,4 +1,4 @@
-<webidl-xml name="WHATWG/W3C Web Platform" original-file="null" xmlns="http://schemas.microsoft.com/ie/webidl-xml" xmlns:xmlns="http://schemas.microsoft.com/ie/webidl-xml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://schemas.microsoft.com/ie/webidl-xml webidl-xml-schema.xsd" xmlns:sn="http://saschanaz.github.io/ts/webidl-xml-ext/">
+<webidl-xml name="WHATWG/W3C Web Platform" original-file="null" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://schemas.microsoft.com/ie/webidl-xml webidl-xml-schema.xsd" xmlns:sn="http://saschanaz.github.io/ts/webidl-xml-ext/" xmlns="http://schemas.microsoft.com/ie/webidl-xml">
   <callback-functions>
     <callback-function name="MutationCallback" callback="1" type="void">
       <param name="mutations" type="sequence&lt;MutationRecord&gt;"/>
