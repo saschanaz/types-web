@@ -1520,8 +1520,8 @@ module Emit =
         Pt.Reset()
         Pt.Printl "/////////////////////////////"
         match flavor with
-        | Worker -> Pt.Printl "/// IE Worker APIs"
-        | _ -> Pt.Printl "/// IE DOM APIs"
+        | Worker -> Pt.Printl "/// Worker APIs"
+        | _ -> Pt.Printl "/// DOM APIs"
         Pt.Printl "/////////////////////////////"
         Pt.Printl ""
 
