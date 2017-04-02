@@ -12,15 +12,39 @@
     },
     {
         "kind": "method",
-        "interface": "Node",
-        "name": "insertBefore",
-        "signatures": ["insertBefore(newChild: Node, refChild: Node | null): Node"]
+        "interface": "Document",
+        "name": "adoptNode",
+        "signatures": ["adoptNode<T extends Node>(source: T): T"]
+    },
+    {
+        "kind": "method",
+        "interface": "Document",
+        "name": "importNode",
+        "signatures": ["importNode<T extends Node>(importedNode: T, deep: boolean): T"]
     },
     {
         "kind": "method",
         "interface": "Node",
         "name": "appendChild",
         "signatures": ["appendChild<T extends Node>(newChild: T): T"]
+    },
+    {
+        "kind": "method",
+        "interface": "Node",
+        "name": "insertBefore",
+        "signatures": ["insertBefore<T extends Node>(newChild: T, refChild: Node | null): T"]
+    },
+    {
+        "kind": "method",
+        "interface": "Node",
+        "name": "removeChild",
+        "signatures": ["removeChild<T extends Node>(oldChild: T): T"]
+    },
+    {
+        "kind": "method",
+        "interface": "Node",
+        "name": "replaceChild",
+        "signatures": ["replaceChild<T extends Node>(newChild: Node, oldChild: T): T"]
     },
     {
         "kind": "method",
@@ -910,5 +934,24 @@
         "interface": "DOMImplementation",
         "name": "createDocument",
         "signatures": ["createDocument(namespaceURI: string | null, qualifiedName: string | null, doctype: DocumentType | null): Document"]
+    },
+    {
+        "kind": "method",
+        "interface": "FormData",
+        "name": "append",
+        "flavor": "Web",
+        "signatures": ["append(name: string, value: string | Blob, fileName?: string): void"]
+    },
+    {
+        "kind": "method",
+        "interface": "EventTarget",
+        "name": "addEventListener",
+        "signatures": ["addEventListener(type: string, listener?: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void"]
+    },
+    {
+        "kind": "method",
+        "interface": "EventTarget",
+        "name": "removeEventListener",
+        "signatures": ["removeEventListener(type: string, listener?: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void"]
     }
  ]
