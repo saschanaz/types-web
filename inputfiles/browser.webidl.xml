@@ -2815,7 +2815,7 @@
         <property name="onchange" type="EventHandler" event-handler="change"/>
       </properties>
       <events>
-        <event name="change" type="undefined"/>
+        <event name="change" type="Event"/>
       </events>
     </interface>
     <interface name="MediaQueryListEvent" extends="Event">
@@ -3761,7 +3761,7 @@
         <property name="onmessage" type="EventHandler" event-handler="message"/>
       </properties>
       <events>
-        <event name="keystatuseschange" type="undefined"/>
+        <event name="keystatuseschange" type="Event"/>
         <event name="message" type="MediaKeyMessageEvent"/>
       </events>
     </interface>
@@ -4294,8 +4294,8 @@
         <property name="onerror" type="EventHandler" event-handler="error"/>
       </properties>
       <events>
-        <event name="change" type="undefined"/>
-        <event name="activate" type="undefined"/>
+        <event name="change" type="Event"/>
+        <event name="activate" type="Event"/>
         <event name="error" type="SensorErrorEvent"/>
       </events>
     </interface>
@@ -4644,7 +4644,7 @@
         <property name="onresourcetimingbufferfull" type="EventHandler" event-handler="resourcetimingbufferfull"/>
       </properties>
       <events>
-        <event name="resourcetimingbufferfull" type="undefined"/>
+        <event name="resourcetimingbufferfull" type="Event"/>
       </events>
     </interface>
     <interface name="Example" extends="Object"/>
@@ -5149,7 +5149,7 @@
       </properties>
       <events>
         <event name="encrypted" type="MediaEncryptedEvent"/>
-        <event name="waitingforkey" type="undefined"/>
+        <event name="waitingforkey" type="Event"/>
       </events>
     </interface>
     <interface name="MediaError" extends="Object">
@@ -5239,7 +5239,7 @@
         <property name="onremovetrack" type="EventHandler" event-handler="removetrack"/>
       </properties>
       <events>
-        <event name="change" type="undefined"/>
+        <event name="change" type="Event"/>
         <event name="addtrack" type="TrackEvent"/>
         <event name="removetrack" type="TrackEvent"/>
       </events>
@@ -6521,9 +6521,9 @@
         <property name="onerror" type="EventHandler" event-handler="error"/>
       </properties>
       <events>
-        <event name="open" type="undefined"/>
+        <event name="open" type="Event"/>
         <event name="message" type="MessageEvent"/>
-        <event name="error" type="undefined"/>
+        <event name="error" type="Event"/>
       </events>
     </interface>
     <interface name="WebSocket" extends="EventTarget" exposed="Window Worker">
@@ -6636,9 +6636,9 @@
       </properties>
       <implements>WindowOrWorkerGlobalScope</implements>
       <events>
-        <event name="languagechange" type="undefined"/>
-        <event name="offline" type="undefined"/>
-        <event name="online" type="undefined"/>
+        <event name="languagechange" type="Event"/>
+        <event name="offline" type="Event"/>
+        <event name="online" type="Event"/>
         <event name="rejectionhandled" type="PromiseRejectionEvent"/>
         <event name="unhandledrejection" type="PromiseRejectionEvent"/>
       </events>
@@ -6919,8 +6919,8 @@
         <property name="onversionchange" type="EventHandler" event-handler="versionchange"/>
       </properties>
       <events>
-        <event name="abort" type="undefined"/>
-        <event name="error" type="undefined"/>
+        <event name="abort" type="Event"/>
+        <event name="error" type="Event"/>
         <event name="versionchange" type="IDBVersionChangeEvent"/>
       </events>
     </interface>
@@ -7128,7 +7128,7 @@
         <property name="onisolationchange" type="EventHandler" event-handler="isolationchange"/>
       </properties>
       <events>
-        <event name="isolationchange" type="undefined"/>
+        <event name="isolationchange" type="Event"/>
       </events>
     </interface>
     <interface name="MediaStreamTrackEvent" extends="Event" exposed="Window">
@@ -7213,9 +7213,9 @@
         <property name="onsourceclose" type="EventHandler" event-handler="sourceclose"/>
       </properties>
       <events>
-        <event name="sourceopen" type="undefined"/>
-        <event name="sourceended" type="undefined"/>
-        <event name="sourceclose" type="undefined"/>
+        <event name="sourceopen" type="Event"/>
+        <event name="sourceended" type="Event"/>
+        <event name="sourceclose" type="Event"/>
       </events>
     </interface>
     <interface name="SourceBuffer" extends="EventTarget">
@@ -7246,11 +7246,11 @@
         <property name="onabort" type="EventHandler" event-handler="abort"/>
       </properties>
       <events>
-        <event name="updatestart" type="undefined"/>
-        <event name="update" type="undefined"/>
-        <event name="updateend" type="undefined"/>
-        <event name="error" type="undefined"/>
-        <event name="abort" type="undefined"/>
+        <event name="updatestart" type="Event"/>
+        <event name="update" type="Event"/>
+        <event name="updateend" type="Event"/>
+        <event name="error" type="Event"/>
+        <event name="abort" type="Event"/>
       </events>
     </interface>
     <interface name="SourceBufferList" extends="EventTarget">
@@ -7265,8 +7265,8 @@
         <property name="onremovesourcebuffer" type="EventHandler" event-handler="removesourcebuffer"/>
       </properties>
       <events>
-        <event name="addsourcebuffer" type="undefined"/>
-        <event name="removesourcebuffer" type="undefined"/>
+        <event name="addsourcebuffer" type="Event"/>
+        <event name="removesourcebuffer" type="Event"/>
       </events>
     </interface>
     <interface name="PerformanceNavigationTiming" extends="PerformanceResourceTiming">
@@ -8861,8 +8861,8 @@
         <property name="oncancel" type="EventHandler" event-handler="cancel"/>
       </properties>
       <events>
-        <event name="finish" type="undefined"/>
-        <event name="cancel" type="undefined"/>
+        <event name="finish" type="Event"/>
+        <event name="cancel" type="Event"/>
       </events>
     </interface>
     <interface name="AnimationEffectReadOnly" extends="Object">
@@ -9009,7 +9009,7 @@
         <property name="onstatechange" type="EventHandler" event-handler="statechange"/>
       </properties>
       <events>
-        <event name="statechange" type="undefined"/>
+        <event name="statechange" type="Event"/>
       </events>
     </interface>
     <interface name="AudioContext" extends="BaseAudioContext">
@@ -9163,7 +9163,7 @@
         <property name="onended" type="EventHandler" event-handler="ended"/>
       </properties>
       <events>
-        <event name="ended" type="undefined"/>
+        <event name="ended" type="Event"/>
       </events>
     </interface>
     <interface name="GainNode" extends="AudioNode">
@@ -9270,7 +9270,7 @@
         <property name="ondata" type="EventHandler" event-handler="data"/>
       </properties>
       <events>
-        <event name="data" type="undefined"/>
+        <event name="data" type="Event"/>
       </events>
     </interface>
     <interface name="AudioWorkletProcessor" extends="EventTarget">
@@ -9284,7 +9284,7 @@
         <property name="ondata" type="EventHandler" event-handler="data"/>
       </properties>
       <events>
-        <event name="data" type="undefined"/>
+        <event name="data" type="Event"/>
       </events>
     </interface>
     <interface name="ScriptProcessorNode" extends="AudioNode">
@@ -9693,17 +9693,17 @@
         <property name="onend" type="EventHandler" event-handler="end"/>
       </properties>
       <events>
-        <event name="audiostart" type="undefined"/>
-        <event name="soundstart" type="undefined"/>
-        <event name="speechstart" type="undefined"/>
-        <event name="speechend" type="undefined"/>
-        <event name="soundend" type="undefined"/>
-        <event name="audioend" type="undefined"/>
+        <event name="audiostart" type="Event"/>
+        <event name="soundstart" type="Event"/>
+        <event name="speechstart" type="Event"/>
+        <event name="speechend" type="Event"/>
+        <event name="soundend" type="Event"/>
+        <event name="audioend" type="Event"/>
         <event name="result" type="SpeechRecognitionEvent"/>
         <event name="nomatch" type="SpeechRecognitionEvent"/>
         <event name="error" type="SpeechRecognitionError"/>
-        <event name="start" type="undefined"/>
-        <event name="end" type="undefined"/>
+        <event name="start" type="Event"/>
+        <event name="end" type="Event"/>
       </events>
     </interface>
     <interface name="SpeechRecognitionError" extends="Event">
@@ -9941,14 +9941,14 @@
         <property name="idpErrorInfo" read-only="1" nullable="1" type="DOMString"/>
       </properties>
       <events>
-        <event name="negotiationneeded" type="undefined"/>
+        <event name="negotiationneeded" type="Event"/>
         <event name="icecandidate" type="RTCPeerConnectionIceEvent"/>
         <event name="icecandidateerror" type="RTCPeerConnectionIceErrorEvent"/>
-        <event name="signalingstatechange" type="undefined"/>
-        <event name="iceconnectionstatechange" type="undefined"/>
-        <event name="icegatheringstatechange" type="undefined"/>
-        <event name="connectionstatechange" type="undefined"/>
-        <event name="fingerprintfailure" type="undefined"/>
+        <event name="signalingstatechange" type="Event"/>
+        <event name="iceconnectionstatechange" type="Event"/>
+        <event name="icegatheringstatechange" type="Event"/>
+        <event name="connectionstatechange" type="Event"/>
+        <event name="fingerprintfailure" type="Event"/>
         <event name="track" type="RTCTrackEvent"/>
         <event name="datachannel" type="RTCDataChannelEvent"/>
       </events>
@@ -10084,7 +10084,7 @@
         <property name="onstatechange" type="EventHandler" event-handler="statechange"/>
       </properties>
       <events>
-        <event name="statechange" type="undefined"/>
+        <event name="statechange" type="Event"/>
       </events>
     </interface>
     <interface name="RTCIceTransport" extends="Object">
@@ -10105,9 +10105,9 @@
         <property name="onselectedcandidatepairchange" type="EventHandler" event-handler="selectedcandidatepairchange"/>
       </properties>
       <events>
-        <event name="statechange" type="undefined"/>
-        <event name="gatheringstatechange" type="undefined"/>
-        <event name="selectedcandidatepairchange" type="undefined"/>
+        <event name="statechange" type="Event"/>
+        <event name="gatheringstatechange" type="Event"/>
+        <event name="selectedcandidatepairchange" type="Event"/>
       </events>
     </interface>
     <interface name="RTCTrackEvent" extends="Event">
@@ -10164,10 +10164,10 @@
         <property name="binaryType" type="DOMString"/>
       </properties>
       <events>
-        <event name="open" type="undefined"/>
-        <event name="bufferedamountlow" type="undefined"/>
+        <event name="open" type="Event"/>
+        <event name="bufferedamountlow" type="Event"/>
         <event name="error" type="ErrorEvent"/>
-        <event name="close" type="undefined"/>
+        <event name="close" type="Event"/>
         <event name="message" type="MessageEvent"/>
       </events>
     </interface>
@@ -11020,17 +11020,17 @@
         <property name="onselectionchange" type="EventHandler" event-handler="selectionchange"/>
       </properties>
       <events>
-        <event name="abort" type="undefined"/>
+        <event name="abort" type="Event"/>
         <event name="auxclick" type="MouseEvent"/>
-        <event name="blur" type="undefined"/>
-        <event name="cancel" type="undefined"/>
-        <event name="canplay" type="undefined"/>
-        <event name="canplaythrough" type="undefined"/>
-        <event name="change" type="undefined"/>
+        <event name="blur" type="Event"/>
+        <event name="cancel" type="Event"/>
+        <event name="canplay" type="Event"/>
+        <event name="canplaythrough" type="Event"/>
+        <event name="change" type="Event"/>
         <event name="click" type="MouseEvent"/>
-        <event name="close" type="undefined"/>
+        <event name="close" type="Event"/>
         <event name="contextmenu" type="MouseEvent"/>
-        <event name="cuechange" type="undefined"/>
+        <event name="cuechange" type="Event"/>
         <event name="dblclick" type="MouseEvent"/>
         <event name="drag" type="DragEvent"/>
         <event name="dragend" type="DragEvent"/>
@@ -11040,20 +11040,20 @@
         <event name="dragover" type="DragEvent"/>
         <event name="dragstart" type="DragEvent"/>
         <event name="drop" type="DragEvent"/>
-        <event name="durationchange" type="undefined"/>
-        <event name="emptied" type="undefined"/>
-        <event name="ended" type="undefined"/>
-        <event name="focus" type="undefined"/>
-        <event name="input" type="undefined"/>
-        <event name="invalid" type="undefined"/>
+        <event name="durationchange" type="Event"/>
+        <event name="emptied" type="Event"/>
+        <event name="ended" type="Event"/>
+        <event name="focus" type="Event"/>
+        <event name="input" type="Event"/>
+        <event name="invalid" type="Event"/>
         <event name="keydown" type="KeyboardEvent"/>
         <event name="keypress" type="KeyboardEvent"/>
         <event name="keyup" type="KeyboardEvent"/>
-        <event name="load" type="undefined"/>
-        <event name="loadeddata" type="undefined"/>
-        <event name="loadedmetadata" type="undefined"/>
-        <event name="loadend" type="undefined"/>
-        <event name="loadstart" type="undefined"/>
+        <event name="load" type="Event"/>
+        <event name="loadeddata" type="Event"/>
+        <event name="loadedmetadata" type="Event"/>
+        <event name="loadend" type="Event"/>
+        <event name="loadstart" type="Event"/>
         <event name="mousedown" type="MouseEvent"/>
         <event name="mouseenter" type="MouseEvent"/>
         <event name="mouseleave" type="MouseEvent"/>
@@ -11062,25 +11062,25 @@
         <event name="mouseover" type="MouseEvent"/>
         <event name="mouseup" type="MouseEvent"/>
         <event name="wheel" type="WheelEvent"/>
-        <event name="pause" type="undefined"/>
-        <event name="play" type="undefined"/>
-        <event name="playing" type="undefined"/>
-        <event name="progress" type="undefined"/>
-        <event name="ratechange" type="undefined"/>
-        <event name="reset" type="undefined"/>
-        <event name="resize" type="undefined"/>
-        <event name="scroll" type="undefined"/>
-        <event name="seeked" type="undefined"/>
-        <event name="seeking" type="undefined"/>
-        <event name="select" type="undefined"/>
+        <event name="pause" type="Event"/>
+        <event name="play" type="Event"/>
+        <event name="playing" type="Event"/>
+        <event name="progress" type="Event"/>
+        <event name="ratechange" type="Event"/>
+        <event name="reset" type="Event"/>
+        <event name="resize" type="Event"/>
+        <event name="scroll" type="Event"/>
+        <event name="seeked" type="Event"/>
+        <event name="seeking" type="Event"/>
+        <event name="select" type="Event"/>
         <event name="show" type="RelatedEvent"/>
-        <event name="stalled" type="undefined"/>
-        <event name="submit" type="undefined"/>
-        <event name="suspend" type="undefined"/>
-        <event name="timeupdate" type="undefined"/>
-        <event name="toggle" type="undefined"/>
-        <event name="volumechange" type="undefined"/>
-        <event name="waiting" type="undefined"/>
+        <event name="stalled" type="Event"/>
+        <event name="submit" type="Event"/>
+        <event name="suspend" type="Event"/>
+        <event name="timeupdate" type="Event"/>
+        <event name="toggle" type="Event"/>
+        <event name="volumechange" type="Event"/>
+        <event name="waiting" type="Event"/>
         <event name="animationstart" type="AnimationEvent"/>
         <event name="animationiteration" type="AnimationEvent"/>
         <event name="animationend" type="AnimationEvent"/>
@@ -11089,8 +11089,8 @@
         <event name="transitionstart" type="TransitionEvent"/>
         <event name="transitionend" type="TransitionEvent"/>
         <event name="transitioncancel" type="TransitionEvent"/>
-        <event name="selectstart" type="undefined"/>
-        <event name="selectionchange" type="undefined"/>
+        <event name="selectstart" type="Event"/>
+        <event name="selectionchange" type="Event"/>
       </events>
     </interface>
     <interface name="WindowEventHandlers" extends="Object" no-interface-object="1">
@@ -11112,20 +11112,20 @@
         <property name="onunload" type="EventHandler" event-handler="unload"/>
       </properties>
       <events>
-        <event name="afterprint" type="undefined"/>
-        <event name="beforeprint" type="undefined"/>
+        <event name="afterprint" type="Event"/>
+        <event name="beforeprint" type="Event"/>
         <event name="hashchange" type="HashChangeEvent"/>
-        <event name="languagechange" type="undefined"/>
+        <event name="languagechange" type="Event"/>
         <event name="message" type="MessageEvent"/>
-        <event name="offline" type="undefined"/>
-        <event name="online" type="undefined"/>
+        <event name="offline" type="Event"/>
+        <event name="online" type="Event"/>
         <event name="pagehide" type="PageTransitionEvent"/>
         <event name="pageshow" type="PageTransitionEvent"/>
         <event name="popstate" type="PopStateEvent"/>
         <event name="rejectionhandled" type="PromiseRejectionEvent"/>
         <event name="storage" type="StorageEvent"/>
         <event name="unhandledrejection" type="PromiseRejectionEvent"/>
-        <event name="unload" type="undefined"/>
+        <event name="unload" type="Event"/>
       </events>
     </interface>
     <interface name="DocumentAndElementEventHandlers" extends="Object" no-interface-object="1">
@@ -11135,9 +11135,9 @@
         <property name="onpaste" type="EventHandler" event-handler="paste"/>
       </properties>
       <events>
-        <event name="copy" type="undefined"/>
-        <event name="cut" type="undefined"/>
-        <event name="paste" type="undefined"/>
+        <event name="copy" type="Event"/>
+        <event name="cut" type="Event"/>
+        <event name="paste" type="Event"/>
       </events>
     </interface>
     <interface name="WindowOrWorkerGlobalScope" extends="Object" no-interface-object="1" exposed="Window Worker">

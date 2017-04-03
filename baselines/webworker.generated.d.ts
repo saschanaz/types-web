@@ -356,13 +356,13 @@ declare var FileReader: {
 };
 
 interface PerformanceEventMap {
-    "resourcetimingbufferfull": undefined;
+    "resourcetimingbufferfull": Event;
 }
 
 interface Performance extends EventTarget {
     readonly timing: PerformanceTiming;
     readonly navigation: PerformanceNavigation;
-    onresourcetimingbufferfull: (this: Performance, ev: undefined) => any;
+    onresourcetimingbufferfull: (this: Performance, ev: Event) => any;
     now(): number;
     getEntries(): PerformanceEntryList;
     getEntriesByType(type: string): PerformanceEntryList;
@@ -434,9 +434,9 @@ declare var MessageEvent: {
 };
 
 interface WebSocketEventMap {
-    "open": undefined;
+    "open": Event;
     "error": ErrorEvent;
-    "close": undefined;
+    "close": Event;
     "message": MessageEvent;
 }
 
@@ -444,9 +444,9 @@ interface WebSocket extends EventTarget {
     readonly url: string;
     readonly readyState: number;
     readonly bufferedAmount: number;
-    onopen: (this: WebSocket, ev: undefined) => any;
+    onopen: (this: WebSocket, ev: Event) => any;
     onerror: (this: WebSocket, ev: ErrorEvent) => any;
-    onclose: (this: WebSocket, ev: undefined) => any;
+    onclose: (this: WebSocket, ev: Event) => any;
     readonly extensions: string;
     readonly protocol: string;
     onmessage: (this: WebSocket, ev: MessageEvent) => any;
@@ -607,7 +607,7 @@ declare var IDBFactory: {
 
 interface IDBDatabaseEventMap {
     "abort": Event;
-    "error": undefined;
+    "error": Event;
     "versionchange": IDBVersionChangeEvent;
 }
 
@@ -616,7 +616,7 @@ interface IDBDatabase extends EventTarget {
     version: number;
     readonly objectStoreNames: DOMStringList;
     onabort: (this: IDBDatabase, ev: Event) => any;
-    onerror: (this: IDBDatabase, ev: undefined) => any;
+    onerror: (this: IDBDatabase, ev: Event) => any;
     onversionchange: (this: IDBDatabase, ev: IDBVersionChangeEvent) => any;
     createObjectStore(name: string, optionalParameters?: IDBObjectStoreParameters): IDBObjectStore;
     deleteObjectStore(name: string): void;
@@ -840,13 +840,13 @@ declare var PushSubscription: {
 };
 
 interface ServiceWorkerEventMap extends AbstractWorkerEventMap {
-    "statechange": undefined;
+    "statechange": Event;
 }
 
 interface ServiceWorker extends EventTarget, AbstractWorker {
     readonly scriptURL: string;
     readonly state: ServiceWorkerState;
-    onstatechange: (this: ServiceWorker, ev: undefined) => any;
+    onstatechange: (this: ServiceWorker, ev: Event) => any;
     postMessage(message: any, transfer?: any[]): void;
     addEventListener<K extends keyof ServiceWorkerEventMap>(type: K, listener: (this: ServiceWorker, ev: ServiceWorkerEventMap[K]) => any, useCapture?: boolean): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
@@ -1014,7 +1014,7 @@ interface XMLHttpRequestEventTargetEventMap {
     "error": ErrorEvent;
     "load": Event;
     "timeout": Event;
-    "loadend": undefined;
+    "loadend": Event;
 }
 
 interface XMLHttpRequestEventTarget extends EventTarget {
