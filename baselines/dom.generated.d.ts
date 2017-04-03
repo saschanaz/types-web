@@ -1900,13 +1900,13 @@ declare var TransitionEvent: {
 }
 
 interface MediaQueryListEventMap {
-    "change": undefined;
+    "change": Event;
 }
 
 interface MediaQueryList extends EventTarget {
     readonly media: string;
     readonly matches: boolean;
-    onchange: (this: MediaQueryList, ev: undefined) => any;
+    onchange: (this: MediaQueryList, ev: Event) => any;
     addListener(listener: EventListenerOrEventListenerObject | null): void;
     removeListener(listener: EventListenerOrEventListenerObject | null): void;
     addEventListener<K extends keyof MediaQueryListEventMap>(type: K, listener: (this: MediaQueryList, ev: MediaQueryListEventMap[K]) => any, useCapture?: boolean): void;
@@ -2428,6 +2428,8 @@ interface Document extends Node, NonElementParentNode, DocumentOrShadowRoot, Par
     createEvent(eventInterface:"DeviceOrientationEvent"): DeviceOrientationEvent;
     createEvent(eventInterface:"DragEvent"): DragEvent;
     createEvent(eventInterface:"ErrorEvent"): ErrorEvent;
+    createEvent(eventInterface:"Event"): Event;
+    createEvent(eventInterface:"Events"): Event;
     createEvent(eventInterface:"ExtendableEvent"): ExtendableEvent;
     createEvent(eventInterface:"ExtendableMessageEvent"): ExtendableMessageEvent;
     createEvent(eventInterface:"FetchEvent"): FetchEvent;
@@ -2472,7 +2474,6 @@ interface Document extends Node, NonElementParentNode, DocumentOrShadowRoot, Par
     createEvent(eventInterface:"UIEvents"): UIEvent;
     createEvent(eventInterface:"WebGLContextEvent"): WebGLContextEvent;
     createEvent(eventInterface:"WheelEvent"): WheelEvent;
-    createEvent(eventInterface:"undefined"): undefined;
     createEvent(eventInterface: string): Event;
     /**
       *  Returns an empty range object that has both of its boundary points positioned at the beginning of the document. 
@@ -2949,7 +2950,7 @@ declare var MediaKeys: {
 }
 
 interface MediaKeySessionEventMap {
-    "keystatuseschange": undefined;
+    "keystatuseschange": Event;
     "message": MediaKeyMessageEvent;
 }
 
@@ -2958,7 +2959,7 @@ interface MediaKeySession extends EventTarget {
     readonly expiration: number;
     readonly closed: Promise<void>;
     readonly keyStatuses: MediaKeyStatusMap;
-    onkeystatuseschange: (this: MediaKeySession, ev: undefined) => any;
+    onkeystatuseschange: (this: MediaKeySession, ev: Event) => any;
     onmessage: (this: MediaKeySession, ev: MediaKeyMessageEvent) => any;
     generateRequest(initDataType: string, initData: BufferSource): Promise<void>;
     load(sessionId: string): Promise<boolean>;
@@ -3662,16 +3663,16 @@ declare var GamepadEvent: {
 }
 
 interface SensorEventMap {
-    "change": undefined;
-    "activate": undefined;
+    "change": Event;
+    "activate": Event;
     "error": SensorErrorEvent;
 }
 
 interface Sensor extends EventTarget {
     readonly state: SensorState;
     readonly timestamp: number | null;
-    onchange: (this: Sensor, ev: undefined) => any;
-    onactivate: (this: Sensor, ev: undefined) => any;
+    onchange: (this: Sensor, ev: Event) => any;
+    onactivate: (this: Sensor, ev: Event) => any;
     onerror: (this: Sensor, ev: SensorErrorEvent) => any;
     start(): void;
     stop(): void;
@@ -3865,13 +3866,13 @@ declare var DOMMatrix: {
 }
 
 interface PerformanceEventMap {
-    "resourcetimingbufferfull": undefined;
+    "resourcetimingbufferfull": Event;
 }
 
 interface Performance extends EventTarget {
     readonly timing: PerformanceTiming;
     readonly navigation: PerformanceNavigation;
-    onresourcetimingbufferfull: (this: Performance, ev: undefined) => any;
+    onresourcetimingbufferfull: (this: Performance, ev: Event) => any;
     now(): number;
     getEntries(): PerformanceEntryList;
     getEntriesByType(type: string): PerformanceEntryList;
@@ -4900,7 +4901,7 @@ declare var HTMLTrackElement: {
 
 interface HTMLMediaElementEventMap extends ElementEventMap, GlobalEventHandlersEventMap, DocumentAndElementEventHandlersEventMap {
     "encrypted": MediaEncryptedEvent;
-    "waitingforkey": undefined;
+    "waitingforkey": Event;
 }
 
 interface HTMLMediaElement extends HTMLElement {
@@ -4996,7 +4997,7 @@ interface HTMLMediaElement extends HTMLElement {
     readonly textTracks: TextTrackList;
     readonly mediaKeys: MediaKeys | null;
     onencrypted: (this: HTMLMediaElement, ev: MediaEncryptedEvent) => any;
-    onwaitingforkey: (this: HTMLMediaElement, ev: undefined) => any;
+    onwaitingforkey: (this: HTMLMediaElement, ev: Event) => any;
     /**
       * Resets the audio or video object and loads a new media resource.
       */
@@ -5063,14 +5064,14 @@ declare var MediaError: {
 }
 
 interface AudioTrackListEventMap {
-    "change": undefined;
+    "change": Event;
     "addtrack": TrackEvent;
     "removetrack": TrackEvent;
 }
 
 interface AudioTrackList extends EventTarget {
     readonly length: number;
-    onchange: (this: AudioTrackList, ev: undefined) => any;
+    onchange: (this: AudioTrackList, ev: Event) => any;
     onaddtrack: (this: AudioTrackList, ev: TrackEvent) => any;
     onremovetrack: (this: AudioTrackList, ev: TrackEvent) => any;
     getTrackById(id: string): AudioTrack | null;
@@ -5099,7 +5100,7 @@ declare var AudioTrack: {
 }
 
 interface VideoTrackListEventMap {
-    "change": undefined;
+    "change": Event;
     "addtrack": TrackEvent;
     "removetrack": TrackEvent;
 }
@@ -5107,7 +5108,7 @@ interface VideoTrackListEventMap {
 interface VideoTrackList extends EventTarget {
     readonly length: number;
     readonly selectedIndex: number;
-    onchange: (this: VideoTrackList, ev: undefined) => any;
+    onchange: (this: VideoTrackList, ev: Event) => any;
     onaddtrack: (this: VideoTrackList, ev: TrackEvent) => any;
     onremovetrack: (this: VideoTrackList, ev: TrackEvent) => any;
     getTrackById(id: string): VideoTrack | null;
@@ -5136,14 +5137,14 @@ declare var VideoTrack: {
 }
 
 interface TextTrackListEventMap {
-    "change": undefined;
+    "change": Event;
     "addtrack": TrackEvent;
     "removetrack": TrackEvent;
 }
 
 interface TextTrackList extends EventTarget {
     readonly length: number;
-    onchange: (this: TextTrackList, ev: undefined) => any;
+    onchange: (this: TextTrackList, ev: Event) => any;
     onaddtrack: (this: TextTrackList, ev: TrackEvent) => any;
     onremovetrack: (this: TextTrackList, ev: TrackEvent) => any;
     getTrackById(id: string): TextTrack | null;
@@ -5158,7 +5159,7 @@ declare var TextTrackList: {
 }
 
 interface TextTrackEventMap {
-    "cuechange": undefined;
+    "cuechange": Event;
 }
 
 interface TextTrack extends EventTarget {
@@ -5170,7 +5171,7 @@ interface TextTrack extends EventTarget {
     mode: TextTrackMode;
     readonly cues: TextTrackCueList | null;
     readonly activeCues: TextTrackCueList | null;
-    oncuechange: (this: TextTrack, ev: undefined) => any;
+    oncuechange: (this: TextTrack, ev: Event) => any;
     readonly sourceBuffer: SourceBuffer | null;
     addCue(cue: TextTrackCue): void;
     removeCue(cue: TextTrackCue): void;
@@ -7067,18 +7068,18 @@ declare var MessageEvent: {
 }
 
 interface EventSourceEventMap {
-    "open": undefined;
+    "open": Event;
     "message": MessageEvent;
-    "error": undefined;
+    "error": Event;
 }
 
 interface EventSource extends EventTarget {
     readonly url: string;
     readonly withCredentials: boolean;
     readonly readyState: number;
-    onopen: (this: EventSource, ev: undefined) => any;
+    onopen: (this: EventSource, ev: Event) => any;
     onmessage: (this: EventSource, ev: MessageEvent) => any;
-    onerror: (this: EventSource, ev: undefined) => any;
+    onerror: (this: EventSource, ev: Event) => any;
     close(): void;
     readonly CONNECTING: number;
     readonly OPEN: number;
@@ -7096,9 +7097,9 @@ declare var EventSource: {
 }
 
 interface WebSocketEventMap {
-    "open": undefined;
+    "open": Event;
     "error": ErrorEvent;
-    "close": undefined;
+    "close": Event;
     "message": MessageEvent;
 }
 
@@ -7106,9 +7107,9 @@ interface WebSocket extends EventTarget {
     readonly url: string;
     readonly readyState: number;
     readonly bufferedAmount: number;
-    onopen: (this: WebSocket, ev: undefined) => any;
+    onopen: (this: WebSocket, ev: Event) => any;
     onerror: (this: WebSocket, ev: ErrorEvent) => any;
-    onclose: (this: WebSocket, ev: undefined) => any;
+    onclose: (this: WebSocket, ev: Event) => any;
     readonly extensions: string;
     readonly protocol: string;
     onmessage: (this: WebSocket, ev: MessageEvent) => any;
@@ -7201,9 +7202,9 @@ interface WorkerGlobalScope extends EventTarget, WindowOrWorkerGlobalScope, Glob
     readonly location: WorkerLocation;
     readonly navigator: WorkerNavigator;
     onerror: OnErrorEventHandler;
-    onlanguagechange: (this: WorkerGlobalScope, ev: undefined) => any;
-    onoffline: (this: WorkerGlobalScope, ev: undefined) => any;
-    ononline: (this: WorkerGlobalScope, ev: undefined) => any;
+    onlanguagechange: (this: WorkerGlobalScope, ev: Event) => any;
+    onoffline: (this: WorkerGlobalScope, ev: Event) => any;
+    ononline: (this: WorkerGlobalScope, ev: Event) => any;
     onrejectionhandled: (this: WorkerGlobalScope, ev: PromiseRejectionEvent) => any;
     onunhandledrejection: (this: WorkerGlobalScope, ev: PromiseRejectionEvent) => any;
     importScripts(...urls: string[]): void;
@@ -7374,8 +7375,8 @@ declare var HTMLAppletElement: {
 
 interface HTMLMarqueeElementEventMap extends ElementEventMap, GlobalEventHandlersEventMap, DocumentAndElementEventHandlersEventMap {
     "bounce": Event;
-    "finish": undefined;
-    "start": undefined;
+    "finish": Event;
+    "start": Event;
 }
 
 interface HTMLMarqueeElement extends HTMLElement {
@@ -7391,8 +7392,8 @@ interface HTMLMarqueeElement extends HTMLElement {
     vspace: number;
     width: string;
     onbounce: (this: HTMLMarqueeElement, ev: Event) => any;
-    onfinish: (this: HTMLMarqueeElement, ev: undefined) => any;
-    onstart: (this: HTMLMarqueeElement, ev: undefined) => any;
+    onfinish: (this: HTMLMarqueeElement, ev: Event) => any;
+    onstart: (this: HTMLMarqueeElement, ev: Event) => any;
     start(): void;
     stop(): void;
     addEventListener<K extends keyof HTMLMarqueeElementEventMap>(type: K, listener: (this: HTMLMarqueeElement, ev: HTMLMarqueeElementEventMap[K]) => any, useCapture?: boolean): void;
@@ -7586,7 +7587,7 @@ declare var IDBFactory: {
 
 interface IDBDatabaseEventMap {
     "abort": Event;
-    "error": undefined;
+    "error": Event;
     "versionchange": IDBVersionChangeEvent;
 }
 
@@ -7595,7 +7596,7 @@ interface IDBDatabase extends EventTarget {
     version: number;
     readonly objectStoreNames: DOMStringList;
     onabort: (this: IDBDatabase, ev: Event) => any;
-    onerror: (this: IDBDatabase, ev: undefined) => any;
+    onerror: (this: IDBDatabase, ev: Event) => any;
     onversionchange: (this: IDBDatabase, ev: IDBVersionChangeEvent) => any;
     createObjectStore(name: string, optionalParameters?: IDBObjectStoreParameters): IDBObjectStore;
     deleteObjectStore(name: string): void;
@@ -7762,9 +7763,9 @@ declare var MediaStream: {
 interface MediaStreamTrackEventMap {
     "mute": Event;
     "unmute": Event;
-    "ended": undefined;
+    "ended": Event;
     "overconstrained": OverconstrainedErrorEvent;
-    "isolationchange": undefined;
+    "isolationchange": Event;
 }
 
 interface MediaStreamTrack extends EventTarget {
@@ -7776,10 +7777,10 @@ interface MediaStreamTrack extends EventTarget {
     onmute: (this: MediaStreamTrack, ev: Event) => any;
     onunmute: (this: MediaStreamTrack, ev: Event) => any;
     readonly readyState: MediaStreamTrackState;
-    onended: (this: MediaStreamTrack, ev: undefined) => any;
+    onended: (this: MediaStreamTrack, ev: Event) => any;
     onoverconstrained: (this: MediaStreamTrack, ev: OverconstrainedErrorEvent) => any;
     readonly isolated: boolean;
-    onisolationchange: (this: MediaStreamTrack, ev: undefined) => any;
+    onisolationchange: (this: MediaStreamTrack, ev: Event) => any;
     clone(): MediaStreamTrack;
     stop(): void;
     getCapabilities(): MediaTrackCapabilities;
@@ -7865,9 +7866,9 @@ declare var VideoPlaybackQuality: {
 }
 
 interface MediaSourceEventMap {
-    "sourceopen": undefined;
-    "sourceended": undefined;
-    "sourceclose": undefined;
+    "sourceopen": Event;
+    "sourceended": Event;
+    "sourceclose": Event;
 }
 
 interface MediaSource extends EventTarget {
@@ -7875,9 +7876,9 @@ interface MediaSource extends EventTarget {
     readonly activeSourceBuffers: SourceBufferList;
     readonly readyState: string;
     duration: number;
-    onsourceopen: (this: MediaSource, ev: undefined) => any;
-    onsourceended: (this: MediaSource, ev: undefined) => any;
-    onsourceclose: (this: MediaSource, ev: undefined) => any;
+    onsourceopen: (this: MediaSource, ev: Event) => any;
+    onsourceended: (this: MediaSource, ev: Event) => any;
+    onsourceclose: (this: MediaSource, ev: Event) => any;
     addSourceBuffer(type: string): SourceBuffer;
     removeSourceBuffer(sourceBuffer: SourceBuffer): void;
     endOfStream(error?: EndOfStreamError): void;
@@ -7894,11 +7895,11 @@ declare var MediaSource: {
 }
 
 interface SourceBufferEventMap {
-    "updatestart": undefined;
-    "update": undefined;
-    "updateend": undefined;
-    "error": undefined;
-    "abort": undefined;
+    "updatestart": Event;
+    "update": Event;
+    "updateend": Event;
+    "error": Event;
+    "abort": Event;
 }
 
 interface SourceBuffer extends EventTarget {
@@ -7911,11 +7912,11 @@ interface SourceBuffer extends EventTarget {
     readonly textTracks: TextTrackList;
     appendWindowStart: number;
     appendWindowEnd: number;
-    onupdatestart: (this: SourceBuffer, ev: undefined) => any;
-    onupdate: (this: SourceBuffer, ev: undefined) => any;
-    onupdateend: (this: SourceBuffer, ev: undefined) => any;
-    onerror: (this: SourceBuffer, ev: undefined) => any;
-    onabort: (this: SourceBuffer, ev: undefined) => any;
+    onupdatestart: (this: SourceBuffer, ev: Event) => any;
+    onupdate: (this: SourceBuffer, ev: Event) => any;
+    onupdateend: (this: SourceBuffer, ev: Event) => any;
+    onerror: (this: SourceBuffer, ev: Event) => any;
+    onabort: (this: SourceBuffer, ev: Event) => any;
     appendBuffer(data: BufferSource): void;
     abort(): void;
     remove(start: number, end: number): void;
@@ -7929,14 +7930,14 @@ declare var SourceBuffer: {
 }
 
 interface SourceBufferListEventMap {
-    "addsourcebuffer": undefined;
-    "removesourcebuffer": undefined;
+    "addsourcebuffer": Event;
+    "removesourcebuffer": Event;
 }
 
 interface SourceBufferList extends EventTarget {
     readonly length: number;
-    onaddsourcebuffer: (this: SourceBufferList, ev: undefined) => any;
-    onremovesourcebuffer: (this: SourceBufferList, ev: undefined) => any;
+    onaddsourcebuffer: (this: SourceBufferList, ev: Event) => any;
+    onremovesourcebuffer: (this: SourceBufferList, ev: Event) => any;
     addEventListener<K extends keyof SourceBufferListEventMap>(type: K, listener: (this: SourceBufferList, ev: SourceBufferListEventMap[K]) => any, useCapture?: boolean): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
     [index: number]: SourceBuffer;
@@ -8291,13 +8292,13 @@ declare var Selection: {
 }
 
 interface ServiceWorkerEventMap extends AbstractWorkerEventMap {
-    "statechange": undefined;
+    "statechange": Event;
 }
 
 interface ServiceWorker extends EventTarget, AbstractWorker {
     readonly scriptURL: string;
     readonly state: ServiceWorkerState;
-    onstatechange: (this: ServiceWorker, ev: undefined) => any;
+    onstatechange: (this: ServiceWorker, ev: Event) => any;
     postMessage(message: any, transfer?: any[]): void;
     addEventListener<K extends keyof ServiceWorkerEventMap>(type: K, listener: (this: ServiceWorker, ev: ServiceWorkerEventMap[K]) => any, useCapture?: boolean): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
@@ -9808,8 +9809,8 @@ declare var DocumentTimeline: {
 }
 
 interface AnimationEventMap {
-    "finish": undefined;
-    "cancel": undefined;
+    "finish": Event;
+    "cancel": Event;
 }
 
 interface Animation extends EventTarget {
@@ -9822,8 +9823,8 @@ interface Animation extends EventTarget {
     readonly playState: AnimationPlayState;
     readonly ready: Promise<Animation>;
     readonly finished: Promise<Animation>;
-    onfinish: (this: Animation, ev: undefined) => any;
-    oncancel: (this: Animation, ev: undefined) => any;
+    onfinish: (this: Animation, ev: Event) => any;
+    oncancel: (this: Animation, ev: Event) => any;
     cancel(): void;
     finish(): void;
     play(): void;
@@ -9927,7 +9928,7 @@ declare var AnimationPlaybackEvent: {
 }
 
 interface BaseAudioContextEventMap {
-    "statechange": undefined;
+    "statechange": Event;
 }
 
 interface BaseAudioContext extends EventTarget {
@@ -9936,7 +9937,7 @@ interface BaseAudioContext extends EventTarget {
     readonly currentTime: number;
     readonly listener: AudioListener;
     readonly state: AudioContextState;
-    onstatechange: (this: BaseAudioContext, ev: undefined) => any;
+    onstatechange: (this: BaseAudioContext, ev: Event) => any;
     resume(): Promise<void>;
     createBuffer(numberOfChannels: number, length: number, sampleRate: number): AudioBuffer;
     decodeAudioData(audioData: ArrayBuffer, successCallback?: DecodeSuccessCallback, errorCallback?: DecodeErrorCallback): Promise<AudioBuffer>;
@@ -10084,11 +10085,11 @@ declare var AudioParam: {
 }
 
 interface AudioScheduledSourceNodeEventMap {
-    "ended": undefined;
+    "ended": Event;
 }
 
 interface AudioScheduledSourceNode extends AudioNode {
-    onended: (this: AudioScheduledSourceNode, ev: undefined) => any;
+    onended: (this: AudioScheduledSourceNode, ev: Event) => any;
     start(when?: number): void;
     stop(when?: number): void;
     addEventListener<K extends keyof AudioScheduledSourceNodeEventMap>(type: K, listener: (this: AudioScheduledSourceNode, ev: AudioScheduledSourceNodeEventMap[K]) => any, useCapture?: boolean): void;
@@ -10187,12 +10188,12 @@ declare var AudioParamMap: {
 }
 
 interface AudioWorkletNodeEventMap {
-    "data": undefined;
+    "data": Event;
 }
 
 interface AudioWorkletNode extends AudioNode {
     readonly parameters: AudioParamMap;
-    ondata: (this: AudioWorkletNode, ev: undefined) => any;
+    ondata: (this: AudioWorkletNode, ev: Event) => any;
     sendData(data: any): void;
     addEventListener<K extends keyof AudioWorkletNodeEventMap>(type: K, listener: (this: AudioWorkletNode, ev: AudioWorkletNodeEventMap[K]) => any, useCapture?: boolean): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
@@ -10204,12 +10205,12 @@ declare var AudioWorkletNode: {
 }
 
 interface AudioWorkletProcessorEventMap {
-    "data": undefined;
+    "data": Event;
 }
 
 interface AudioWorkletProcessor extends EventTarget {
     readonly contextInfo: AudioContextInfo;
-    ondata: (this: AudioWorkletProcessor, ev: undefined) => any;
+    ondata: (this: AudioWorkletProcessor, ev: Event) => any;
     sendData(data: any): void;
     addEventListener<K extends keyof AudioWorkletProcessorEventMap>(type: K, listener: (this: AudioWorkletProcessor, ev: AudioWorkletProcessorEventMap[K]) => any, useCapture?: boolean): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
@@ -10541,17 +10542,17 @@ declare var SubtleCrypto: {
 }
 
 interface SpeechRecognitionEventMap {
-    "audiostart": undefined;
-    "soundstart": undefined;
-    "speechstart": undefined;
-    "speechend": undefined;
-    "soundend": undefined;
-    "audioend": undefined;
+    "audiostart": Event;
+    "soundstart": Event;
+    "speechstart": Event;
+    "speechend": Event;
+    "soundend": Event;
+    "audioend": Event;
     "result": SpeechRecognitionEvent;
     "nomatch": SpeechRecognitionEvent;
     "error": SpeechRecognitionError;
-    "start": undefined;
-    "end": undefined;
+    "start": Event;
+    "end": Event;
 }
 
 interface SpeechRecognition extends EventTarget {
@@ -10561,17 +10562,17 @@ interface SpeechRecognition extends EventTarget {
     interimResults: boolean;
     maxAlternatives: number;
     serviceURI: string;
-    onaudiostart: (this: SpeechRecognition, ev: undefined) => any;
-    onsoundstart: (this: SpeechRecognition, ev: undefined) => any;
-    onspeechstart: (this: SpeechRecognition, ev: undefined) => any;
-    onspeechend: (this: SpeechRecognition, ev: undefined) => any;
-    onsoundend: (this: SpeechRecognition, ev: undefined) => any;
-    onaudioend: (this: SpeechRecognition, ev: undefined) => any;
+    onaudiostart: (this: SpeechRecognition, ev: Event) => any;
+    onsoundstart: (this: SpeechRecognition, ev: Event) => any;
+    onspeechstart: (this: SpeechRecognition, ev: Event) => any;
+    onspeechend: (this: SpeechRecognition, ev: Event) => any;
+    onsoundend: (this: SpeechRecognition, ev: Event) => any;
+    onaudioend: (this: SpeechRecognition, ev: Event) => any;
     onresult: (this: SpeechRecognition, ev: SpeechRecognitionEvent) => any;
     onnomatch: (this: SpeechRecognition, ev: SpeechRecognitionEvent) => any;
     onerror: (this: SpeechRecognition, ev: SpeechRecognitionError) => any;
-    onstart: (this: SpeechRecognition, ev: undefined) => any;
-    onend: (this: SpeechRecognition, ev: undefined) => any;
+    onstart: (this: SpeechRecognition, ev: Event) => any;
+    onend: (this: SpeechRecognition, ev: Event) => any;
     start(): void;
     stop(): void;
     abort(): void;
@@ -10686,10 +10687,10 @@ declare var SpeechSynthesis: {
 }
 
 interface SpeechSynthesisUtteranceEventMap {
-    "start": undefined;
-    "end": undefined;
+    "start": Event;
+    "end": Event;
     "error": ErrorEvent;
-    "pause": undefined;
+    "pause": Event;
     "resume": Event;
     "mark": Event;
     "boundary": Event;
@@ -10702,10 +10703,10 @@ interface SpeechSynthesisUtterance extends EventTarget {
     volume: number;
     rate: number;
     pitch: number;
-    onstart: (this: SpeechSynthesisUtterance, ev: undefined) => any;
-    onend: (this: SpeechSynthesisUtterance, ev: undefined) => any;
+    onstart: (this: SpeechSynthesisUtterance, ev: Event) => any;
+    onend: (this: SpeechSynthesisUtterance, ev: Event) => any;
     onerror: (this: SpeechSynthesisUtterance, ev: ErrorEvent) => any;
-    onpause: (this: SpeechSynthesisUtterance, ev: undefined) => any;
+    onpause: (this: SpeechSynthesisUtterance, ev: Event) => any;
     onresume: (this: SpeechSynthesisUtterance, ev: Event) => any;
     onmark: (this: SpeechSynthesisUtterance, ev: Event) => any;
     onboundary: (this: SpeechSynthesisUtterance, ev: Event) => any;
@@ -10754,14 +10755,14 @@ declare var SpeechSynthesisVoice: {
 }
 
 interface RTCPeerConnectionEventMap {
-    "negotiationneeded": undefined;
+    "negotiationneeded": Event;
     "icecandidate": RTCPeerConnectionIceEvent;
     "icecandidateerror": RTCPeerConnectionIceErrorEvent;
-    "signalingstatechange": undefined;
-    "iceconnectionstatechange": undefined;
-    "icegatheringstatechange": undefined;
-    "connectionstatechange": undefined;
-    "fingerprintfailure": undefined;
+    "signalingstatechange": Event;
+    "iceconnectionstatechange": Event;
+    "icegatheringstatechange": Event;
+    "connectionstatechange": Event;
+    "fingerprintfailure": Event;
     "track": RTCTrackEvent;
     "datachannel": RTCDataChannelEvent;
 }
@@ -10779,14 +10780,14 @@ interface RTCPeerConnection extends EventTarget {
     readonly connectionState: RTCPeerConnectionState;
     readonly canTrickleIceCandidates: boolean | null;
     readonly defaultIceServers: ReadonlyArray<RTCIceServer>;
-    onnegotiationneeded: (this: RTCPeerConnection, ev: undefined) => any;
+    onnegotiationneeded: (this: RTCPeerConnection, ev: Event) => any;
     onicecandidate: (this: RTCPeerConnection, ev: RTCPeerConnectionIceEvent) => any;
     onicecandidateerror: (this: RTCPeerConnection, ev: RTCPeerConnectionIceErrorEvent) => any;
-    onsignalingstatechange: (this: RTCPeerConnection, ev: undefined) => any;
-    oniceconnectionstatechange: (this: RTCPeerConnection, ev: undefined) => any;
-    onicegatheringstatechange: (this: RTCPeerConnection, ev: undefined) => any;
-    onconnectionstatechange: (this: RTCPeerConnection, ev: undefined) => any;
-    onfingerprintfailure: (this: RTCPeerConnection, ev: undefined) => any;
+    onsignalingstatechange: (this: RTCPeerConnection, ev: Event) => any;
+    oniceconnectionstatechange: (this: RTCPeerConnection, ev: Event) => any;
+    onicegatheringstatechange: (this: RTCPeerConnection, ev: Event) => any;
+    onconnectionstatechange: (this: RTCPeerConnection, ev: Event) => any;
+    onfingerprintfailure: (this: RTCPeerConnection, ev: Event) => any;
     ontrack: (this: RTCPeerConnection, ev: RTCTrackEvent) => any;
     readonly sctp: RTCSctpTransport | null;
     ondatachannel: (this: RTCPeerConnection, ev: RTCDataChannelEvent) => any;
@@ -10950,13 +10951,13 @@ declare var RTCRtpTransceiver: {
 }
 
 interface RTCDtlsTransportEventMap {
-    "statechange": undefined;
+    "statechange": Event;
 }
 
 interface RTCDtlsTransport {
     readonly transport: RTCIceTransport;
     readonly state: RTCDtlsTransportState;
-    onstatechange: (this: RTCDtlsTransport, ev: undefined) => any;
+    onstatechange: (this: RTCDtlsTransport, ev: Event) => any;
     getRemoteCertificates(): ArrayBuffer[];
     addEventListener<K extends keyof RTCDtlsTransportEventMap>(type: K, listener: (this: RTCDtlsTransport, ev: RTCDtlsTransportEventMap[K]) => any, useCapture?: boolean): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
@@ -10968,9 +10969,9 @@ declare var RTCDtlsTransport: {
 }
 
 interface RTCIceTransportEventMap {
-    "statechange": undefined;
-    "gatheringstatechange": undefined;
-    "selectedcandidatepairchange": undefined;
+    "statechange": Event;
+    "gatheringstatechange": Event;
+    "selectedcandidatepairchange": Event;
 }
 
 interface RTCIceTransport {
@@ -10978,9 +10979,9 @@ interface RTCIceTransport {
     readonly component: RTCIceComponent;
     readonly state: RTCIceTransportState;
     readonly gatheringState: RTCIceGathererState;
-    onstatechange: (this: RTCIceTransport, ev: undefined) => any;
-    ongatheringstatechange: (this: RTCIceTransport, ev: undefined) => any;
-    onselectedcandidatepairchange: (this: RTCIceTransport, ev: undefined) => any;
+    onstatechange: (this: RTCIceTransport, ev: Event) => any;
+    ongatheringstatechange: (this: RTCIceTransport, ev: Event) => any;
+    onselectedcandidatepairchange: (this: RTCIceTransport, ev: Event) => any;
     getLocalCandidates(): RTCIceCandidate[];
     getRemoteCandidates(): RTCIceCandidate[];
     getSelectedCandidatePair(): RTCIceCandidatePair | null;
@@ -11018,10 +11019,10 @@ declare var RTCSctpTransport: {
 }
 
 interface RTCDataChannelEventMap {
-    "open": undefined;
-    "bufferedamountlow": undefined;
+    "open": Event;
+    "bufferedamountlow": Event;
     "error": ErrorEvent;
-    "close": undefined;
+    "close": Event;
     "message": MessageEvent;
 }
 
@@ -11037,10 +11038,10 @@ interface RTCDataChannel extends EventTarget {
     readonly readyState: RTCDataChannelState;
     readonly bufferedAmount: number;
     bufferedAmountLowThreshold: number;
-    onopen: (this: RTCDataChannel, ev: undefined) => any;
-    onbufferedamountlow: (this: RTCDataChannel, ev: undefined) => any;
+    onopen: (this: RTCDataChannel, ev: Event) => any;
+    onbufferedamountlow: (this: RTCDataChannel, ev: Event) => any;
     onerror: (this: RTCDataChannel, ev: ErrorEvent) => any;
-    onclose: (this: RTCDataChannel, ev: undefined) => any;
+    onclose: (this: RTCDataChannel, ev: Event) => any;
     onmessage: (this: RTCDataChannel, ev: MessageEvent) => any;
     binaryType: string;
     close(): void;
@@ -11266,7 +11267,7 @@ interface XMLHttpRequestEventTargetEventMap {
     "error": ErrorEvent;
     "load": Event;
     "timeout": Event;
-    "loadend": undefined;
+    "loadend": Event;
 }
 
 interface XMLHttpRequestEventTarget extends EventTarget {
@@ -11276,7 +11277,7 @@ interface XMLHttpRequestEventTarget extends EventTarget {
     onerror: (this: XMLHttpRequestEventTarget, ev: ErrorEvent) => any;
     onload: (this: XMLHttpRequestEventTarget, ev: Event) => any;
     ontimeout: (this: XMLHttpRequestEventTarget, ev: Event) => any;
-    onloadend: (this: XMLHttpRequestEventTarget, ev: undefined) => any;
+    onloadend: (this: XMLHttpRequestEventTarget, ev: Event) => any;
     addEventListener<K extends keyof XMLHttpRequestEventTargetEventMap>(type: K, listener: (this: XMLHttpRequestEventTarget, ev: XMLHttpRequestEventTargetEventMap[K]) => any, useCapture?: boolean): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
@@ -11630,17 +11631,17 @@ interface NavigatorOnLine {
 }
 
 interface GlobalEventHandlersEventMap {
-    "abort": undefined;
+    "abort": Event;
     "auxclick": MouseEvent;
-    "blur": undefined;
-    "cancel": undefined;
-    "canplay": undefined;
-    "canplaythrough": undefined;
-    "change": undefined;
+    "blur": Event;
+    "cancel": Event;
+    "canplay": Event;
+    "canplaythrough": Event;
+    "change": Event;
     "click": MouseEvent;
-    "close": undefined;
+    "close": Event;
     "contextmenu": MouseEvent;
-    "cuechange": undefined;
+    "cuechange": Event;
     "dblclick": MouseEvent;
     "drag": DragEvent;
     "dragend": DragEvent;
@@ -11650,20 +11651,20 @@ interface GlobalEventHandlersEventMap {
     "dragover": DragEvent;
     "dragstart": DragEvent;
     "drop": DragEvent;
-    "durationchange": undefined;
-    "emptied": undefined;
-    "ended": undefined;
-    "focus": undefined;
-    "input": undefined;
-    "invalid": undefined;
+    "durationchange": Event;
+    "emptied": Event;
+    "ended": Event;
+    "focus": Event;
+    "input": Event;
+    "invalid": Event;
     "keydown": KeyboardEvent;
     "keypress": KeyboardEvent;
     "keyup": KeyboardEvent;
-    "load": undefined;
-    "loadeddata": undefined;
-    "loadedmetadata": undefined;
-    "loadend": undefined;
-    "loadstart": undefined;
+    "load": Event;
+    "loadeddata": Event;
+    "loadedmetadata": Event;
+    "loadend": Event;
+    "loadstart": Event;
     "mousedown": MouseEvent;
     "mouseenter": MouseEvent;
     "mouseleave": MouseEvent;
@@ -11672,25 +11673,25 @@ interface GlobalEventHandlersEventMap {
     "mouseover": MouseEvent;
     "mouseup": MouseEvent;
     "wheel": WheelEvent;
-    "pause": undefined;
-    "play": undefined;
-    "playing": undefined;
-    "progress": undefined;
-    "ratechange": undefined;
-    "reset": undefined;
-    "resize": undefined;
-    "scroll": undefined;
-    "seeked": undefined;
-    "seeking": undefined;
-    "select": undefined;
+    "pause": Event;
+    "play": Event;
+    "playing": Event;
+    "progress": Event;
+    "ratechange": Event;
+    "reset": Event;
+    "resize": Event;
+    "scroll": Event;
+    "seeked": Event;
+    "seeking": Event;
+    "select": Event;
     "show": RelatedEvent;
-    "stalled": undefined;
-    "submit": undefined;
-    "suspend": undefined;
-    "timeupdate": undefined;
-    "toggle": undefined;
-    "volumechange": undefined;
-    "waiting": undefined;
+    "stalled": Event;
+    "submit": Event;
+    "suspend": Event;
+    "timeupdate": Event;
+    "toggle": Event;
+    "volumechange": Event;
+    "waiting": Event;
     "animationstart": AnimationEvent;
     "animationiteration": AnimationEvent;
     "animationend": AnimationEvent;
@@ -11707,22 +11708,22 @@ interface GlobalEventHandlersEventMap {
     "pointerout": Event;
     "pointerenter": Event;
     "pointerleave": Event;
-    "selectstart": undefined;
-    "selectionchange": undefined;
+    "selectstart": Event;
+    "selectionchange": Event;
 }
 
 interface GlobalEventHandlers {
-    onabort: (this: GlobalEventHandlers, ev: undefined) => any;
+    onabort: (this: GlobalEventHandlers, ev: Event) => any;
     onauxclick: (this: GlobalEventHandlers, ev: MouseEvent) => any;
-    onblur: (this: GlobalEventHandlers, ev: undefined) => any;
-    oncancel: (this: GlobalEventHandlers, ev: undefined) => any;
-    oncanplay: (this: GlobalEventHandlers, ev: undefined) => any;
-    oncanplaythrough: (this: GlobalEventHandlers, ev: undefined) => any;
-    onchange: (this: GlobalEventHandlers, ev: undefined) => any;
+    onblur: (this: GlobalEventHandlers, ev: Event) => any;
+    oncancel: (this: GlobalEventHandlers, ev: Event) => any;
+    oncanplay: (this: GlobalEventHandlers, ev: Event) => any;
+    oncanplaythrough: (this: GlobalEventHandlers, ev: Event) => any;
+    onchange: (this: GlobalEventHandlers, ev: Event) => any;
     onclick: (this: GlobalEventHandlers, ev: MouseEvent) => any;
-    onclose: (this: GlobalEventHandlers, ev: undefined) => any;
+    onclose: (this: GlobalEventHandlers, ev: Event) => any;
     oncontextmenu: (this: GlobalEventHandlers, ev: MouseEvent) => any;
-    oncuechange: (this: GlobalEventHandlers, ev: undefined) => any;
+    oncuechange: (this: GlobalEventHandlers, ev: Event) => any;
     ondblclick: (this: GlobalEventHandlers, ev: MouseEvent) => any;
     ondrag: (this: GlobalEventHandlers, ev: DragEvent) => any;
     ondragend: (this: GlobalEventHandlers, ev: DragEvent) => any;
@@ -11732,21 +11733,21 @@ interface GlobalEventHandlers {
     ondragover: (this: GlobalEventHandlers, ev: DragEvent) => any;
     ondragstart: (this: GlobalEventHandlers, ev: DragEvent) => any;
     ondrop: (this: GlobalEventHandlers, ev: DragEvent) => any;
-    ondurationchange: (this: GlobalEventHandlers, ev: undefined) => any;
-    onemptied: (this: GlobalEventHandlers, ev: undefined) => any;
-    onended: (this: GlobalEventHandlers, ev: undefined) => any;
+    ondurationchange: (this: GlobalEventHandlers, ev: Event) => any;
+    onemptied: (this: GlobalEventHandlers, ev: Event) => any;
+    onended: (this: GlobalEventHandlers, ev: Event) => any;
     onerror: OnErrorEventHandler;
-    onfocus: (this: GlobalEventHandlers, ev: undefined) => any;
-    oninput: (this: GlobalEventHandlers, ev: undefined) => any;
-    oninvalid: (this: GlobalEventHandlers, ev: undefined) => any;
+    onfocus: (this: GlobalEventHandlers, ev: Event) => any;
+    oninput: (this: GlobalEventHandlers, ev: Event) => any;
+    oninvalid: (this: GlobalEventHandlers, ev: Event) => any;
     onkeydown: (this: GlobalEventHandlers, ev: KeyboardEvent) => any;
     onkeypress: (this: GlobalEventHandlers, ev: KeyboardEvent) => any;
     onkeyup: (this: GlobalEventHandlers, ev: KeyboardEvent) => any;
-    onload: (this: GlobalEventHandlers, ev: undefined) => any;
-    onloadeddata: (this: GlobalEventHandlers, ev: undefined) => any;
-    onloadedmetadata: (this: GlobalEventHandlers, ev: undefined) => any;
-    onloadend: (this: GlobalEventHandlers, ev: undefined) => any;
-    onloadstart: (this: GlobalEventHandlers, ev: undefined) => any;
+    onload: (this: GlobalEventHandlers, ev: Event) => any;
+    onloadeddata: (this: GlobalEventHandlers, ev: Event) => any;
+    onloadedmetadata: (this: GlobalEventHandlers, ev: Event) => any;
+    onloadend: (this: GlobalEventHandlers, ev: Event) => any;
+    onloadstart: (this: GlobalEventHandlers, ev: Event) => any;
     onmousedown: (this: GlobalEventHandlers, ev: MouseEvent) => any;
     onmouseenter: (this: GlobalEventHandlers, ev: MouseEvent) => any;
     onmouseleave: (this: GlobalEventHandlers, ev: MouseEvent) => any;
@@ -11755,25 +11756,25 @@ interface GlobalEventHandlers {
     onmouseover: (this: GlobalEventHandlers, ev: MouseEvent) => any;
     onmouseup: (this: GlobalEventHandlers, ev: MouseEvent) => any;
     onwheel: (this: GlobalEventHandlers, ev: WheelEvent) => any;
-    onpause: (this: GlobalEventHandlers, ev: undefined) => any;
-    onplay: (this: GlobalEventHandlers, ev: undefined) => any;
-    onplaying: (this: GlobalEventHandlers, ev: undefined) => any;
-    onprogress: (this: GlobalEventHandlers, ev: undefined) => any;
-    onratechange: (this: GlobalEventHandlers, ev: undefined) => any;
-    onreset: (this: GlobalEventHandlers, ev: undefined) => any;
-    onresize: (this: GlobalEventHandlers, ev: undefined) => any;
-    onscroll: (this: GlobalEventHandlers, ev: undefined) => any;
-    onseeked: (this: GlobalEventHandlers, ev: undefined) => any;
-    onseeking: (this: GlobalEventHandlers, ev: undefined) => any;
-    onselect: (this: GlobalEventHandlers, ev: undefined) => any;
+    onpause: (this: GlobalEventHandlers, ev: Event) => any;
+    onplay: (this: GlobalEventHandlers, ev: Event) => any;
+    onplaying: (this: GlobalEventHandlers, ev: Event) => any;
+    onprogress: (this: GlobalEventHandlers, ev: Event) => any;
+    onratechange: (this: GlobalEventHandlers, ev: Event) => any;
+    onreset: (this: GlobalEventHandlers, ev: Event) => any;
+    onresize: (this: GlobalEventHandlers, ev: Event) => any;
+    onscroll: (this: GlobalEventHandlers, ev: Event) => any;
+    onseeked: (this: GlobalEventHandlers, ev: Event) => any;
+    onseeking: (this: GlobalEventHandlers, ev: Event) => any;
+    onselect: (this: GlobalEventHandlers, ev: Event) => any;
     onshow: (this: GlobalEventHandlers, ev: RelatedEvent) => any;
-    onstalled: (this: GlobalEventHandlers, ev: undefined) => any;
-    onsubmit: (this: GlobalEventHandlers, ev: undefined) => any;
-    onsuspend: (this: GlobalEventHandlers, ev: undefined) => any;
-    ontimeupdate: (this: GlobalEventHandlers, ev: undefined) => any;
-    ontoggle: (this: GlobalEventHandlers, ev: undefined) => any;
-    onvolumechange: (this: GlobalEventHandlers, ev: undefined) => any;
-    onwaiting: (this: GlobalEventHandlers, ev: undefined) => any;
+    onstalled: (this: GlobalEventHandlers, ev: Event) => any;
+    onsubmit: (this: GlobalEventHandlers, ev: Event) => any;
+    onsuspend: (this: GlobalEventHandlers, ev: Event) => any;
+    ontimeupdate: (this: GlobalEventHandlers, ev: Event) => any;
+    ontoggle: (this: GlobalEventHandlers, ev: Event) => any;
+    onvolumechange: (this: GlobalEventHandlers, ev: Event) => any;
+    onwaiting: (this: GlobalEventHandlers, ev: Event) => any;
     onanimationstart: (this: GlobalEventHandlers, ev: AnimationEvent) => any;
     onanimationiteration: (this: GlobalEventHandlers, ev: AnimationEvent) => any;
     onanimationend: (this: GlobalEventHandlers, ev: AnimationEvent) => any;
@@ -11790,59 +11791,59 @@ interface GlobalEventHandlers {
     onpointerout: (this: GlobalEventHandlers, ev: Event) => any;
     onpointerenter: (this: GlobalEventHandlers, ev: Event) => any;
     onpointerleave: (this: GlobalEventHandlers, ev: Event) => any;
-    onselectstart: (this: GlobalEventHandlers, ev: undefined) => any;
-    onselectionchange: (this: GlobalEventHandlers, ev: undefined) => any;
+    onselectstart: (this: GlobalEventHandlers, ev: Event) => any;
+    onselectionchange: (this: GlobalEventHandlers, ev: Event) => any;
     addEventListener<K extends keyof GlobalEventHandlersEventMap>(type: K, listener: (this: GlobalEventHandlers, ev: GlobalEventHandlersEventMap[K]) => any, useCapture?: boolean): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 interface WindowEventHandlersEventMap {
-    "afterprint": undefined;
-    "beforeprint": undefined;
+    "afterprint": Event;
+    "beforeprint": Event;
     "hashchange": HashChangeEvent;
-    "languagechange": undefined;
+    "languagechange": Event;
     "message": MessageEvent;
-    "offline": undefined;
-    "online": undefined;
+    "offline": Event;
+    "online": Event;
     "pagehide": PageTransitionEvent;
     "pageshow": PageTransitionEvent;
     "popstate": PopStateEvent;
     "rejectionhandled": PromiseRejectionEvent;
     "storage": StorageEvent;
     "unhandledrejection": PromiseRejectionEvent;
-    "unload": undefined;
+    "unload": Event;
 }
 
 interface WindowEventHandlers {
-    onafterprint: (this: WindowEventHandlers, ev: undefined) => any;
-    onbeforeprint: (this: WindowEventHandlers, ev: undefined) => any;
+    onafterprint: (this: WindowEventHandlers, ev: Event) => any;
+    onbeforeprint: (this: WindowEventHandlers, ev: Event) => any;
     onbeforeunload: OnBeforeUnloadEventHandler;
     onhashchange: (this: WindowEventHandlers, ev: HashChangeEvent) => any;
-    onlanguagechange: (this: WindowEventHandlers, ev: undefined) => any;
+    onlanguagechange: (this: WindowEventHandlers, ev: Event) => any;
     onmessage: (this: WindowEventHandlers, ev: MessageEvent) => any;
-    onoffline: (this: WindowEventHandlers, ev: undefined) => any;
-    ononline: (this: WindowEventHandlers, ev: undefined) => any;
+    onoffline: (this: WindowEventHandlers, ev: Event) => any;
+    ononline: (this: WindowEventHandlers, ev: Event) => any;
     onpagehide: (this: WindowEventHandlers, ev: PageTransitionEvent) => any;
     onpageshow: (this: WindowEventHandlers, ev: PageTransitionEvent) => any;
     onpopstate: (this: WindowEventHandlers, ev: PopStateEvent) => any;
     onrejectionhandled: (this: WindowEventHandlers, ev: PromiseRejectionEvent) => any;
     onstorage: (this: WindowEventHandlers, ev: StorageEvent) => any;
     onunhandledrejection: (this: WindowEventHandlers, ev: PromiseRejectionEvent) => any;
-    onunload: (this: WindowEventHandlers, ev: undefined) => any;
+    onunload: (this: WindowEventHandlers, ev: Event) => any;
     addEventListener<K extends keyof WindowEventHandlersEventMap>(type: K, listener: (this: WindowEventHandlers, ev: WindowEventHandlersEventMap[K]) => any, useCapture?: boolean): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 interface DocumentAndElementEventHandlersEventMap {
-    "copy": undefined;
-    "cut": undefined;
-    "paste": undefined;
+    "copy": Event;
+    "cut": Event;
+    "paste": Event;
 }
 
 interface DocumentAndElementEventHandlers {
-    oncopy: (this: DocumentAndElementEventHandlers, ev: undefined) => any;
-    oncut: (this: DocumentAndElementEventHandlers, ev: undefined) => any;
-    onpaste: (this: DocumentAndElementEventHandlers, ev: undefined) => any;
+    oncopy: (this: DocumentAndElementEventHandlers, ev: Event) => any;
+    oncut: (this: DocumentAndElementEventHandlers, ev: Event) => any;
+    onpaste: (this: DocumentAndElementEventHandlers, ev: Event) => any;
     addEventListener<K extends keyof DocumentAndElementEventHandlersEventMap>(type: K, listener: (this: DocumentAndElementEventHandlers, ev: DocumentAndElementEventHandlersEventMap[K]) => any, useCapture?: boolean): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
@@ -12779,17 +12780,17 @@ declare function createImageBitmap(image: HTMLImageElement | SVGImageElement | H
 declare function toString(): string;
 declare function removeEventListener(type: string, listener?: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
 declare function dispatchEvent(event: Event): boolean;
-declare var onabort: (this: Window, ev: undefined) => any;
+declare var onabort: (this: Window, ev: Event) => any;
 declare var onauxclick: (this: Window, ev: MouseEvent) => any;
-declare var onblur: (this: Window, ev: undefined) => any;
-declare var oncancel: (this: Window, ev: undefined) => any;
-declare var oncanplay: (this: Window, ev: undefined) => any;
-declare var oncanplaythrough: (this: Window, ev: undefined) => any;
-declare var onchange: (this: Window, ev: undefined) => any;
+declare var onblur: (this: Window, ev: Event) => any;
+declare var oncancel: (this: Window, ev: Event) => any;
+declare var oncanplay: (this: Window, ev: Event) => any;
+declare var oncanplaythrough: (this: Window, ev: Event) => any;
+declare var onchange: (this: Window, ev: Event) => any;
 declare var onclick: (this: Window, ev: MouseEvent) => any;
-declare var onclose: (this: Window, ev: undefined) => any;
+declare var onclose: (this: Window, ev: Event) => any;
 declare var oncontextmenu: (this: Window, ev: MouseEvent) => any;
-declare var oncuechange: (this: Window, ev: undefined) => any;
+declare var oncuechange: (this: Window, ev: Event) => any;
 declare var ondblclick: (this: Window, ev: MouseEvent) => any;
 declare var ondrag: (this: Window, ev: DragEvent) => any;
 declare var ondragend: (this: Window, ev: DragEvent) => any;
@@ -12799,21 +12800,21 @@ declare var ondragleave: (this: Window, ev: DragEvent) => any;
 declare var ondragover: (this: Window, ev: DragEvent) => any;
 declare var ondragstart: (this: Window, ev: DragEvent) => any;
 declare var ondrop: (this: Window, ev: DragEvent) => any;
-declare var ondurationchange: (this: Window, ev: undefined) => any;
-declare var onemptied: (this: Window, ev: undefined) => any;
-declare var onended: (this: Window, ev: undefined) => any;
+declare var ondurationchange: (this: Window, ev: Event) => any;
+declare var onemptied: (this: Window, ev: Event) => any;
+declare var onended: (this: Window, ev: Event) => any;
 declare var onerror: OnErrorEventHandler;
-declare var onfocus: (this: Window, ev: undefined) => any;
-declare var oninput: (this: Window, ev: undefined) => any;
-declare var oninvalid: (this: Window, ev: undefined) => any;
+declare var onfocus: (this: Window, ev: Event) => any;
+declare var oninput: (this: Window, ev: Event) => any;
+declare var oninvalid: (this: Window, ev: Event) => any;
 declare var onkeydown: (this: Window, ev: KeyboardEvent) => any;
 declare var onkeypress: (this: Window, ev: KeyboardEvent) => any;
 declare var onkeyup: (this: Window, ev: KeyboardEvent) => any;
-declare var onload: (this: Window, ev: undefined) => any;
-declare var onloadeddata: (this: Window, ev: undefined) => any;
-declare var onloadedmetadata: (this: Window, ev: undefined) => any;
-declare var onloadend: (this: Window, ev: undefined) => any;
-declare var onloadstart: (this: Window, ev: undefined) => any;
+declare var onload: (this: Window, ev: Event) => any;
+declare var onloadeddata: (this: Window, ev: Event) => any;
+declare var onloadedmetadata: (this: Window, ev: Event) => any;
+declare var onloadend: (this: Window, ev: Event) => any;
+declare var onloadstart: (this: Window, ev: Event) => any;
 declare var onmousedown: (this: Window, ev: MouseEvent) => any;
 declare var onmouseenter: (this: Window, ev: MouseEvent) => any;
 declare var onmouseleave: (this: Window, ev: MouseEvent) => any;
@@ -12822,25 +12823,25 @@ declare var onmouseout: (this: Window, ev: MouseEvent) => any;
 declare var onmouseover: (this: Window, ev: MouseEvent) => any;
 declare var onmouseup: (this: Window, ev: MouseEvent) => any;
 declare var onwheel: (this: Window, ev: WheelEvent) => any;
-declare var onpause: (this: Window, ev: undefined) => any;
-declare var onplay: (this: Window, ev: undefined) => any;
-declare var onplaying: (this: Window, ev: undefined) => any;
-declare var onprogress: (this: Window, ev: undefined) => any;
-declare var onratechange: (this: Window, ev: undefined) => any;
-declare var onreset: (this: Window, ev: undefined) => any;
-declare var onresize: (this: Window, ev: undefined) => any;
-declare var onscroll: (this: Window, ev: undefined) => any;
-declare var onseeked: (this: Window, ev: undefined) => any;
-declare var onseeking: (this: Window, ev: undefined) => any;
-declare var onselect: (this: Window, ev: undefined) => any;
+declare var onpause: (this: Window, ev: Event) => any;
+declare var onplay: (this: Window, ev: Event) => any;
+declare var onplaying: (this: Window, ev: Event) => any;
+declare var onprogress: (this: Window, ev: Event) => any;
+declare var onratechange: (this: Window, ev: Event) => any;
+declare var onreset: (this: Window, ev: Event) => any;
+declare var onresize: (this: Window, ev: Event) => any;
+declare var onscroll: (this: Window, ev: Event) => any;
+declare var onseeked: (this: Window, ev: Event) => any;
+declare var onseeking: (this: Window, ev: Event) => any;
+declare var onselect: (this: Window, ev: Event) => any;
 declare var onshow: (this: Window, ev: RelatedEvent) => any;
-declare var onstalled: (this: Window, ev: undefined) => any;
-declare var onsubmit: (this: Window, ev: undefined) => any;
-declare var onsuspend: (this: Window, ev: undefined) => any;
-declare var ontimeupdate: (this: Window, ev: undefined) => any;
-declare var ontoggle: (this: Window, ev: undefined) => any;
-declare var onvolumechange: (this: Window, ev: undefined) => any;
-declare var onwaiting: (this: Window, ev: undefined) => any;
+declare var onstalled: (this: Window, ev: Event) => any;
+declare var onsubmit: (this: Window, ev: Event) => any;
+declare var onsuspend: (this: Window, ev: Event) => any;
+declare var ontimeupdate: (this: Window, ev: Event) => any;
+declare var ontoggle: (this: Window, ev: Event) => any;
+declare var onvolumechange: (this: Window, ev: Event) => any;
+declare var onwaiting: (this: Window, ev: Event) => any;
 declare var onanimationstart: (this: Window, ev: AnimationEvent) => any;
 declare var onanimationiteration: (this: Window, ev: AnimationEvent) => any;
 declare var onanimationend: (this: Window, ev: AnimationEvent) => any;
@@ -12857,23 +12858,23 @@ declare var onpointerover: (this: Window, ev: Event) => any;
 declare var onpointerout: (this: Window, ev: Event) => any;
 declare var onpointerenter: (this: Window, ev: Event) => any;
 declare var onpointerleave: (this: Window, ev: Event) => any;
-declare var onselectstart: (this: Window, ev: undefined) => any;
-declare var onselectionchange: (this: Window, ev: undefined) => any;
-declare var onafterprint: (this: Window, ev: undefined) => any;
-declare var onbeforeprint: (this: Window, ev: undefined) => any;
+declare var onselectstart: (this: Window, ev: Event) => any;
+declare var onselectionchange: (this: Window, ev: Event) => any;
+declare var onafterprint: (this: Window, ev: Event) => any;
+declare var onbeforeprint: (this: Window, ev: Event) => any;
 declare var onbeforeunload: OnBeforeUnloadEventHandler;
 declare var onhashchange: (this: Window, ev: HashChangeEvent) => any;
-declare var onlanguagechange: (this: Window, ev: undefined) => any;
+declare var onlanguagechange: (this: Window, ev: Event) => any;
 declare var onmessage: (this: Window, ev: MessageEvent) => any;
-declare var onoffline: (this: Window, ev: undefined) => any;
-declare var ononline: (this: Window, ev: undefined) => any;
+declare var onoffline: (this: Window, ev: Event) => any;
+declare var ononline: (this: Window, ev: Event) => any;
 declare var onpagehide: (this: Window, ev: PageTransitionEvent) => any;
 declare var onpageshow: (this: Window, ev: PageTransitionEvent) => any;
 declare var onpopstate: (this: Window, ev: PopStateEvent) => any;
 declare var onrejectionhandled: (this: Window, ev: PromiseRejectionEvent) => any;
 declare var onstorage: (this: Window, ev: StorageEvent) => any;
 declare var onunhandledrejection: (this: Window, ev: PromiseRejectionEvent) => any;
-declare var onunload: (this: Window, ev: undefined) => any;
+declare var onunload: (this: Window, ev: Event) => any;
 declare var origin: string;
 declare var caches: CacheStorage;
 declare function btoa(data: string): string;
