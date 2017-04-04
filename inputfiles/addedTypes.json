@@ -511,12 +511,6 @@
         "interface": "DocumentFragment"
     },
     {
-        "kind": "method",
-        "interface": "CanvasPattern",
-        "name": "setTransform",
-        "signatures": ["setTransform(matrix: SVGMatrix): void"]
-    },
-    {
         "kind": "interface",
         "name": "DocumentOrShadowRoot",
         "flavor": "DOM",
