@@ -632,12 +632,5 @@
         "name": "formData",
         "flavor": "Web",
         "signatures": ["formData(): Promise<FormData>"]
-    },
-    {
-        "kind": "method",
-        "interface": "DocumentFragment",
-        "name": "getElementById",
-        "flavor": "DOM",
-        "signatures": ["getElementById(elementId: string): HTMLElement | null"]
     }
 ]

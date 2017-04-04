@@ -2628,7 +2628,6 @@ declare var DocumentType: {
 }
 
 interface DocumentFragment extends Node, NonElementParentNode, ParentNode, ParentNode {
-    getElementById(elementId: string): HTMLElement | null;
 }
 
 declare var DocumentFragment: {
