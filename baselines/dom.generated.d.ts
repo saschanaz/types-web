@@ -6594,7 +6594,6 @@ declare var CanvasGradient: {
 
 interface CanvasPattern {
     setTransform(transform?: DOMMatrixInit): void;
-    setTransform(matrix: SVGMatrix): void;
 }
 
 declare var CanvasPattern: {
