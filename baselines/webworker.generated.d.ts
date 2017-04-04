@@ -270,7 +270,6 @@ interface Response extends Object, Body {
     readonly statusText: any;
     readonly headers: Headers;
     readonly trailer: Promise<Headers>;
-    readonly redirected: boolean;
     clone(): Response;
 }
 
@@ -1487,15 +1486,6 @@ interface ProgressEventInit extends EventInit {
 interface IDBArrayKey extends Array<IDBValidKey> {
 }
 
-interface EventListenerOptions {
-    capture?: boolean;
-}
-
-interface AddEventListenerOptions extends EventListenerOptions {
-    passive?: boolean;
-    once?: boolean;
-}
-
 declare type EventListenerOrEventListenerObject = EventListener | EventListenerObject;
 
 interface PositionCallback {
@@ -1551,7 +1541,6 @@ type BodyInit = any;
 type RequestInfo = Request | string;
 type AlgorithmIdentifier = any;
 type IDBValidKey = number | string | Date | IDBArrayKey;
-type FormDataEntryValue = string | File;
 type MediaKeyStatus = "usable" | "expired" | "released" | "output-restricted" | "output-downscaled" | "status-pending" | "internal-error";
 type RequestType = "" | "audio" | "font" | "image" | "script" | "style" | "track" | "video";
 type RequestDestination = "" | "audio" | "document" | "embed" | "font" | "image" | "manifest" | "object" | "report" | "script" | "serviceworker" | "sharedworker" | "style" | "track" | "video" | "worker" | "xslt";

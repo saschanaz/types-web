@@ -514,7 +514,6 @@ interface IDBVersionChangeEventInit extends EventInit {
 }
 
 interface IntersectionObserverEntryInit {
-    isIntersecting: boolean;
     time: number;
     rootBounds: DOMRectInit;
     boundingClientRect: DOMRectInit;
@@ -2629,7 +2628,6 @@ declare var DocumentType: {
 };
 
 interface DocumentFragment extends Node, NonElementParentNode, ParentNode, ParentNode {
-    getElementById(elementId: string): HTMLElement | null;
 }
 
 declare var DocumentFragment: {
@@ -3051,7 +3049,6 @@ interface Response extends Object, Body {
     readonly statusText: any;
     readonly headers: Headers;
     readonly trailer: Promise<Headers>;
-    readonly redirected: boolean;
     clone(): Response;
 }
 
@@ -6383,7 +6380,6 @@ interface ValidityState {
     readonly badInput: boolean;
     readonly customError: boolean;
     readonly valid: boolean;
-    readonly tooShort: boolean;
 }
 
 declare var ValidityState: {
@@ -7731,7 +7727,6 @@ interface IntersectionObserverEntry {
     readonly isIntersecting: boolean;
     readonly intersectionRatio: number;
     readonly target: Element;
-    readonly isIntersecting: boolean;
 }
 
 declare var IntersectionObserverEntry: {
@@ -11360,11 +11355,6 @@ interface FormData {
     has(name: string): boolean;
     set(name: string, value: string): void;
     set(name: string, blobValue: Blob, filename?: string): void;
-    delete(name: string): void;
-    get(name: string): FormDataEntryValue | null;
-    getAll(name: string): FormDataEntryValue[];
-    has(name: string): boolean;
-    set(name: string, value: string | Blob, fileName?: string): void;
 }
 
 declare var FormData: {
@@ -12656,59 +12646,6 @@ interface AssignedNodesOptions {
     flatten?: boolean;
 }
 
-interface EventListenerOptions {
-    capture?: boolean;
-}
-
-interface AddEventListenerOptions extends EventListenerOptions {
-    passive?: boolean;
-    once?: boolean;
-}
-
-interface TouchEventInit extends EventModifierInit {
-    touches?: Touch[];
-    targetTouches?: Touch[];
-    changedTouches?: Touch[];
-}
-
-interface HTMLDialogElement extends HTMLElement {
-    open: boolean;
-    returnValue: string;
-    close(returnValue?: string): void;
-    show(): void;
-    showModal(): void;
-}
-
-declare var HTMLDialogElement: {
-    prototype: HTMLDialogElement;
-    new(): HTMLDialogElement;
-};
-
-interface HTMLMainElement extends HTMLElement {
-}
-
-declare var HTMLMainElement: {
-    prototype: HTMLMainElement;
-    new(): HTMLMainElement;
-};
-
-interface HTMLDetailsElement extends HTMLElement {
-    open: boolean;
-}
-
-declare var HTMLDetailsElement: {
-    prototype: HTMLDetailsElement;
-    new(): HTMLDetailsElement;
-};
-
-interface HTMLSummaryElement extends HTMLElement {
-}
-
-declare var HTMLSummaryElement: {
-    prototype: HTMLSummaryElement;
-    new(): HTMLSummaryElement;
-};
-
 declare type EventListenerOrEventListenerObject = EventListener | EventListenerObject;
 
 interface MutationCallback {
@@ -13035,8 +12972,6 @@ type DOMTimeStamp = number;
 type FormDataEntryValue = File | string;
 type IDBValidKey = number | string | Date | IDBArrayKey;
 type MouseWheelEvent = WheelEvent;
-type FormDataEntryValue = string | File;
-type InsertPosition = "beforebegin" | "afterbegin" | "beforeend" | "afterend";
 type ScrollBehavior = "auto" | "instant" | "smooth";
 type ScrollLogicalPosition = "start" | "center" | "end" | "nearest";
 type CSSBoxType = "margin" | "border" | "padding" | "content";
