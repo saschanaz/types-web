@@ -911,6 +911,17 @@ declare var CacheStorage: {
     new(): CacheStorage;
 };
 
+interface ReadableStream {
+    readonly locked: boolean;
+    cancel(): Promise<void>;
+    getReader(): ReadableStreamDefaultReader;
+}
+
+declare var ReadableStream: {
+    prototype: ReadableStream;
+    new(): ReadableStream;
+};
+
 interface URL {
     href: string;
     readonly origin: string;
@@ -1117,7 +1128,7 @@ declare var ProgressEvent: {
 };
 
 interface Body {
-    readonly body: any;
+    readonly body: ReadableStream | null;
     readonly bodyUsed: boolean;
     arrayBuffer(): Promise<ArrayBuffer>;
     blob(): Promise<Blob>;
@@ -1537,7 +1548,7 @@ declare function removeEventListener(type: string, listener?: EventListenerOrEve
 declare function dispatchEvent(event: Event): boolean;
 declare function addEventListener<K extends keyof DedicatedWorkerGlobalScopeEventMap>(type: K, listener: (this: DedicatedWorkerGlobalScope, ev: DedicatedWorkerGlobalScopeEventMap[K]) => any, useCapture?: boolean): void;
 declare function addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
-type BodyInit = any;
+type BodyInit = Blob | BufferSource | FormData | URLSearchParams | ReadableStream | string;
 type RequestInfo = Request | string;
 type AlgorithmIdentifier = any;
 type IDBValidKey = number | string | Date | IDBArrayKey;

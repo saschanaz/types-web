@@ -7856,6 +7856,28 @@
         <method name="keys" type="Promise&lt;sequence&lt;DOMString&gt;&gt;"/>
       </methods>
     </interface>
+    <interface name="ReadableStream" extends="Object">
+      <methods>
+        <method name="cancel" type="Promise&lt;void&gt;"/>
+        <method name="getReader" type="ReadableStreamDefaultReader"/>
+      </methods>
+      <properties>
+        <property name="locked" read-only="1" type="boolean"/>
+      </properties>
+    </interface>
+    <interface name="ReadableStreamDefaultReader" extends="Object">
+      <constructor>
+        <param name="stream" type="ReadableStream"/>
+      </constructor>
+      <methods>
+        <method name="cancel" type="Promise&lt;void&gt;"/>
+        <method name="read" type="Promise&lt;any&gt;"/>
+        <method name="releaseLock" type="void"/>
+      </methods>
+      <properties>
+        <property name="closed" read-only="1" type="boolean"/>
+      </properties>
+    </interface>
     <interface name="SVGElement" extends="Element">
       <methods>
         <method name="focus" type="void"/>
@@ -12449,6 +12471,7 @@
         </method>
         <method name="dir" type="void">
           <param name="item" type="any"/>
+          <param name="options" optional="1" nullable="1" type="object"/>
         </method>
         <method name="dirxml" type="void">
           <param name="data" type="any" variadic="1"/>
