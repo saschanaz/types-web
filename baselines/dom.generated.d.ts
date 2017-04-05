@@ -9596,7 +9596,7 @@ declare var SVGScriptElement: {
     new (): SVGScriptElement;
 }
 
-interface SVGAElement extends SVGGraphicsElement, SVGURIReference, HTMLHyperlinkElementUtils {
+interface SVGAElement extends SVGGraphicsElement, SVGURIReference, HTMLHyperlinkElementUtilsBase {
     readonly target: SVGAnimatedString;
     readonly download: SVGAnimatedString;
     readonly rel: SVGAnimatedString;
@@ -11545,8 +11545,7 @@ interface GlobalPerformance {
     readonly performance: Performance;
 }
 
-interface HTMLHyperlinkElementUtils {
-    href: string;
+interface HTMLHyperlinkElementUtilsBase {
     readonly origin: string;
     protocol: string;
     username: string;
@@ -11557,6 +11556,10 @@ interface HTMLHyperlinkElementUtils {
     pathname: string;
     search: string;
     hash: string;
+}
+
+interface HTMLHyperlinkElementUtils extends HTMLHyperlinkElementUtilsBase {
+    href: string;
 }
 
 interface CanvasState {
