@@ -1165,9 +1165,14 @@ module Emit =
                 Pt.Printl "declare var %s: { new(%s): %s; };" nc.Name (ParamsToString ncParams) i.Name)
 
     let EmitInterfaceDeclaration (i:Browser.Interface) =
+        let getConflict iName = Map.tryFind iName extendConflictsBaseTypes;
         let processIName iName =
-            match Map.tryFind iName extendConflictsBaseTypes with
+            match getConflict iName with
             | Some _ -> iName + "Base"
+            | _ -> iName
+        let processExtendIName iName =
+            match getConflict iName with
+            | Some conflict -> if List.contains i.Name conflict.ExtendType then iName + "Base" else iName
             | _ -> iName
 
         let processedIName = processIName i.Name
@@ -1193,7 +1198,7 @@ module Emit =
                 else
                     overridenExtendsFromJson
 
-            combinedExtends |> List.map processIName
+            combinedExtends |> List.map processExtendIName
 
         match finalExtends  with
         | [] -> ()
