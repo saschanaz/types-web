@@ -8526,6 +8526,29 @@ declare var CacheStorage: {
     new (): CacheStorage;
 }
 
+interface ReadableStream {
+    readonly locked: boolean;
+    cancel(): Promise<void>;
+    getReader(): ReadableStreamDefaultReader;
+}
+
+declare var ReadableStream: {
+    prototype: ReadableStream;
+    new (): ReadableStream;
+}
+
+interface ReadableStreamDefaultReader {
+    readonly closed: boolean;
+    cancel(): Promise<void>;
+    read(): Promise<any>;
+    releaseLock(): void;
+}
+
+declare var ReadableStreamDefaultReader: {
+    prototype: ReadableStreamDefaultReader;
+    new (stream: ReadableStream): ReadableStreamDefaultReader;
+}
+
 interface SVGElement extends Element, GlobalEventHandlers, SVGElementInstance, ElementCSSInlineStyle {
     className: any;
     readonly dataset: DOMStringMap;
@@ -11431,7 +11454,7 @@ interface Slotable {
 }
 
 interface Body {
-    readonly body: any;
+    readonly body: ReadableStream | null;
     readonly bodyUsed: boolean;
     arrayBuffer(): Promise<ArrayBuffer>;
     blob(): Promise<Blob>;
@@ -12515,7 +12538,7 @@ declare namespace console {
     function table(tabularData: any, properties?: string[]): void;
     function trace(...data: any[]): void;
     function warn(...data: any[]): void;
-    function dir(item: any): void;
+    function dir(item: any, options?: any): void;
     function dirxml(...data: any[]): void;
     function group(...data: any[]): void;
     function groupCollapsed(...data: any[]): void;
@@ -12896,7 +12919,7 @@ declare function addEventListener<K extends keyof WindowEventMap>(type: K, liste
 declare function addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 type GeometryNode = Text | Element | CSSPseudoElement | Document;
 type HeadersInit = any;
-type BodyInit = any;
+type BodyInit = Blob | BufferSource | FormData | URLSearchParams | ReadableStream | string;
 type RequestInfo = Request | string;
 type DOMHighResTimeStamp = number;
 type HTMLOrSVGScriptElement = HTMLScriptElement | SVGScriptElement;
