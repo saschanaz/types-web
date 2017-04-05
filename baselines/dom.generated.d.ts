@@ -8843,6 +8843,20 @@ declare var SVGStringList: {
     new (): SVGStringList;
 }
 
+interface SVGUnitTypes {
+    readonly SVG_UNIT_TYPE_UNKNOWN: number;
+    readonly SVG_UNIT_TYPE_USERSPACEONUSE: number;
+    readonly SVG_UNIT_TYPE_OBJECTBOUNDINGBOX: number;
+}
+
+declare var SVGUnitTypes: {
+    prototype: SVGUnitTypes;
+    new (): SVGUnitTypes;
+    readonly SVG_UNIT_TYPE_UNKNOWN: number;
+    readonly SVG_UNIT_TYPE_USERSPACEONUSE: number;
+    readonly SVG_UNIT_TYPE_OBJECTBOUNDINGBOX: number;
+}
+
 interface SVGSVGElement extends SVGGraphicsElement, SVGFitToViewBox, SVGZoomAndPan, WindowEventHandlers {
     readonly x: SVGAnimatedLength;
     readonly y: SVGAnimatedLength;
@@ -8973,12 +8987,12 @@ declare var SVGUseElement: {
     new (): SVGUseElement;
 }
 
-interface SVGElementInstance extends ShadowRoot {
+interface SVGUseElementShadowRoot extends ShadowRoot {
 }
 
-declare var SVGElementInstance: {
-    prototype: SVGElementInstance;
-    new (): SVGElementInstance;
+declare var SVGUseElementShadowRoot: {
+    prototype: SVGUseElementShadowRoot;
+    new (): SVGUseElementShadowRoot;
 }
 
 interface ShadowAnimation extends Animation {
@@ -9417,7 +9431,7 @@ declare var SVGSolidcolorElement: {
     new (): SVGSolidcolorElement;
 }
 
-interface SVGGradientElement extends SVGElement, SVGURIReference, SVGUnitTypes {
+interface SVGGradientElement extends SVGElement, SVGURIReference {
     readonly gradientUnits: SVGAnimatedEnumeration;
     readonly gradientTransform: SVGAnimatedTransformList;
     readonly spreadMethod: SVGAnimatedEnumeration;
@@ -9516,7 +9530,7 @@ declare var SVGStopElement: {
     new (): SVGStopElement;
 }
 
-interface SVGPatternElement extends SVGElement, SVGFitToViewBox, SVGURIReference, SVGUnitTypes {
+interface SVGPatternElement extends SVGElement, SVGFitToViewBox, SVGURIReference {
     readonly patternUnits: SVGAnimatedEnumeration;
     readonly patternContentUnits: SVGAnimatedEnumeration;
     readonly patternTransform: SVGAnimatedTransformList;
@@ -12005,12 +12019,6 @@ interface ConstrainablePattern {
     applyConstraints(constraints?: Constraints): Promise<void>;
     addEventListener<K extends keyof ConstrainablePatternEventMap>(type: K, listener: (this: ConstrainablePattern, ev: ConstrainablePatternEventMap[K]) => any, useCapture?: boolean): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
-}
-
-interface SVGUnitTypes {
-    readonly SVG_UNIT_TYPE_UNKNOWN: number;
-    readonly SVG_UNIT_TYPE_USERSPACEONUSE: number;
-    readonly SVG_UNIT_TYPE_OBJECTBOUNDINGBOX: number;
 }
 
 interface SVGTests {
