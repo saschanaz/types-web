@@ -8171,6 +8171,13 @@
         <property name="numberOfItems" read-only="1" type="unsigned long"/>
       </properties>
     </interface>
+    <interface name="SVGUnitTypes" extends="Object">
+      <constants>
+        <constant name="SVG_UNIT_TYPE_UNKNOWN" type="unsigned short" value="0"/>
+        <constant name="SVG_UNIT_TYPE_USERSPACEONUSE" type="unsigned short" value="1"/>
+        <constant name="SVG_UNIT_TYPE_OBJECTBOUNDINGBOX" type="unsigned short" value="2"/>
+      </constants>
+    </interface>
     <interface name="SVGSVGElement" extends="SVGGraphicsElement">
       <methods>
         <method name="getIntersectionList" type="NodeList">
@@ -8244,7 +8251,7 @@
       </properties>
       <implements>SVGURIReference</implements>
     </interface>
-    <interface name="SVGElementInstance" extends="ShadowRoot"/>
+    <interface name="SVGUseElementShadowRoot" extends="ShadowRoot"/>
     <interface name="ShadowAnimation" extends="Animation">
       <constructor>
         <param name="source" type="Animation"/>
@@ -8579,7 +8586,6 @@
         <property name="spreadMethod" read-only="1" type="SVGAnimatedEnumeration"/>
       </properties>
       <implements>SVGURIReference</implements>
-      <implements>SVGUnitTypes</implements>
     </interface>
     <interface name="SVGLinearGradientElement" extends="SVGGradientElement">
       <properties>
@@ -8619,7 +8625,6 @@
       </properties>
       <implements>SVGFitToViewBox</implements>
       <implements>SVGURIReference</implements>
-      <implements>SVGUnitTypes</implements>
     </interface>
     <interface name="SVGHatchElement" extends="SVGElement"/>
     <interface name="SVGHatchpathElement" extends="SVGElement"/>
@@ -11375,13 +11380,6 @@
       <events>
         <event name="overconstrained" type="OverconstrainedErrorEvent"/>
       </events>
-    </interface>
-    <interface name="SVGUnitTypes" extends="Object" no-interface-object="1">
-      <constants>
-        <constant name="SVG_UNIT_TYPE_UNKNOWN" type="unsigned short" value="0"/>
-        <constant name="SVG_UNIT_TYPE_USERSPACEONUSE" type="unsigned short" value="1"/>
-        <constant name="SVG_UNIT_TYPE_OBJECTBOUNDINGBOX" type="unsigned short" value="2"/>
-      </constants>
     </interface>
     <interface name="SVGTests" extends="Object" no-interface-object="1">
       <properties>
