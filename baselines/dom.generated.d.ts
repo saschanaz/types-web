@@ -846,6 +846,27 @@ interface SVGBoundingBoxOptions {
     clipped?: boolean;
 }
 
+interface TouchInit {
+    identifier?: number;
+    target?: EventTarget;
+    clientX?: number;
+    clientY?: number;
+    screenX?: number;
+    screenY?: number;
+    pageX?: number;
+    pageY?: number;
+    radiusX?: number;
+    radiusY?: number;
+    rotationAngle?: number;
+    force?: number;
+}
+
+interface TouchEventInit extends EventModifierInit {
+    touches?: Touch[];
+    targetTouches?: Touch[];
+    changedTouches?: Touch[];
+}
+
 interface UIEventInit extends EventInit {
     view?: Window;
     detail?: number;
@@ -2468,6 +2489,7 @@ interface Document extends Node, NonElementParentNode, DocumentOrShadowRoot, Par
     createEvent(eventInterface:"SpeechSynthesisEvent"): SpeechSynthesisEvent;
     createEvent(eventInterface:"StorageEvent"): StorageEvent;
     createEvent(eventInterface:"SyncEvent"): SyncEvent;
+    createEvent(eventInterface:"TouchEvent"): TouchEvent;
     createEvent(eventInterface:"TrackEvent"): TrackEvent;
     createEvent(eventInterface:"TransitionEvent"): TransitionEvent;
     createEvent(eventInterface:"UIEvent"): UIEvent;
@@ -9597,11 +9619,15 @@ interface Touch {
     readonly clientY: number;
     readonly pageX: number;
     readonly pageY: number;
+    readonly radiusX: number;
+    readonly radiusY: number;
+    readonly rotationAngle: number;
+    readonly force: number;
 }
 
 declare var Touch: {
     prototype: Touch;
-    new (): Touch;
+    new (touchInitDict: TouchInit): Touch;
 }
 
 interface TouchList {
@@ -9627,7 +9653,7 @@ interface TouchEvent extends UIEvent {
 
 declare var TouchEvent: {
     prototype: TouchEvent;
-    new (): TouchEvent;
+    new (type: string, eventInitDict?: TouchEventInit): TouchEvent;
 }
 
 interface UIEvent extends Event {
@@ -11731,6 +11757,10 @@ interface GlobalEventHandlersEventMap {
     "pointerleave": Event;
     "selectstart": Event;
     "selectionchange": Event;
+    "touchstart": TouchEvent;
+    "touchend": TouchEvent;
+    "touchmove": TouchEvent;
+    "touchcancel": TouchEvent;
 }
 
 interface GlobalEventHandlers {
@@ -11814,6 +11844,10 @@ interface GlobalEventHandlers {
     onpointerleave: (this: GlobalEventHandlers, ev: Event) => any;
     onselectstart: (this: GlobalEventHandlers, ev: Event) => any;
     onselectionchange: (this: GlobalEventHandlers, ev: Event) => any;
+    ontouchstart: (this: GlobalEventHandlers, ev: TouchEvent) => any;
+    ontouchend: (this: GlobalEventHandlers, ev: TouchEvent) => any;
+    ontouchmove: (this: GlobalEventHandlers, ev: TouchEvent) => any;
+    ontouchcancel: (this: GlobalEventHandlers, ev: TouchEvent) => any;
     addEventListener<K extends keyof GlobalEventHandlersEventMap>(type: K, listener: (this: GlobalEventHandlers, ev: GlobalEventHandlersEventMap[K]) => any, useCapture?: boolean): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
@@ -12881,6 +12915,10 @@ declare var onpointerenter: (this: Window, ev: Event) => any;
 declare var onpointerleave: (this: Window, ev: Event) => any;
 declare var onselectstart: (this: Window, ev: Event) => any;
 declare var onselectionchange: (this: Window, ev: Event) => any;
+declare var ontouchstart: (this: Window, ev: TouchEvent) => any;
+declare var ontouchend: (this: Window, ev: TouchEvent) => any;
+declare var ontouchmove: (this: Window, ev: TouchEvent) => any;
+declare var ontouchcancel: (this: Window, ev: TouchEvent) => any;
 declare var onafterprint: (this: Window, ev: Event) => any;
 declare var onbeforeprint: (this: Window, ev: Event) => any;
 declare var onbeforeunload: OnBeforeUnloadEventHandler;

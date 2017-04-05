@@ -534,26 +534,6 @@
     },
     {
         "kind": "property",
-        "name": "ontouchcancel",
-        "type": "(ev: TouchEvent) => any"
-    },
-    {
-        "kind": "property",
-        "name": "ontouchend",
-        "type": "(ev: TouchEvent) => any"
-    },
-    {
-        "kind": "property",
-        "name": "ontouchmove",
-        "type": "(ev: TouchEvent) => any"
-    },
-    {
-        "kind": "property",
-        "name": "ontouchstart",
-        "type": "(ev: TouchEvent) => any"
-    },
-    {
-        "kind": "property",
         "name": "keyPath?",
         "interface": "IDBObjectStoreParameters",
         "type": "string | string[]"

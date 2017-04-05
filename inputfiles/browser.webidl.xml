@@ -1073,6 +1073,29 @@
         <member name="clipped" default="false" type="boolean"/>
       </members>
     </dictionary>
+    <dictionary name="TouchInit" extends="Object">
+      <members>
+        <member name="identifier" type="long" required="1"/>
+        <member name="target" type="EventTarget" required="1"/>
+        <member name="clientX" default="0" type="double"/>
+        <member name="clientY" default="0" type="double"/>
+        <member name="screenX" default="0" type="double"/>
+        <member name="screenY" default="0" type="double"/>
+        <member name="pageX" default="0" type="double"/>
+        <member name="pageY" default="0" type="double"/>
+        <member name="radiusX" default="0" type="float"/>
+        <member name="radiusY" default="0" type="float"/>
+        <member name="rotationAngle" default="0" type="float"/>
+        <member name="force" default="0" type="float"/>
+      </members>
+    </dictionary>
+    <dictionary name="TouchEventInit" extends="EventModifierInit">
+      <members>
+        <member name="touches" default="[]" type="sequence&lt;Touch&gt;"/>
+        <member name="targetTouches" default="[]" type="sequence&lt;Touch&gt;"/>
+        <member name="changedTouches" default="[]" type="sequence&lt;Touch&gt;"/>
+      </members>
+    </dictionary>
     <dictionary name="UIEventInit" extends="EventInit">
       <members>
         <member name="view" default="null" nullable="1" type="Window"/>
@@ -3200,10 +3223,10 @@
           <param name="view" type="WindowProxy"/>
           <param name="target" type="EventTarget"/>
           <param name="identifier" type="long"/>
-          <param name="pageX" type="long"/>
-          <param name="pageY" type="long"/>
-          <param name="screenX" type="long"/>
-          <param name="screenY" type="long"/>
+          <param name="pageX" type="double"/>
+          <param name="pageY" type="double"/>
+          <param name="screenX" type="double"/>
+          <param name="screenY" type="double"/>
         </method>
         <method name="createTouchList" type="TouchList">
           <param name="touches" type="Touch" variadic="1"/>
@@ -8631,15 +8654,22 @@
       <implements>SVGZoomAndPan</implements>
     </interface>
     <interface name="Touch" extends="Object">
+      <constructor>
+        <param name="touchInitDict" type="TouchInit"/>
+      </constructor>
       <properties>
         <property name="identifier" read-only="1" type="long"/>
         <property name="target" read-only="1" type="EventTarget"/>
-        <property name="screenX" read-only="1" type="long"/>
-        <property name="screenY" read-only="1" type="long"/>
-        <property name="clientX" read-only="1" type="long"/>
-        <property name="clientY" read-only="1" type="long"/>
-        <property name="pageX" read-only="1" type="long"/>
-        <property name="pageY" read-only="1" type="long"/>
+        <property name="screenX" read-only="1" type="double"/>
+        <property name="screenY" read-only="1" type="double"/>
+        <property name="clientX" read-only="1" type="double"/>
+        <property name="clientY" read-only="1" type="double"/>
+        <property name="pageX" read-only="1" type="double"/>
+        <property name="pageY" read-only="1" type="double"/>
+        <property name="radiusX" read-only="1" type="float"/>
+        <property name="radiusY" read-only="1" type="float"/>
+        <property name="rotationAngle" read-only="1" type="float"/>
+        <property name="force" read-only="1" type="float"/>
       </properties>
     </interface>
     <interface name="TouchList" extends="Object">
@@ -8653,6 +8683,10 @@
       </properties>
     </interface>
     <interface name="TouchEvent" extends="UIEvent">
+      <constructor>
+        <param name="type" type="DOMString"/>
+        <param name="eventInitDict" optional="1" type="TouchEventInit"/>
+      </constructor>
       <properties>
         <property name="touches" read-only="1" type="TouchList"/>
         <property name="targetTouches" read-only="1" type="TouchList"/>
@@ -11040,6 +11074,10 @@
         <property name="onpointerleave" type="EventHandler" event-handler="pointerleave"/>
         <property name="onselectstart" type="EventHandler" event-handler="selectstart"/>
         <property name="onselectionchange" type="EventHandler" event-handler="selectionchange"/>
+        <property name="ontouchstart" type="EventHandler" event-handler="touchstart"/>
+        <property name="ontouchend" type="EventHandler" event-handler="touchend"/>
+        <property name="ontouchmove" type="EventHandler" event-handler="touchmove"/>
+        <property name="ontouchcancel" type="EventHandler" event-handler="touchcancel"/>
       </properties>
       <events>
         <event name="abort" type="Event"/>
@@ -11113,6 +11151,10 @@
         <event name="transitioncancel" type="TransitionEvent"/>
         <event name="selectstart" type="Event"/>
         <event name="selectionchange" type="Event"/>
+        <event name="touchstart" type="TouchEvent"/>
+        <event name="touchend" type="TouchEvent"/>
+        <event name="touchmove" type="TouchEvent"/>
+        <event name="touchcancel" type="TouchEvent"/>
       </events>
     </interface>
     <interface name="WindowEventHandlers" extends="Object" no-interface-object="1">
