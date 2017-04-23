@@ -13014,7 +13014,6 @@ type BufferDataSource = ArrayBuffer | ArrayBufferView;
 type TexImageSource = ImageBitmap | ImageData | HTMLImageElement | HTMLCanvasElement | HTMLVideoElement;
 type Float32List = Float32Array | GLfloat[];
 type Int32List = Int32Array | GLint[];
-type ArrayBufferView = Int8Array | Int16Array | Int32Array | Uint8Array | Uint16Array | Uint32Array | Uint8ClampedArray | Float32Array | Float64Array | DataView;
 type BufferSource = ArrayBufferView | ArrayBuffer;
 type DOMTimeStamp = number;
 type FormDataEntryValue = File | string;
