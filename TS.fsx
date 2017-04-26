@@ -675,7 +675,6 @@ module Data =
         browser.Typedefs |> Array.map (fun td -> td.NewType) |> Set.ofArray
 
     let extendConflicts = [
-        { BaseType = "AudioContext"; ExtendType = ["OfflineContext"]; MemberNames = ["suspend"] };
         { BaseType = "HTMLCollection"; ExtendType = ["HTMLFormControlsCollection"]; MemberNames = ["namedItem"] };
         { BaseType = "HTMLHyperlinkElementUtils"; ExtendType = ["SVGAElement"]; MemberNames = ["href"] };
         ]
