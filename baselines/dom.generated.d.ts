@@ -10028,10 +10028,11 @@ declare var BaseAudioContext: {
     new (): BaseAudioContext;
 }
 
-interface AudioContextBase extends BaseAudioContext {
+interface AudioContext extends BaseAudioContext {
     readonly baseLatency: number;
     readonly outputLatency: number;
     getOutputTimestamp(): AudioTimestamp;
+    suspend(): Promise<void>;
     close(): Promise<void>;
     createMediaElementSource(mediaElement: HTMLMediaElement): MediaElementAudioSourceNode;
     createMediaStreamSource(mediaStream: MediaStream): MediaStreamAudioSourceNode;
@@ -10039,10 +10040,6 @@ interface AudioContextBase extends BaseAudioContext {
     createMediaStreamDestination(): MediaStreamAudioDestinationNode;
     addEventListener<K extends keyof BaseAudioContextEventMap>(type: K, listener: (this: AudioContext, ev: BaseAudioContextEventMap[K]) => any, useCapture?: boolean): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
-}
-
-interface AudioContext extends AudioContextBase {
-    suspend(): Promise<void>;
 }
 
 declare var AudioContext: {
