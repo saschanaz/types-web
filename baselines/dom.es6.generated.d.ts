@@ -3,12 +3,8 @@
 /// DOM ES6 APIs
 /////////////////////////////
 
-interface MediaList {
-    [Symbol.iterator](): IterableIterator<string>
-}
-
-interface StyleSheetList {
-    [Symbol.iterator](): IterableIterator<StyleSheet>
+interface AudioTrackList {
+    [Symbol.iterator](): IterableIterator<AudioTrack>
 }
 
 interface CSSRuleList {
@@ -16,19 +12,15 @@ interface CSSRuleList {
 }
 
 interface CSSStyleDeclaration {
+    [Symbol.iterator](): IterableIterator<CSSOMString>
+}
+
+interface DataTransferItemList {
+    [Symbol.iterator](): IterableIterator<DataTransferItem>
+}
+
+interface DOMStringList {
     [Symbol.iterator](): IterableIterator<string>
-}
-
-interface NodeList {
-    [Symbol.iterator](): IterableIterator<Node>
-}
-
-interface HTMLCollection {
-    [Symbol.iterator](): IterableIterator<Element>
-}
-
-interface NamedNodeMap {
-    [Symbol.iterator](): IterableIterator<Attr>
 }
 
 interface DOMTokenList {
@@ -43,24 +35,8 @@ interface HTMLAllCollection {
     [Symbol.iterator](): IterableIterator<Element>
 }
 
-interface DOMStringList {
-    [Symbol.iterator](): IterableIterator<string>
-}
-
-interface AudioTrackList {
-    [Symbol.iterator](): IterableIterator<AudioTrack>
-}
-
-interface VideoTrackList {
-    [Symbol.iterator](): IterableIterator<VideoTrack>
-}
-
-interface TextTrackList {
-    [Symbol.iterator](): IterableIterator<TextTrack>
-}
-
-interface TextTrackCueList {
-    [Symbol.iterator](): IterableIterator<TextTrackCue>
+interface HTMLCollection {
+    [Symbol.iterator](): IterableIterator<Element>
 }
 
 interface HTMLFormElement {
@@ -71,48 +47,36 @@ interface HTMLSelectElement {
     [Symbol.iterator](): IterableIterator<Element>
 }
 
-interface DataTransferItemList {
-    [Symbol.iterator](): IterableIterator<DataTransferItem>
-}
-
-interface PluginArray {
-    [Symbol.iterator](): IterableIterator<Plugin>
+interface MediaList {
+    [Symbol.iterator](): IterableIterator<CSSOMString>
 }
 
 interface MimeTypeArray {
     [Symbol.iterator](): IterableIterator<MimeType>
 }
 
+interface NamedNodeMap {
+    [Symbol.iterator](): IterableIterator<Attr>
+}
+
+interface NodeList {
+    [Symbol.iterator](): IterableIterator<Node>
+}
+
 interface Plugin {
     [Symbol.iterator](): IterableIterator<MimeType>
+}
+
+interface PluginArray {
+    [Symbol.iterator](): IterableIterator<Plugin>
 }
 
 interface SourceBufferList {
     [Symbol.iterator](): IterableIterator<SourceBuffer>
 }
 
-interface SVGNumberList {
-    [Symbol.iterator](): IterableIterator<SVGNumber>
-}
-
-interface SVGLengthList {
-    [Symbol.iterator](): IterableIterator<SVGLength>
-}
-
-interface SVGStringList {
-    [Symbol.iterator](): IterableIterator<string>
-}
-
-interface SVGTransformList {
-    [Symbol.iterator](): IterableIterator<SVGTransform>
-}
-
-interface SVGPointList {
-    [Symbol.iterator](): IterableIterator<DOMPoint>
-}
-
-interface TouchList {
-    [Symbol.iterator](): IterableIterator<Touch>
+interface SpeechGrammarList {
+    [Symbol.iterator](): IterableIterator<SpeechGrammar>
 }
 
 interface SpeechRecognitionResult {
@@ -123,6 +87,42 @@ interface SpeechRecognitionResultList {
     [Symbol.iterator](): IterableIterator<SpeechRecognitionResult>
 }
 
-interface SpeechGrammarList {
-    [Symbol.iterator](): IterableIterator<SpeechGrammar>
+interface StyleSheetList {
+    [Symbol.iterator](): IterableIterator<StyleSheet>
+}
+
+interface SVGLengthList {
+    [Symbol.iterator](): IterableIterator<SVGLength>
+}
+
+interface SVGNumberList {
+    [Symbol.iterator](): IterableIterator<SVGNumber>
+}
+
+interface SVGPointList {
+    [Symbol.iterator](): IterableIterator<DOMPoint>
+}
+
+interface SVGStringList {
+    [Symbol.iterator](): IterableIterator<string>
+}
+
+interface SVGTransformList {
+    [Symbol.iterator](): IterableIterator<SVGTransform>
+}
+
+interface TextTrackCueList {
+    [Symbol.iterator](): IterableIterator<TextTrackCue>
+}
+
+interface TextTrackList {
+    [Symbol.iterator](): IterableIterator<TextTrack>
+}
+
+interface TouchList {
+    [Symbol.iterator](): IterableIterator<Touch>
+}
+
+interface VideoTrackList {
+    [Symbol.iterator](): IterableIterator<VideoTrack>
 }
