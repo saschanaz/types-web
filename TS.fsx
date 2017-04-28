@@ -833,12 +833,9 @@ module Emit =
         Pt.Printl ""
 
     let EmitElementListTagNameMap () =
-        Pt.Printl "interface ElementListTagNameMap {"
-        Pt.IncreaseIndent()
-        for e in tagNameToEleName do
-            Pt.Printl "\"%s\": NodeListOf<%s>;" (e.Key.ToLower()) e.Value
-        Pt.DecreaseIndent()
-        Pt.Printl "}"
+        Pt.Printl "type ElementListTagNameMap = {"
+        Pt.PrintWithAddedIndent "[key in keyof ElementTagNameMap]: NodeListOf<ElementTagNameMap[key]>"
+        Pt.Printl "};"
         Pt.Printl ""
 
     /// Emit overloads for the createEvent method
