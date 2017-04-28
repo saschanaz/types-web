@@ -717,7 +717,7 @@ module Emit =
         | "Date" -> "Date"
         | "DOMException" -> "Error"
         | "DOMHighResTimeStamp" -> "number"
-        | "DOMString" | "USVString" -> "string"
+        | "DOMString" | "USVString" | "ByteString" -> "string"
         | "DOMTimeStamp" -> "number"
         | "EventListener" -> "EventListenerOrEventListenerObject"
         | "double" | "float" | "unrestricted double" | "unrestricted float" -> "number"
