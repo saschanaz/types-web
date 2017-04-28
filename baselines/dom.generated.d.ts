@@ -500,7 +500,7 @@ interface ForeignFetchOptions {
 }
 
 interface ForeignFetchResponse {
-    headers?: any[];
+    headers?: string[];
     origin?: string;
     response: Response;
 }
@@ -815,7 +815,7 @@ interface MutationObserverInit {
 
 interface NavigationPreloadState {
     enabled?: boolean;
-    headerValue?: any;
+    headerValue?: string;
 }
 
 interface NotificationAction {
@@ -1023,7 +1023,7 @@ interface RequestInit {
     headers?: HeadersInit;
     integrity?: string;
     keepalive?: boolean;
-    method?: any;
+    method?: string;
     mode?: RequestMode;
     redirect?: RequestRedirect;
     referrer?: string;
@@ -1034,7 +1034,7 @@ interface RequestInit {
 interface ResponseInit {
     headers?: HeadersInit;
     status?: number;
-    statusText?: any;
+    statusText?: string;
 }
 
 interface RsaHashedImportParams extends Algorithm {
@@ -3787,11 +3787,11 @@ declare var HashChangeEvent: {
 };
 
 interface Headers {
-    append(name: any, value: any): void;
-    delete(name: any): void;
-    get(name: any): any;
-    has(name: any): boolean;
-    set(name: any, value: any): void;
+    append(name: string, value: string): void;
+    delete(name: string): void;
+    get(name: string): string | null;
+    has(name: string): boolean;
+    set(name: string, value: string): void;
 }
 
 declare var Headers: {
@@ -7245,7 +7245,7 @@ interface NavigationPreloadManager {
     disable(): Promise<void>;
     enable(): Promise<void>;
     getState(): Promise<NavigationPreloadState>;
-    setHeaderValue(value: any): Promise<void>;
+    setHeaderValue(value: string): Promise<void>;
 }
 
 declare var NavigationPreloadManager: {
@@ -8016,7 +8016,7 @@ interface Request extends Object, Body {
     readonly headers: Headers;
     readonly integrity: string;
     readonly keepalive: boolean;
-    readonly method: any;
+    readonly method: string;
     readonly mode: RequestMode;
     readonly redirect: RequestRedirect;
     readonly referrer: string;
@@ -8036,7 +8036,7 @@ interface Response extends Object, Body {
     readonly ok: boolean;
     readonly redirected: boolean;
     readonly status: number;
-    readonly statusText: any;
+    readonly statusText: string;
     readonly trailer: Promise<Headers>;
     readonly type: ResponseType;
     readonly url: string;
@@ -11373,21 +11373,21 @@ interface XMLHttpRequest extends XMLHttpRequestEventTarget {
     readonly responseURL: string;
     readonly responseXML: Document | null;
     readonly status: number;
-    readonly statusText: any;
+    readonly statusText: string;
     timeout: number;
     readonly upload: XMLHttpRequestUpload;
     withCredentials: boolean;
     msCaching?: string;
     abort(): void;
-    getAllResponseHeaders(): any;
-    getResponseHeader(name: any): any;
-    open(method: any, url: string): void;
-    open(method: any, url: string, async: boolean, username?: string, password?: string): void;
+    getAllResponseHeaders(): string;
+    getResponseHeader(name: string): string | null;
+    open(method: string, url: string): void;
+    open(method: string, url: string, async: boolean, username?: string, password?: string): void;
     overrideMimeType(mime: string): void;
     send(data?: Document): void;
     send(data?: string): void;
     send(data?: any): void;
-    setRequestHeader(name: any, value: any): void;
+    setRequestHeader(name: string, value: string): void;
     readonly DONE: number;
     readonly HEADERS_RECEIVED: number;
     readonly LOADING: number;
