@@ -847,9 +847,9 @@ module Emit =
             // Emit plurals. For example, "Events", "MutationEvents"
             let hasPlurals = ["Event"; "MutationEvent"; "MouseEvent"; "SVGZoomEvent"; "UIEvent"]
             for x in distinctETypeList do
-                Pt.Printl "createEvent(eventInterface:\"%s\"): %s;" x x
+                Pt.Printl "createEvent(eventInterface: \"%s\"): %s;" x x
                 if List.contains x hasPlurals then
-                    Pt.Printl "createEvent(eventInterface:\"%ss\"): %s;" x x
+                    Pt.Printl "createEvent(eventInterface: \"%ss\"): %s;" x x
             Pt.Printl "createEvent(eventInterface: string): Event;"
 
     /// Generate the parameters string for function signatures
@@ -1101,8 +1101,8 @@ module Emit =
                 | Some ctor ->
                     for { ParamCombinations = pCombList } in GetOverloads (Ctor ctor) false do
                         let paramsString = ParamsToString pCombList
-                        Pt.Printl "new(%s): %s;" paramsString i.Name
-                | _ -> Pt.Printl "new(): %s;" i.Name
+                        Pt.Printl "new (%s): %s;" paramsString i.Name
+                | _ -> Pt.Printl "new (): %s;" i.Name
 
         getAddedItems ItemKind.Constructor Flavor.All
         |> Array.filter (matchInterface i.Name)
@@ -1119,7 +1119,7 @@ module Emit =
         EmitMembers flavor prefix EmitScope.StaticOnly i
 
         Pt.DecreaseIndent()
-        Pt.Printl "}"
+        Pt.Printl "};"
         Pt.Printl ""
 
     /// Emit all the named constructors at root level
@@ -1132,7 +1132,7 @@ module Emit =
                 let ncParams =
                     [for p in nc.Params do
                         yield {Type = p.Type; Name = p.Name; Optional = p.Optional.IsSome; Variadic = p.Variadic.IsSome; Nullable = p.Nullable.IsSome}]
-                Pt.Printl "declare var %s: {new(%s): %s; };" nc.Name (ParamsToString ncParams) i.Name)
+                Pt.Printl "declare var %s: { new (%s): %s; };" nc.Name (ParamsToString ncParams) i.Name)
 
     let EmitInterfaceDeclaration (i:Browser.Interface) =
         let processIName iName =
@@ -1336,7 +1336,7 @@ module Emit =
             EmitMembers flavor prefix EmitScope.StaticOnly i
             emitAddedConstructor ()
             Pt.DecreaseIndent()
-            Pt.Printl "}"
+            Pt.Printl "};"
             Pt.Printl ""
 
         let emitPureStaticInterface () =
@@ -1440,7 +1440,7 @@ module Emit =
             | Some comment -> Pt.PrintWithAddedIndent "%s" comment
             | _ -> ()
             ai.ConstructorSignatures |> Array.iter (Pt.PrintWithAddedIndent "%s;")
-            Pt.Printl "}"
+            Pt.Printl "};"
             Pt.Printl ""
 
     let EmitTypeDefs flavor =
