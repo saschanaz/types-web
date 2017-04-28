@@ -1470,7 +1470,7 @@ interface ScrollToOptions extends ScrollOptions {
 }
 
 interface SensorErrorEventInit extends EventInit {
-    error: any;
+    error: Error;
 }
 
 interface SensorOptions {
@@ -8541,7 +8541,7 @@ declare var Sensor: {
 };
 
 interface SensorErrorEvent extends Event {
-    readonly error: any;
+    readonly error: Error;
 }
 
 declare var SensorErrorEvent: {
@@ -12751,13 +12751,73 @@ interface AssignedNodesOptions {
     flatten?: boolean;
 }
 
+interface DOMException extends Error {
+    readonly name: string;
+    readonly code: number;
+    readonly INDEX_SIZE_ERR: number;
+    readonly DOMSTRING_SIZE_ERR: number;
+    readonly HIERARCHY_REQUEST_ERR: number;
+    readonly WRONG_DOCUMENT_ERR: number;
+    readonly INVALID_CHARACTER_ERR: number;
+    readonly NO_DATA_ALLOWED_ERR: number;
+    readonly NO_MODIFICATION_ALLOWED_ERR: number;
+    readonly NOT_FOUND_ERR: number;
+    readonly NOT_SUPPORTED_ERR: number;
+    readonly INUSE_ATTRIBUTE_ERR: number;
+    readonly INVALID_STATE_ERR: number;
+    readonly SYNTAX_ERR: number;
+    readonly INVALID_MODIFICATION_ERR: number;
+    readonly NAMESPACE_ERR: number;
+    readonly INVALID_ACCESS_ERR: number;
+    readonly VALIDATION_ERR: number;
+    readonly TYPE_MISMATCH_ERR: number;
+    readonly SECURITY_ERR: number;
+    readonly NETWORK_ERR: number;
+    readonly ABORT_ERR: number;
+    readonly URL_MISMATCH_ERR: number;
+    readonly QUOTA_EXCEEDED_ERR: number;
+    readonly TIMEOUT_ERR: number;
+    readonly INVALID_NODE_TYPE_ERR: number;
+    readonly DATA_CLONE_ERR: number;
+}
+
+declare var DOMException: {
+    prototype: DOMException;
+    new (message?: string, name?: string): DOMException;
+    readonly INDEX_SIZE_ERR: number;
+    readonly DOMSTRING_SIZE_ERR: number;
+    readonly HIERARCHY_REQUEST_ERR: number;
+    readonly WRONG_DOCUMENT_ERR: number;
+    readonly INVALID_CHARACTER_ERR: number;
+    readonly NO_DATA_ALLOWED_ERR: number;
+    readonly NO_MODIFICATION_ALLOWED_ERR: number;
+    readonly NOT_FOUND_ERR: number;
+    readonly NOT_SUPPORTED_ERR: number;
+    readonly INUSE_ATTRIBUTE_ERR: number;
+    readonly INVALID_STATE_ERR: number;
+    readonly SYNTAX_ERR: number;
+    readonly INVALID_MODIFICATION_ERR: number;
+    readonly NAMESPACE_ERR: number;
+    readonly INVALID_ACCESS_ERR: number;
+    readonly VALIDATION_ERR: number;
+    readonly TYPE_MISMATCH_ERR: number;
+    readonly SECURITY_ERR: number;
+    readonly NETWORK_ERR: number;
+    readonly ABORT_ERR: number;
+    readonly URL_MISMATCH_ERR: number;
+    readonly QUOTA_EXCEEDED_ERR: number;
+    readonly TIMEOUT_ERR: number;
+    readonly INVALID_NODE_TYPE_ERR: number;
+    readonly DATA_CLONE_ERR: number;
+};
+
 declare type EventListenerOrEventListenerObject = EventListener | EventListenerObject;
 
 interface BlobCallback {
     (blob: Blob | null): void;
 }
 interface DecodeErrorCallback {
-    (error: Error): void;
+    (error: DOMException): void;
 }
 interface DecodeSuccessCallback {
     (decodedData: AudioBuffer): void;
@@ -12808,7 +12868,7 @@ interface PositionErrorCallback {
     (positionError: PositionError): void;
 }
 interface RTCPeerConnectionErrorCallback {
-    (error: Error): void;
+    (error: DOMException): void;
 }
 interface RTCSessionDescriptionCallback {
     (description: RTCSessionDescriptionInit): void;
@@ -13030,7 +13090,7 @@ declare function addEventListener<K extends keyof WindowEventMap>(type: K, liste
 declare function addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 type AAGUID = BufferSource;
 type CSSOMString = string;
-type HeadersInit = any[][] | any<any>;
+type HeadersInit = string[][] | any<any>;
 type BodyInit = Blob | BufferSource | FormData | URLSearchParams | ReadableStream | string;
 type RequestInfo = Request | string;
 type DOMHighResTimeStamp = number;

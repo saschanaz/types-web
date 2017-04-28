@@ -695,5 +695,128 @@
         "name": "formData",
         "flavor": "Web",
         "signatures": ["formData(): Promise<FormData>"]
+    },
+    
+    {
+        "kind": "interface",
+        "name": "DOMException",
+        "extends": "Error",
+        "properties": [
+            {
+                "name": "name",
+                "type": "string",
+                "readonly": true
+            },
+            {
+                "name": "code",
+                "type": "number",
+                "readonly": true
+            }
+        ],
+        "constructorSignatures": [
+            "new (message?: string, name?: string): DOMException"
+        ],
+        "constants": [
+            {
+                "name": "INDEX_SIZE_ERR",
+                "type": "number"
+            },
+            {
+                "name": "DOMSTRING_SIZE_ERR",
+                "type": "number"
+            },
+            {
+                "name": "HIERARCHY_REQUEST_ERR",
+                "type": "number"
+            },
+            {
+                "name": "WRONG_DOCUMENT_ERR",
+                "type": "number"
+            },
+            {
+                "name": "INVALID_CHARACTER_ERR",
+                "type": "number"
+            },
+            {
+                "name": "NO_DATA_ALLOWED_ERR",
+                "type": "number"
+            },
+            {
+                "name": "NO_MODIFICATION_ALLOWED_ERR",
+                "type": "number"
+            },
+            {
+                "name": "NOT_FOUND_ERR",
+                "type": "number"
+            },
+            {
+                "name": "NOT_SUPPORTED_ERR",
+                "type": "number"
+            },
+            {
+                "name": "INUSE_ATTRIBUTE_ERR",
+                "type": "number"
+            },
+            {
+                "name": "INVALID_STATE_ERR",
+                "type": "number"
+            },
+            {
+                "name": "SYNTAX_ERR",
+                "type": "number"
+            },
+            {
+                "name": "INVALID_MODIFICATION_ERR",
+                "type": "number"
+            },
+            {
+                "name": "NAMESPACE_ERR",
+                "type": "number"
+            },
+            {
+                "name": "INVALID_ACCESS_ERR",
+                "type": "number"
+            },
+            {
+                "name": "VALIDATION_ERR",
+                "type": "number"
+            },
+            {
+                "name": "TYPE_MISMATCH_ERR",
+                "type": "number"
+            },
+            {
+                "name": "SECURITY_ERR",
+                "type": "number"
+            },
+            {
+                "name": "NETWORK_ERR",
+                "type": "number"
+            },
+            {
+                "name": "ABORT_ERR",
+                "type": "number"
+            },
+            {
+                "name": "URL_MISMATCH_ERR",
+                "type": "number"
+            },
+            {
+                "name": "QUOTA_EXCEEDED_ERR",
+                "type": "number"
+            },
+            {
+                "name": "TIMEOUT_ERR",
+                "type": "number"
+            },
+            {
+                "name": "INVALID_NODE_TYPE_ERR",
+                "type": "number"
+            },
+            {
+                "name": "DATA_CLONE_ERR",
+                "type": "number"
+            }
+        ]
     }
 ]
