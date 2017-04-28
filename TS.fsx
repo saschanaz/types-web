@@ -1133,7 +1133,7 @@ module Emit =
         let emitConstructorSingleSignature (ctor: Browser.Constructor) = 
             for { ParamCombinations = pCombList } in GetOverloads (Ctor ctor) false do
                 let paramsString = ParamsToString pCombList
-                Pt.Printl "new (%s): %s;" paramsString i.Name
+                Pt.Printl "new(%s): %s;" paramsString i.Name
 
         let removedCtor = getRemovedItems ItemKind.Constructor Flavor.All  |> Array.tryFind (matchInterface i.Name)
         if Option.isNone removedCtor then
@@ -1145,7 +1145,7 @@ module Emit =
                 if not (Array.isEmpty i.Constructors) then
                     i.Constructors |> Array.iter emitConstructorSingleSignature
                 else
-                    Pt.Printl "new (): %s;" i.Name
+                    Pt.Printl "new(): %s;" i.Name
 
         getAddedItemsByInterfaceName ItemKind.Constructor Flavor.All i.Name
         |> Array.iter emitConstructorSigFromJson
@@ -1174,7 +1174,7 @@ module Emit =
                 let ncParams =
                     [for p in nc.Params do
                         yield {Type = p.Type; Name = p.Name; Optional = p.Optional.IsSome; Variadic = p.Variadic.IsSome; Nullable = p.Nullable.IsSome}]
-                Pt.Printl "declare var %s: {new (%s): %s; };" nc.Name (ParamsToString ncParams) i.Name)
+                Pt.Printl "declare var %s: {new(%s): %s; };" nc.Name (ParamsToString ncParams) i.Name)
 
     let EmitInterfaceDeclaration (i:Browser.Interface) =
         let getConflict iName = Map.tryFind iName extendConflictsBaseTypes;

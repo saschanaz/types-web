@@ -193,7 +193,7 @@ interface AudioBuffer {
 
 declare var AudioBuffer: {
     prototype: AudioBuffer;
-    new (options: AudioBufferOptions): AudioBuffer;
+    new(options: AudioBufferOptions): AudioBuffer;
 }
 
 interface Blob {
@@ -221,7 +221,7 @@ interface Cache {
 
 declare var Cache: {
     prototype: Cache;
-    new (): Cache;
+    new(): Cache;
 }
 
 interface CacheStorage {
@@ -234,7 +234,7 @@ interface CacheStorage {
 
 declare var CacheStorage: {
     prototype: CacheStorage;
-    new (): CacheStorage;
+    new(): CacheStorage;
 }
 
 interface CloseEvent extends Event {
@@ -245,7 +245,7 @@ interface CloseEvent extends Event {
 
 declare var CloseEvent: {
     prototype: CloseEvent;
-    new (type: string, eventInitDict?: CloseEventInit): CloseEvent;
+    new(type: string, eventInitDict?: CloseEventInit): CloseEvent;
 }
 
 interface CryptoKey {
@@ -257,7 +257,7 @@ interface CryptoKey {
 
 declare var CryptoKey: {
     prototype: CryptoKey;
-    new (): CryptoKey;
+    new(): CryptoKey;
 }
 
 interface DOMStringList {
@@ -269,7 +269,7 @@ interface DOMStringList {
 
 declare var DOMStringList: {
     prototype: DOMStringList;
-    new (): DOMStringList;
+    new(): DOMStringList;
 }
 
 interface ErrorEvent extends Event {
@@ -312,7 +312,7 @@ interface Event {
 
 declare var Event: {
     prototype: Event;
-    new (type: string, eventInitDict?: EventInit): Event;
+    new(type: string, eventInitDict?: EventInit): Event;
     readonly AT_TARGET: number;
     readonly BUBBLING_PHASE: number;
     readonly CAPTURING_PHASE: number;
@@ -327,7 +327,7 @@ interface EventTarget {
 
 declare var EventTarget: {
     prototype: EventTarget;
-    new (): EventTarget;
+    new(): EventTarget;
 }
 
 interface File extends Blob {
@@ -348,7 +348,7 @@ interface FileList {
 
 declare var FileList: {
     prototype: FileList;
-    new (): FileList;
+    new(): FileList;
 }
 
 interface FileReaderEventMap {
@@ -383,7 +383,7 @@ interface FileReader extends EventTarget {
 
 declare var FileReader: {
     prototype: FileReader;
-    new (): FileReader;
+    new(): FileReader;
     readonly DONE: number;
     readonly EMPTY: number;
     readonly LOADING: number;
@@ -399,7 +399,7 @@ interface Headers {
 
 declare var Headers: {
     prototype: Headers;
-    new (init?: HeadersInit): Headers;
+    new(init?: HeadersInit): Headers;
 }
 
 interface IDBCursor {
@@ -415,7 +415,7 @@ interface IDBCursor {
 
 declare var IDBCursor: {
     prototype: IDBCursor;
-    new (): IDBCursor;
+    new(): IDBCursor;
 }
 
 interface IDBCursorWithValue extends IDBCursor {
@@ -424,7 +424,7 @@ interface IDBCursorWithValue extends IDBCursor {
 
 declare var IDBCursorWithValue: {
     prototype: IDBCursorWithValue;
-    new (): IDBCursorWithValue;
+    new(): IDBCursorWithValue;
 }
 
 interface IDBDatabaseEventMap {
@@ -451,7 +451,7 @@ interface IDBDatabase extends EventTarget {
 
 declare var IDBDatabase: {
     prototype: IDBDatabase;
-    new (): IDBDatabase;
+    new(): IDBDatabase;
 }
 
 interface IDBFactory {
@@ -462,7 +462,7 @@ interface IDBFactory {
 
 declare var IDBFactory: {
     prototype: IDBFactory;
-    new (): IDBFactory;
+    new(): IDBFactory;
 }
 
 interface IDBIndex {
@@ -480,7 +480,7 @@ interface IDBIndex {
 
 declare var IDBIndex: {
     prototype: IDBIndex;
-    new (): IDBIndex;
+    new(): IDBIndex;
 }
 
 interface IDBKeyRange {
@@ -492,7 +492,7 @@ interface IDBKeyRange {
 
 declare var IDBKeyRange: {
     prototype: IDBKeyRange;
-    new (): IDBKeyRange;
+    new(): IDBKeyRange;
     bound(lower: any, upper: any, lowerOpen?: boolean, upperOpen?: boolean): IDBKeyRange;
     lowerBound(lower: any, open?: boolean): IDBKeyRange;
     only(value: any): IDBKeyRange;
@@ -519,7 +519,7 @@ interface IDBObjectStore {
 
 declare var IDBObjectStore: {
     prototype: IDBObjectStore;
-    new (): IDBObjectStore;
+    new(): IDBObjectStore;
 }
 
 interface IDBOpenDBRequestEventMap extends IDBRequestEventMap {
@@ -536,7 +536,7 @@ interface IDBOpenDBRequest extends IDBRequest {
 
 declare var IDBOpenDBRequest: {
     prototype: IDBOpenDBRequest;
-    new (): IDBOpenDBRequest;
+    new(): IDBOpenDBRequest;
 }
 
 interface IDBRequestEventMap {
@@ -558,7 +558,7 @@ interface IDBRequest extends EventTarget {
 
 declare var IDBRequest: {
     prototype: IDBRequest;
-    new (): IDBRequest;
+    new(): IDBRequest;
 }
 
 interface IDBTransactionEventMap {
@@ -582,7 +582,7 @@ interface IDBTransaction extends EventTarget {
 
 declare var IDBTransaction: {
     prototype: IDBTransaction;
-    new (): IDBTransaction;
+    new(): IDBTransaction;
 }
 
 interface IDBVersionChangeEvent extends Event {
@@ -592,7 +592,7 @@ interface IDBVersionChangeEvent extends Event {
 
 declare var IDBVersionChangeEvent: {
     prototype: IDBVersionChangeEvent;
-    new (type: string, eventInitDict?: IDBVersionChangeEventInit): IDBVersionChangeEvent;
+    new(type: string, eventInitDict?: IDBVersionChangeEventInit): IDBVersionChangeEvent;
 }
 
 interface ImageData {
@@ -614,7 +614,7 @@ interface MessageChannel {
 
 declare var MessageChannel: {
     prototype: MessageChannel;
-    new (): MessageChannel;
+    new(): MessageChannel;
 }
 
 interface MessageEvent extends Event {
@@ -648,7 +648,7 @@ interface MessagePort extends EventTarget {
 
 declare var MessagePort: {
     prototype: MessagePort;
-    new (): MessagePort;
+    new(): MessagePort;
 }
 
 interface NotificationEventMap {
@@ -684,7 +684,7 @@ interface Notification extends EventTarget {
 
 declare var Notification: {
     prototype: Notification;
-    new (title: string, options?: NotificationOptions): Notification;
+    new(title: string, options?: NotificationOptions): Notification;
     requestPermission(deprecatedCallback?: NotificationPermissionCallback): Promise<NotificationPermission>;
 }
 
@@ -712,7 +712,7 @@ interface Performance extends EventTarget {
 
 declare var Performance: {
     prototype: Performance;
-    new (): Performance;
+    new(): Performance;
 }
 
 interface PerformanceNavigation {
@@ -726,7 +726,7 @@ interface PerformanceNavigation {
 
 declare var PerformanceNavigation: {
     prototype: PerformanceNavigation;
-    new (): PerformanceNavigation;
+    new(): PerformanceNavigation;
     readonly TYPE_BACK_FORWARD: number;
     readonly TYPE_NAVIGATE: number;
     readonly TYPE_RELOAD: number;
@@ -759,7 +759,7 @@ interface PerformanceTiming {
 
 declare var PerformanceTiming: {
     prototype: PerformanceTiming;
-    new (): PerformanceTiming;
+    new(): PerformanceTiming;
 }
 
 interface ProgressEvent extends Event {
@@ -782,7 +782,7 @@ interface PushManager {
 
 declare var PushManager: {
     prototype: PushManager;
-    new (): PushManager;
+    new(): PushManager;
 }
 
 interface PushSubscription {
@@ -795,7 +795,7 @@ interface PushSubscription {
 
 declare var PushSubscription: {
     prototype: PushSubscription;
-    new (): PushSubscription;
+    new(): PushSubscription;
 }
 
 interface PushSubscriptionOptions {
@@ -805,7 +805,7 @@ interface PushSubscriptionOptions {
 
 declare var PushSubscriptionOptions: {
     prototype: PushSubscriptionOptions;
-    new (): PushSubscriptionOptions;
+    new(): PushSubscriptionOptions;
 }
 
 interface ReadableStream {
@@ -816,7 +816,7 @@ interface ReadableStream {
 
 declare var ReadableStream: {
     prototype: ReadableStream;
-    new (): ReadableStream;
+    new(): ReadableStream;
 }
 
 interface Request extends Object, Body {
@@ -838,7 +838,7 @@ interface Request extends Object, Body {
 
 declare var Request: {
     prototype: Request;
-    new (input: RequestInfo, init?: RequestInit): Request;
+    new(input: RequestInfo, init?: RequestInit): Request;
 }
 
 interface Response extends Object, Body {
@@ -855,7 +855,7 @@ interface Response extends Object, Body {
 
 declare var Response: {
     prototype: Response;
-    new (body?: BodyInit, init?: ResponseInit): Response;
+    new(body?: BodyInit, init?: ResponseInit): Response;
     error(): Response;
     redirect(url: string, status?: number): Response;
 }
@@ -875,7 +875,7 @@ interface ServiceWorker extends EventTarget, AbstractWorker {
 
 declare var ServiceWorker: {
     prototype: ServiceWorker;
-    new (): ServiceWorker;
+    new(): ServiceWorker;
 }
 
 interface ServiceWorkerRegistrationEventMap {
@@ -902,7 +902,7 @@ interface ServiceWorkerRegistration extends EventTarget {
 
 declare var ServiceWorkerRegistration: {
     prototype: ServiceWorkerRegistration;
-    new (): ServiceWorkerRegistration;
+    new(): ServiceWorkerRegistration;
 }
 
 interface SyncManager {
@@ -912,7 +912,7 @@ interface SyncManager {
 
 declare var SyncManager: {
     prototype: SyncManager;
-    new (): SyncManager;
+    new(): SyncManager;
 }
 
 interface URL {
@@ -933,7 +933,7 @@ interface URL {
 
 declare var URL: {
     prototype: URL;
-    new (url: string, base?: string): URL;
+    new(url: string, base?: string): URL;
     createFor(blob: Blob): string;
     createObjectURL(blob: Blob): string;
     createObjectURL(mediaSource: MediaSource): string;
@@ -970,7 +970,7 @@ interface URLSearchParams {
 
 declare var URLSearchParams: {
     prototype: URLSearchParams;
-    new (init?: any): URLSearchParams;
+    new(init?: any): URLSearchParams;
 }
 
 interface WebSocketEventMap {
@@ -1006,7 +1006,7 @@ interface WebSocket extends EventTarget {
 
 declare var WebSocket: {
     prototype: WebSocket;
-    new (url: string, protocols?: string | string[]): WebSocket;
+    new(url: string, protocols?: string | string[]): WebSocket;
     readonly CLOSED: number;
     readonly CLOSING: number;
     readonly CONNECTING: number;
@@ -1029,7 +1029,7 @@ interface Worker extends EventTarget, AbstractWorker {
 
 declare var Worker: {
     prototype: Worker;
-    new (scriptURL: string, options?: WorkerOptions): Worker;
+    new(scriptURL: string, options?: WorkerOptions): Worker;
 }
 
 interface XMLHttpRequestEventMap extends XMLHttpRequestEventTargetEventMap {
@@ -1070,7 +1070,7 @@ interface XMLHttpRequest extends XMLHttpRequestEventTarget {
 
 declare var XMLHttpRequest: {
     prototype: XMLHttpRequest;
-    new (): XMLHttpRequest;
+    new(): XMLHttpRequest;
     readonly DONE: number;
     readonly HEADERS_RECEIVED: number;
     readonly LOADING: number;
@@ -1102,7 +1102,7 @@ interface XMLHttpRequestEventTarget extends EventTarget {
 
 declare var XMLHttpRequestEventTarget: {
     prototype: XMLHttpRequestEventTarget;
-    new (): XMLHttpRequestEventTarget;
+    new(): XMLHttpRequestEventTarget;
 }
 
 interface XMLHttpRequestUpload extends XMLHttpRequestEventTarget {
@@ -1112,7 +1112,7 @@ interface XMLHttpRequestUpload extends XMLHttpRequestEventTarget {
 
 declare var XMLHttpRequestUpload: {
     prototype: XMLHttpRequestUpload;
-    new (): XMLHttpRequestUpload;
+    new(): XMLHttpRequestUpload;
 }
 
 interface AbstractWorkerEventMap {
@@ -1189,7 +1189,7 @@ interface Client {
 
 declare var Client: {
     prototype: Client;
-    new (): Client;
+    new(): Client;
 }
 
 interface Clients {
@@ -1201,7 +1201,7 @@ interface Clients {
 
 declare var Clients: {
     prototype: Clients;
-    new (): Clients;
+    new(): Clients;
 }
 
 interface DedicatedWorkerGlobalScopeEventMap extends WorkerGlobalScopeEventMap {
@@ -1218,7 +1218,7 @@ interface DedicatedWorkerGlobalScope extends WorkerGlobalScope {
 
 declare var DedicatedWorkerGlobalScope: {
     prototype: DedicatedWorkerGlobalScope;
-    new (): DedicatedWorkerGlobalScope;
+    new(): DedicatedWorkerGlobalScope;
 }
 
 interface ExtendableEvent extends Event {
@@ -1227,7 +1227,7 @@ interface ExtendableEvent extends Event {
 
 declare var ExtendableEvent: {
     prototype: ExtendableEvent;
-    new (type: string, eventInitDict?: ExtendableEventInit): ExtendableEvent;
+    new(type: string, eventInitDict?: ExtendableEventInit): ExtendableEvent;
 }
 
 interface ExtendableMessageEvent extends ExtendableEvent {
@@ -1240,7 +1240,7 @@ interface ExtendableMessageEvent extends ExtendableEvent {
 
 declare var ExtendableMessageEvent: {
     prototype: ExtendableMessageEvent;
-    new (type: string, eventInitDict?: ExtendableMessageEventInit): ExtendableMessageEvent;
+    new(type: string, eventInitDict?: ExtendableMessageEventInit): ExtendableMessageEvent;
 }
 
 interface FetchEvent extends ExtendableEvent {
@@ -1252,7 +1252,7 @@ interface FetchEvent extends ExtendableEvent {
 
 declare var FetchEvent: {
     prototype: FetchEvent;
-    new (type: string, eventInitDict: FetchEventInit): FetchEvent;
+    new(type: string, eventInitDict: FetchEventInit): FetchEvent;
 }
 
 interface FileReaderSync {
@@ -1264,7 +1264,7 @@ interface FileReaderSync {
 
 declare var FileReaderSync: {
     prototype: FileReaderSync;
-    new (): FileReaderSync;
+    new(): FileReaderSync;
 }
 
 interface NotificationEvent extends ExtendableEvent {
@@ -1274,7 +1274,7 @@ interface NotificationEvent extends ExtendableEvent {
 
 declare var NotificationEvent: {
     prototype: NotificationEvent;
-    new (type: string, eventInitDict: NotificationEventInit): NotificationEvent;
+    new(type: string, eventInitDict: NotificationEventInit): NotificationEvent;
 }
 
 interface PushEvent extends ExtendableEvent {
@@ -1283,7 +1283,7 @@ interface PushEvent extends ExtendableEvent {
 
 declare var PushEvent: {
     prototype: PushEvent;
-    new (type: string, eventInitDict?: PushEventInit): PushEvent;
+    new(type: string, eventInitDict?: PushEventInit): PushEvent;
 }
 
 interface PushMessageData {
@@ -1295,7 +1295,7 @@ interface PushMessageData {
 
 declare var PushMessageData: {
     prototype: PushMessageData;
-    new (): PushMessageData;
+    new(): PushMessageData;
 }
 
 interface ServiceWorkerGlobalScopeEventMap extends WorkerGlobalScopeEventMap {
@@ -1329,7 +1329,7 @@ interface ServiceWorkerGlobalScope extends WorkerGlobalScope {
 
 declare var ServiceWorkerGlobalScope: {
     prototype: ServiceWorkerGlobalScope;
-    new (): ServiceWorkerGlobalScope;
+    new(): ServiceWorkerGlobalScope;
 }
 
 interface SyncEvent extends ExtendableEvent {
@@ -1339,7 +1339,7 @@ interface SyncEvent extends ExtendableEvent {
 
 declare var SyncEvent: {
     prototype: SyncEvent;
-    new (type: string, init: SyncEventInit): SyncEvent;
+    new(type: string, init: SyncEventInit): SyncEvent;
 }
 
 interface WindowClient extends Client {
@@ -1351,7 +1351,7 @@ interface WindowClient extends Client {
 
 declare var WindowClient: {
     prototype: WindowClient;
-    new (): WindowClient;
+    new(): WindowClient;
 }
 
 interface WorkerGlobalScopeEventMap {
@@ -1374,7 +1374,7 @@ interface WorkerGlobalScope extends EventTarget, WorkerUtils, WindowConsole, Glo
 
 declare var WorkerGlobalScope: {
     prototype: WorkerGlobalScope;
-    new (): WorkerGlobalScope;
+    new(): WorkerGlobalScope;
 }
 
 interface WorkerLocation {
@@ -1392,7 +1392,7 @@ interface WorkerLocation {
 
 declare var WorkerLocation: {
     prototype: WorkerLocation;
-    new (): WorkerLocation;
+    new(): WorkerLocation;
 }
 
 interface WorkerNavigator extends Object, NavigatorID, NavigatorOnLine, NavigatorBeacon, NavigatorConcurrentHardware {
@@ -1401,7 +1401,7 @@ interface WorkerNavigator extends Object, NavigatorID, NavigatorOnLine, Navigato
 
 declare var WorkerNavigator: {
     prototype: WorkerNavigator;
-    new (): WorkerNavigator;
+    new(): WorkerNavigator;
 }
 
 interface WorkerUtils extends Object, WindowBase64 {
