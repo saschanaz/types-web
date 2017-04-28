@@ -715,7 +715,8 @@ module Emit =
         | "any" -> "any"
         | "bool" | "boolean" | "Boolean" -> "boolean"
         | "Date" -> "Date"
-        | "DOMException" -> "Error"
+        | "Error" -> "Error"
+        | "DOMException" -> "DOMException"
         | "DOMHighResTimeStamp" -> "number"
         | "DOMString" | "USVString" | "ByteString" -> "string"
         | "DOMTimeStamp" -> "number"
@@ -787,7 +788,7 @@ module Emit =
                 | Some c' -> emitConstantFromJson c'
                 | None -> Pt.Printl "readonly %s: %s;" c.Name (DomTypeToTsType c.Type)
 
-        let addedConstants = getAddedItems ItemKind.Constant Flavor.All
+        let addedConstants = getAddedItemsByInterfaceName ItemKind.Constant Flavor.All i.Name
         Array.iter emitConstantFromJson addedConstants
 
         if i.Constants.IsSome then
@@ -1146,8 +1147,7 @@ module Emit =
                 else
                     Pt.Printl "new (): %s;" i.Name
 
-        getAddedItems ItemKind.Constructor Flavor.All
-        |> Array.filter (matchInterface i.Name)
+        getAddedItemsByInterfaceName ItemKind.Constructor Flavor.All i.Name
         |> Array.iter emitConstructorSigFromJson
 
     let EmitConstructor flavor (i:Browser.Interface) =
@@ -1473,10 +1473,13 @@ module Emit =
             | _ -> ()
             m.Signatures |> Array.iter (Pt.PrintWithAddedIndent "%s;")
 
+        let emitConstant (c: InputJsonType.Constant) =
+            Pt.PrintWithAddedIndent "readonly %s: %s;" c.Name c.Type
 
         ai.Properties |> Array.iter emitProperty
         ai.Methods |> Array.iter emitMethod
         ai.Indexer |> Array.collect (fun i -> i.Signatures) |> Array.iter (Pt.PrintWithAddedIndent "%s;")
+        ai.Constants |> Array.iter emitConstant
         Pt.Printl "}"
         Pt.Printl ""
 
@@ -1487,6 +1490,7 @@ module Emit =
             | Some comment -> Pt.PrintWithAddedIndent "%s" comment
             | _ -> ()
             ai.ConstructorSignatures |> Array.iter (Pt.PrintWithAddedIndent "%s;")
+            ai.Constants |> Array.iter emitConstant
             Pt.Printl "}"
             Pt.Printl ""
 
