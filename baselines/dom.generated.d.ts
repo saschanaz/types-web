@@ -54,26 +54,10 @@ interface AnalyserOptions extends AudioNodeOptions {
     smoothingTimeConstant?: number;
 }
 
-interface AnimationEffectTimingProperties {
-    delay?: number;
-    direction?: PlaybackDirection;
-    duration?: number | string;
-    easing?: string;
-    endDelay?: number;
-    fill?: FillMode;
-    iterations?: number;
-    iterationStart?: number;
-}
-
 interface AnimationEventInit extends EventInit {
     animationName?: CSSOMString;
     elapsedTime?: number;
     pseudoElement?: CSSOMString;
-}
-
-interface AnimationPlaybackEventInit extends EventInit {
-    currentTime?: number;
-    timelineTime?: number;
 }
 
 interface AssertionOptions {
@@ -142,24 +126,6 @@ interface AudioWorkletNodeOptions extends AudioNodeOptions {
 }
 
 interface AuthenticationExtensions {
-}
-
-interface BaseComputedKeyframe {
-    composite?: CompositeOperation;
-    computedOffset?: number;
-    easing?: string;
-    offset?: number;
-}
-
-interface BaseKeyframe {
-    composite?: CompositeOperation;
-    easing?: string;
-    offset?: number;
-}
-
-interface BasePropertyIndexedKeyframe {
-    composite?: CompositeOperation;
-    easing?: string;
 }
 
 interface BiquadFilterOptions extends AudioNodeOptions {
@@ -234,14 +200,6 @@ interface CloseEventInit extends EventInit {
 
 interface CompositionEventInit extends UIEventInit {
     data?: string;
-}
-
-interface ComputedTimingProperties extends AnimationEffectTimingProperties {
-    activeDuration?: number;
-    currentIteration?: number;
-    endTime?: number;
-    localTime?: number;
-    progress?: number;
 }
 
 interface ConstantSourceOptions {
@@ -323,10 +281,6 @@ interface DeviceRotationRateInit {
     alpha?: number;
     beta?: number;
     gamma?: number;
-}
-
-interface DocumentTimelineOptions {
-    originTime?: number;
 }
 
 interface DOMMatrixInit {
@@ -639,16 +593,6 @@ interface KeyboardEventInit extends EventModifierInit {
     repeat?: boolean;
 }
 
-interface KeyframeAnimationOptions extends KeyframeEffectOptions {
-    id?: string;
-}
-
-interface KeyframeEffectOptions extends AnimationEffectTimingProperties {
-    composite?: CompositeOperation;
-    iterationComposite?: IterationCompositeOperation;
-    spacing?: string;
-}
-
 interface LongRange {
     max?: number;
     min?: number;
@@ -694,11 +638,8 @@ interface MediaStreamAudioSourceOptions {
 
 interface MediaStreamConstraints {
     audio?: boolean | MediaTrackConstraints;
-    video?: boolean | MediaTrackConstraints;
-}
-
-interface MediaStreamConstraints {
     peerIdentity?: string;
+    video?: boolean | MediaTrackConstraints;
 }
 
 interface MediaStreamTrackAudioSourceOptions {
@@ -792,13 +733,6 @@ interface MouseEventInit extends EventModifierInit {
     clientX?: number;
     clientY?: number;
     relatedTarget?: EventTarget;
-    screenX?: number;
-    screenY?: number;
-}
-
-interface MouseEventInit {
-    clientX?: number;
-    clientY?: number;
     screenX?: number;
     screenY?: number;
 }
@@ -1284,9 +1218,6 @@ interface RTCOfferAnswerOptions {
 
 interface RTCOfferOptions extends RTCOfferAnswerOptions {
     iceRestart?: boolean;
-}
-
-interface RTCOfferOptions {
     offerToReceiveAudio?: boolean;
     offerToReceiveVideo?: boolean;
 }
@@ -1469,14 +1400,6 @@ interface ScrollToOptions extends ScrollOptions {
     top?: number;
 }
 
-interface SensorErrorEventInit extends EventInit {
-    error?: Error;
-}
-
-interface SensorOptions {
-    frequency?: number;
-}
-
 interface Settings {
 }
 
@@ -1591,17 +1514,6 @@ interface NodeFilter {
     (evt: Event): void;
 }
 
-interface AmbientLightSensor extends Sensor {
-    readonly illuminance: number;
-    addEventListener<K extends keyof SensorEventMap>(type: K, listener: (this: AmbientLightSensor, ev: SensorEventMap[K]) => any, useCapture?: boolean): void;
-    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
-}
-
-declare var AmbientLightSensor: {
-    prototype: AmbientLightSensor;
-    new(sensorOptions?: SensorOptions): AmbientLightSensor;
-}
-
 interface AnalyserNode extends AudioNode {
     fftSize: number;
     readonly frequencyBinCount: number;
@@ -1619,79 +1531,6 @@ declare var AnalyserNode: {
     new(context: BaseAudioContext, options?: AnalyserOptions): AnalyserNode;
 }
 
-interface AnimationEventMap {
-    "cancel": Event;
-    "finish": Event;
-}
-
-interface Animation extends EventTarget {
-    currentTime: number | null;
-    effect: AnimationEffectReadOnly | null;
-    readonly finished: Promise<Animation>;
-    id: string;
-    oncancel: (this: Animation, ev: Event) => any;
-    onfinish: (this: Animation, ev: Event) => any;
-    playbackRate: number;
-    readonly playState: AnimationPlayState;
-    readonly ready: Promise<Animation>;
-    startTime: number | null;
-    timeline: AnimationTimeline | null;
-    cancel(): void;
-    finish(): void;
-    pause(): void;
-    play(): void;
-    reverse(): void;
-    addEventListener<K extends keyof AnimationEventMap>(type: K, listener: (this: Animation, ev: AnimationEventMap[K]) => any, useCapture?: boolean): void;
-    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
-}
-
-declare var Animation: {
-    prototype: Animation;
-    new(effect?: AnimationEffectReadOnly, timeline?: AnimationTimeline): Animation;
-}
-
-interface AnimationEffectReadOnly {
-    readonly timing: AnimationEffectTimingReadOnly;
-    getComputedTiming(): ComputedTimingProperties;
-}
-
-declare var AnimationEffectReadOnly: {
-    prototype: AnimationEffectReadOnly;
-    new(): AnimationEffectReadOnly;
-}
-
-interface AnimationEffectTiming extends AnimationEffectTimingReadOnly {
-    delay: number;
-    direction: PlaybackDirection;
-    duration: number | string;
-    easing: string;
-    endDelay: number;
-    fill: FillMode;
-    iterations: number;
-    iterationStart: number;
-}
-
-declare var AnimationEffectTiming: {
-    prototype: AnimationEffectTiming;
-    new(): AnimationEffectTiming;
-}
-
-interface AnimationEffectTimingReadOnly {
-    readonly delay: number;
-    readonly direction: PlaybackDirection;
-    readonly duration: number | string;
-    readonly easing: string;
-    readonly endDelay: number;
-    readonly fill: FillMode;
-    readonly iterations: number;
-    readonly iterationStart: number;
-}
-
-declare var AnimationEffectTimingReadOnly: {
-    prototype: AnimationEffectTimingReadOnly;
-    new(): AnimationEffectTimingReadOnly;
-}
-
 interface AnimationEvent extends Event {
     readonly animationName: CSSOMString;
     readonly elapsedTime: number;
@@ -1701,25 +1540,6 @@ interface AnimationEvent extends Event {
 declare var AnimationEvent: {
     prototype: AnimationEvent;
     new(type: CSSOMString, animationEventInitDict?: AnimationEventInit): AnimationEvent;
-}
-
-interface AnimationPlaybackEvent extends Event {
-    readonly currentTime: number | null;
-    readonly timelineTime: number | null;
-}
-
-declare var AnimationPlaybackEvent: {
-    prototype: AnimationPlaybackEvent;
-    new(type: string, eventInitDict?: AnimationPlaybackEventInit): AnimationPlaybackEvent;
-}
-
-interface AnimationTimeline {
-    readonly currentTime: number | null;
-}
-
-declare var AnimationTimeline: {
-    prototype: AnimationTimeline;
-    new(): AnimationTimeline;
 }
 
 interface ApplicationCacheEventMap {
@@ -2388,7 +2208,7 @@ declare var CSSConditionRule: {
 interface CSSGroupingRule extends CSSRule {
     readonly cssRules: CSSRuleList;
     deleteRule(index: number): void;
-    insertRule(rule: CSSOMString, index?: number): number;
+    insertRule(rule: CSSOMString, index: number): number;
 }
 
 declare var CSSGroupingRule: {
@@ -2399,7 +2219,7 @@ declare var CSSGroupingRule: {
 interface CSSGroupingRule extends CSSRule {
     readonly cssRules: CSSRuleList;
     deleteRule(index: number): void;
-    insertRule(rule: CSSOMString, index: number): number;
+    insertRule(rule: CSSOMString, index?: number): number;
 }
 
 declare var CSSGroupingRule: {
@@ -2451,7 +2271,7 @@ declare var CSSMarginRule: {
     new(): CSSMarginRule;
 }
 
-interface CSSMediaRule extends CSSConditionRule {
+interface CSSMediaRule extends CSSGroupingRule {
     readonly media: MediaList;
 }
 
@@ -2460,7 +2280,7 @@ declare var CSSMediaRule: {
     new(): CSSMediaRule;
 }
 
-interface CSSMediaRule extends CSSGroupingRule {
+interface CSSMediaRule extends CSSConditionRule {
     readonly media: MediaList;
 }
 
@@ -2758,6 +2578,7 @@ interface CSSStyleDeclaration {
     pointerEvents: string | null;
     position: string | null;
     quotes: string | null;
+    resize: any;
     right: string | null;
     rotate: string | null;
     rubyAlign: string | null;
@@ -2799,6 +2620,7 @@ interface CSSStyleDeclaration {
     transitionTimingFunction: string | null;
     translate: string | null;
     unicodeBidi: string | null;
+    user-select: any;
     verticalAlign: string | null;
     visibility: string | null;
     webkitAlignContent: string | null;
@@ -3044,6 +2866,8 @@ declare var DeviceOrientationEvent: {
 }
 
 interface DocumentEventMap extends GlobalEventHandlersEventMap, DocumentAndElementEventHandlersEventMap {
+    "fullscreenchange": Event;
+    "fullscreenerror": Event;
     "readystatechange": Event;
 }
 
@@ -3122,6 +2946,8 @@ interface Document extends Node, NonElementParentNode, DocumentOrShadowRoot, Par
       * Retrieves a collection, in source order, of all form objects in the document.
       */
     forms: HTMLCollectionOf<HTMLFormElement>;
+    readonly fullscreen: boolean;
+    readonly fullscreenEnabled: boolean;
     readonly head: HTMLHeadElement | null;
     /**
       * Retrieves a collection, in source order, of img objects in the document.
@@ -3151,6 +2977,8 @@ interface Document extends Node, NonElementParentNode, DocumentOrShadowRoot, Par
       * Contains information about the current URL. 
       */
     readonly location: Location | null;
+    onfullscreenchange: (this: Document, ev: Event) => any;
+    onfullscreenerror: (this: Document, ev: Event) => any;
     /**
       * Fires when the state of the object has changed.
       * @param ev The event
@@ -3179,7 +3007,6 @@ interface Document extends Node, NonElementParentNode, DocumentOrShadowRoot, Par
       * Retrieves a collection of styleSheet objects representing the style sheets that correspond to each instance of a link or style object in the document.
       */
     readonly styleSheets: StyleSheetList;
-    readonly timeline: DocumentTimeline;
     /**
       * Contains the title of the document.
       */
@@ -3285,7 +3112,6 @@ interface Document extends Node, NonElementParentNode, DocumentOrShadowRoot, Par
     createElementNS(namespaceURI: "http://www.w3.org/2000/svg", qualifiedName: string): SVGElement
     createElementNS(namespace: string | null, qualifiedName: string, options?: ElementCreationOptions): Element;
     createEvent(eventInterface:"AnimationEvent"): AnimationEvent;
-    createEvent(eventInterface:"AnimationPlaybackEvent"): AnimationPlaybackEvent;
     createEvent(eventInterface:"AudioProcessingEvent"): AudioProcessingEvent;
     createEvent(eventInterface:"BeforeUnloadEvent"): BeforeUnloadEvent;
     createEvent(eventInterface:"ClipboardEvent"): ClipboardEvent;
@@ -3337,7 +3163,6 @@ interface Document extends Node, NonElementParentNode, DocumentOrShadowRoot, Par
     createEvent(eventInterface:"RelatedEvent"): RelatedEvent;
     createEvent(eventInterface:"SVGZoomEvent"): SVGZoomEvent;
     createEvent(eventInterface:"SVGZoomEvents"): SVGZoomEvent;
-    createEvent(eventInterface:"SensorErrorEvent"): SensorErrorEvent;
     createEvent(eventInterface:"SpeechRecognitionError"): SpeechRecognitionError;
     createEvent(eventInterface:"SpeechRecognitionEvent"): SpeechRecognitionEvent;
     createEvent(eventInterface:"SpeechSynthesisEvent"): SpeechSynthesisEvent;
@@ -3393,7 +3218,7 @@ interface Document extends Node, NonElementParentNode, DocumentOrShadowRoot, Par
       * @param value Value to assign.
       */
     execCommand(commandId: string, showUI?: boolean, value?: string): boolean;
-    getAnimations(): Animation[];
+    exitFullscreen(): Promise<void>;
     getElementsByClassName(classNames: string): HTMLCollectionOf<Element>;
     /**
       * Gets a collection of objects based on the value of the NAME or ID attribute.
@@ -3484,14 +3309,6 @@ interface DocumentFragment extends Node, NonElementParentNode, ParentNode, Paren
 declare var DocumentFragment: {
     prototype: DocumentFragment;
     new(): DocumentFragment;
-}
-
-interface DocumentTimeline extends AnimationTimeline {
-}
-
-declare var DocumentTimeline: {
-    prototype: DocumentTimeline;
-    new(options?: DocumentTimelineOptions): DocumentTimeline;
 }
 
 interface DocumentType extends Node, ChildNode {
@@ -3760,7 +3577,7 @@ interface ElementEventMap {
     "lostpointercapture": PointerEvent;
 }
 
-interface Element extends Node, ParentNode, NonDocumentTypeChildNode, ChildNode, Slotable, GeometryUtils, Animatable, ParentNode {
+interface Element extends Node, ParentNode, NonDocumentTypeChildNode, ChildNode, Slotable, GeometryUtils, ParentNode {
     readonly attributes: NamedNodeMap;
     readonly classList: DOMTokenList;
     className: string;
@@ -3808,6 +3625,7 @@ interface Element extends Node, ParentNode, NonDocumentTypeChildNode, ChildNode,
     removeAttribute(qualifiedName: string): void;
     removeAttributeNode(attr: Attr): Attr;
     removeAttributeNS(namespace: string | null, localName: string): void;
+    requestFullscreen(): Promise<void>;
     scroll(options?: ScrollToOptions): void;
     scroll(x: number, y: number): void;
     scrollBy(options?: ScrollToOptions): void;
@@ -7084,34 +6902,6 @@ declare var KeyboardEvent: {
     readonly DOM_KEY_LOCATION_STANDARD: number;
 }
 
-interface KeyframeEffect extends KeyframeEffectReadOnly {
-    composite: CompositeOperation;
-    iterationComposite: IterationCompositeOperation;
-    spacing: string;
-    target: Animatable | null;
-    setKeyframes(keyframes: any): void;
-}
-
-declare var KeyframeEffect: {
-    prototype: KeyframeEffect;
-    new(target: Animatable | null, keyframes: any, options?: number | KeyframeEffectOptions): KeyframeEffect;
-    new(source: KeyframeEffectReadOnly): KeyframeEffect;
-}
-
-interface KeyframeEffectReadOnly extends AnimationEffectReadOnly {
-    readonly composite: CompositeOperation;
-    readonly iterationComposite: IterationCompositeOperation;
-    readonly spacing: string;
-    readonly target: Animatable | null;
-    getKeyframes(): any[];
-}
-
-declare var KeyframeEffectReadOnly: {
-    prototype: KeyframeEffectReadOnly;
-    new(target: Animatable | null, keyframes: any, options?: number | KeyframeEffectOptions): KeyframeEffectReadOnly;
-    new(source: KeyframeEffectReadOnly): KeyframeEffectReadOnly;
-}
-
 interface Location {
     readonly ancestorOrigins: DOMStringList;
     hash: string;
@@ -8849,38 +8639,6 @@ declare var Selection: {
     new(): Selection;
 }
 
-interface SensorEventMap {
-    "activate": Event;
-    "change": Event;
-    "error": SensorErrorEvent;
-}
-
-interface Sensor extends EventTarget {
-    onactivate: (this: Sensor, ev: Event) => any;
-    onchange: (this: Sensor, ev: Event) => any;
-    onerror: (this: Sensor, ev: SensorErrorEvent) => any;
-    readonly state: SensorState;
-    readonly timestamp: number | null;
-    start(): void;
-    stop(): void;
-    addEventListener<K extends keyof SensorEventMap>(type: K, listener: (this: Sensor, ev: SensorEventMap[K]) => any, useCapture?: boolean): void;
-    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
-}
-
-declare var Sensor: {
-    prototype: Sensor;
-    new(): Sensor;
-}
-
-interface SensorErrorEvent extends Event {
-    readonly error: Error;
-}
-
-declare var SensorErrorEvent: {
-    prototype: SensorErrorEvent;
-    new(type: string, errorEventInitDict: SensorErrorEventInit): SensorErrorEvent;
-}
-
 interface ServiceWorkerEventMap extends AbstractWorkerEventMap {
     "statechange": Event;
 }
@@ -8985,14 +8743,12 @@ declare var ServiceWorkerRegistration: {
 }
 
 interface ShadowAnimation extends Animation {
-    readonly sourceAnimation: Animation;
-    addEventListener<K extends keyof AnimationEventMap>(type: K, listener: (this: ShadowAnimation, ev: AnimationEventMap[K]) => any, useCapture?: boolean): void;
-    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
+    readonly sourceAnimation: any;
 }
 
 declare var ShadowAnimation: {
     prototype: ShadowAnimation;
-    new(source: Animation, newTarget: Animatable): ShadowAnimation;
+    new(source: any, newTarget: any): ShadowAnimation;
 }
 
 interface ShadowRoot extends DocumentFragment, DocumentOrShadowRoot {
@@ -9003,14 +8759,6 @@ interface ShadowRoot extends DocumentFragment, DocumentOrShadowRoot {
 declare var ShadowRoot: {
     prototype: ShadowRoot;
     new(): ShadowRoot;
-}
-
-interface SharedKeyframeList {
-}
-
-declare var SharedKeyframeList: {
-    prototype: SharedKeyframeList;
-    new(keyframes: any): SharedKeyframeList;
 }
 
 interface SharedWorker extends EventTarget, AbstractWorker {
@@ -9227,7 +8975,7 @@ interface SpeechSynthesis extends EventTarget {
     readonly pending: boolean;
     readonly speaking: boolean;
     cancel(): void;
-    getVoices(): any[];
+    getVoices(): SpeechSynthesisVoice[];
     pause(): void;
     resume(): void;
     speak(utterance: SpeechSynthesisUtterance): void;
@@ -9241,7 +8989,7 @@ declare var SpeechSynthesis: {
 }
 
 interface SpeechSynthesisErrorEvent extends SpeechSynthesisEvent {
-    readonly error: any;
+    readonly error: SpeechSynthesisErrorCode;
 }
 
 declare var SpeechSynthesisErrorEvent: {
@@ -11801,11 +11549,6 @@ interface ANGLE_instanced_arrays {
     readonly VERTEX_ATTRIB_ARRAY_DIVISOR_ANGLE: GLenum;
 }
 
-interface Animatable {
-    animate(keyframes: any, options?: number | KeyframeAnimationOptions): Animation;
-    getAnimations(): Animation[];
-}
-
 interface Body {
     readonly body: ReadableStream | null;
     readonly bodyUsed: boolean;
@@ -11971,7 +11714,7 @@ interface Coordinates {
     readonly speed: number | null;
 }
 
-interface CSSPseudoElement extends Object, GeometryUtils, Animatable {
+interface CSSPseudoElement extends Object, GeometryUtils {
 }
 
 interface DeviceAcceleration {
@@ -12001,6 +11744,7 @@ interface DocumentAndElementEventHandlers {
 }
 
 interface DocumentOrShadowRoot {
+    readonly fullscreenElement: Element | null;
 }
 
 interface ElementContentEditable {
@@ -13191,14 +12935,18 @@ interface HTMLElementTagNameMap {
     "area": HTMLAreaElement;
     "audio": HTMLAudioElement;
     "base": HTMLBaseElement;
+    "blockquote": HTMLQuoteElement;
     "body": HTMLBodyElement;
     "br": HTMLBRElement;
     "button": HTMLButtonElement;
     "canvas": HTMLCanvasElement;
     "caption": HTMLTableCaptionElement;
     "col": HTMLTableColElement;
+    "colgroup": HTMLTableColElement;
     "data": HTMLDataElement;
     "datalist": HTMLDataListElement;
+    "del": HTMLModElement;
+    "dialog": HTMLDialogElement;
     "dir": HTMLDirectoryElement;
     "div": HTMLDivElement;
     "dl": HTMLDListElement;
@@ -13209,6 +12957,11 @@ interface HTMLElementTagNameMap {
     "frame": HTMLFrameElement;
     "frameset": HTMLFrameSetElement;
     "h1": HTMLHeadingElement;
+    "h2": HTMLHeadingElement;
+    "h3": HTMLHeadingElement;
+    "h4": HTMLHeadingElement;
+    "h5": HTMLHeadingElement;
+    "h6": HTMLHeadingElement;
     "head": HTMLHeadElement;
     "hr": HTMLHRElement;
     "html": HTMLHtmlElement;
@@ -13221,11 +12974,13 @@ interface HTMLElementTagNameMap {
     "legend": HTMLLegendElement;
     "li": HTMLLIElement;
     "link": HTMLLinkElement;
+    "listing": HTMLPreElement;
     "map": HTMLMapElement;
     "marquee": HTMLMarqueeElement;
     "menu": HTMLMenuElement;
     "meta": HTMLMetaElement;
     "meter": HTMLMeterElement;
+    "nextid": HTMLUnknownElement;
     "object": HTMLObjectElement;
     "ol": HTMLOListElement;
     "optgroup": HTMLOptGroupElement;
@@ -13243,8 +12998,12 @@ interface HTMLElementTagNameMap {
     "span": HTMLSpanElement;
     "style": HTMLStyleElement;
     "table": HTMLTableElement;
+    "tbody": HTMLTableSectionElement;
+    "td": HTMLTableCellElement;
     "template": HTMLTemplateElement;
     "textarea": HTMLTextAreaElement;
+    "tfoot": HTMLTableSectionElement;
+    "th": HTMLTableCellElement;
     "thead": HTMLTableSectionElement;
     "time": HTMLTimeElement;
     "title": HTMLTitleElement;
@@ -13252,30 +13011,50 @@ interface HTMLElementTagNameMap {
     "track": HTMLTrackElement;
     "ul": HTMLUListElement;
     "video": HTMLVideoElement;
+    "xmp": HTMLPreElement;
 }
 
 interface ElementTagNameMap {
     "a": HTMLAnchorElement;
+    "abbr": HTMLElement;
+    "acronym": HTMLElement;
+    "address": HTMLElement;
     "applet": HTMLAppletElement;
     "area": HTMLAreaElement;
+    "article": HTMLElement;
+    "aside": HTMLElement;
     "audio": HTMLAudioElement;
+    "b": HTMLElement;
     "base": HTMLBaseElement;
+    "bdo": HTMLElement;
+    "big": HTMLElement;
+    "blockquote": HTMLQuoteElement;
     "body": HTMLBodyElement;
     "br": HTMLBRElement;
     "button": HTMLButtonElement;
     "canvas": HTMLCanvasElement;
     "caption": HTMLTableCaptionElement;
+    "center": HTMLElement;
     "circle": SVGCircleElement;
+    "cite": HTMLElement;
     "clippath": SVGClipPathElement;
+    "code": HTMLElement;
     "col": HTMLTableColElement;
+    "colgroup": HTMLTableColElement;
     "data": HTMLDataElement;
     "datalist": HTMLDataListElement;
+    "dd": HTMLElement;
     "defs": SVGDefsElement;
+    "del": HTMLModElement;
     "desc": SVGDescElement;
+    "dfn": HTMLElement;
+    "dialog": HTMLDialogElement;
     "dir": HTMLDirectoryElement;
     "div": HTMLDivElement;
     "dl": HTMLDListElement;
+    "dt": HTMLElement;
     "ellipse": SVGEllipseElement;
+    "em": HTMLElement;
     "embed": HTMLEmbedElement;
     "feblend": SVGFEBlendElement;
     "fecolormatrix": SVGFEColorMatrixElement;
@@ -13302,30 +13081,45 @@ interface ElementTagNameMap {
     "fetile": SVGFETileElement;
     "feturbulence": SVGFETurbulenceElement;
     "fieldset": HTMLFieldSetElement;
+    "figcaption": HTMLElement;
+    "figure": HTMLElement;
     "filter": SVGFilterElement;
     "font": HTMLFontElement;
+    "footer": HTMLElement;
     "foreignobject": SVGForeignObjectElement;
     "form": HTMLFormElement;
     "frame": HTMLFrameElement;
     "frameset": HTMLFrameSetElement;
     "g": SVGGElement;
     "h1": HTMLHeadingElement;
+    "h2": HTMLHeadingElement;
+    "h3": HTMLHeadingElement;
+    "h4": HTMLHeadingElement;
+    "h5": HTMLHeadingElement;
+    "h6": HTMLHeadingElement;
     "head": HTMLHeadElement;
+    "header": HTMLElement;
+    "hgroup": HTMLElement;
     "hr": HTMLHRElement;
     "html": HTMLHtmlElement;
+    "i": HTMLElement;
     "iframe": HTMLIFrameElement;
     "image": SVGImageElement;
     "img": HTMLImageElement;
     "input": HTMLInputElement;
     "ins": HTMLModElement;
     "isindex": HTMLUnknownElement;
+    "kbd": HTMLElement;
+    "keygen": HTMLElement;
     "label": HTMLLabelElement;
     "legend": HTMLLegendElement;
     "li": HTMLLIElement;
     "line": SVGLineElement;
     "lineargradient": SVGLinearGradientElement;
     "link": HTMLLinkElement;
+    "listing": HTMLPreElement;
     "map": HTMLMapElement;
+    "mark": HTMLElement;
     "marker": SVGMarkerElement;
     "marquee": HTMLMarqueeElement;
     "mask": SVGMaskElement;
@@ -13333,7 +13127,11 @@ interface ElementTagNameMap {
     "meta": HTMLMetaElement;
     "metadata": SVGMetadataElement;
     "meter": HTMLMeterElement;
+    "nav": HTMLElement;
+    "nextid": HTMLUnknownElement;
+    "nobr": HTMLElement;
     "noframes": HTMLElement;
+    "noscript": HTMLElement;
     "object": HTMLObjectElement;
     "ol": HTMLOListElement;
     "optgroup": HTMLOptGroupElement;
@@ -13344,6 +13142,7 @@ interface ElementTagNameMap {
     "path": SVGPathElement;
     "pattern": SVGPatternElement;
     "picture": HTMLPictureElement;
+    "plaintext": HTMLElement;
     "polygon": SVGPolygonElement;
     "polyline": SVGPolylineElement;
     "pre": HTMLPreElement;
@@ -13351,54 +13150,92 @@ interface ElementTagNameMap {
     "q": HTMLQuoteElement;
     "radialgradient": SVGRadialGradientElement;
     "rect": SVGRectElement;
+    "rt": HTMLElement;
+    "ruby": HTMLElement;
+    "s": HTMLElement;
+    "samp": HTMLElement;
     "script": HTMLScriptElement;
+    "section": HTMLElement;
     "select": HTMLSelectElement;
+    "small": HTMLElement;
     "source": HTMLSourceElement;
     "span": HTMLSpanElement;
     "stop": SVGStopElement;
+    "strike": HTMLElement;
+    "strong": HTMLElement;
     "style": HTMLStyleElement;
+    "sub": HTMLElement;
+    "sup": HTMLElement;
     "svg": SVGSVGElement;
     "switch": SVGSwitchElement;
     "symbol": SVGSymbolElement;
     "table": HTMLTableElement;
+    "tbody": HTMLTableSectionElement;
+    "td": HTMLTableCellElement;
     "template": HTMLTemplateElement;
     "text": SVGTextElement;
     "textpath": SVGTextPathElement;
     "textarea": HTMLTextAreaElement;
+    "tfoot": HTMLTableSectionElement;
+    "th": HTMLTableCellElement;
     "thead": HTMLTableSectionElement;
     "time": HTMLTimeElement;
     "title": HTMLTitleElement;
     "tr": HTMLTableRowElement;
     "track": HTMLTrackElement;
     "tspan": SVGTSpanElement;
+    "tt": HTMLElement;
+    "u": HTMLElement;
     "ul": HTMLUListElement;
     "use": SVGUseElement;
+    "var": HTMLElement;
     "video": HTMLVideoElement;
     "view": SVGViewElement;
+    "wbr": HTMLElement;
+    "xmp": HTMLPreElement;
 }
 
 interface ElementListTagNameMap {
     "a": NodeListOf<HTMLAnchorElement>;
+    "abbr": NodeListOf<HTMLElement>;
+    "acronym": NodeListOf<HTMLElement>;
+    "address": NodeListOf<HTMLElement>;
     "applet": NodeListOf<HTMLAppletElement>;
     "area": NodeListOf<HTMLAreaElement>;
+    "article": NodeListOf<HTMLElement>;
+    "aside": NodeListOf<HTMLElement>;
     "audio": NodeListOf<HTMLAudioElement>;
+    "b": NodeListOf<HTMLElement>;
     "base": NodeListOf<HTMLBaseElement>;
+    "bdo": NodeListOf<HTMLElement>;
+    "big": NodeListOf<HTMLElement>;
+    "blockquote": NodeListOf<HTMLQuoteElement>;
     "body": NodeListOf<HTMLBodyElement>;
     "br": NodeListOf<HTMLBRElement>;
     "button": NodeListOf<HTMLButtonElement>;
     "canvas": NodeListOf<HTMLCanvasElement>;
     "caption": NodeListOf<HTMLTableCaptionElement>;
+    "center": NodeListOf<HTMLElement>;
     "circle": NodeListOf<SVGCircleElement>;
+    "cite": NodeListOf<HTMLElement>;
     "clippath": NodeListOf<SVGClipPathElement>;
+    "code": NodeListOf<HTMLElement>;
     "col": NodeListOf<HTMLTableColElement>;
+    "colgroup": NodeListOf<HTMLTableColElement>;
     "data": NodeListOf<HTMLDataElement>;
     "datalist": NodeListOf<HTMLDataListElement>;
+    "dd": NodeListOf<HTMLElement>;
     "defs": NodeListOf<SVGDefsElement>;
+    "del": NodeListOf<HTMLModElement>;
     "desc": NodeListOf<SVGDescElement>;
+    "dfn": NodeListOf<HTMLElement>;
+    "dialog": NodeListOf<HTMLDialogElement>;
     "dir": NodeListOf<HTMLDirectoryElement>;
     "div": NodeListOf<HTMLDivElement>;
     "dl": NodeListOf<HTMLDListElement>;
+    "dt": NodeListOf<HTMLElement>;
     "ellipse": NodeListOf<SVGEllipseElement>;
+    "em": NodeListOf<HTMLElement>;
     "embed": NodeListOf<HTMLEmbedElement>;
     "feblend": NodeListOf<SVGFEBlendElement>;
     "fecolormatrix": NodeListOf<SVGFEColorMatrixElement>;
@@ -13425,30 +13262,45 @@ interface ElementListTagNameMap {
     "fetile": NodeListOf<SVGFETileElement>;
     "feturbulence": NodeListOf<SVGFETurbulenceElement>;
     "fieldset": NodeListOf<HTMLFieldSetElement>;
+    "figcaption": NodeListOf<HTMLElement>;
+    "figure": NodeListOf<HTMLElement>;
     "filter": NodeListOf<SVGFilterElement>;
     "font": NodeListOf<HTMLFontElement>;
+    "footer": NodeListOf<HTMLElement>;
     "foreignobject": NodeListOf<SVGForeignObjectElement>;
     "form": NodeListOf<HTMLFormElement>;
     "frame": NodeListOf<HTMLFrameElement>;
     "frameset": NodeListOf<HTMLFrameSetElement>;
     "g": NodeListOf<SVGGElement>;
     "h1": NodeListOf<HTMLHeadingElement>;
+    "h2": NodeListOf<HTMLHeadingElement>;
+    "h3": NodeListOf<HTMLHeadingElement>;
+    "h4": NodeListOf<HTMLHeadingElement>;
+    "h5": NodeListOf<HTMLHeadingElement>;
+    "h6": NodeListOf<HTMLHeadingElement>;
     "head": NodeListOf<HTMLHeadElement>;
+    "header": NodeListOf<HTMLElement>;
+    "hgroup": NodeListOf<HTMLElement>;
     "hr": NodeListOf<HTMLHRElement>;
     "html": NodeListOf<HTMLHtmlElement>;
+    "i": NodeListOf<HTMLElement>;
     "iframe": NodeListOf<HTMLIFrameElement>;
     "image": NodeListOf<SVGImageElement>;
     "img": NodeListOf<HTMLImageElement>;
     "input": NodeListOf<HTMLInputElement>;
     "ins": NodeListOf<HTMLModElement>;
     "isindex": NodeListOf<HTMLUnknownElement>;
+    "kbd": NodeListOf<HTMLElement>;
+    "keygen": NodeListOf<HTMLElement>;
     "label": NodeListOf<HTMLLabelElement>;
     "legend": NodeListOf<HTMLLegendElement>;
     "li": NodeListOf<HTMLLIElement>;
     "line": NodeListOf<SVGLineElement>;
     "lineargradient": NodeListOf<SVGLinearGradientElement>;
     "link": NodeListOf<HTMLLinkElement>;
+    "listing": NodeListOf<HTMLPreElement>;
     "map": NodeListOf<HTMLMapElement>;
+    "mark": NodeListOf<HTMLElement>;
     "marker": NodeListOf<SVGMarkerElement>;
     "marquee": NodeListOf<HTMLMarqueeElement>;
     "mask": NodeListOf<SVGMaskElement>;
@@ -13456,7 +13308,11 @@ interface ElementListTagNameMap {
     "meta": NodeListOf<HTMLMetaElement>;
     "metadata": NodeListOf<SVGMetadataElement>;
     "meter": NodeListOf<HTMLMeterElement>;
+    "nav": NodeListOf<HTMLElement>;
+    "nextid": NodeListOf<HTMLUnknownElement>;
+    "nobr": NodeListOf<HTMLElement>;
     "noframes": NodeListOf<HTMLElement>;
+    "noscript": NodeListOf<HTMLElement>;
     "object": NodeListOf<HTMLObjectElement>;
     "ol": NodeListOf<HTMLOListElement>;
     "optgroup": NodeListOf<HTMLOptGroupElement>;
@@ -13467,6 +13323,7 @@ interface ElementListTagNameMap {
     "path": NodeListOf<SVGPathElement>;
     "pattern": NodeListOf<SVGPatternElement>;
     "picture": NodeListOf<HTMLPictureElement>;
+    "plaintext": NodeListOf<HTMLElement>;
     "polygon": NodeListOf<SVGPolygonElement>;
     "polyline": NodeListOf<SVGPolylineElement>;
     "pre": NodeListOf<HTMLPreElement>;
@@ -13474,30 +13331,49 @@ interface ElementListTagNameMap {
     "q": NodeListOf<HTMLQuoteElement>;
     "radialgradient": NodeListOf<SVGRadialGradientElement>;
     "rect": NodeListOf<SVGRectElement>;
+    "rt": NodeListOf<HTMLElement>;
+    "ruby": NodeListOf<HTMLElement>;
+    "s": NodeListOf<HTMLElement>;
+    "samp": NodeListOf<HTMLElement>;
     "script": NodeListOf<HTMLScriptElement>;
+    "section": NodeListOf<HTMLElement>;
     "select": NodeListOf<HTMLSelectElement>;
+    "small": NodeListOf<HTMLElement>;
     "source": NodeListOf<HTMLSourceElement>;
     "span": NodeListOf<HTMLSpanElement>;
     "stop": NodeListOf<SVGStopElement>;
+    "strike": NodeListOf<HTMLElement>;
+    "strong": NodeListOf<HTMLElement>;
     "style": NodeListOf<HTMLStyleElement>;
+    "sub": NodeListOf<HTMLElement>;
+    "sup": NodeListOf<HTMLElement>;
     "svg": NodeListOf<SVGSVGElement>;
     "switch": NodeListOf<SVGSwitchElement>;
     "symbol": NodeListOf<SVGSymbolElement>;
     "table": NodeListOf<HTMLTableElement>;
+    "tbody": NodeListOf<HTMLTableSectionElement>;
+    "td": NodeListOf<HTMLTableCellElement>;
     "template": NodeListOf<HTMLTemplateElement>;
     "text": NodeListOf<SVGTextElement>;
     "textpath": NodeListOf<SVGTextPathElement>;
     "textarea": NodeListOf<HTMLTextAreaElement>;
+    "tfoot": NodeListOf<HTMLTableSectionElement>;
+    "th": NodeListOf<HTMLTableCellElement>;
     "thead": NodeListOf<HTMLTableSectionElement>;
     "time": NodeListOf<HTMLTimeElement>;
     "title": NodeListOf<HTMLTitleElement>;
     "tr": NodeListOf<HTMLTableRowElement>;
     "track": NodeListOf<HTMLTrackElement>;
     "tspan": NodeListOf<SVGTSpanElement>;
+    "tt": NodeListOf<HTMLElement>;
+    "u": NodeListOf<HTMLElement>;
     "ul": NodeListOf<HTMLUListElement>;
     "use": NodeListOf<SVGUseElement>;
+    "var": NodeListOf<HTMLElement>;
     "video": NodeListOf<HTMLVideoElement>;
     "view": NodeListOf<SVGViewElement>;
+    "wbr": NodeListOf<HTMLElement>;
+    "xmp": NodeListOf<HTMLPreElement>;
 }
 
 declare var Audio: {new(src?: string): HTMLAudioElement; };
@@ -13750,7 +13626,6 @@ type DOMTimeStamp = number;
 type FormDataEntryValue = File | string;
 type IDBValidKey = number | string | Date | IDBArrayKey;
 type MouseWheelEvent = WheelEvent;
-type AnimationPlayState = "idle" | "pending" | "running" | "paused" | "finished";
 type AppendMode = "segments" | "sequence";
 type Attachment = "platform" | "cross-platform";
 type AudioContextLatencyCategory = "balanced" | "interactive" | "playback";
@@ -13768,19 +13643,16 @@ type ChannelCountMode = "max" | "clamped-max" | "explicit";
 type ChannelInterpretation = "speakers" | "discrete";
 type ClientType = "window" | "worker" | "sharedworker" | "all";
 type ColorSpaceConversion = "none" | "default";
-type CompositeOperation = "replace" | "add" | "accumulate";
 type CSSBoxType = "margin" | "border" | "padding" | "content";
 type DistanceModelType = "linear" | "inverse" | "exponential";
 type DocumentReadyState = "loading" | "interactive" | "complete";
 type EndOfStreamError = "network" | "decode";
-type FillMode = "none" | "forwards" | "backwards" | "both" | "auto";
 type GamepadMappingType = "" | "standard";
 type IDBCursorDirection = "next" | "nextunique" | "prev" | "prevunique";
 type IDBRequestReadyState = "pending" | "done";
 type IDBTransactionMode = "readonly" | "readwrite" | "versionchange";
 type ImageOrientation = "none" | "flipY";
 type ImageSmoothingQuality = "low" | "medium" | "high";
-type IterationCompositeOperation = "replace" | "accumulate";
 type KeyFormat = "raw" | "spki" | "pkcs8" | "jwk";
 type KeyType = "public" | "private" | "secret";
 type KeyUsage = "encrypt" | "decrypt" | "sign" | "verify" | "deriveKey" | "deriveBits" | "wrapKey" | "unwrapKey";
@@ -13799,7 +13671,6 @@ type OverSampleType = "none" | "2x" | "4x";
 type PanningModelType = "equalpower" | "HRTF";
 type PaymentComplete = "fail" | "success" | "unknown";
 type PaymentShippingType = "shipping" | "delivery" | "pickup";
-type PlaybackDirection = "normal" | "reverse" | "alternate" | "alternate-reverse";
 type PremultiplyAlpha = "none" | "premultiply" | "default";
 type PushEncryptionKeyName = "p256dh" | "auth";
 type PushPermissionState = "denied" | "granted" | "prompt";
@@ -13841,7 +13712,6 @@ type ScrollBehavior = "auto" | "instant" | "smooth";
 type ScrollLogicalPosition = "start" | "center" | "end" | "nearest";
 type ScrollRestoration = "auto" | "manual";
 type SelectionMode = "select" | "start" | "end" | "preserve";
-type SensorState = "unconnected" | "activating" | "activated" | "idle" | "errored";
 type ServiceWorkerState = "installing" | "installed" | "activating" | "activated" | "redundant";
 type ShadowRootMode = "open" | "closed";
 type SpeechRecognitionErrorCode = "no-speech" | "aborted" | "audio-capture" | "network" | "not-allowed" | "service-not-allowed" | "bad-grammar" | "language-not-supported";
