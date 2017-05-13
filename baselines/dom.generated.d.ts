@@ -12724,13 +12724,6 @@ interface ClipboardEventInit extends EventInit {
 interface IDBArrayKey extends Array<IDBValidKey> {
 }
 
-interface ParentNode {
-    readonly children: HTMLCollection;
-    readonly firstElementChild: Element | null;
-    readonly lastElementChild: Element | null;
-    readonly childElementCount: number;
-}
-
 interface DocumentOrShadowRoot {
     readonly activeElement: Element | null;
     readonly stylesheets: StyleSheetList;
