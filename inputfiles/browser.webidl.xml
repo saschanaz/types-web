@@ -69,9 +69,6 @@
     <callback-function name="RTCSessionDescriptionCallback" callback="1" type="void">
       <param name="description" type="RTCSessionDescriptionInit"/>
     </callback-function>
-    <callback-function name="RTCStatsCallback" callback="1" type="void">
-      <param name="report" type="RTCStatsReport"/>
-    </callback-function>
     <callback-function name="ValidateAssertionCallback" callback="1" type="Promise&lt;RTCIdentityValidationResult&gt;">
       <param name="assertion" type="DOMString"/>
       <param name="origin" type="DOMString"/>
@@ -113,15 +110,6 @@
     </interface>
   </callback-interfaces>
   <dictionaries>
-    <dictionary name="Account" extends="Object">
-      <members>
-        <member name="displayName" type="DOMString" required="1"/>
-        <member name="id" type="DOMString" required="1"/>
-        <member name="imageURL" type="DOMString"/>
-        <member name="name" type="DOMString"/>
-        <member name="rpDisplayName" type="DOMString" required="1"/>
-      </members>
-    </dictionary>
     <dictionary name="AddEventListenerOptions" extends="EventListenerOptions">
       <members>
         <member name="once" default="false" type="boolean"/>
@@ -179,14 +167,6 @@
         <member name="animationName" default="&quot;&quot;" type="CSSOMString"/>
         <member name="elapsedTime" default="0" type="float"/>
         <member name="pseudoElement" default="&quot;&quot;" type="CSSOMString"/>
-      </members>
-    </dictionary>
-    <dictionary name="AssertionOptions" extends="Object">
-      <members>
-        <member name="allowList" default="[]" type="sequence&lt;ScopedCredentialDescriptor&gt;"/>
-        <member name="extensions" type="AuthenticationExtensions"/>
-        <member name="rpId" type="USVString"/>
-        <member name="timeout" type="unsigned long"/>
       </members>
     </dictionary>
     <dictionary name="AssignedNodesOptions" extends="Object">
@@ -257,9 +237,6 @@
         <member name="numberOfOutputs" type="unsigned long"/>
       </members>
     </dictionary>
-    <dictionary name="AuthenticationExtensions" extends="Object">
-      <members/>
-    </dictionary>
     <dictionary name="BiquadFilterOptions" extends="AudioNodeOptions">
       <members>
         <member name="detune" default="0" type="float"/>
@@ -312,15 +289,6 @@
     <dictionary name="ChannelSplitterOptions" extends="AudioNodeOptions">
       <members>
         <member name="numberOfOutputs" default="6" type="unsigned long"/>
-      </members>
-    </dictionary>
-    <dictionary name="ClientData" extends="Object">
-      <members>
-        <member name="challenge" type="DOMString" required="1"/>
-        <member name="extensions" type="AuthenticationExtensions"/>
-        <member name="hashAlg" type="AlgorithmIdentifier" required="1"/>
-        <member name="origin" type="DOMString" required="1"/>
-        <member name="tokenBinding" type="DOMString"/>
       </members>
     </dictionary>
     <dictionary name="ClientQueryOptions" extends="Object">
@@ -1418,7 +1386,7 @@
     </dictionary>
     <dictionary name="RTCIceServer" extends="Object">
       <members>
-        <member name="credential" type="DOMString"/>
+        <member name="credential" type="(DOMString or RTCOAuthCredential)"/>
         <member name="credentialType" default="&quot;password&quot;" type="RTCIceCredentialType"/>
         <member name="urls" type="(DOMString or sequence&lt;DOMString&gt;)" required="1"/>
         <member name="username" type="DOMString"/>
@@ -1503,6 +1471,12 @@
         <member name="trackIdentifier" type="DOMString"/>
       </members>
     </dictionary>
+    <dictionary name="RTCOAuthCredential" extends="Object">
+      <members>
+        <member name="accessToken" type="DOMString" required="1"/>
+        <member name="macKey" type="DOMString" required="1"/>
+      </members>
+    </dictionary>
     <dictionary name="RTCOfferAnswerOptions" extends="Object">
       <members>
         <member name="voiceActivityDetection" default="true" type="boolean"/>
@@ -1581,6 +1555,7 @@
         <member name="maxBitrate" type="unsigned long"/>
         <member name="maxFramerate" type="unsigned long"/>
         <member name="priority" type="RTCPriorityType"/>
+        <member name="ptime" type="unsigned long"/>
         <member name="rid" type="DOMString"/>
         <member name="rtx" type="RTCRtpRtxParameters"/>
         <member name="scaleResolutionDownBy" default="1" type="double"/>
@@ -1679,28 +1654,6 @@
         <member name="remoteCertificateId" type="DOMString"/>
         <member name="rtcpTransportStatsId" type="DOMString"/>
         <member name="selectedCandidatePairId" type="DOMString"/>
-      </members>
-    </dictionary>
-    <dictionary name="ScopedCredentialDescriptor" extends="Object">
-      <members>
-        <member name="id" type="BufferSource" required="1"/>
-        <member name="transports" type="sequence&lt;Transport&gt;"/>
-        <member name="type" type="ScopedCredentialType" required="1"/>
-      </members>
-    </dictionary>
-    <dictionary name="ScopedCredentialOptions" extends="Object">
-      <members>
-        <member name="attachment" type="Attachment"/>
-        <member name="excludeList" default="[]" type="sequence&lt;ScopedCredentialDescriptor&gt;"/>
-        <member name="extensions" type="AuthenticationExtensions"/>
-        <member name="rpId" type="USVString"/>
-        <member name="timeout" type="unsigned long"/>
-      </members>
-    </dictionary>
-    <dictionary name="ScopedCredentialParameters" extends="Object">
-      <members>
-        <member name="algorithm" type="AlgorithmIdentifier" required="1"/>
-        <member name="type" type="ScopedCredentialType" required="1"/>
       </members>
     </dictionary>
     <dictionary name="ScrollIntoViewOptions" extends="ScrollOptions">
@@ -1834,6 +1787,7 @@
     <dictionary name="WorkerOptions" extends="Object">
       <members>
         <member name="credentials" default="&quot;omit&quot;" type="RequestCredentials"/>
+        <member name="name" default="&quot;&quot;" type="DOMString"/>
         <member name="type" default="&quot;classic&quot;" type="WorkerType"/>
       </members>
     </dictionary>
@@ -1847,10 +1801,6 @@
     <enum name="AppendMode">
       <value>segments</value>
       <value>sequence</value>
-    </enum>
-    <enum name="Attachment">
-      <value>platform</value>
-      <value>cross-platform</value>
     </enum>
     <enum name="AudioContextLatencyCategory">
       <value>balanced</value>
@@ -2101,6 +2051,17 @@
       <value>open</value>
       <value>ended</value>
     </enum>
+    <enum name="ReferrerPolicy">
+      <value/>
+      <value>no-referrer</value>
+      <value>no-referrer-when-downgrade</value>
+      <value>same-origin</value>
+      <value>origin</value>
+      <value>strict-origin</value>
+      <value>origin-when-cross-origin</value>
+      <value>strict-origin-when-cross-origin</value>
+      <value>unsafe-url</value>
+    </enum>
     <enum name="RequestCache">
       <value>default</value>
       <value>no-store</value>
@@ -2195,6 +2156,19 @@
       <value>disabled</value>
       <value>enabled</value>
     </enum>
+    <enum name="RTCErrorDetailType">
+      <value>data-channel-failure</value>
+      <value>idp-bad-script-failure</value>
+      <value>idp-execution-failure</value>
+      <value>idp-load-failure</value>
+      <value>idp-need-login</value>
+      <value>idp-timeout</value>
+      <value>idp-tls-failure</value>
+      <value>idp-token-expired</value>
+      <value>idp-token-invalid</value>
+      <value>sctp-failure</value>
+      <value>sdp-syntax-error</value>
+    </enum>
     <enum name="RTCIceCandidateType">
       <value>host</value>
       <value>srflx</value>
@@ -2216,7 +2190,7 @@
     </enum>
     <enum name="RTCIceCredentialType">
       <value>password</value>
-      <value>token</value>
+      <value>oauth</value>
     </enum>
     <enum name="RTCIceGathererState">
       <value>new</value>
@@ -2290,6 +2264,7 @@
       <value>have-remote-offer</value>
       <value>have-local-pranswer</value>
       <value>have-remote-pranswer</value>
+      <value>closed</value>
     </enum>
     <enum name="RTCStatsIceCandidatePairState">
       <value>frozen</value>
@@ -2299,7 +2274,6 @@
       <value>succeeded</value>
       <value>cancelled</value>
     </enum>
-    <enum name="RTCStatsType"/>
     <enum name="RTCStatsType">
       <value>codec</value>
       <value>inbound-rtp</value>
@@ -2313,9 +2287,7 @@
       <value>remote-candidate</value>
       <value>certificate</value>
     </enum>
-    <enum name="ScopedCredentialType">
-      <value>ScopedCred</value>
-    </enum>
+    <enum name="RTCStatsType"/>
     <enum name="ScrollBehavior">
       <value>auto</value>
       <value>instant</value>
@@ -2386,11 +2358,6 @@
     <enum name="TouchType">
       <value>direct</value>
       <value>stylus</value>
-    </enum>
-    <enum name="Transport">
-      <value>usb</value>
-      <value>nfc</value>
-      <value>ble</value>
     </enum>
     <enum name="VideoFacingModeEnum">
       <value>user</value>
@@ -2792,14 +2759,6 @@
       <events>
         <event name="data" type="Event"/>
       </events>
-    </interface>
-    <interface name="AuthenticationAssertion" extends="Object">
-      <properties>
-        <property name="authenticatorData" read-only="1" type="ArrayBuffer"/>
-        <property name="clientDataJSON" read-only="1" type="ArrayBuffer"/>
-        <property name="credential" read-only="1" type="ScopedCredential"/>
-        <property name="signature" read-only="1" type="ArrayBuffer"/>
-      </properties>
     </interface>
     <interface name="BarProp" extends="Object">
       <properties>
@@ -3806,6 +3765,7 @@
         </method>
       </methods>
       <properties>
+        <property name="name" read-only="1" type="DOMString"/>
         <property name="onmessage" type="EventHandler" event-handler="message"/>
         <property name="onmessageerror" type="EventHandler" event-handler="messageerror"/>
       </properties>
@@ -7262,7 +7222,6 @@
         </method>
       </methods>
       <properties>
-        <property name="authentication" read-only="1" type="WebAuthentication"/>
         <property name="geolocation" read-only="1" type="Geolocation"/>
         <property name="maxTouchPoints" read-only="1" type="long"/>
         <property name="serviceWorker" read-only="1" type="ServiceWorkerContainer"/>
@@ -7894,7 +7853,7 @@
         <property name="data" read-only="1" nullable="1" type="PushMessageData"/>
       </properties>
     </interface>
-    <interface name="PushManager" extends="Object">
+    <interface name="PushManager" extends="Object" exposed="Window Worker">
       <methods>
         <method name="getSubscription" type="Promise&lt;PushSubscription?&gt;"/>
         <method name="permissionState" type="Promise&lt;PushPermissionState&gt;">
@@ -7916,7 +7875,7 @@
         <method name="text" type="USVString"/>
       </methods>
     </interface>
-    <interface name="PushSubscription" extends="Object">
+    <interface name="PushSubscription" extends="Object" exposed="Window Worker">
       <methods>
         <method name="getKey" nullable="1" type="ArrayBuffer">
           <param name="name" type="PushEncryptionKeyName"/>
@@ -7939,7 +7898,7 @@
         <property name="oldSubscription" read-only="1" nullable="1" type="PushSubscription"/>
       </properties>
     </interface>
-    <interface name="PushSubscriptionOptions" extends="Object">
+    <interface name="PushSubscriptionOptions" extends="Object" exposed="Window Worker">
       <properties>
         <property name="applicationServerKey" read-only="1" nullable="1" type="ArrayBuffer"/>
         <property name="userVisibleOnly" read-only="1" type="boolean"/>
@@ -8116,10 +8075,10 @@
     <interface name="RTCCertificate" extends="Object">
       <methods>
         <method name="getAlgorithm" type="AlgorithmIdentifier"/>
+        <method name="getFingerprints" type="sequence&lt;RTCDtlsFingerprint&gt;"/>
       </methods>
       <properties>
         <property name="expires" read-only="1" type="DOMTimeStamp"/>
-        <property name="fingerprints" read-only="1" type="FrozenArray&lt;RTCDtlsFingerprint&gt;"/>
       </properties>
     </interface>
     <interface name="RTCDataChannel" extends="EventTarget">
@@ -8310,12 +8269,12 @@
           <param name="init" optional="1" type="RTCRtpTransceiverInit"/>
         </method>
         <method name="close" type="void"/>
-        <method name="createAnswer" type="Promise&lt;RTCSessionDescriptionInit&gt;">
-          <param name="options" optional="1" type="RTCAnswerOptions"/>
-        </method>
         <method name="createAnswer" type="Promise&lt;void&gt;">
           <param name="successCallback" type="RTCSessionDescriptionCallback"/>
           <param name="failureCallback" type="RTCPeerConnectionErrorCallback"/>
+        </method>
+        <method name="createAnswer" type="Promise&lt;RTCSessionDescriptionInit&gt;">
+          <param name="options" optional="1" type="RTCAnswerOptions"/>
         </method>
         <method name="createDataChannel" type="RTCDataChannel">
           <param name="label" type="USVString"/>
@@ -8333,6 +8292,7 @@
           <param name="keygenAlgorithm" type="AlgorithmIdentifier"/>
         </method>
         <method name="getConfiguration" type="RTCConfiguration"/>
+        <method name="getDefaultIceServers" static="1" type="sequence&lt;RTCIceServer&gt;"/>
         <method name="getIdentityAssertion" type="Promise&lt;DOMString&gt;"/>
         <method name="getReceivers" type="sequence&lt;RTCRtpReceiver&gt;"/>
         <method name="getSenders" type="sequence&lt;RTCRtpSender&gt;"/>
@@ -8372,7 +8332,6 @@
         <property name="connectionState" read-only="1" type="RTCPeerConnectionState"/>
         <property name="currentLocalDescription" read-only="1" nullable="1" type="RTCSessionDescription"/>
         <property name="currentRemoteDescription" read-only="1" nullable="1" type="RTCSessionDescription"/>
-        <property name="defaultIceServers" read-only="1" static="1" type="FrozenArray&lt;RTCIceServer&gt;"/>
         <property name="iceConnectionState" read-only="1" type="RTCIceConnectionState"/>
         <property name="iceGatheringState" read-only="1" type="RTCIceGatheringState"/>
         <property name="idpErrorInfo" read-only="1" nullable="1" type="DOMString"/>
@@ -8440,7 +8399,6 @@
         <property name="audioLevel" read-only="1" nullable="1" type="byte"/>
         <property name="source" read-only="1" type="unsigned long"/>
         <property name="timestamp" read-only="1" type="DOMHighResTimeStamp"/>
-        <property name="voiceActivityFlag" read-only="1" nullable="1" type="boolean"/>
       </properties>
     </interface>
     <interface name="RTCRtpReceiver" extends="Object">
@@ -8450,6 +8408,8 @@
         </method>
         <method name="getContributingSources" type="sequence&lt;RTCRtpContributingSource&gt;"/>
         <method name="getParameters" type="RTCRtpParameters"/>
+        <method name="getStats" type="Promise&lt;RTCStatsReport&gt;"/>
+        <method name="getSynchronizationSources" type="sequence&lt;RTCRtpSynchronizationSource&gt;"/>
       </methods>
       <properties>
         <property name="rtcpTransport" read-only="1" nullable="1" type="RTCDtlsTransport"/>
@@ -8466,6 +8426,7 @@
           <param name="kind" type="DOMString"/>
         </method>
         <method name="getParameters" type="RTCRtpParameters"/>
+        <method name="getStats" type="Promise&lt;RTCStatsReport&gt;"/>
         <method name="replaceTrack" type="Promise&lt;void&gt;">
           <param name="withTrack" type="MediaStreamTrack"/>
         </method>
@@ -8483,6 +8444,14 @@
         <event name="error" dispatch="sync" skips-window="1" type="Event"/>
         <event name="ssrcconflict" dispatch="sync" skips-window="1" type="RTCSsrcConflictEvent"/>
       </events>
+    </interface>
+    <interface name="RTCRtpSynchronizationSource" extends="Object">
+      <properties>
+        <property name="audioLevel" read-only="1" type="byte"/>
+        <property name="source" read-only="1" type="unsigned long"/>
+        <property name="timestamp" read-only="1" type="DOMHighResTimeStamp"/>
+        <property name="voiceActivityFlag" read-only="1" nullable="1" type="boolean"/>
+      </properties>
     </interface>
     <interface name="RTCRtpTransceiver" extends="Object">
       <methods>
@@ -8529,18 +8498,6 @@
         <property name="streams" read-only="1" type="FrozenArray&lt;MediaStream&gt;"/>
         <property name="track" read-only="1" type="MediaStreamTrack"/>
         <property name="transceiver" read-only="1" type="RTCRtpTransceiver"/>
-      </properties>
-    </interface>
-    <interface name="ScopedCredential" extends="Object">
-      <properties>
-        <property name="id" read-only="1" type="ArrayBuffer"/>
-        <property name="type" read-only="1" type="ScopedCredentialType"/>
-      </properties>
-    </interface>
-    <interface name="ScopedCredentialInfo" extends="Object">
-      <properties>
-        <property name="attestationObject" read-only="1" type="ArrayBuffer"/>
-        <property name="clientDataJSON" read-only="1" type="ArrayBuffer"/>
       </properties>
     </interface>
     <interface name="Screen" extends="Object">
@@ -8735,8 +8692,7 @@
     <interface name="SharedWorker" extends="EventTarget" exposed="Window Worker">
       <constructor>
         <param name="scriptURL" type="USVString"/>
-        <param name="name" default="&quot;&quot;" optional="1" type="DOMString"/>
-        <param name="options" optional="1" type="WorkerOptions"/>
+        <param name="options" optional="1" type="(DOMString or WorkerOptions)"/>
       </constructor>
       <properties>
         <property name="port" read-only="1" type="MessagePort"/>
@@ -10631,20 +10587,6 @@
         <property name="oversample" type="OverSampleType"/>
       </properties>
     </interface>
-    <interface name="WebAuthentication" extends="Object">
-      <methods>
-        <method name="getAssertion" type="Promise&lt;AuthenticationAssertion&gt;">
-          <param name="assertionChallenge" type="BufferSource"/>
-          <param name="options" optional="1" type="AssertionOptions"/>
-        </method>
-        <method name="makeCredential" type="Promise&lt;ScopedCredentialInfo&gt;">
-          <param name="accountInformation" type="Account"/>
-          <param name="cryptoParameters" type="sequence&lt;ScopedCredentialParameters&gt;"/>
-          <param name="attestationChallenge" type="BufferSource"/>
-          <param name="options" optional="1" type="ScopedCredentialOptions"/>
-        </method>
-      </methods>
-    </interface>
     <interface name="WebGLActiveInfo" extends="Object">
       <properties>
         <property name="name" read-only="1" type="DOMString"/>
@@ -12288,7 +12230,6 @@
         <constant name="STENCIL_CLEAR_VALUE" type="GLenum" value="2961"/>
         <constant name="STENCIL_FAIL" type="GLenum" value="2964"/>
         <constant name="STENCIL_FUNC" type="GLenum" value="2962"/>
-        <constant name="STENCIL_INDEX" type="GLenum" value="6401"/>
         <constant name="STENCIL_INDEX8" type="GLenum" value="36168"/>
         <constant name="STENCIL_PASS_DEPTH_FAIL" type="GLenum" value="2965"/>
         <constant name="STENCIL_PASS_DEPTH_PASS" type="GLenum" value="2966"/>
@@ -12426,23 +12367,18 @@
         </method>
         <method name="bufferData" type="void">
           <param name="target" type="GLenum"/>
-          <param name="data" nullable="1" type="ArrayBuffer"/>
-          <param name="usage" type="GLenum"/>
-        </method>
-        <method name="bufferData" type="void">
-          <param name="target" type="GLenum"/>
-          <param name="data" type="ArrayBufferView"/>
-          <param name="usage" type="GLenum"/>
-        </method>
-        <method name="bufferData" type="void">
-          <param name="target" type="GLenum"/>
           <param name="size" type="GLsizeiptr"/>
+          <param name="usage" type="GLenum"/>
+        </method>
+        <method name="bufferData" type="void">
+          <param name="target" type="GLenum"/>
+          <param name="data" nullable="1" type="BufferSource"/>
           <param name="usage" type="GLenum"/>
         </method>
         <method name="bufferSubData" type="void">
           <param name="target" type="GLenum"/>
           <param name="offset" type="GLintptr"/>
-          <param name="data" type="BufferDataSource"/>
+          <param name="data" type="BufferSource"/>
         </method>
         <method name="checkFramebufferStatus" type="GLenum">
           <param name="target" type="GLenum"/>
@@ -13076,59 +13012,56 @@
     </interface>
   </mixin-interfaces>
   <typedefs>
-    <typedef new-type="AAGUID" type="BufferSource"/>
-    <typedef new-type="CSSOMString" type="USVString"/>
-    <typedef new-type="HeadersInit" type="(sequence&lt;sequence&lt;ByteString&gt;&gt; or record&lt;ByteString, ByteString&gt;)"/>
+    <typedef new-type="AlgorithmIdentifier" type="(object or DOMString)"/>
+    <typedef new-type="ArrayBufferView" type="(Int8Array or Int16Array or Int32Array or Uint8Array or Uint16Array or Uint32Array or Uint8ClampedArray or Float32Array or Float64Array or DataView)"/>
+    <typedef new-type="BigInteger" type="Uint8Array"/>
     <typedef new-type="BodyInit" type="(Blob or BufferSource or FormData or URLSearchParams or ReadableStream or USVString)"/>
-    <typedef new-type="RequestInfo" type="(Request or USVString)"/>
-    <typedef new-type="DOMHighResTimeStamp" type="double"/>
-    <typedef new-type="HTMLOrSVGScriptElement" type="(HTMLScriptElement or SVGScriptElement)"/>
-    <typedef new-type="MediaProvider" type="(MediaStream or MediaSource or Blob)"/>
-    <typedef new-type="RenderingContext" type="(CanvasRenderingContext2D or WebGLRenderingContext)"/>
-    <typedef new-type="HTMLOrSVGImageElement" type="(HTMLImageElement or SVGImageElement)"/>
+    <typedef new-type="BufferSource" type="(ArrayBufferView or ArrayBuffer)"/>
     <typedef new-type="CanvasImageSource" type="(HTMLOrSVGImageElement or HTMLVideoElement or HTMLCanvasElement or ImageBitmap or OffscreenCanvas)"/>
-    <typedef new-type="OffscreenRenderingContext" type="(OffscreenCanvasRenderingContext2D or WebGLRenderingContext)"/>
-    <typedef new-type="EventHandler" nullable="1" type="EventHandlerNonNull"/>
-    <typedef new-type="OnErrorEventHandler" nullable="1" type="OnErrorEventHandlerNonNull"/>
-    <typedef new-type="OnBeforeUnloadEventHandler" nullable="1" type="OnBeforeUnloadEventHandlerNonNull"/>
-    <typedef new-type="TimerHandler" type="(DOMString or Function)"/>
-    <typedef new-type="ImageBitmapSource" type="(CanvasImageSource or Blob or ImageData)"/>
-    <typedef new-type="MessageEventSource" type="(WindowProxy or MessagePort or ServiceWorker)"/>
-    <typedef new-type="MediaStreamError" type="object"/>
-    <typedef new-type="ConstrainLong" type="(long or ConstrainLongRange)"/>
-    <typedef new-type="ConstrainDouble" type="(double or ConstrainDoubleRange)"/>
     <typedef new-type="ConstrainBoolean" type="(boolean or ConstrainBooleanParameters)"/>
     <typedef new-type="ConstrainDOMString" type="(DOMString or sequence&lt;DOMString&gt; or ConstrainDOMStringParameters)"/>
-    <typedef new-type="PerformanceEntryList" type="sequence&lt;PerformanceEntry&gt;"/>
-    <typedef new-type="PushMessageDataInit" type="(BufferSource or USVString)"/>
-    <typedef new-type="AuthenticatorSelectionList" type="sequence&lt;AAGUID&gt;"/>
+    <typedef new-type="ConstrainDouble" type="(double or ConstrainDoubleRange)"/>
+    <typedef new-type="ConstrainLong" type="(long or ConstrainLongRange)"/>
+    <typedef new-type="CSSOMString" type="USVString"/>
+    <typedef new-type="DOMHighResTimeStamp" type="double"/>
+    <typedef new-type="DOMTimeStamp" type="unsigned long long"/>
+    <typedef new-type="EventHandler" nullable="1" type="EventHandlerNonNull"/>
+    <typedef new-type="Float32List" type="(Float32Array or sequence&lt;GLfloat&gt;)"/>
+    <typedef new-type="FormDataEntryValue" type="(File or USVString)"/>
     <typedef new-type="GeometryNode" type="(Text or Element or CSSPseudoElement or Document)"/>
-    <typedef new-type="AlgorithmIdentifier" type="(object or DOMString)"/>
-    <typedef new-type="HashAlgorithmIdentifier" type="AlgorithmIdentifier"/>
-    <typedef new-type="BigInteger" type="Uint8Array"/>
-    <typedef new-type="NamedCurve" type="DOMString"/>
-    <typedef new-type="GLenum" type="unsigned long"/>
-    <typedef new-type="GLboolean" type="boolean"/>
     <typedef new-type="GLbitfield" type="unsigned long"/>
+    <typedef new-type="GLboolean" type="boolean"/>
     <typedef new-type="GLbyte" type="byte"/>
-    <typedef new-type="GLshort" type="short"/>
+    <typedef new-type="GLclampf" type="unrestricted float"/>
+    <typedef new-type="GLenum" type="unsigned long"/>
+    <typedef new-type="GLfloat" type="unrestricted float"/>
     <typedef new-type="GLint" type="long"/>
-    <typedef new-type="GLsizei" type="long"/>
     <typedef new-type="GLintptr" type="long long"/>
+    <typedef new-type="GLshort" type="short"/>
+    <typedef new-type="GLsizei" type="long"/>
     <typedef new-type="GLsizeiptr" type="long long"/>
     <typedef new-type="GLubyte" type="octet"/>
-    <typedef new-type="GLushort" type="unsigned short"/>
     <typedef new-type="GLuint" type="unsigned long"/>
-    <typedef new-type="GLfloat" type="unrestricted float"/>
-    <typedef new-type="GLclampf" type="unrestricted float"/>
-    <typedef new-type="BufferDataSource" type="(ArrayBuffer or ArrayBufferView)"/>
-    <typedef new-type="TexImageSource" type="(ImageBitmap or ImageData or HTMLImageElement or HTMLCanvasElement or HTMLVideoElement)"/>
-    <typedef new-type="Float32List" type="(Float32Array or sequence&lt;GLfloat&gt;)"/>
+    <typedef new-type="GLushort" type="unsigned short"/>
+    <typedef new-type="HashAlgorithmIdentifier" type="AlgorithmIdentifier"/>
+    <typedef new-type="HeadersInit" type="(sequence&lt;sequence&lt;ByteString&gt;&gt; or record&lt;ByteString, ByteString&gt;)"/>
+    <typedef new-type="HTMLOrSVGImageElement" type="(HTMLImageElement or SVGImageElement)"/>
+    <typedef new-type="HTMLOrSVGScriptElement" type="(HTMLScriptElement or SVGScriptElement)"/>
+    <typedef new-type="ImageBitmapSource" type="(CanvasImageSource or Blob or ImageData)"/>
     <typedef new-type="Int32List" type="(Int32Array or sequence&lt;GLint&gt;)"/>
-    <typedef new-type="ArrayBufferView" type="(Int8Array or Int16Array or Int32Array or Uint8Array or Uint16Array or Uint32Array or Uint8ClampedArray or Float32Array or Float64Array or DataView)"/>
-    <typedef new-type="BufferSource" type="(ArrayBufferView or ArrayBuffer)"/>
-    <typedef new-type="DOMTimeStamp" type="unsigned long long"/>
-    <typedef new-type="FormDataEntryValue" type="(File or USVString)"/>
+    <typedef new-type="MediaProvider" type="(MediaStream or MediaSource or Blob)"/>
+    <typedef new-type="MediaStreamError" type="object"/>
+    <typedef new-type="MessageEventSource" type="(WindowProxy or MessagePort or ServiceWorker)"/>
+    <typedef new-type="NamedCurve" type="DOMString"/>
+    <typedef new-type="OffscreenRenderingContext" type="(OffscreenCanvasRenderingContext2D or WebGLRenderingContext)"/>
+    <typedef new-type="OnBeforeUnloadEventHandler" nullable="1" type="OnBeforeUnloadEventHandlerNonNull"/>
+    <typedef new-type="OnErrorEventHandler" nullable="1" type="OnErrorEventHandlerNonNull"/>
+    <typedef new-type="PerformanceEntryList" type="sequence&lt;PerformanceEntry&gt;"/>
+    <typedef new-type="PushMessageDataInit" type="(BufferSource or USVString)"/>
+    <typedef new-type="RenderingContext" type="(CanvasRenderingContext2D or WebGLRenderingContext)"/>
+    <typedef new-type="RequestInfo" type="(Request or USVString)"/>
+    <typedef new-type="TexImageSource" type="(ImageBitmap or ImageData or HTMLImageElement or HTMLCanvasElement or HTMLVideoElement)"/>
+    <typedef new-type="TimerHandler" type="(DOMString or Function)"/>
   </typedefs>
   <namespaces>
     <namespace name="console" exposed="Window Worker Worklet">

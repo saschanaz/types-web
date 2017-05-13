@@ -3,14 +3,6 @@
 /// DOM APIs
 /////////////////////////////
 
-interface Account {
-    displayName: string;
-    id: string;
-    imageURL?: string;
-    name?: string;
-    rpDisplayName: string;
-}
-
 interface AddEventListenerOptions extends EventListenerOptions {
     once?: boolean;
     passive?: boolean;
@@ -58,13 +50,6 @@ interface AnimationEventInit extends EventInit {
     animationName?: CSSOMString;
     elapsedTime?: number;
     pseudoElement?: CSSOMString;
-}
-
-interface AssertionOptions {
-    allowList?: ScopedCredentialDescriptor[];
-    extensions?: AuthenticationExtensions;
-    rpId?: string;
-    timeout?: number;
 }
 
 interface AssignedNodesOptions {
@@ -125,9 +110,6 @@ interface AudioWorkletNodeOptions extends AudioNodeOptions {
     numberOfOutputs?: number;
 }
 
-interface AuthenticationExtensions {
-}
-
 interface BiquadFilterOptions extends AudioNodeOptions {
     detune?: number;
     frequency?: number;
@@ -172,14 +154,6 @@ interface ChannelMergerOptions extends AudioNodeOptions {
 
 interface ChannelSplitterOptions extends AudioNodeOptions {
     numberOfOutputs?: number;
-}
-
-interface ClientData {
-    challenge: string;
-    extensions?: AuthenticationExtensions;
-    hashAlg: AlgorithmIdentifier;
-    origin: string;
-    tokenBinding?: string;
 }
 
 interface ClientQueryOptions {
@@ -961,7 +935,7 @@ interface RequestInit {
     mode?: RequestMode;
     redirect?: RequestRedirect;
     referrer?: string;
-    referrerPolicy?: any;
+    referrerPolicy?: ReferrerPolicy;
     window?: any;
 }
 
@@ -1135,7 +1109,7 @@ interface RTCIceParameters {
 }
 
 interface RTCIceServer {
-    credential?: string;
+    credential?: string | RTCOAuthCredential;
     credentialType?: RTCIceCredentialType;
     urls: string | string[];
     username?: string;
@@ -1212,6 +1186,11 @@ interface RTCMediaStreamTrackStats extends RTCStats {
     trackIdentifier?: string;
 }
 
+interface RTCOAuthCredential {
+    accessToken: string;
+    macKey: string;
+}
+
 interface RTCOfferAnswerOptions {
     voiceActivityDetection?: boolean;
 }
@@ -1279,6 +1258,7 @@ interface RTCRtpEncodingParameters {
     maxBitrate?: number;
     maxFramerate?: number;
     priority?: RTCPriorityType;
+    ptime?: number;
     rid?: string;
     rtx?: RTCRtpRtxParameters;
     scaleResolutionDownBy?: number;
@@ -1365,25 +1345,6 @@ interface RTCTransportStats extends RTCStats {
     remoteCertificateId?: string;
     rtcpTransportStatsId?: string;
     selectedCandidatePairId?: string;
-}
-
-interface ScopedCredentialDescriptor {
-    id: BufferSource;
-    transports?: Transport[];
-    type: ScopedCredentialType;
-}
-
-interface ScopedCredentialOptions {
-    attachment?: Attachment;
-    excludeList?: ScopedCredentialDescriptor[];
-    extensions?: AuthenticationExtensions;
-    rpId?: string;
-    timeout?: number;
-}
-
-interface ScopedCredentialParameters {
-    algorithm: AlgorithmIdentifier;
-    type: ScopedCredentialType;
 }
 
 interface ScrollIntoViewOptions extends ScrollOptions {
@@ -1499,6 +1460,7 @@ interface WheelEventInit extends MouseEventInit {
 
 interface WorkerOptions {
     credentials?: RequestCredentials;
+    name?: string;
     type?: WorkerType;
 }
 
@@ -1853,18 +1815,6 @@ interface AudioWorkletProcessor extends EventTarget {
 declare var AudioWorkletProcessor: {
     prototype: AudioWorkletProcessor;
     new(): AudioWorkletProcessor;
-};
-
-interface AuthenticationAssertion {
-    readonly authenticatorData: ArrayBuffer;
-    readonly clientDataJSON: ArrayBuffer;
-    readonly credential: ScopedCredential;
-    readonly signature: ArrayBuffer;
-}
-
-declare var AuthenticationAssertion: {
-    prototype: AuthenticationAssertion;
-    new(): AuthenticationAssertion;
 };
 
 interface BarProp {
@@ -2819,6 +2769,7 @@ interface DedicatedWorkerGlobalScopeEventMap extends WorkerGlobalScopeEventMap {
 }
 
 interface DedicatedWorkerGlobalScope extends WorkerGlobalScope {
+    readonly name: string;
     onmessage: (this: DedicatedWorkerGlobalScope, ev: MessageEvent) => any;
     onmessageerror: (this: DedicatedWorkerGlobalScope, ev: MessageEvent) => any;
     close(): void;
@@ -7379,7 +7330,6 @@ declare var NavigationPreloadManager: {
 };
 
 interface Navigator extends Object, NavigatorID, NavigatorLanguage, NavigatorOnLine, NavigatorContentUtils, NavigatorCookies, NavigatorPlugins, NavigatorConcurrentHardware, NavigatorUserMedia {
-    readonly authentication: WebAuthentication;
     readonly geolocation: Geolocation;
     readonly maxTouchPoints: number;
     readonly serviceWorker: ServiceWorkerContainer;
@@ -8145,7 +8095,7 @@ interface Request extends Object, Body {
     readonly mode: RequestMode;
     readonly redirect: RequestRedirect;
     readonly referrer: string;
-    readonly referrerPolicy: any;
+    readonly referrerPolicy: ReferrerPolicy;
     readonly type: RequestType;
     readonly url: string;
     clone(): Request;
@@ -8179,8 +8129,8 @@ declare var Response: {
 
 interface RTCCertificate {
     readonly expires: number;
-    readonly fingerprints: ReadonlyArray<RTCDtlsFingerprint>;
     getAlgorithm(): AlgorithmIdentifier;
+    getFingerprints(): RTCDtlsFingerprint[];
 }
 
 declare var RTCCertificate: {
@@ -8387,7 +8337,6 @@ interface RTCPeerConnection extends EventTarget {
     readonly connectionState: RTCPeerConnectionState;
     readonly currentLocalDescription: RTCSessionDescription | null;
     readonly currentRemoteDescription: RTCSessionDescription | null;
-    readonly defaultIceServers: ReadonlyArray<RTCIceServer>;
     readonly iceConnectionState: RTCIceConnectionState;
     readonly iceGatheringState: RTCIceGatheringState;
     readonly idpErrorInfo: string | null;
@@ -8414,8 +8363,8 @@ interface RTCPeerConnection extends EventTarget {
     addTrack(track: MediaStreamTrack, ...streams: MediaStream[]): RTCRtpSender;
     addTransceiver(trackOrKind: MediaStreamTrack | string, init?: RTCRtpTransceiverInit): RTCRtpTransceiver;
     close(): void;
-    createAnswer(options?: RTCAnswerOptions): Promise<RTCSessionDescriptionInit>;
     createAnswer(successCallback: RTCSessionDescriptionCallback, failureCallback: RTCPeerConnectionErrorCallback): Promise<void>;
+    createAnswer(options?: RTCAnswerOptions): Promise<RTCSessionDescriptionInit>;
     createDataChannel(label: string, dataChannelDict?: RTCDataChannelInit): RTCDataChannel;
     createOffer(successCallback: RTCSessionDescriptionCallback, failureCallback: RTCPeerConnectionErrorCallback, options?: RTCOfferOptions): Promise<void>;
     createOffer(options?: RTCOfferOptions): Promise<RTCSessionDescriptionInit>;
@@ -8440,6 +8389,7 @@ declare var RTCPeerConnection: {
     prototype: RTCPeerConnection;
     new(configuration?: RTCConfiguration): RTCPeerConnection;
     generateCertificate(keygenAlgorithm: AlgorithmIdentifier): Promise<RTCCertificate>;
+    getDefaultIceServers(): RTCIceServer[];
 };
 
 interface RTCPeerConnectionIceErrorEvent extends Event {
@@ -8468,7 +8418,6 @@ interface RTCRtpContributingSource {
     readonly audioLevel: number | null;
     readonly source: number;
     readonly timestamp: number;
-    readonly voiceActivityFlag: boolean | null;
 }
 
 declare var RTCRtpContributingSource: {
@@ -8482,6 +8431,8 @@ interface RTCRtpReceiver {
     readonly transport: RTCDtlsTransport | null;
     getContributingSources(): RTCRtpContributingSource[];
     getParameters(): RTCRtpParameters;
+    getStats(): Promise<RTCStatsReport>;
+    getSynchronizationSources(): RTCRtpSynchronizationSource[];
 }
 
 declare var RTCRtpReceiver: {
@@ -8496,6 +8447,7 @@ interface RTCRtpSender {
     readonly track: MediaStreamTrack | null;
     readonly transport: RTCDtlsTransport | null;
     getParameters(): RTCRtpParameters;
+    getStats(): Promise<RTCStatsReport>;
     replaceTrack(withTrack: MediaStreamTrack): Promise<void>;
     setParameters(parameters?: RTCRtpParameters): Promise<void>;
 }
@@ -8504,6 +8456,18 @@ declare var RTCRtpSender: {
     prototype: RTCRtpSender;
     new(): RTCRtpSender;
     getCapabilities(kind: string): RTCRtpCapabilities;
+};
+
+interface RTCRtpSynchronizationSource {
+    readonly audioLevel: number;
+    readonly source: number;
+    readonly timestamp: number;
+    readonly voiceActivityFlag: boolean | null;
+}
+
+declare var RTCRtpSynchronizationSource: {
+    prototype: RTCRtpSynchronizationSource;
+    new(): RTCRtpSynchronizationSource;
 };
 
 interface RTCRtpTransceiver {
@@ -8561,26 +8525,6 @@ interface RTCTrackEvent extends Event {
 declare var RTCTrackEvent: {
     prototype: RTCTrackEvent;
     new(type: string, eventInitDict: RTCTrackEventInit): RTCTrackEvent;
-};
-
-interface ScopedCredential {
-    readonly id: ArrayBuffer;
-    readonly type: ScopedCredentialType;
-}
-
-declare var ScopedCredential: {
-    prototype: ScopedCredential;
-    new(): ScopedCredential;
-};
-
-interface ScopedCredentialInfo {
-    readonly attestationObject: ArrayBuffer;
-    readonly clientDataJSON: ArrayBuffer;
-}
-
-declare var ScopedCredentialInfo: {
-    prototype: ScopedCredentialInfo;
-    new(): ScopedCredentialInfo;
 };
 
 interface Screen {
@@ -8772,7 +8716,7 @@ interface SharedWorker extends EventTarget, AbstractWorker {
 
 declare var SharedWorker: {
     prototype: SharedWorker;
-    new(scriptURL: string, name?: string, options?: WorkerOptions): SharedWorker;
+    new(scriptURL: string, options?: string | WorkerOptions): SharedWorker;
 };
 
 interface SharedWorkerGlobalScopeEventMap extends WorkerGlobalScopeEventMap {
@@ -11074,16 +11018,6 @@ declare var WaveShaperNode: {
     new(context: BaseAudioContext, options?: WaveShaperOptions): WaveShaperNode;
 };
 
-interface WebAuthentication {
-    getAssertion(assertionChallenge: BufferSource, options?: AssertionOptions): Promise<AuthenticationAssertion>;
-    makeCredential(accountInformation: Account, cryptoParameters: ScopedCredentialParameters[], attestationChallenge: BufferSource, options?: ScopedCredentialOptions): Promise<ScopedCredentialInfo>;
-}
-
-declare var WebAuthentication: {
-    prototype: WebAuthentication;
-    new(): WebAuthentication;
-};
-
 interface WebGLActiveInfo {
     readonly name: string;
     readonly size: GLint;
@@ -12190,10 +12124,9 @@ interface WebGLRenderingContextBase {
     blendEquationSeparate(modeRGB: GLenum, modeAlpha: GLenum): void;
     blendFunc(sfactor: GLenum, dfactor: GLenum): void;
     blendFuncSeparate(srcRGB: GLenum, dstRGB: GLenum, srcAlpha: GLenum, dstAlpha: GLenum): void;
-    bufferData(target: GLenum, data: ArrayBuffer | null, usage: GLenum): void;
-    bufferData(target: GLenum, data: ArrayBufferView, usage: GLenum): void;
     bufferData(target: GLenum, size: GLsizeiptr, usage: GLenum): void;
-    bufferSubData(target: GLenum, offset: GLintptr, data: BufferDataSource): void;
+    bufferData(target: GLenum, data: BufferSource | null, usage: GLenum): void;
+    bufferSubData(target: GLenum, offset: GLintptr, data: BufferSource): void;
     checkFramebufferStatus(target: GLenum): GLenum;
     clear(mask: GLbitfield): void;
     clearColor(red: GLclampf, green: GLclampf, blue: GLclampf, alpha: GLclampf): void;
@@ -12532,7 +12465,6 @@ interface WebGLRenderingContextBase {
     readonly STENCIL_CLEAR_VALUE: GLenum;
     readonly STENCIL_FAIL: GLenum;
     readonly STENCIL_FUNC: GLenum;
-    readonly STENCIL_INDEX: GLenum;
     readonly STENCIL_INDEX8: GLenum;
     readonly STENCIL_PASS_DEPTH_FAIL: GLenum;
     readonly STENCIL_PASS_DEPTH_PASS: GLenum;
@@ -12943,9 +12875,6 @@ interface RTCPeerConnectionErrorCallback {
 interface RTCSessionDescriptionCallback {
     (description: RTCSessionDescriptionInit): void;
 }
-interface RTCStatsCallback {
-    (report: RTCStatsReport): void;
-}
 interface ValidateAssertionCallback {
     (assertion: string, origin: string): Promise<RTCIdentityValidationResult>;
 }
@@ -13336,62 +13265,58 @@ declare var crypto: Crypto;
 declare var speechSynthesis: SpeechSynthesis;
 declare function addEventListener<K extends keyof WindowEventMap>(type: K, listener: (this: Window, ev: WindowEventMap[K]) => any, useCapture?: boolean): void;
 declare function addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
-type AAGUID = BufferSource;
-type CSSOMString = string;
-type HeadersInit = string[][] | any<any>;
+type AlgorithmIdentifier = any;
+type BigInteger = Uint8Array;
 type BodyInit = Blob | BufferSource | FormData | URLSearchParams | ReadableStream | string;
-type RequestInfo = Request | string;
-type DOMHighResTimeStamp = number;
-type HTMLOrSVGScriptElement = HTMLScriptElement | SVGScriptElement;
-type MediaProvider = MediaStream | MediaSource | Blob;
-type RenderingContext = CanvasRenderingContext2D | WebGLRenderingContext;
-type HTMLOrSVGImageElement = HTMLImageElement | SVGImageElement;
+type BufferSource = ArrayBufferView | ArrayBuffer;
 type CanvasImageSource = HTMLOrSVGImageElement | HTMLVideoElement | HTMLCanvasElement | ImageBitmap | OffscreenCanvas;
-type OffscreenRenderingContext = OffscreenCanvasRenderingContext2D | WebGLRenderingContext;
-type EventHandler = EventHandlerNonNull;
-type OnErrorEventHandler = OnErrorEventHandlerNonNull;
-type OnBeforeUnloadEventHandler = OnBeforeUnloadEventHandlerNonNull;
-type TimerHandler = string | Function;
-type ImageBitmapSource = CanvasImageSource | Blob | ImageData;
-type MessageEventSource = any;
-type MediaStreamError = any;
-type ConstrainLong = number | ConstrainLongRange;
-type ConstrainDouble = number | ConstrainDoubleRange;
 type ConstrainBoolean = boolean | ConstrainBooleanParameters;
 type ConstrainDOMString = string | string[] | ConstrainDOMStringParameters;
-type PerformanceEntryList = PerformanceEntry[];
-type PushMessageDataInit = BufferSource | string;
-type AuthenticatorSelectionList = AAGUID[];
+type ConstrainDouble = number | ConstrainDoubleRange;
+type ConstrainLong = number | ConstrainLongRange;
+type CSSOMString = string;
+type DOMHighResTimeStamp = number;
+type DOMTimeStamp = number;
+type EventHandler = EventHandlerNonNull;
+type Float32List = Float32Array | GLfloat[];
+type FormDataEntryValue = File | string;
 type GeometryNode = Text | Element | CSSPseudoElement | Document;
-type AlgorithmIdentifier = any;
-type HashAlgorithmIdentifier = AlgorithmIdentifier;
-type BigInteger = Uint8Array;
-type NamedCurve = string;
-type GLenum = number;
-type GLboolean = boolean;
 type GLbitfield = number;
+type GLboolean = boolean;
 type GLbyte = number;
-type GLshort = number;
+type GLclampf = number;
+type GLenum = number;
+type GLfloat = number;
 type GLint = number;
-type GLsizei = number;
 type GLintptr = number;
+type GLshort = number;
+type GLsizei = number;
 type GLsizeiptr = number;
 type GLubyte = number;
-type GLushort = number;
 type GLuint = number;
-type GLfloat = number;
-type GLclampf = number;
-type BufferDataSource = ArrayBuffer | ArrayBufferView;
-type TexImageSource = ImageBitmap | ImageData | HTMLImageElement | HTMLCanvasElement | HTMLVideoElement;
-type Float32List = Float32Array | GLfloat[];
+type GLushort = number;
+type HashAlgorithmIdentifier = AlgorithmIdentifier;
+type HeadersInit = string[][] | any<any>;
+type HTMLOrSVGImageElement = HTMLImageElement | SVGImageElement;
+type HTMLOrSVGScriptElement = HTMLScriptElement | SVGScriptElement;
+type ImageBitmapSource = CanvasImageSource | Blob | ImageData;
 type Int32List = Int32Array | GLint[];
-type BufferSource = ArrayBufferView | ArrayBuffer;
-type DOMTimeStamp = number;
-type FormDataEntryValue = File | string;
+type MediaProvider = MediaStream | MediaSource | Blob;
+type MediaStreamError = any;
+type MessageEventSource = any;
+type NamedCurve = string;
+type OffscreenRenderingContext = OffscreenCanvasRenderingContext2D | WebGLRenderingContext;
+type OnBeforeUnloadEventHandler = OnBeforeUnloadEventHandlerNonNull;
+type OnErrorEventHandler = OnErrorEventHandlerNonNull;
+type PerformanceEntryList = PerformanceEntry[];
+type PushMessageDataInit = BufferSource | string;
+type RenderingContext = CanvasRenderingContext2D | WebGLRenderingContext;
+type RequestInfo = Request | string;
+type TexImageSource = ImageBitmap | ImageData | HTMLImageElement | HTMLCanvasElement | HTMLVideoElement;
+type TimerHandler = string | Function;
 type IDBValidKey = number | string | Date | IDBArrayKey;
 type MouseWheelEvent = WheelEvent;
 type AppendMode = "segments" | "sequence";
-type Attachment = "platform" | "cross-platform";
 type AudioContextLatencyCategory = "balanced" | "interactive" | "playback";
 type AudioContextState = "suspended" | "running" | "closed";
 type BinaryType = "blob" | "arraybuffer";
@@ -13439,6 +13364,7 @@ type PremultiplyAlpha = "none" | "premultiply" | "default";
 type PushEncryptionKeyName = "p256dh" | "auth";
 type PushPermissionState = "denied" | "granted" | "prompt";
 type ReadyState = "closed" | "open" | "ended";
+type ReferrerPolicy = "" | "no-referrer" | "no-referrer-when-downgrade" | "same-origin" | "origin" | "strict-origin" | "origin-when-cross-origin" | "strict-origin-when-cross-origin" | "unsafe-url";
 type RequestCache = "default" | "no-store" | "reload" | "no-cache" | "force-cache" | "only-if-cached";
 type RequestCredentials = "omit" | "same-origin" | "include";
 type RequestDestination = "" | "audio" | "document" | "embed" | "font" | "image" | "manifest" | "object" | "report" | "script" | "serviceworker" | "sharedworker" | "style" | "track" | "video" | "worker" | "xslt";
@@ -13452,10 +13378,11 @@ type RTCDataChannelState = "connecting" | "open" | "closing" | "closed";
 type RTCDegradationPreference = "maintain-framerate" | "maintain-resolution" | "balanced";
 type RTCDtlsTransportState = "new" | "connecting" | "connected" | "closed" | "failed";
 type RTCDtxStatus = "disabled" | "enabled";
+type RTCErrorDetailType = "data-channel-failure" | "idp-bad-script-failure" | "idp-execution-failure" | "idp-load-failure" | "idp-need-login" | "idp-timeout" | "idp-tls-failure" | "idp-token-expired" | "idp-token-invalid" | "sctp-failure" | "sdp-syntax-error";
 type RTCIceCandidateType = "host" | "srflx" | "prflx" | "relay";
 type RTCIceComponent = "rtp" | "rtcp";
 type RTCIceConnectionState = "new" | "checking" | "connected" | "completed" | "failed" | "disconnected" | "closed";
-type RTCIceCredentialType = "password" | "token";
+type RTCIceCredentialType = "password" | "oauth";
 type RTCIceGathererState = "new" | "gathering" | "complete";
 type RTCIceGatheringState = "new" | "gathering" | "complete";
 type RTCIceProtocol = "udp" | "tcp";
@@ -13468,10 +13395,9 @@ type RTCPriorityType = "very-low" | "low" | "medium" | "high";
 type RTCRtcpMuxPolicy = "negotiate" | "require";
 type RTCRtpTransceiverDirection = "sendrecv" | "sendonly" | "recvonly" | "inactive";
 type RTCSdpType = "offer" | "pranswer" | "answer" | "rollback";
-type RTCSignalingState = "stable" | "have-local-offer" | "have-remote-offer" | "have-local-pranswer" | "have-remote-pranswer";
+type RTCSignalingState = "stable" | "have-local-offer" | "have-remote-offer" | "have-local-pranswer" | "have-remote-pranswer" | "closed";
 type RTCStatsIceCandidatePairState = "frozen" | "waiting" | "inprogress" | "failed" | "succeeded" | "cancelled";
 type RTCStatsType = "codec" | "inbound-rtp" | "outbound-rtp" | "peer-connection" | "data-channel" | "track" | "transport" | "candidate-pair" | "local-candidate" | "remote-candidate" | "certificate";
-type ScopedCredentialType = "ScopedCred";
 type ScrollBehavior = "auto" | "instant" | "smooth";
 type ScrollLogicalPosition = "start" | "center" | "end" | "nearest";
 type ScrollRestoration = "auto" | "manual";
@@ -13483,7 +13409,6 @@ type SpeechSynthesisErrorCode = "canceled" | "interrupted" | "audio-busy" | "aud
 type TextTrackKind = "subtitles" | "captions" | "descriptions" | "chapters" | "metadata";
 type TextTrackMode = "disabled" | "hidden" | "showing";
 type TouchType = "direct" | "stylus";
-type Transport = "usb" | "nfc" | "ble";
 type VideoFacingModeEnum = "user" | "environment" | "left" | "right";
 type WebGLPowerPreference = "default" | "low-power" | "high-performance";
 type WorkerType = "classic" | "module";
