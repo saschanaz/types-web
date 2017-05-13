@@ -838,19 +838,19 @@
     </dictionary>
     <dictionary name="MediaTrackCapabilities" extends="Object">
       <members>
-        <member name="aspectRatio" type="(double or DoubleRange)"/>
-        <member name="channelCount" type="(long or LongRange)"/>
+        <member name="aspectRatio" type="DoubleRange"/>
+        <member name="channelCount" type="LongRange"/>
         <member name="deviceId" type="DOMString"/>
         <member name="echoCancellation" type="sequence&lt;boolean&gt;"/>
         <member name="facingMode" type="sequence&lt;DOMString&gt;"/>
-        <member name="frameRate" type="(double or DoubleRange)"/>
+        <member name="frameRate" type="DoubleRange"/>
         <member name="groupId" type="DOMString"/>
-        <member name="height" type="(long or LongRange)"/>
-        <member name="latency" type="(double or DoubleRange)"/>
-        <member name="sampleRate" type="(long or LongRange)"/>
-        <member name="sampleSize" type="(long or LongRange)"/>
-        <member name="volume" type="(double or DoubleRange)"/>
-        <member name="width" type="(long or LongRange)"/>
+        <member name="height" type="LongRange"/>
+        <member name="latency" type="DoubleRange"/>
+        <member name="sampleRate" type="LongRange"/>
+        <member name="sampleSize" type="LongRange"/>
+        <member name="volume" type="DoubleRange"/>
+        <member name="width" type="LongRange"/>
       </members>
     </dictionary>
     <dictionary name="MediaTrackConstraints" extends="MediaTrackConstraintSet">
@@ -2274,6 +2274,7 @@
       <value>succeeded</value>
       <value>cancelled</value>
     </enum>
+    <enum name="RTCStatsType"/>
     <enum name="RTCStatsType">
       <value>codec</value>
       <value>inbound-rtp</value>
@@ -2287,7 +2288,6 @@
       <value>remote-candidate</value>
       <value>certificate</value>
     </enum>
-    <enum name="RTCStatsType"/>
     <enum name="ScrollBehavior">
       <value>auto</value>
       <value>instant</value>
@@ -2364,6 +2364,12 @@
       <value>environment</value>
       <value>left</value>
       <value>right</value>
+    </enum>
+    <enum name="VisibilityState">
+      <value>hidden</value>
+      <value>visible</value>
+      <value>prerender</value>
+      <value>unloaded</value>
     </enum>
     <enum name="WebGLPowerPreference">
       <value>default</value>
@@ -3513,7 +3519,7 @@
         <property name="pointerEvents" css-property="pointer-events" css-property-enum-values="auto none visiblePainted visibleFill visibleStroke visible painted fill stroke all inherit initial" css-property-initial="auto" css-property-value-syntax="enum" nullable="1" type="DOMString"/>
         <property name="position" css-property="position" css-property-enum-values="static relative absolute fixed inherit initial" css-property-initial="static" css-property-value-syntax="enum" nullable="1" type="DOMString"/>
         <property name="quotes" css-property="quotes" css-property-enum-values="none inherit initial" css-property-initial="none" css-property-value-syntax="space_separated_strings" nullable="1" type="DOMString"/>
-        <property name="resize" css-property="resize"/>
+        <property name="resize" css-property="resize" nullable="1" type="CSSOMString"/>
         <property name="right" css-property="right" css-property-animatable="1" css-property-enum-values="auto inherit initial" css-property-initial="auto" css-property-value-syntax="css_percentage_or_length" nullable="1" type="DOMString"/>
         <property name="rotate" css-property="rotate" css-property-animatable="1" css-property-enum-values="inherit initial" css-property-initial="0deg 0 0 1" css-property-value-syntax="1_css_angle_followed_by_optional_3_space_separated_floating_point_number" nullable="1" type="DOMString"/>
         <property name="rubyAlign" css-property="ruby-align" css-property-enum-values="auto left center right distribute-letter distribute-space line-edge inherit initial" css-property-initial="auto" css-property-value-syntax="enum" nullable="1" type="DOMString"/>
@@ -3555,7 +3561,7 @@
         <property name="transitionTimingFunction" css-property="transition-timing-function" css-property-aliases="-ms-transition-timing-function" css-property-enum-values="step-start step-end ease ease-in ease-out ease-in-out linear inherit initial" css-property-initial="ease" css-property-value-syntax="comma_separated_css_timing_functions" nullable="1" type="DOMString"/>
         <property name="translate" css-property="translate" css-property-animatable="1" css-property-enum-values="inherit initial" css-property-initial="0px 0px 0px" css-property-value-syntax="1_to_3_space_separated_css_length_and_first_two_optionally_percentage" nullable="1" type="DOMString"/>
         <property name="unicodeBidi" css-property="unicode-bidi" css-property-enum-values="normal embed bidi-override inherit" css-property-initial="normal" css-property-value-syntax="enum" nullable="1" type="DOMString"/>
-        <property name="user-select" css-property="userSelect"/>
+        <property name="userSelect" css-property="user-select" nullable="1" type="CSSOMString"/>
         <property name="verticalAlign" css-property="vertical-align" css-property-animatable="1" css-property-enum-values="baseline auto sub super top middle bottom text-top text-bottom inherit initial" css-property-initial="baseline" css-property-value-syntax="enum" nullable="1" type="DOMString"/>
         <property name="visibility" css-property="visibility" css-property-animatable="1" css-property-enum-values="visible hidden collapse inherit initial" css-property-initial="visible" css-property-value-syntax="enum" nullable="1" type="DOMString"/>
         <property name="webkitAlignContent" css-property="-webkit-align-content" css-property-enum-values="stretch flex-start flex-end center space-between space-around inherit initial" css-property-initial="stretch" css-property-value-syntax="enum" nullable="1" type="DOMString"/>
@@ -3968,6 +3974,7 @@
         <property name="fullscreen" read-only="1" type="boolean"/>
         <property name="fullscreenEnabled" read-only="1" type="boolean"/>
         <property name="head" read-only="1" nullable="1" type="HTMLHeadElement"/>
+        <property name="hidden" read-only="1" type="boolean"/>
         <property name="images" read-only="1" type="HTMLCollection"/>
         <property name="implementation" read-only="1" type="DOMImplementation"/>
         <property name="inputEncoding" read-only="1" type="DOMString"/>
@@ -3988,6 +3995,7 @@
         <property name="styleSheets" read-only="1" type="StyleSheetList"/>
         <property name="title" type="DOMString"/>
         <property name="URL" read-only="1" type="USVString"/>
+        <property name="visibilityState" read-only="1" type="VisibilityState"/>
         <property name="vlinkColor" type="DOMString"/>
       </properties>
       <implements>NonElementParentNode</implements>
@@ -5461,7 +5469,6 @@
         <property name="allowFullscreen" type="boolean"/>
         <property name="allowPaymentRequest" type="boolean"/>
         <property name="allowUserMedia" type="boolean"/>
-        <property name="allowUserMedia" type="boolean"/>
         <property name="contentDocument" read-only="1" nullable="1" type="Document"/>
         <property name="contentWindow" read-only="1" nullable="1" type="WindowProxy"/>
         <property name="frameBorder" type="DOMString"/>
@@ -6740,7 +6747,7 @@
         <method name="enumerateDevices" type="Promise&lt;sequence&lt;MediaDeviceInfo&gt;&gt;"/>
         <method name="getSupportedConstraints" type="MediaTrackSupportedConstraints"/>
         <method name="getUserMedia" type="Promise&lt;MediaStream&gt;">
-          <param name="constraints" type="MediaStreamConstraints"/>
+          <param name="constraints" optional="1" type="MediaStreamConstraints"/>
         </method>
       </methods>
       <properties>
@@ -8222,7 +8229,6 @@
         <event name="gatheringstatechange" type="Event"/>
         <event name="selectedcandidatepairchange" type="Event"/>
         <event name="statechange" type="Event"/>
-        <event name="candidatepairchange" dispatch="sync" skips-window="1" type="RTCIceCandidatePairChangedEvent"/>
       </events>
     </interface>
     <interface name="RTCIdentityAssertion" extends="Object">
@@ -8442,7 +8448,6 @@
       </properties>
       <events>
         <event name="error" dispatch="sync" skips-window="1" type="Event"/>
-        <event name="ssrcconflict" dispatch="sync" skips-window="1" type="RTCSsrcConflictEvent"/>
       </events>
     </interface>
     <interface name="RTCRtpSynchronizationSource" extends="Object">
@@ -10022,10 +10027,6 @@
       <implements>SVGFitToViewBox</implements>
       <implements>SVGZoomAndPan</implements>
       <implements>WindowEventHandlers</implements>
-      <events>
-        <event name="SVGScroll" bubbles="1" dispatch="sync-or-async" type="Event"/>
-        <event name="SVGZoom" bubbles="1" dispatch="sync" type="SVGZoomEvent"/>
-      </events>
       <element name="svg" namespace="SVG"/>
     </interface>
     <interface name="SVGSwitchElement" extends="SVGGraphicsElement">
@@ -11929,7 +11930,6 @@
     <interface name="RTCIceGatherer" no-interface-object="1" sn:partial="1">
       <events>
         <event name="error" dispatch="sync" skips-window="1" type="Event"/>
-        <event name="localcandidate" dispatch="sync" skips-window="1" type="RTCIceGathererEvent"/>
       </events>
     </interface>
     <interface name="RTCSrtpSdesTransport" no-interface-object="1" sn:partial="1">

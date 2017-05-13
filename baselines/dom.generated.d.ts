@@ -625,19 +625,19 @@ interface MediaStreamTrackEventInit extends EventInit {
 }
 
 interface MediaTrackCapabilities {
-    aspectRatio?: number | DoubleRange;
-    channelCount?: number | LongRange;
+    aspectRatio?: DoubleRange;
+    channelCount?: LongRange;
     deviceId?: string;
     echoCancellation?: boolean[];
     facingMode?: string[];
-    frameRate?: number | DoubleRange;
+    frameRate?: DoubleRange;
     groupId?: string;
-    height?: number | LongRange;
-    latency?: number | DoubleRange;
-    sampleRate?: number | LongRange;
-    sampleSize?: number | LongRange;
-    volume?: number | DoubleRange;
-    width?: number | LongRange;
+    height?: LongRange;
+    latency?: DoubleRange;
+    sampleRate?: LongRange;
+    sampleSize?: LongRange;
+    volume?: DoubleRange;
+    width?: LongRange;
 }
 
 interface MediaTrackConstraints extends MediaTrackConstraintSet {
@@ -1968,7 +1968,7 @@ declare var CanvasPattern: {
     new(): CanvasPattern;
 };
 
-interface CanvasRenderingContext2D extends Object, CanvasState, CanvasTransform, CanvasCompositing, CanvasImageSmoothing, CanvasFillStrokeStyles, CanvasShadowStyles, CanvasFilters, CanvasRect, CanvasDrawPath, CanvasUserInterface, CanvasText, CanvasDrawImage, CanvasImageData, CanvasPathDrawingStyles, CanvasTextDrawingStyles, CanvasPath {
+interface CanvasRenderingContext2D extends CanvasState, CanvasTransform, CanvasCompositing, CanvasImageSmoothing, CanvasFillStrokeStyles, CanvasShadowStyles, CanvasFilters, CanvasRect, CanvasDrawPath, CanvasUserInterface, CanvasText, CanvasDrawImage, CanvasImageData, CanvasPathDrawingStyles, CanvasTextDrawingStyles, CanvasPath {
     readonly canvas: HTMLCanvasElement;
     mozImageSmoothingEnabled: boolean;
     webkitImageSmoothingEnabled: boolean;
@@ -2528,7 +2528,7 @@ interface CSSStyleDeclaration {
     pointerEvents: string | null;
     position: string | null;
     quotes: string | null;
-    resize: any;
+    resize: CSSOMString | null;
     right: string | null;
     rotate: string | null;
     rubyAlign: string | null;
@@ -2570,7 +2570,7 @@ interface CSSStyleDeclaration {
     transitionTimingFunction: string | null;
     translate: string | null;
     unicodeBidi: string | null;
-    user-select: any;
+    userSelect: CSSOMString | null;
     verticalAlign: string | null;
     visibility: string | null;
     webkitAlignContent: string | null;
@@ -2653,8 +2653,6 @@ interface CSSStyleDeclaration {
     writingMode: string | null;
     zIndex: string | null;
     zoom: string | null;
-    resize: string | null;
-    userSelect: string | null;
     getPropertyPriority(property: CSSOMString): CSSOMString;
     getPropertyValue(property: CSSOMString): CSSOMString;
     item(index: number): CSSOMString;
@@ -2900,6 +2898,7 @@ interface Document extends Node, NonElementParentNode, DocumentOrShadowRoot, Par
     readonly fullscreen: boolean;
     readonly fullscreenEnabled: boolean;
     readonly head: HTMLHeadElement | null;
+    readonly hidden: boolean;
     /**
      * Retrieves a collection, in source order, of img objects in the document.
      */
@@ -2966,6 +2965,7 @@ interface Document extends Node, NonElementParentNode, DocumentOrShadowRoot, Par
      * Sets or gets the URL for the current document.
      */
     readonly URL: string;
+    readonly visibilityState: VisibilityState;
     /**
      * Sets or gets the color of the links that the user has visited.
      */
@@ -3105,15 +3105,10 @@ interface Document extends Node, NonElementParentNode, DocumentOrShadowRoot, Par
     createEvent(eventInterface: "RTCDTMFToneChangeEvent"): RTCDTMFToneChangeEvent;
     createEvent(eventInterface: "RTCDataChannelEvent"): RTCDataChannelEvent;
     createEvent(eventInterface: "RTCErrorEvent"): RTCErrorEvent;
-    createEvent(eventInterface: "RTCIceCandidatePairChangedEvent"): RTCIceCandidatePairChangedEvent;
-    createEvent(eventInterface: "RTCIceGathererEvent"): RTCIceGathererEvent;
     createEvent(eventInterface: "RTCPeerConnectionIceErrorEvent"): RTCPeerConnectionIceErrorEvent;
     createEvent(eventInterface: "RTCPeerConnectionIceEvent"): RTCPeerConnectionIceEvent;
-    createEvent(eventInterface: "RTCSsrcConflictEvent"): RTCSsrcConflictEvent;
     createEvent(eventInterface: "RTCTrackEvent"): RTCTrackEvent;
     createEvent(eventInterface: "RelatedEvent"): RelatedEvent;
-    createEvent(eventInterface: "SVGZoomEvent"): SVGZoomEvent;
-    createEvent(eventInterface: "SVGZoomEvents"): SVGZoomEvent;
     createEvent(eventInterface: "SpeechRecognitionError"): SpeechRecognitionError;
     createEvent(eventInterface: "SpeechRecognitionEvent"): SpeechRecognitionEvent;
     createEvent(eventInterface: "SpeechSynthesisEvent"): SpeechSynthesisEvent;
@@ -3246,7 +3241,6 @@ interface Document extends Node, NonElementParentNode, DocumentOrShadowRoot, Par
     writeln(...text: string[]): void;
     addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, useCapture?: boolean): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
-    [name: string]: object;
 }
 
 declare var Document: {
@@ -4711,7 +4705,6 @@ interface HTMLIFrameElement extends HTMLElement {
     align: string;
     allowFullscreen: boolean;
     allowPaymentRequest: boolean;
-    allowUserMedia: boolean;
     allowUserMedia: boolean;
     /**
      * Retrieves the document object of the page or frame.
@@ -6894,7 +6887,7 @@ interface MediaDevices extends EventTarget {
     ondevicechange: (this: MediaDevices, ev: Event) => any;
     enumerateDevices(): any;
     getSupportedConstraints(): MediaTrackSupportedConstraints;
-    getUserMedia(constraints: MediaStreamConstraints): Promise<MediaStream>;
+    getUserMedia(constraints?: MediaStreamConstraints): Promise<MediaStream>;
     addEventListener<K extends keyof MediaDevicesEventMap>(type: K, listener: (this: MediaDevices, ev: MediaDevicesEventMap[K]) => any, useCapture?: boolean): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
@@ -7329,7 +7322,7 @@ declare var NavigationPreloadManager: {
     new(): NavigationPreloadManager;
 };
 
-interface Navigator extends Object, NavigatorID, NavigatorLanguage, NavigatorOnLine, NavigatorContentUtils, NavigatorCookies, NavigatorPlugins, NavigatorConcurrentHardware, NavigatorUserMedia {
+interface Navigator extends NavigatorID, NavigatorLanguage, NavigatorOnLine, NavigatorContentUtils, NavigatorCookies, NavigatorPlugins, NavigatorConcurrentHardware, NavigatorUserMedia {
     readonly geolocation: Geolocation;
     readonly maxTouchPoints: number;
     readonly serviceWorker: ServiceWorkerContainer;
@@ -7532,7 +7525,7 @@ declare var OffscreenCanvas: {
     new(width: number, height: number): OffscreenCanvas;
 };
 
-interface OffscreenCanvasRenderingContext2D extends Object, CanvasState, CanvasTransform, CanvasCompositing, CanvasImageSmoothing, CanvasFillStrokeStyles, CanvasShadowStyles, CanvasFilters, CanvasRect, CanvasDrawPath, CanvasDrawImage, CanvasImageData, CanvasPathDrawingStyles, CanvasPath {
+interface OffscreenCanvasRenderingContext2D extends CanvasState, CanvasTransform, CanvasCompositing, CanvasImageSmoothing, CanvasFillStrokeStyles, CanvasShadowStyles, CanvasFilters, CanvasRect, CanvasDrawPath, CanvasDrawImage, CanvasImageData, CanvasPathDrawingStyles, CanvasPath {
     readonly canvas: OffscreenCanvas;
     commit(): void;
 }
@@ -7598,7 +7591,7 @@ declare var PannerNode: {
     new(context: BaseAudioContext, options?: PannerOptions): PannerNode;
 };
 
-interface Path2D extends Object, CanvasPath {
+interface Path2D extends CanvasPath {
     addPath(path: Path2D, transform?: DOMMatrixInit): void;
 }
 
@@ -8083,7 +8076,7 @@ declare var RelatedEvent: {
     new(type: string, eventInitDict?: RelatedEventInit): RelatedEvent;
 };
 
-interface Request extends Object, Body {
+interface Request extends Body {
     readonly cache: RequestCache;
     readonly credentials: RequestCredentials;
     readonly destination: RequestDestination;
@@ -8105,7 +8098,7 @@ declare var Request: {
     new(input: RequestInfo, init?: RequestInit): Request;
 };
 
-interface Response extends Object, Body {
+interface Response extends Body {
     readonly headers: Headers;
     readonly ok: boolean;
     readonly redirected: boolean;
@@ -8119,9 +8112,7 @@ interface Response extends Object, Body {
 
 declare var Response: {
     prototype: Response;
-    new(body?: any, init?: ResponseInit): Response;
-    error: () => Response;
-    redirect: (url: string, status?: number) => Response;
+    new(body?: BodyInit, init?: ResponseInit): Response;
     error(): Response;
     redirect(url: string, status?: number): Response;
 };
@@ -8688,7 +8679,7 @@ declare var ServiceWorkerRegistration: {
     new(): ServiceWorkerRegistration;
 };
 
-interface ShadowAnimation extends Animation {
+interface ShadowAnimation {
     readonly sourceAnimation: any;
 }
 
@@ -11077,7 +11068,7 @@ declare var WebGLRenderbuffer: {
     new(): WebGLRenderbuffer;
 };
 
-interface WebGLRenderingContext extends Object, WebGLRenderingContextBase {
+interface WebGLRenderingContext extends WebGLRenderingContextBase {
 }
 
 declare var WebGLRenderingContext: {
@@ -11266,7 +11257,7 @@ declare var Window: {
 interface WindowClient extends Client {
     readonly ancestorOrigins: ReadonlyArray<string>;
     readonly focused: boolean;
-    readonly visibilityState: any;
+    readonly visibilityState: VisibilityState;
     focus(): Promise<WindowClient>;
     navigate(url: string): Promise<WindowClient>;
 }
@@ -11338,7 +11329,7 @@ declare var WorkerLocation: {
     new(): WorkerLocation;
 };
 
-interface WorkerNavigator extends Object, NavigatorID, NavigatorLanguage, NavigatorOnLine, NavigatorConcurrentHardware {
+interface WorkerNavigator extends NavigatorID, NavigatorLanguage, NavigatorOnLine, NavigatorConcurrentHardware {
     readonly serviceWorker: ServiceWorkerContainer;
     readonly hardwareConcurrency: number;
 }
@@ -11650,7 +11641,7 @@ interface Coordinates {
     readonly speed: number | null;
 }
 
-interface CSSPseudoElement extends Object, GeometryUtils {
+interface CSSPseudoElement extends GeometryUtils {
 }
 
 interface DeviceAcceleration {
@@ -12610,7 +12601,7 @@ interface WindowSessionStorage {
     readonly sessionStorage: Storage;
 }
 
-interface WorkerUtils extends Object, IDBEnvironment {
+interface WorkerUtils extends IDBEnvironment {
 }
 
 declare namespace console {
@@ -13389,6 +13380,7 @@ type TextTrackKind = "subtitles" | "captions" | "descriptions" | "chapters" | "m
 type TextTrackMode = "disabled" | "hidden" | "showing";
 type TouchType = "direct" | "stylus";
 type VideoFacingModeEnum = "user" | "environment" | "left" | "right";
+type VisibilityState = "hidden" | "visible" | "prerender" | "unloaded";
 type WebGLPowerPreference = "default" | "low-power" | "high-performance";
 type WorkerType = "classic" | "module";
 type XMLHttpRequestResponseType = "" | "arraybuffer" | "blob" | "document" | "json" | "text";

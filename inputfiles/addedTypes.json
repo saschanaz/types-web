@@ -26,18 +26,6 @@
         ]
     },
     {
-        "kind": "property",
-        "interface": "CSSStyleDeclaration",
-        "name": "resize",
-        "type": "string | null"
-    },
-    {
-        "kind": "property",
-        "interface": "CSSStyleDeclaration",
-        "name": "userSelect",
-        "type": "string | null"
-    },
-    {
         "kind": "interface",
         "name": "Canvas2DContextAttributes",
         "flavor": "Web",

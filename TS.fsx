@@ -1200,7 +1200,7 @@ module Emit =
                     let extendsFromSpec =
                         match i.Extends::(List.ofArray i.Implements) with
                         | [""] | [] | ["Object"] -> []
-                        | specExtends -> specExtends
+                        | specExtends -> List.filter allInterfacesMap.ContainsKey specExtends
                     let extendsFromJson =
                         InputJson.getAddedItemsByInterfaceName ItemKind.Extends Flavor.All i.Name
                         |> Array.map (fun e -> e.BaseInterface.Value) |> List.ofArray
@@ -1210,7 +1210,7 @@ module Emit =
 
             combinedExtends |> List.map processExtendIName
 
-        match finalExtends  with
+        match finalExtends with
         | [] -> ()
         | allExtends -> Pt.Print " extends %s" (String.Join(", ", allExtends))
         Pt.Print " {"
@@ -1225,7 +1225,7 @@ module Emit =
             | "number" -> true
             | "string" ->
                 match DomTypeToTsType m.Type with
-                | "any" | "object" -> true
+                | "any" -> true
                 | _ ->
                     let mTypes =
                         match i.Methods with
