@@ -3821,8 +3821,8 @@ declare var ForeignFetchEvent: {
 };
 
 interface FormData {
-    append(name: string, value: string | Blob, fileName?: string): void;
-    append(name: string, value: string | Blob, fileName?: string): void;
+    append(name: string, value: string): void;
+    append(name: string, blobValue: Blob, filename?: string): void;
     delete(name: string): void;
     get(name: string): FormDataEntryValue | null;
     getAll(name: string): FormDataEntryValue[];
@@ -3833,7 +3833,7 @@ interface FormData {
 
 declare var FormData: {
     prototype: FormData;
-    new (form?: HTMLFormElement): FormData;
+    new(): FormData;
 };
 
 interface GainNode extends AudioNode {

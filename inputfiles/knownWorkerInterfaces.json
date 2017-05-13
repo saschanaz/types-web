@@ -33,6 +33,7 @@
     "FileList",
     "FileReader",
     "ForEachCallback",
+    "FormData",
     "FunctionStringCallback",
     "GetNotificationOptions",
     "GlobalFetch",

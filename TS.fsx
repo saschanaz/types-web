@@ -710,7 +710,7 @@ module Emit =
     let extendedTypes =
         ["ArrayBuffer";"ArrayBufferView";"Int8Array";"Uint8Array";"Int16Array";"Uint16Array";"Int32Array";"Uint32Array";"Uint8ClampedArray";"Float32Array";"Float64Array";"DataView"]
 
-    let integerTypes = 
+    let integerTypes =
         ["byte";"octet";"short";"unsigned short";"long";"unsigned long";"long long";"unsigned long long"]
 
     /// Get typescript type using object dom type, object name, and it's associated interface name
@@ -740,7 +740,7 @@ module Emit =
                 // Name of an interface / enum / dict. Just return itself
                 if allInterfacesMap.ContainsKey objDomType ||
                     allCallbackFuncs.ContainsKey objDomType ||
-                    allDictionariesMap.ContainsKey objDomType || 
+                    allDictionariesMap.ContainsKey objDomType ||
                     allEnumsMap.ContainsKey objDomType then
                     objDomType
                 // Name of a type alias. Just return itself
@@ -1124,7 +1124,7 @@ module Emit =
                 "%saddEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;"
                 fPrefix
 
-    let EmitConstructorSignature (i:Browser.Interface) =
+    let EmitConstructorSignature flavor (i:Browser.Interface) =
         let emitConstructorSigFromJson (c: InputJsonType.Root) =
             c.Signatures |> Array.iter (Pt.Printl "%s;")
 
@@ -1133,9 +1133,9 @@ module Emit =
                 let paramsString = ParamsToString pCombList
                 Pt.Printl "new(%s): %s;" paramsString i.Name
 
-        let removedCtor = getRemovedItems ItemKind.Constructor Flavor.All  |> Array.tryFind (matchInterface i.Name)
+        let removedCtor = getRemovedItems ItemKind.Constructor flavor |> Array.tryFind (matchInterface i.Name)
         if Option.isNone removedCtor then
-            let overriddenCtor = getOverriddenItems ItemKind.Constructor Flavor.All  |> Array.tryFind (matchInterface i.Name)
+            let overriddenCtor = getOverriddenItems ItemKind.Constructor flavor |> Array.tryFind (matchInterface i.Name)
             match overriddenCtor with
             | Some c' -> emitConstructorSigFromJson c'
             | _ ->
@@ -1145,7 +1145,7 @@ module Emit =
                 else
                     Pt.Printl "new(): %s;" i.Name
 
-        getAddedItemsByInterfaceName ItemKind.Constructor Flavor.All i.Name
+        getAddedItemsByInterfaceName ItemKind.Constructor flavor i.Name
         |> Array.iter emitConstructorSigFromJson
 
     let EmitConstructor flavor (i:Browser.Interface) =
@@ -1153,7 +1153,7 @@ module Emit =
         Pt.IncreaseIndent()
 
         Pt.Printl "prototype: %s;" i.Name
-        EmitConstructorSignature i
+        EmitConstructorSignature flavor i
         EmitConstants i
         let prefix = ""
         EmitMembers flavor prefix EmitScope.StaticOnly (InterfaceOrNamespace.Interface i)
@@ -1569,11 +1569,11 @@ module Emit =
             List.contains p.Type integerTypes
 
         // check anonymous unsigned long getter and length property
-        let isIterableGetter (m: Browser.Method) = 
+        let isIterableGetter (m: Browser.Method) =
             m.Getter = Some 1 && m.Params.Length = 1 && isIntegerKeyParam m.Params.[0]
 
         let findIterableGetter() =
-            let anonymousGetter = 
+            let anonymousGetter =
                 if (i.AnonymousMethods.IsSome) then Array.tryFind isIterableGetter i.AnonymousMethods.Value.Methods
                 else None
 
@@ -1603,7 +1603,7 @@ module Emit =
         Pt.Printl ""
 
         browser.Interfaces |> Array.iter EmitIterator
-        
+
         fprintf target "%s" (Pt.GetResult())
         target.Flush()
         target.Close()

@@ -389,6 +389,22 @@ declare var FileReader: {
     readonly LOADING: number;
 };
 
+interface FormData {
+    append(name: string, value: string): void;
+    append(name: string, blobValue: Blob, filename?: string): void;
+    delete(name: string): void;
+    get(name: string): FormDataEntryValue | null;
+    getAll(name: string): FormDataEntryValue[];
+    has(name: string): boolean;
+    set(name: string, value: string): void;
+    set(name: string, blobValue: Blob, filename?: string): void;
+}
+
+declare var FormData: {
+    prototype: FormData;
+    new(): FormData;
+};
+
 interface Headers {
     append(name: string, value: string): void;
     delete(name: string): void;
