@@ -728,11 +728,9 @@ module Emit =
         | "double" | "float" | "unrestricted double" | "unrestricted float" -> "number"
         | "Function" -> "Function"
         | "FrozenArray" -> "ReadonlyArray"
-        | "object" -> "any"
+        | "object" -> "object"
         | "Promise" -> "Promise"
-        | "ReadyState" -> "string"
         | "sequence" -> "Array"
-        | "UnrestrictedDouble" -> "number"
         | "void" -> "void"
         | integerType when List.contains integerType integerTypes -> "number"
         | extendedType when List.contains extendedType extendedTypes -> extendedType
@@ -1227,7 +1225,7 @@ module Emit =
             | "number" -> true
             | "string" ->
                 match DomTypeToTsType m.Type with
-                | "any" -> true
+                | "any" | "object" -> true
                 | _ ->
                     let mTypes =
                         match i.Methods with

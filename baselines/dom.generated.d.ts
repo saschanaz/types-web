@@ -810,7 +810,7 @@ interface PaymentDetailsInit extends PaymentDetailsBase {
 
 interface PaymentDetailsModifier {
     additionalDisplayItems?: PaymentItem[];
-    data?: any;
+    data?: object;
     supportedMethods?: string[];
     total?: PaymentItem;
 }
@@ -827,7 +827,7 @@ interface PaymentItem {
 }
 
 interface PaymentMethodData {
-    data?: any;
+    data?: object;
     supportedMethods?: string[];
 }
 
@@ -2035,7 +2035,7 @@ interface Client {
     readonly reserved: boolean;
     readonly type: ClientType;
     readonly url: string;
-    postMessage(message: any, transfer?: any[]): void;
+    postMessage(message: any, transfer?: object[]): void;
 }
 
 declare var Client: {
@@ -2124,10 +2124,10 @@ declare var Crypto: {
 };
 
 interface CryptoKey {
-    readonly algorithm: any;
+    readonly algorithm: object;
     readonly extractable: boolean;
     readonly type: KeyType;
-    readonly usages: any;
+    readonly usages: object;
 }
 
 declare var CryptoKey: {
@@ -2773,7 +2773,7 @@ interface DedicatedWorkerGlobalScope extends WorkerGlobalScope {
     onmessage: (this: DedicatedWorkerGlobalScope, ev: MessageEvent) => any;
     onmessageerror: (this: DedicatedWorkerGlobalScope, ev: MessageEvent) => any;
     close(): void;
-    postMessage(message: any, transfer?: any[]): void;
+    postMessage(message: any, transfer?: object[]): void;
     addEventListener<K extends keyof DedicatedWorkerGlobalScopeEventMap>(type: K, listener: (this: DedicatedWorkerGlobalScope, ev: DedicatedWorkerGlobalScopeEventMap[K]) => any, useCapture?: boolean): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
@@ -3246,7 +3246,7 @@ interface Document extends Node, NonElementParentNode, DocumentOrShadowRoot, Par
     writeln(...text: string[]): void;
     addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, useCapture?: boolean): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
-    [name: string]: any;
+    [name: string]: object;
 }
 
 declare var Document: {
@@ -3582,7 +3582,7 @@ interface Element extends Node, ParentNode, NonDocumentTypeChildNode, ChildNode,
     scrollBy(options?: ScrollToOptions): void;
     scrollBy(x: number, y: number): void;
     scrollIntoView(): void;
-    scrollIntoView(arg: any): void;
+    scrollIntoView(arg: boolean | object): void;
     scrollTo(x: number, y: number): void;
     scrollTo(options?: ScrollToOptions): void;
     setAttribute(name: string, value: string): void;
@@ -4998,7 +4998,7 @@ interface HTMLInputElement extends HTMLElement {
      * Returns the value of the data at the cursor's current position.
      */
     value: string;
-    valueAsDate: any;
+    valueAsDate: object | null;
     /**
      * Returns the input field value as a number.
      */
@@ -5324,7 +5324,7 @@ interface HTMLMediaElement extends HTMLElement {
      */
     canPlayType(type: string): CanPlayTypeResult;
     fastSeek(time: number): void;
-    getStartDate(): any;
+    getStartDate(): object;
     /**
      * Resets the audio or video object and loads a new media resource.
      */
@@ -7063,7 +7063,7 @@ interface MediaSource extends EventTarget {
     onsourceclose: (this: MediaSource, ev: Event) => any;
     onsourceended: (this: MediaSource, ev: Event) => any;
     onsourceopen: (this: MediaSource, ev: Event) => any;
-    readonly readyState: string;
+    readonly readyState: ReadyState;
     readonly sourceBuffers: SourceBufferList;
     addSourceBuffer(type: string): SourceBuffer;
     clearLiveSeekableRange(): void;
@@ -7211,7 +7211,7 @@ interface MessagePort extends EventTarget {
     onmessage: (this: MessagePort, ev: MessageEvent) => any;
     onmessageerror: (this: MessagePort, ev: MessageEvent) => any;
     close(): void;
-    postMessage(message: any, transfer?: any[]): void;
+    postMessage(message: any, transfer?: object[]): void;
     start(): void;
     addEventListener<K extends keyof MessagePortEventMap>(type: K, listener: (this: MessagePort, ev: MessagePortEventMap[K]) => any, useCapture?: boolean): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
@@ -7663,7 +7663,7 @@ declare var PaymentRequestUpdateEvent: {
 };
 
 interface PaymentResponse {
-    readonly details: any;
+    readonly details: object;
     readonly methodName: string;
     readonly payerEmail: string | null;
     readonly payerName: string | null;
@@ -8593,7 +8593,7 @@ interface ServiceWorker extends EventTarget, AbstractWorker {
     onstatechange: (this: ServiceWorker, ev: Event) => any;
     readonly scriptURL: string;
     readonly state: ServiceWorkerState;
-    postMessage(message: any, transfer?: any[]): void;
+    postMessage(message: any, transfer?: object[]): void;
     addEventListener<K extends keyof ServiceWorkerEventMap>(type: K, listener: (this: ServiceWorker, ev: ServiceWorkerEventMap[K]) => any, useCapture?: boolean): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
@@ -11238,7 +11238,7 @@ interface Window extends EventTarget, GlobalEventHandlers, WindowEventHandlers, 
     moveBy(x: number, y: number): void;
     moveTo(x: number, y: number): void;
     open(url?: string, target?: string, features?: string, replace?: boolean): Window;
-    postMessage(message: any, targetOrigin: string, transfer?: any[]): void;
+    postMessage(message: any, targetOrigin: string, transfer?: object[]): void;
     print(): void;
     prompt(message?: string, _default?: string): string | null;
     releaseEvents(): void;
@@ -11284,7 +11284,7 @@ interface WorkerEventMap extends AbstractWorkerEventMap {
 interface Worker extends EventTarget, AbstractWorker {
     onmessage: (this: Worker, ev: MessageEvent) => any;
     onmessageerror: (this: Worker, ev: MessageEvent) => any;
-    postMessage(message: any, transfer?: any[]): void;
+    postMessage(message: any, transfer?: object[]): void;
     terminate(): void;
     addEventListener<K extends keyof WorkerEventMap>(type: K, listener: (this: Worker, ev: WorkerEventMap[K]) => any, useCapture?: boolean): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
@@ -12172,7 +12172,7 @@ interface WebGLRenderingContextBase {
     getBufferParameter(target: GLenum, pname: GLenum): any;
     getContextAttributes(): WebGLContextAttributes | null;
     getError(): GLenum;
-    getExtension(name: string): any;
+    getExtension(name: string): object | null;
     getFramebufferAttachmentParameter(target: GLenum, attachment: GLenum, pname: GLenum): any;
     getParameter(pname: GLenum): any;
     getProgramInfoLog(program: WebGLProgram): string | null;
@@ -12618,7 +12618,7 @@ declare namespace console {
     function clear(): void;
     function count(label?: string): void;
     function debug(...data: any[]): void;
-    function dir(item: any, options?: any): void;
+    function dir(item: any, options?: object): void;
     function dirxml(...data: any[]): void;
     function error(...data: any[]): void;
     function group(...data: any[]): void;
@@ -13104,7 +13104,7 @@ declare function matchMedia(query: string): MediaQueryList;
 declare function moveBy(x: number, y: number): void;
 declare function moveTo(x: number, y: number): void;
 declare function open(url?: string, target?: string, features?: string, replace?: boolean): Window;
-declare function postMessage(message: any, targetOrigin: string, transfer?: any[]): void;
+declare function postMessage(message: any, targetOrigin: string, transfer?: object[]): void;
 declare function print(): void;
 declare function prompt(message?: string, _default?: string): string | null;
 declare function releaseEvents(): void;
@@ -13244,7 +13244,7 @@ declare var crypto: Crypto;
 declare var speechSynthesis: SpeechSynthesis;
 declare function addEventListener<K extends keyof WindowEventMap>(type: K, listener: (this: Window, ev: WindowEventMap[K]) => any, useCapture?: boolean): void;
 declare function addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
-type AlgorithmIdentifier = any;
+type AlgorithmIdentifier = object | string;
 type BigInteger = Uint8Array;
 type BodyInit = Blob | BufferSource | FormData | URLSearchParams | ReadableStream | string;
 type BufferSource = ArrayBufferView | ArrayBuffer;
@@ -13281,7 +13281,7 @@ type HTMLOrSVGScriptElement = HTMLScriptElement | SVGScriptElement;
 type ImageBitmapSource = CanvasImageSource | Blob | ImageData;
 type Int32List = Int32Array | GLint[];
 type MediaProvider = MediaStream | MediaSource | Blob;
-type MediaStreamError = any;
+type MediaStreamError = object;
 type MessageEventSource = any;
 type NamedCurve = string;
 type OffscreenRenderingContext = OffscreenCanvasRenderingContext2D | WebGLRenderingContext;

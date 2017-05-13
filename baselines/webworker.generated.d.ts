@@ -249,10 +249,10 @@ declare var CloseEvent: {
 };
 
 interface CryptoKey {
-    readonly algorithm: any;
+    readonly algorithm: object;
     readonly extractable: boolean;
     readonly type: KeyType;
-    readonly usages: any;
+    readonly usages: object;
 }
 
 declare var CryptoKey: {
@@ -640,7 +640,7 @@ interface MessagePort extends EventTarget {
     onmessage: (this: MessagePort, ev: MessageEvent) => any;
     onmessageerror: (this: MessagePort, ev: MessageEvent) => any;
     close(): void;
-    postMessage(message: any, transfer?: any[]): void;
+    postMessage(message: any, transfer?: object[]): void;
     start(): void;
     addEventListener<K extends keyof MessagePortEventMap>(type: K, listener: (this: MessagePort, ev: MessagePortEventMap[K]) => any, useCapture?: boolean): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
@@ -870,7 +870,7 @@ interface ServiceWorker extends EventTarget, AbstractWorker {
     onstatechange: (this: ServiceWorker, ev: Event) => any;
     readonly scriptURL: string;
     readonly state: ServiceWorkerState;
-    postMessage(message: any, transfer?: any[]): void;
+    postMessage(message: any, transfer?: object[]): void;
     addEventListener<K extends keyof ServiceWorkerEventMap>(type: K, listener: (this: ServiceWorker, ev: ServiceWorkerEventMap[K]) => any, useCapture?: boolean): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
@@ -1023,7 +1023,7 @@ interface WorkerEventMap extends AbstractWorkerEventMap {
 interface Worker extends EventTarget, AbstractWorker {
     onmessage: (this: Worker, ev: MessageEvent) => any;
     onmessageerror: (this: Worker, ev: MessageEvent) => any;
-    postMessage(message: any, transfer?: any[]): void;
+    postMessage(message: any, transfer?: object[]): void;
     terminate(): void;
     addEventListener<K extends keyof WorkerEventMap>(type: K, listener: (this: Worker, ev: WorkerEventMap[K]) => any, useCapture?: boolean): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
@@ -1579,7 +1579,7 @@ declare function dispatchEvent(event: Event): boolean;
 declare function removeEventListener(type: string, listener?: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
 declare function addEventListener<K extends keyof DedicatedWorkerGlobalScopeEventMap>(type: K, listener: (this: DedicatedWorkerGlobalScope, ev: DedicatedWorkerGlobalScopeEventMap[K]) => any, useCapture?: boolean): void;
 declare function addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
-type AlgorithmIdentifier = any;
+type AlgorithmIdentifier = object | string;
 type BodyInit = Blob | BufferSource | FormData | URLSearchParams | ReadableStream | string;
 type RequestInfo = Request | string;
 type IDBValidKey = number | string | Date | IDBArrayKey;
