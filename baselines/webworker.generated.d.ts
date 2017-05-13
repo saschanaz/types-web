@@ -122,7 +122,7 @@ interface RequestInit {
     mode?: RequestMode;
     redirect?: RequestRedirect;
     referrer?: string;
-    referrerPolicy?: any;
+    referrerPolicy?: ReferrerPolicy;
     window?: any;
 }
 
@@ -830,7 +830,7 @@ interface Request extends Object, Body {
     readonly mode: RequestMode;
     readonly redirect: RequestRedirect;
     readonly referrer: string;
-    readonly referrerPolicy: any;
+    readonly referrerPolicy: ReferrerPolicy;
     readonly type: RequestType;
     readonly url: string;
     clone(): Request;
@@ -1579,9 +1579,9 @@ declare function dispatchEvent(event: Event): boolean;
 declare function removeEventListener(type: string, listener?: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
 declare function addEventListener<K extends keyof DedicatedWorkerGlobalScopeEventMap>(type: K, listener: (this: DedicatedWorkerGlobalScope, ev: DedicatedWorkerGlobalScopeEventMap[K]) => any, useCapture?: boolean): void;
 declare function addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
+type AlgorithmIdentifier = any;
 type BodyInit = Blob | BufferSource | FormData | URLSearchParams | ReadableStream | string;
 type RequestInfo = Request | string;
-type AlgorithmIdentifier = any;
 type IDBValidKey = number | string | Date | IDBArrayKey;
 type IDBCursorDirection = "next" | "nextunique" | "prev" | "prevunique";
 type IDBRequestReadyState = "pending" | "done";
@@ -1591,6 +1591,7 @@ type NotificationDirection = "auto" | "ltr" | "rtl";
 type NotificationPermission = "default" | "denied" | "granted";
 type PushEncryptionKeyName = "p256dh" | "auth";
 type PushPermissionState = "denied" | "granted" | "prompt";
+type ReferrerPolicy = "" | "no-referrer" | "no-referrer-when-downgrade" | "same-origin" | "origin" | "strict-origin" | "origin-when-cross-origin" | "strict-origin-when-cross-origin" | "unsafe-url";
 type RequestCache = "default" | "no-store" | "reload" | "no-cache" | "force-cache" | "only-if-cached";
 type RequestCredentials = "omit" | "same-origin" | "include";
 type RequestDestination = "" | "audio" | "document" | "embed" | "font" | "image" | "manifest" | "object" | "report" | "script" | "serviceworker" | "sharedworker" | "style" | "track" | "video" | "worker" | "xslt";
