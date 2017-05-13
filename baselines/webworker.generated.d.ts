@@ -855,7 +855,7 @@ declare var ReadableStream: {
     new(): ReadableStream;
 };
 
-interface Request extends Object, Body {
+interface Request extends Body {
     readonly cache: RequestCache;
     readonly credentials: RequestCredentials;
     readonly destination: RequestDestination;
@@ -877,7 +877,7 @@ declare var Request: {
     new(input: RequestInfo, init?: RequestInit): Request;
 };
 
-interface Response extends Object, Body {
+interface Response extends Body {
     readonly headers: Headers;
     readonly ok: boolean;
     readonly redirected: boolean;
@@ -891,9 +891,7 @@ interface Response extends Object, Body {
 
 declare var Response: {
     prototype: Response;
-    new(body?: any, init?: ResponseInit): Response;
-    error: () => Response;
-    redirect: (url: string, status?: number) => Response;
+    new(body?: BodyInit, init?: ResponseInit): Response;
     error(): Response;
     redirect(url: string, status?: number): Response;
 };
@@ -1382,7 +1380,7 @@ declare var SyncEvent: {
 
 interface WindowClient extends Client {
     readonly focused: boolean;
-    readonly visibilityState: any;
+    readonly visibilityState: VisibilityState;
     focus(): Promise<WindowClient>;
     navigate(url: string): Promise<WindowClient>;
 }
@@ -1396,7 +1394,7 @@ interface WorkerGlobalScopeEventMap {
     "error": ErrorEvent;
 }
 
-interface WorkerGlobalScope extends EventTarget, WorkerUtils, WindowConsole, GlobalFetch {
+interface WorkerGlobalScope extends EventTarget, WorkerUtils {
     readonly caches: CacheStorage;
     readonly isSecureContext: boolean;
     readonly location: WorkerLocation;
@@ -1433,7 +1431,7 @@ declare var WorkerLocation: {
     new(): WorkerLocation;
 };
 
-interface WorkerNavigator extends Object, NavigatorID, NavigatorOnLine, NavigatorBeacon, NavigatorConcurrentHardware {
+interface WorkerNavigator extends NavigatorID, NavigatorOnLine, NavigatorConcurrentHardware {
     readonly hardwareConcurrency: number;
 }
 
@@ -1442,7 +1440,7 @@ declare var WorkerNavigator: {
     new(): WorkerNavigator;
 };
 
-interface WorkerUtils extends Object, WindowBase64 {
+interface WorkerUtils {
     readonly indexedDB: IDBFactory;
     readonly msIndexedDB: IDBFactory;
     readonly navigator: WorkerNavigator;
@@ -1655,6 +1653,7 @@ type RequestRedirect = "follow" | "error" | "manual";
 type RequestType = "" | "audio" | "font" | "image" | "script" | "style" | "track" | "video";
 type ResponseType = "basic" | "cors" | "default" | "error" | "opaque" | "opaqueredirect";
 type ServiceWorkerState = "installing" | "installed" | "activating" | "activated" | "redundant";
+type VisibilityState = "hidden" | "visible" | "prerender" | "unloaded";
 type XMLHttpRequestResponseType = "" | "arraybuffer" | "blob" | "document" | "json" | "text";
 type ClientType = "window" | "worker" | "sharedworker" | "all";
 type FrameType = "auxiliary" | "top-level" | "nested" | "none";

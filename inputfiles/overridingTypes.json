@@ -1,15 +1,6 @@
  [
     {
         "kind": "constructor",
-        "interface": "Response",
-        "signatures": [
-            "new(body?: any, init?: ResponseInit): Response",
-            "error: () => Response",
-            "redirect: (url: string, status?: number) => Response"
-        ]
-    },
-    {
-        "kind": "constructor",
         "interface": "ErrorEvent",
         "signatures": ["new(type: string, errorEventInitDict?: ErrorEventInit): ErrorEvent"]
     },
