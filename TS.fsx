@@ -800,8 +800,8 @@ module Emit =
     /// Emit overloads for the getElementsByTagName method
     let EmitGetElementsByTagNameOverloads (m: Browser.Method) =
         if matchSingleParamMethodSignature m "getElementsByTagName" "NodeList" "string" then
-            Pt.Printl "getElementsByTagName<K extends keyof ElementListTagNameMap>(%s: K): ElementListTagNameMap[K];" m.Params.[0].Name
-            Pt.Printl "getElementsByTagName(%s: string): NodeListOf<Element>;" m.Params.[0].Name
+            Pt.Printl "getElementsByTagName<K extends keyof ElementTagNameMap>(%s: K): HTMLCollectionOf<ElementTagNameMap[K]>;" m.Params.[0].Name
+            Pt.Printl "getElementsByTagName(%s: string): HTMLCollectionOf<Element>;" m.Params.[0].Name
 
     /// Emit overloads for the querySelector method
     let EmitQuerySelectorOverloads (m: Browser.Method) =
@@ -812,7 +812,7 @@ module Emit =
     /// Emit overloads for the querySelectorAll method
     let EmitQuerySelectorAllOverloads (m: Browser.Method) =
         if matchSingleParamMethodSignature m "querySelectorAll" "NodeList" "string" then
-            Pt.Printl "querySelectorAll<K extends keyof ElementListTagNameMap>(selectors: K): ElementListTagNameMap[K];"
+            Pt.Printl "querySelectorAll<K extends keyof ElementTagNameMap>(selectors: K): NodeListOf<ElementTagNameMap[K]>;"
             Pt.Printl "querySelectorAll(selectors: string): NodeListOf<Element>;"
 
     let EmitHTMLElementTagNameMap () =
@@ -833,12 +833,6 @@ module Emit =
                 Pt.Printl "\"%s\": %s;" (e.Key.ToLower()) e.Value
         Pt.DecreaseIndent()
         Pt.Printl "}"
-        Pt.Printl ""
-
-    let EmitElementListTagNameMap () =
-        Pt.Printl "type ElementListTagNameMap = {"
-        Pt.PrintWithAddedIndent "[key in keyof ElementTagNameMap]: NodeListOf<ElementTagNameMap[key]>"
-        Pt.Printl "};"
         Pt.Printl ""
 
     /// Emit overloads for the createEvent method
@@ -1486,7 +1480,6 @@ module Emit =
         if flavor <> Worker then
             EmitHTMLElementTagNameMap()
             EmitElementTagNameMap()
-            EmitElementListTagNameMap()
             EmitNamedConstructors()
 
         match GetGlobalPollutor flavor with
