@@ -62,7 +62,6 @@
     },
     {
         "kind": "interface",
-        "flavor": "Worker",
         "name": "ImageBitmapOptions",
         "properties": [
             {
@@ -94,7 +93,6 @@
     {
         "kind": "interface",
         "name": "ImageBitmap",
-        "flavor": "Worker",
         "properties": [
             {
                 "name": "width",
@@ -471,7 +469,7 @@
     {
         "kind": "interface",
         "name": "ParentNode",
-        "flavor": "DOM",
+        "flavor": "Web",
         "properties": [
             {
                 "name": "children",
@@ -513,7 +511,7 @@
     {
         "kind": "interface",
         "name": "DocumentOrShadowRoot",
-        "flavor": "DOM",
+        "flavor": "Web",
         "methods": [
             {
                 "name": "getSelection",
@@ -545,7 +543,7 @@
         "kind": "interface",
         "name": "ShadowRoot",
         "extends": "DocumentOrShadowRoot, DocumentFragment",
-        "flavor": "DOM",
+        "flavor": "Web",
         "properties": [
             {
                 "name": "host",
@@ -582,7 +580,7 @@
         "kind": "interface",
         "name": "HTMLSlotElement",
         "extends": "HTMLElement",
-        "flavor": "DOM",
+        "flavor": "Web",
         "properties": [
             {
                 "name": "name",
@@ -599,7 +597,7 @@
     {
         "kind": "interface",
         "name": "AssignedNodesOptions",
-        "flavor": "DOM",
+        "flavor": "Web",
         "properties": [
             {
                 "name": "flatten?",
