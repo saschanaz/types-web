@@ -20,6 +20,7 @@ module GlobalVars =
 
     let makeTextWriter fileName = File.CreateText(Path.Combine(outputFolder, fileName)) :> TextWriter
     let tsWebOutput = makeTextWriter "dom.generated.d.ts"
+    let tsWebES6Output = makeTextWriter "dom.es6.generated.d.ts"
     let tsWorkerOutput = makeTextWriter "webworker.generated.d.ts"
     let defaultEventType = "Event"
 
@@ -709,6 +710,9 @@ module Emit =
     let extendedTypes =
         ["ArrayBuffer";"ArrayBufferView";"Int8Array";"Uint8Array";"Int16Array";"Uint16Array";"Int32Array";"Uint32Array";"Uint8ClampedArray";"Float32Array";"Float64Array";"DataView"]
 
+    let integerTypes = 
+        ["byte";"octet";"short";"unsigned short";"long";"unsigned long";"long long";"unsigned long long"]
+
     /// Get typescript type using object dom type, object name, and it's associated interface name
     let rec DomTypeToTsType (objDomType: string) =
         match objDomType.Trim('?') with
@@ -724,15 +728,13 @@ module Emit =
         | "double" | "float" | "unrestricted double" | "unrestricted float" -> "number"
         | "Function" -> "Function"
         | "FrozenArray" -> "ReadonlyArray"
-        | "long" | "long long" | "signed long" | "signed long long" | "unsigned long" | "unsigned long long" -> "number"
-        | "octet" | "byte" -> "number"
         | "object" -> "any"
         | "Promise" -> "Promise"
         | "ReadyState" -> "string"
         | "sequence" -> "Array"
-        | "short" | "signed short" | "unsigned short" -> "number"
         | "UnrestrictedDouble" -> "number"
         | "void" -> "void"
+        | integerType when List.contains integerType integerTypes -> "number"
         | extendedType when List.contains extendedType extendedTypes -> extendedType
         | _ ->
             if ignoreDOMTypes && Seq.contains objDomType ["Element"; "Window"; "Document"] then "any"
@@ -835,21 +837,19 @@ module Emit =
         Pt.Printl ""
 
     let EmitElementTagNameMap () =
-        Pt.Printl "interface ElementTagNameMap {"
+        Pt.Printl "interface ElementTagNameMap extends HTMLElementTagNameMap {"
         Pt.IncreaseIndent()
         for e in tagNameToEleName do
-            Pt.Printl "\"%s\": %s;" (e.Key.ToLower()) e.Value
+            if iNameToIDependList.ContainsKey e.Value && not (Seq.contains "HTMLElement" iNameToIDependList.[e.Value]) then
+                Pt.Printl "\"%s\": %s;" (e.Key.ToLower()) e.Value
         Pt.DecreaseIndent()
         Pt.Printl "}"
         Pt.Printl ""
 
     let EmitElementListTagNameMap () =
-        Pt.Printl "interface ElementListTagNameMap {"
-        Pt.IncreaseIndent()
-        for e in tagNameToEleName do
-            Pt.Printl "\"%s\": NodeListOf<%s>;" (e.Key.ToLower()) e.Value
-        Pt.DecreaseIndent()
-        Pt.Printl "}"
+        Pt.Printl "type ElementListTagNameMap = {"
+        Pt.PrintWithAddedIndent "[key in keyof ElementTagNameMap]: NodeListOf<ElementTagNameMap[key]>"
+        Pt.Printl "};"
         Pt.Printl ""
 
     /// Emit overloads for the createEvent method
@@ -858,9 +858,9 @@ module Emit =
             // Emit plurals. For example, "Events", "MutationEvents"
             let hasPlurals = ["Event"; "MutationEvent"; "MouseEvent"; "SVGZoomEvent"; "UIEvent"]
             for x in distinctETypeList do
-                Pt.Printl "createEvent(eventInterface:\"%s\"): %s;" x x
+                Pt.Printl "createEvent(eventInterface: \"%s\"): %s;" x x
                 if List.contains x hasPlurals then
-                    Pt.Printl "createEvent(eventInterface:\"%ss\"): %s;" x x
+                    Pt.Printl "createEvent(eventInterface: \"%ss\"): %s;" x x
             Pt.Printl "createEvent(eventInterface: string): Event;"
 
     /// Generate the parameters string for function signatures
@@ -1048,7 +1048,7 @@ module Emit =
                         if m.Name.IsSome then
                             // If there are added overloads from the json files, print them first
                             match getAddedItemByName m.Name.Value ItemKind.SignatureOverload name with
-                            | Some ol -> ol.Signatures |> Array.iter (printLine "%s")
+                            | Some ol -> ol.Signatures |> Array.iter (printLine "%s;")
                             | _ -> ()
 
                         let overloads = GetOverloads (Function.Method m) false
@@ -1161,7 +1161,7 @@ module Emit =
         EmitMembers flavor prefix EmitScope.StaticOnly (InterfaceOrNamespace.Interface i)
 
         Pt.DecreaseIndent()
-        Pt.Printl "}"
+        Pt.Printl "};"
         Pt.Printl ""
 
     /// Emit all the named constructors at root level
@@ -1174,7 +1174,7 @@ module Emit =
                 let ncParams =
                     [for p in nc.Params do
                         yield {Type = p.Type; Name = p.Name; Optional = p.Optional.IsSome; Variadic = p.Variadic.IsSome; Nullable = p.Nullable.IsSome}]
-                Pt.Printl "declare var %s: {new(%s): %s; };" nc.Name (ParamsToString ncParams) i.Name)
+                Pt.Printl "declare var %s: { new(%s): %s; };" nc.Name (ParamsToString ncParams) i.Name)
 
     let EmitInterfaceDeclaration (i:Browser.Interface) =
         let getConflict iName = Map.tryFind iName extendConflictsBaseTypes;
@@ -1383,7 +1383,7 @@ module Emit =
             EmitMembers flavor prefix EmitScope.StaticOnly (InterfaceOrNamespace.Interface i)
             emitAddedConstructor ()
             Pt.DecreaseIndent()
-            Pt.Printl "}"
+            Pt.Printl "};"
             Pt.Printl ""
 
         let emitPureStaticInterface () =
@@ -1491,7 +1491,7 @@ module Emit =
             | _ -> ()
             ai.ConstructorSignatures |> Array.iter (Pt.PrintWithAddedIndent "%s;")
             ai.Constants |> Array.iter emitConstant
-            Pt.Printl "}"
+            Pt.Printl "};"
             Pt.Printl ""
 
     let EmitTypeDefs flavor =
@@ -1566,8 +1566,53 @@ module Emit =
         target.Flush()
         target.Close()
 
+    let EmitIterator (i: Browser.Interface) =
+        let isIntegerKeyParam (p: Browser.Param) =
+            List.contains p.Type integerTypes
+
+        // check anonymous unsigned long getter and length property
+        let isIterableGetter (m: Browser.Method) = 
+            m.Getter = Some 1 && m.Params.Length = 1 && isIntegerKeyParam m.Params.[0]
+
+        let findIterableGetter() =
+            let anonymousGetter = 
+                if (i.AnonymousMethods.IsSome) then Array.tryFind isIterableGetter i.AnonymousMethods.Value.Methods
+                else None
+
+            if (anonymousGetter.IsSome) then anonymousGetter
+            else if (i.Methods.IsSome) then Array.tryFind isIterableGetter i.Methods.Value.Methods
+            else None
+
+        let findLengthProperty (p: Browser.Property) =
+            p.Name = "length" && List.contains p.Type integerTypes
+
+        if i.Name <> "Window" && i.Properties.IsSome then
+            let iterableGetter = findIterableGetter()
+            let lengthProperty = Array.tryFind findLengthProperty i.Properties.Value.Properties
+            if iterableGetter.IsSome && lengthProperty.IsSome then
+                Pt.Printl "interface %s {" i.Name
+                Pt.IncreaseIndent()
+                Pt.Printl "[Symbol.iterator](): IterableIterator<%s>" (DomTypeToTsType iterableGetter.Value.Type)
+                Pt.DecreaseIndent()
+                Pt.Printl "}"
+                Pt.Printl ""
+
+    let EmitES6Thing (target: TextWriter) =
+        Pt.Reset()
+        Pt.Printl "/////////////////////////////"
+        Pt.Printl "/// DOM ES6 APIs"
+        Pt.Printl "/////////////////////////////"
+        Pt.Printl ""
+
+        browser.Interfaces |> Array.iter EmitIterator
+        
+        fprintf target "%s" (Pt.GetResult())
+        target.Flush()
+        target.Close()
+
     let EmitDomWeb () =
         EmitTheWholeThing Flavor.All GlobalVars.tsWebOutput
+        EmitES6Thing GlobalVars.tsWebES6Output
 
     let EmitDomWorker () =
         ignoreDOMTypes <- true
