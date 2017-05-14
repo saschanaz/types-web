@@ -4100,7 +4100,7 @@
           <param name="originY" default="0" optional="1" type="unrestricted double"/>
           <param name="originZ" default="0" optional="1" type="unrestricted double"/>
         </method>
-        <method name="setMatrixValue" type="DOMMatrix">
+        <method name="setMatrixValue" type="DOMMatrix" exposed="Window">
           <param name="transformList" type="DOMString"/>
         </method>
         <method name="skewXSelf" type="DOMMatrix">
@@ -7351,7 +7351,7 @@
       </constructor>
       <methods>
         <method name="close" type="void"/>
-        <method name="requestPermission" static="1" type="Promise&lt;NotificationPermission&gt;">
+        <method name="requestPermission" static="1" type="Promise&lt;NotificationPermission&gt;" exposed="Window">
           <param name="deprecatedCallback" optional="1" type="NotificationPermissionCallback"/>
         </method>
       </methods>
@@ -10990,7 +10990,7 @@
         <property name="responseText" read-only="1" type="USVString"/>
         <property name="responseType" type="XMLHttpRequestResponseType"/>
         <property name="responseURL" read-only="1" type="USVString"/>
-        <property name="responseXML" read-only="1" nullable="1" type="Document"/>
+        <property name="responseXML" read-only="1" nullable="1" type="Document" exposed="Window"/>
         <property name="status" read-only="1" type="unsigned short"/>
         <property name="statusText" read-only="1" type="ByteString"/>
         <property name="timeout" type="unsigned long"/>
@@ -11812,16 +11812,16 @@
         <property name="appCodeName" read-only="1" type="DOMString"/>
         <property name="appName" read-only="1" type="DOMString"/>
         <property name="appVersion" read-only="1" type="DOMString"/>
-        <property name="oscpu" read-only="1" type="DOMString"/>
+        <property name="oscpu" read-only="1" type="DOMString" exposed="Window"/>
         <property name="platform" read-only="1" type="DOMString"/>
         <property name="product" read-only="1" type="DOMString"/>
-        <property name="productSub" read-only="1" type="DOMString"/>
+        <property name="productSub" read-only="1" type="DOMString" exposed="Window"/>
         <property name="userAgent" read-only="1" type="DOMString"/>
-        <property name="vendor" read-only="1" type="DOMString"/>
-        <property name="vendorSub" read-only="1" type="DOMString"/>
+        <property name="vendor" read-only="1" type="DOMString" exposed="Window"/>
+        <property name="vendorSub" read-only="1" type="DOMString" exposed="Window"/>
       </properties>
       <methods>
-        <method name="taintEnabled" type="boolean"/>
+        <method name="taintEnabled" type="boolean" exposed="Window"/>
       </methods>
     </interface>
     <interface name="NavigatorLanguage" extends="Object" no-interface-object="1" exposed="Window Worker">

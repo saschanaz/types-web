@@ -2195,7 +2195,7 @@
         <property name="type" type="BiquadFilterType" />
       </properties>
     </interface>
-    <interface name="Blob" extends="Object">
+    <interface name="Blob" extends="Object" exposed="Window">
       <constructor></constructor>
       <methods>
         <method name="msClose" type="void" />
@@ -12905,7 +12905,7 @@
         <property name="responseText" read-only="1" type="DOMString" />
         <property name="responseType" type="XMLHttpRequestResponseType" />
         <property name="responseURL" read-only="1" type="DOMString" />
-        <property name="responseXML" nullable="1" read-only="1" type="Document" />
+        <property name="responseXML" nullable="1" read-only="1" type="Document" exposed="Window" />
         <property name="status" read-only="1" type="unsigned short" />
         <property name="statusText" read-only="1" type="DOMString" />
         <property name="timeout" type="unsigned long" />

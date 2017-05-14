@@ -1774,15 +1774,6 @@ declare var AudioTrackList: {
     new(): AudioTrackList;
 };
 
-interface AudioWorkletGlobalScope extends WorkletGlobalScope {
-    registerProcessor(name: string, processorCtor: VoidFunction): void;
-}
-
-declare var AudioWorkletGlobalScope: {
-    prototype: AudioWorkletGlobalScope;
-    new(): AudioWorkletGlobalScope;
-};
-
 interface AudioWorkletNodeEventMap {
     "data": Event;
 }
@@ -2028,31 +2019,6 @@ interface CharacterData extends Node, NonDocumentTypeChildNode, ChildNode {
 declare var CharacterData: {
     prototype: CharacterData;
     new(): CharacterData;
-};
-
-interface Client {
-    readonly id: string;
-    readonly reserved: boolean;
-    readonly type: ClientType;
-    readonly url: string;
-    postMessage(message: any, transfer?: object[]): void;
-}
-
-declare var Client: {
-    prototype: Client;
-    new(): Client;
-};
-
-interface Clients {
-    claim(): Promise<void>;
-    get(id: string): Promise<any>;
-    matchAll(options?: ClientQueryOptions): any;
-    openWindow(url: string): any;
-}
-
-declare var Clients: {
-    prototype: Clients;
-    new(): Clients;
 };
 
 interface ClipboardEvent extends Event {
@@ -2760,25 +2726,6 @@ interface DataTransferItemList {
 declare var DataTransferItemList: {
     prototype: DataTransferItemList;
     new(): DataTransferItemList;
-};
-
-interface DedicatedWorkerGlobalScopeEventMap extends WorkerGlobalScopeEventMap {
-    "message": MessageEvent;
-}
-
-interface DedicatedWorkerGlobalScope extends WorkerGlobalScope {
-    readonly name: string;
-    onmessage: (this: DedicatedWorkerGlobalScope, ev: MessageEvent) => any;
-    onmessageerror: (this: DedicatedWorkerGlobalScope, ev: MessageEvent) => any;
-    close(): void;
-    postMessage(message: any, transfer?: object[]): void;
-    addEventListener<K extends keyof DedicatedWorkerGlobalScopeEventMap>(type: K, listener: (this: DedicatedWorkerGlobalScope, ev: DedicatedWorkerGlobalScopeEventMap[K]) => any, useCapture?: boolean): void;
-    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
-}
-
-declare var DedicatedWorkerGlobalScope: {
-    prototype: DedicatedWorkerGlobalScope;
-    new(): DedicatedWorkerGlobalScope;
 };
 
 interface DelayNode extends AudioNode {
@@ -3692,42 +3639,6 @@ declare var EventTarget: {
     new(): EventTarget;
 };
 
-interface ExtendableEvent extends Event {
-    waitUntil(f: Promise<any>): void;
-}
-
-declare var ExtendableEvent: {
-    prototype: ExtendableEvent;
-    new(type: string, eventInitDict?: ExtendableEventInit): ExtendableEvent;
-};
-
-interface ExtendableMessageEvent extends ExtendableEvent {
-    readonly data: any;
-    readonly lastEventId: string;
-    readonly origin: string;
-    readonly ports: ReadonlyArray<MessagePort>;
-    readonly source: Client | ServiceWorker | MessagePort | null;
-}
-
-declare var ExtendableMessageEvent: {
-    prototype: ExtendableMessageEvent;
-    new(type: string, eventInitDict?: ExtendableMessageEventInit): ExtendableMessageEvent;
-};
-
-interface FetchEvent extends ExtendableEvent {
-    readonly clientId: string;
-    readonly preloadResponse: Promise<any>;
-    readonly request: Request;
-    readonly reservedClientId: string;
-    readonly targetClientId: string;
-    respondWith(r: Promise<Response>): void;
-}
-
-declare var FetchEvent: {
-    prototype: FetchEvent;
-    new(type: string, eventInitDict: FetchEventInit): FetchEvent;
-};
-
 interface File extends Blob {
     readonly lastModified: number;
     readonly name: string;
@@ -3787,17 +3698,6 @@ declare var FileReader: {
     readonly LOADING: number;
 };
 
-interface FileReaderSync {
-    readAsArrayBuffer(blob: Blob): ArrayBuffer;
-    readAsDataURL(blob: Blob): string;
-    readAsText(blob: Blob, label?: string): string;
-}
-
-declare var FileReaderSync: {
-    prototype: FileReaderSync;
-    new(): FileReaderSync;
-};
-
 interface FocusEvent extends UIEvent {
     readonly relatedTarget: EventTarget | null;
 }
@@ -3805,17 +3705,6 @@ interface FocusEvent extends UIEvent {
 declare var FocusEvent: {
     prototype: FocusEvent;
     new(type: string, eventInitDict?: FocusEventInit): FocusEvent;
-};
-
-interface ForeignFetchEvent extends ExtendableEvent {
-    readonly origin: string;
-    readonly request: Request;
-    respondWith(r: Promise<ForeignFetchResponse>): void;
-}
-
-declare var ForeignFetchEvent: {
-    prototype: ForeignFetchEvent;
-    new(type: string, eventInitDict: ForeignFetchEventInit): ForeignFetchEvent;
 };
 
 interface FormData {
@@ -6785,15 +6674,6 @@ declare var InputEvent: {
     new(type: string, eventInitDict?: InputEventInit): InputEvent;
 };
 
-interface InstallEvent extends ExtendableEvent {
-    registerForeignFetch(options: ForeignFetchOptions): void;
-}
-
-declare var InstallEvent: {
-    prototype: InstallEvent;
-    new(type: string, eventInitDict?: ExtendableEventInit): InstallEvent;
-};
-
 interface IntersectionObserver {
     readonly root: Element | null;
     readonly rootMargin: string;
@@ -7479,16 +7359,6 @@ declare var Notification: {
     requestPermission(deprecatedCallback?: NotificationPermissionCallback): Promise<NotificationPermission>;
 };
 
-interface NotificationEvent extends ExtendableEvent {
-    readonly action: string;
-    readonly notification: Notification;
-}
-
-declare var NotificationEvent: {
-    prototype: NotificationEvent;
-    new(type: string, eventInitDict: NotificationEventInit): NotificationEvent;
-};
-
 interface OfflineAudioCompletionEvent extends Event {
     readonly renderedBuffer: AudioBuffer;
 }
@@ -7928,15 +7798,6 @@ declare var PromiseRejectionEvent: {
     new(type: string, eventInitDict: PromiseRejectionEventInit): PromiseRejectionEvent;
 };
 
-interface PushEvent extends ExtendableEvent {
-    readonly data: PushMessageData | null;
-}
-
-declare var PushEvent: {
-    prototype: PushEvent;
-    new(type: string, eventInitDict?: PushEventInit): PushEvent;
-};
-
 interface PushManager {
     readonly supportedContentEncodings: ReadonlyArray<string>;
     getSubscription(): any;
@@ -7947,18 +7808,6 @@ interface PushManager {
 declare var PushManager: {
     prototype: PushManager;
     new(): PushManager;
-};
-
-interface PushMessageData {
-    arrayBuffer(): ArrayBuffer;
-    blob(): Blob;
-    json(): any;
-    text(): string;
-}
-
-declare var PushMessageData: {
-    prototype: PushMessageData;
-    new(): PushMessageData;
 };
 
 interface PushSubscription {
@@ -7972,16 +7821,6 @@ interface PushSubscription {
 declare var PushSubscription: {
     prototype: PushSubscription;
     new(): PushSubscription;
-};
-
-interface PushSubscriptionChangeEvent extends ExtendableEvent {
-    readonly newSubscription: PushSubscription | null;
-    readonly oldSubscription: PushSubscription | null;
-}
-
-declare var PushSubscriptionChangeEvent: {
-    prototype: PushSubscriptionChangeEvent;
-    new(type: string, eventInitDict?: PushSubscriptionChangeInit): PushSubscriptionChangeEvent;
 };
 
 interface PushSubscriptionOptions {
@@ -8293,26 +8132,6 @@ declare var RTCIdentityAssertion: {
     new(idp: string, name: string): RTCIdentityAssertion;
 };
 
-interface RTCIdentityProviderGlobalScope extends WorkerGlobalScope {
-    readonly rtcIdentityProvider: RTCIdentityProviderRegistrar;
-    addEventListener<K extends keyof WorkerGlobalScopeEventMap>(type: K, listener: (this: RTCIdentityProviderGlobalScope, ev: WorkerGlobalScopeEventMap[K]) => any, useCapture?: boolean): void;
-    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
-}
-
-declare var RTCIdentityProviderGlobalScope: {
-    prototype: RTCIdentityProviderGlobalScope;
-    new(): RTCIdentityProviderGlobalScope;
-};
-
-interface RTCIdentityProviderRegistrar {
-    register(idp: RTCIdentityProvider): void;
-}
-
-declare var RTCIdentityProviderRegistrar: {
-    prototype: RTCIdentityProviderRegistrar;
-    new(): RTCIdentityProviderRegistrar;
-};
-
 interface RTCPeerConnectionEventMap {
     "connectionstatechange": Event;
     "datachannel": RTCDataChannelEvent;
@@ -8621,41 +8440,6 @@ declare var ServiceWorkerContainer: {
     new(): ServiceWorkerContainer;
 };
 
-interface ServiceWorkerGlobalScopeEventMap extends WorkerGlobalScopeEventMap {
-    "activate": ExtendableEvent;
-    "fetch": FetchEvent;
-    "install": InstallEvent;
-    "message": ExtendableMessageEvent;
-    "notificationclick": NotificationEvent;
-    "notificationclose": NotificationEvent;
-    "push": PushEvent;
-    "pushsubscriptionchange": PushSubscriptionChangeEvent;
-    "sync": SyncEvent;
-}
-
-interface ServiceWorkerGlobalScope extends WorkerGlobalScope {
-    readonly clients: Clients;
-    onactivate: (this: ServiceWorkerGlobalScope, ev: ExtendableEvent) => any;
-    onfetch: (this: ServiceWorkerGlobalScope, ev: FetchEvent) => any;
-    onforeignfetch: (this: ServiceWorkerGlobalScope, ev: FetchEvent) => any;
-    oninstall: (this: ServiceWorkerGlobalScope, ev: InstallEvent) => any;
-    onmessage: (this: ServiceWorkerGlobalScope, ev: ExtendableMessageEvent) => any;
-    onnotificationclick: (this: ServiceWorkerGlobalScope, ev: NotificationEvent) => any;
-    onnotificationclose: (this: ServiceWorkerGlobalScope, ev: NotificationEvent) => any;
-    onpush: (this: ServiceWorkerGlobalScope, ev: PushEvent) => any;
-    onpushsubscriptionchange: (this: ServiceWorkerGlobalScope, ev: PushSubscriptionChangeEvent) => any;
-    onsync: (this: ServiceWorkerGlobalScope, ev: SyncEvent) => any;
-    readonly registration: ServiceWorkerRegistration;
-    skipWaiting(): Promise<void>;
-    addEventListener<K extends keyof ServiceWorkerGlobalScopeEventMap>(type: K, listener: (this: ServiceWorkerGlobalScope, ev: ServiceWorkerGlobalScopeEventMap[K]) => any, useCapture?: boolean): void;
-    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
-}
-
-declare var ServiceWorkerGlobalScope: {
-    prototype: ServiceWorkerGlobalScope;
-    new(): ServiceWorkerGlobalScope;
-};
-
 interface ServiceWorkerRegistrationEventMap {
     "updatefound": Event;
 }
@@ -8711,23 +8495,6 @@ interface SharedWorker extends EventTarget, AbstractWorker {
 declare var SharedWorker: {
     prototype: SharedWorker;
     new(scriptURL: string, options?: string | WorkerOptions): SharedWorker;
-};
-
-interface SharedWorkerGlobalScopeEventMap extends WorkerGlobalScopeEventMap {
-    "connect": MessageEvent;
-}
-
-interface SharedWorkerGlobalScope extends WorkerGlobalScope {
-    readonly name: string;
-    onconnect: (this: SharedWorkerGlobalScope, ev: MessageEvent) => any;
-    close(): void;
-    addEventListener<K extends keyof SharedWorkerGlobalScopeEventMap>(type: K, listener: (this: SharedWorkerGlobalScope, ev: SharedWorkerGlobalScopeEventMap[K]) => any, useCapture?: boolean): void;
-    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
-}
-
-declare var SharedWorkerGlobalScope: {
-    prototype: SharedWorkerGlobalScope;
-    new(): SharedWorkerGlobalScope;
 };
 
 interface SourceBufferEventMap {
@@ -10635,16 +10402,6 @@ declare var SVGViewElement: {
     new(): SVGViewElement;
 };
 
-interface SyncEvent extends ExtendableEvent {
-    readonly lastChance: boolean;
-    readonly tag: string;
-}
-
-declare var SyncEvent: {
-    prototype: SyncEvent;
-    new(type: string, init: SyncEventInit): SyncEvent;
-};
-
 interface SyncManager {
     getTags(): any;
     register(tag: string): Promise<void>;
@@ -11258,19 +11015,6 @@ declare var Window: {
     new(): Window;
 };
 
-interface WindowClient extends Client {
-    readonly ancestorOrigins: ReadonlyArray<string>;
-    readonly focused: boolean;
-    readonly visibilityState: VisibilityState;
-    focus(): Promise<WindowClient>;
-    navigate(url: string): Promise<WindowClient>;
-}
-
-declare var WindowClient: {
-    prototype: WindowClient;
-    new(): WindowClient;
-};
-
 interface WorkerEventMap extends AbstractWorkerEventMap {
     "message": MessageEvent;
     "messageerror": MessageEvent;
@@ -11290,59 +11034,6 @@ declare var Worker: {
     new(scriptURL: string, options?: WorkerOptions): Worker;
 };
 
-interface WorkerGlobalScopeEventMap {
-    "error": ErrorEvent;
-}
-
-interface WorkerGlobalScope extends EventTarget, WindowOrWorkerGlobalScope, GlobalPerformance, GlobalCrypto {
-    readonly location: WorkerLocation;
-    readonly navigator: WorkerNavigator;
-    onerror: OnErrorEventHandler;
-    onlanguagechange: (this: WorkerGlobalScope, ev: Event) => any;
-    onoffline: (this: WorkerGlobalScope, ev: Event) => any;
-    ononline: (this: WorkerGlobalScope, ev: Event) => any;
-    onrejectionhandled: (this: WorkerGlobalScope, ev: PromiseRejectionEvent) => any;
-    onunhandledrejection: (this: WorkerGlobalScope, ev: PromiseRejectionEvent) => any;
-    readonly self: WorkerGlobalScope;
-    importScripts(...urls: string[]): void;
-    createImageBitmap(image: ImageBitmap | ImageData | Blob, options?: ImageBitmapOptions): Promise<ImageBitmap>;
-    createImageBitmap(image: ImageBitmap | ImageData | Blob, sx: number, sy: number, sw: number, sh: number, options?: ImageBitmapOptions): Promise<ImageBitmap>;
-    addEventListener<K extends keyof WorkerGlobalScopeEventMap>(type: K, listener: (this: WorkerGlobalScope, ev: WorkerGlobalScopeEventMap[K]) => any, useCapture?: boolean): void;
-    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
-}
-
-declare var WorkerGlobalScope: {
-    prototype: WorkerGlobalScope;
-    new(): WorkerGlobalScope;
-};
-
-interface WorkerLocation {
-    readonly hash: string;
-    readonly host: string;
-    readonly hostname: string;
-    readonly href: string;
-    readonly origin: string;
-    readonly pathname: string;
-    readonly port: string;
-    readonly protocol: string;
-    readonly search: string;
-}
-
-declare var WorkerLocation: {
-    prototype: WorkerLocation;
-    new(): WorkerLocation;
-};
-
-interface WorkerNavigator extends NavigatorID, NavigatorLanguage, NavigatorOnLine, NavigatorConcurrentHardware {
-    readonly serviceWorker: ServiceWorkerContainer;
-    readonly hardwareConcurrency: number;
-}
-
-declare var WorkerNavigator: {
-    prototype: WorkerNavigator;
-    new(): WorkerNavigator;
-};
-
 interface Worklet {
     addModule(moduleURL: string, options?: WorkletOptions): Promise<void>;
 }
@@ -11350,14 +11041,6 @@ interface Worklet {
 declare var Worklet: {
     prototype: Worklet;
     new(): Worklet;
-};
-
-interface WorkletGlobalScope {
-}
-
-declare var WorkletGlobalScope: {
-    prototype: WorkletGlobalScope;
-    new(): WorkletGlobalScope;
 };
 
 interface XMLDocument extends Document {
