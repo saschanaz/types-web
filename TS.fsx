@@ -283,14 +283,15 @@ module Data =
     /// Check if the given element should be disabled or not
     /// reason is that ^a can be an interface, property or method, but they
     /// all share a 'tag' property
-    let inline ShouldKeep flavor (i: ^a when ^a: (member Tags: string option)) =
+    let inline ShouldKeep flavor (i: ^a when ^a: (member Exposed: string option)) =
         let filterByTag =
-            match (^a: (member Tags: string option) i) with
-            | Some tags ->
+            match (^a: (member Exposed: string option) i) with
+            | Some exposed ->
+                let exposedArray = exposed.Split [|' '|]
                 match flavor with
                 | Flavor.All -> true
-                | Flavor.Web -> tags <> "MSAppOnly" && tags <> "WinPhoneOnly"
-                | Flavor.Worker -> tags <> "IEOnly"
+                | Flavor.Web -> Array.contains "Window" exposedArray
+                | Flavor.Worker -> true
             | _ -> true
         filterByTag
 
@@ -350,7 +351,7 @@ module Data =
 
     let GetCallbackFuncsByFlavor flavor =
         browser.CallbackFunctions
-        |> Array.filter (fun cb -> (flavor <> Flavor.Worker || knownWorkerInterfaces.Contains cb.Name) && ShouldKeep flavor cb)
+        |> Array.filter (fun cb -> flavor <> Flavor.Worker || knownWorkerInterfaces.Contains cb.Name)
 
     let GetEnumsByFlavor flavor =
         match flavor with
