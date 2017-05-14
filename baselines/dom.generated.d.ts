@@ -3175,6 +3175,8 @@ interface Document extends Node, NonElementParentNode, DocumentOrShadowRoot, Par
      * Retrieves a collection of objects based on the specified element name.
      * @param name Specifies the name of an element.
      */
+    getElementsByTagName<K extends keyof ElementTagNameMap>(qualifiedName: K): HTMLCollectionOf<ElementTagNameMap[K]>;
+    getElementsByTagName(qualifiedName: string): HTMLCollectionOf<Element>;
     getElementsByTagNameNS(namespaceURI: "http://www.w3.org/1999/xhtml", localName: string): HTMLCollectionOf<HTMLElement>;
     getElementsByTagNameNS(namespaceURI: "http://www.w3.org/2000/svg", localName: string): HTMLCollectionOf<SVGElement>;
     getElementsByTagNameNS(namespaceURI: string, localName: string): HTMLCollectionOf<Element>;
@@ -3556,6 +3558,8 @@ interface Element extends Node, ParentNode, NonDocumentTypeChildNode, ChildNode,
     getBoundingClientRect(): DOMRect;
     getClientRects(): DOMRect[];
     getElementsByClassName(classNames: string): HTMLCollectionOf<Element>;
+    getElementsByTagName<K extends keyof ElementTagNameMap>(qualifiedName: K): HTMLCollectionOf<ElementTagNameMap[K]>;
+    getElementsByTagName(qualifiedName: string): HTMLCollectionOf<Element>;
     getElementsByTagNameNS(namespaceURI: "http://www.w3.org/1999/xhtml", localName: string): HTMLCollectionOf<HTMLElement>;
     getElementsByTagNameNS(namespaceURI: "http://www.w3.org/2000/svg", localName: string): HTMLCollectionOf<SVGElement>;
     getElementsByTagNameNS(namespaceURI: string, localName: string): HTMLCollectionOf<Element>;
@@ -12008,7 +12012,7 @@ interface ParentNode {
     readonly lastElementChild: Element | null;
     append(...nodes: (Node | string)[]): void;
     prepend(...nodes: (Node | string)[]): void;
-    querySelectorAll<K extends keyof ElementListTagNameMap>(selectors: K): ElementListTagNameMap[K];
+    querySelectorAll<K extends keyof ElementTagNameMap>(selectors: K): NodeListOf<ElementTagNameMap[K]>;
     querySelectorAll(selectors: string): NodeListOf<Element>;
 }
 
@@ -13034,10 +13038,6 @@ interface ElementTagNameMap extends HTMLElementTagNameMap {
     "view": SVGViewElement;
     "wbr": HTMLElement;
 }
-
-type ElementListTagNameMap = {
-    [key in keyof ElementTagNameMap]: NodeListOf<ElementTagNameMap[key]>
-};
 
 declare var Audio: { new(src?: string): HTMLAudioElement; };
 declare var Image: { new(width?: number, height?: number): HTMLImageElement; };
