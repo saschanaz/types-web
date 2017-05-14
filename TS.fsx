@@ -340,14 +340,6 @@ module Data =
         |> KnownWorkerInterfaceType.Parse
         |> set
 
-    let GetAllInterfacesByFlavor flavor =
-        match flavor with
-        | Flavor.Web -> allWebInterfaces |> Array.filter (ShouldKeep Web)
-        | Flavor.All -> allWebInterfaces |> Array.filter (ShouldKeep Flavor.All)
-        | Flavor.Worker ->
-            let isFromBrowserXml = allWebInterfaces |> Array.filter (fun i -> knownWorkerInterfaces.Contains i.Name)
-            Array.append isFromBrowserXml allWorkerAdditionalInterfaces
-
     let GetNonCallbackInterfacesByFlavor flavor =
         match flavor with
         | Flavor.Web -> allWebNonCallbackInterfaces |> Array.filter (ShouldKeep Flavor.Web)
@@ -355,13 +347,6 @@ module Data =
         | Flavor.Worker ->
             let isFromBrowserXml = allWebNonCallbackInterfaces |> Array.filter (fun i -> knownWorkerInterfaces.Contains i.Name)
             Array.append isFromBrowserXml allWorkerAdditionalInterfaces
-
-    let GetPublicInterfacesByFlavor flavor =
-        match flavor with
-        | Flavor.Web | Flavor.All -> browser.Interfaces |> Array.filter (ShouldKeep flavor)
-        | Flavor.Worker ->
-            let isFromBrowserXml = browser.Interfaces |> Array.filter (fun i -> knownWorkerInterfaces.Contains i.Name)
-            Array.append isFromBrowserXml worker.Interfaces
 
     let GetCallbackFuncsByFlavor flavor =
         browser.CallbackFunctions
