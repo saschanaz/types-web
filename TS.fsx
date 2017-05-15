@@ -734,9 +734,8 @@ module Emit =
                         let tName = DomTypeToTsType (genericMatch.Groups.[1].Value)
                         let paramName = DomTypeToTsType (genericMatch.Groups.[2].Value)
                         match tName with
-                        | _ ->
-                            if tName = "Array" then paramName + "[]"
-                            else tName + "<" + paramName + ">"
+                        | "Array" -> paramName + "[]"
+                        | _ -> tName + "<" + paramName + ">"
                     elif objDomType.EndsWith("[]") then
                         let elementType = objDomType.Replace("[]", "").Trim() |> DomTypeToTsType
                         elementType + "[]"
