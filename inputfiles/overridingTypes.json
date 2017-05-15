@@ -603,25 +603,6 @@
         "signatures": ["open(url?: string, target?: string, features?: string, replace?: boolean): Window"]
     },
     {
-        "kind": "method",
-        "interface": "AudioNode",
-        "name": "connect",
-        "signatures": [
-            "connect(destination: AudioNode, output?: number, input?: number): AudioNode",
-            "connect(destination: AudioParam, output?: number): void"
-        ]
-    },
-    {
-        "kind": "method",
-        "interface": "AudioNode",
-        "name": "disconnect",
-        "signatures": [
-             "disconnect(output?: number): void",
-             "disconnect(destination: AudioNode, output?: number, input?: number): void",
-             "disconnect(destination: AudioParam, output?: number): void"
-        ]
-    },
-    {
         "kind": "property",
         "name": "keyPath?",
         "interface": "IDBObjectStoreParameters",

@@ -1653,29 +1653,13 @@ interface AudioNode extends EventTarget {
     readonly numberOfOutputs: number;
     connect(destination: AudioNode, output?: number, input?: number): AudioNode;
     connect(destination: AudioParam, output?: number): void;
-    connect(destination: AudioNode, output?: number, input?: number): AudioNode;
-    connect(destination: AudioParam, output?: number): void;
-    disconnect(output?: number): void;
-    disconnect(destination: AudioNode, output?: number, input?: number): void;
-    disconnect(destination: AudioParam, output?: number): void;
-    disconnect(output?: number): void;
-    disconnect(destination: AudioNode, output?: number, input?: number): void;
-    disconnect(destination: AudioParam, output?: number): void;
-    disconnect(output?: number): void;
-    disconnect(destination: AudioNode, output?: number, input?: number): void;
-    disconnect(destination: AudioParam, output?: number): void;
-    disconnect(output?: number): void;
-    disconnect(destination: AudioNode, output?: number, input?: number): void;
-    disconnect(destination: AudioParam, output?: number): void;
-    disconnect(output?: number): void;
-    disconnect(destination: AudioNode, output?: number, input?: number): void;
-    disconnect(destination: AudioParam, output?: number): void;
-    disconnect(output?: number): void;
-    disconnect(destination: AudioNode, output?: number, input?: number): void;
-    disconnect(destination: AudioParam, output?: number): void;
-    disconnect(output?: number): void;
-    disconnect(destination: AudioNode, output?: number, input?: number): void;
-    disconnect(destination: AudioParam, output?: number): void;
+    disconnect(): void;
+    disconnect(output: number): void;
+    disconnect(destination: AudioNode): void;
+    disconnect(destination: AudioNode, output: number): void;
+    disconnect(destination: AudioNode, output: number, input: number): void;
+    disconnect(destination: AudioParam): void;
+    disconnect(destination: AudioParam, output: number): void;
 }
 
 declare var AudioNode: {
