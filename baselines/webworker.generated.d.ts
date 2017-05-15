@@ -222,9 +222,9 @@ interface Cache {
     add(request: RequestInfo): Promise<void>;
     addAll(requests: RequestInfo[]): Promise<void>;
     delete(request: RequestInfo, options?: CacheQueryOptions): Promise<boolean>;
-    keys(request?: RequestInfo, options?: CacheQueryOptions): any;
+    keys(request?: RequestInfo, options?: CacheQueryOptions): Promise<Request[]>;
     match(request: RequestInfo, options?: CacheQueryOptions): Promise<any>;
-    matchAll(request?: RequestInfo, options?: CacheQueryOptions): any;
+    matchAll(request?: RequestInfo, options?: CacheQueryOptions): Promise<Response[]>;
     put(request: RequestInfo, response: Response): Promise<void>;
 }
 
@@ -236,7 +236,7 @@ declare var Cache: {
 interface CacheStorage {
     delete(cacheName: string): Promise<boolean>;
     has(cacheName: string): Promise<boolean>;
-    keys(): any;
+    keys(): Promise<string[]>;
     match(request: RequestInfo, options?: CacheQueryOptions): Promise<any>;
     open(cacheName: string): Promise<Cache>;
 }
@@ -928,7 +928,7 @@ interface ServiceWorkerRegistration extends EventTarget {
     readonly sync: SyncManager;
     readonly useCache: boolean;
     readonly waiting: ServiceWorker | null;
-    getNotifications(filter?: GetNotificationOptions): any;
+    getNotifications(filter?: GetNotificationOptions): Promise<Notification[]>;
     showNotification(title: string, options?: NotificationOptions): Promise<void>;
     unregister(): Promise<boolean>;
     update(): Promise<void>;
@@ -942,7 +942,7 @@ declare var ServiceWorkerRegistration: {
 };
 
 interface SyncManager {
-    getTags(): any;
+    getTags(): Promise<string[]>;
     register(tag: string): Promise<void>;
 }
 
@@ -1006,7 +1006,7 @@ interface URLSearchParams {
 
 declare var URLSearchParams: {
     prototype: URLSearchParams;
-    new(init?: any): URLSearchParams;
+    new(init?: string[][] | { [key: string]: string } | string): URLSearchParams;
 };
 
 interface WebSocketEventMap {
@@ -1231,7 +1231,7 @@ declare var Client: {
 interface Clients {
     claim(): Promise<void>;
     get(id: string): Promise<any>;
-    matchAll(options?: ClientQueryOptions): any;
+    matchAll(options?: ClientQueryOptions): Promise<Client[]>;
     openWindow(url: string): Promise<WindowClient>;
 }
 
