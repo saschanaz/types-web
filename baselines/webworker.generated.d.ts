@@ -712,7 +712,7 @@ interface Notification extends EventTarget {
     readonly tag: string;
     readonly timestamp: number;
     readonly title: string;
-    readonly vibrate: any;
+    readonly vibrate: ReadonlyArray<number>;
     close(): void;
     addEventListener<K extends keyof NotificationEventMap>(type: K, listener: (this: Notification, ev: NotificationEventMap[K]) => any, useCapture?: boolean): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;

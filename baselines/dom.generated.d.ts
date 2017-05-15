@@ -3267,7 +3267,7 @@ interface DOMMatrix extends DOMMatrixReadOnly {
 
 declare var DOMMatrix: {
     prototype: DOMMatrix;
-    new(init?: any): DOMMatrix;
+    new(init?: string | number[]): DOMMatrix;
     fromFloat32Array(array32: Float32Array): DOMMatrix;
     fromFloat64Array(array64: Float64Array): DOMMatrix;
     fromMatrix(other?: DOMMatrixInit): DOMMatrix;
@@ -3317,7 +3317,7 @@ interface DOMMatrixReadOnly {
 
 declare var DOMMatrixReadOnly: {
     prototype: DOMMatrixReadOnly;
-    new(init?: any): DOMMatrixReadOnly;
+    new(init?: string | number[]): DOMMatrixReadOnly;
     fromFloat32Array(array32: Float32Array): DOMMatrixReadOnly;
     fromFloat64Array(array64: Float64Array): DOMMatrixReadOnly;
     fromMatrix(other?: DOMMatrixInit): DOMMatrixReadOnly;
@@ -7347,7 +7347,7 @@ interface Notification extends EventTarget {
     readonly tag: string;
     readonly timestamp: number;
     readonly title: string;
-    readonly vibrate: any;
+    readonly vibrate: ReadonlyArray<number>;
     close(): void;
     addEventListener<K extends keyof NotificationEventMap>(type: K, listener: (this: Notification, ev: NotificationEventMap[K]) => any, useCapture?: boolean): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
@@ -11244,8 +11244,8 @@ interface CanvasPathDrawingStyles {
     lineJoin: CanvasLineJoin;
     lineWidth: number;
     miterLimit: number;
-    getLineDash(): any;
-    setLineDash(segments: any): void;
+    getLineDash(): number[];
+    setLineDash(segments: number[]): void;
 }
 
 interface CanvasRect {
