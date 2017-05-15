@@ -706,7 +706,7 @@ module Emit =
         | "Promise" -> "Promise"
         | "ReadyState" -> "string"
         | "sequence" -> "Array"
-        | "UnrestrictedDouble" | "unrestricted double" -> "number"
+        | "record" -> "record"
         | "void" -> "void"
         | integerType when List.contains integerType integerTypes -> "number"
         | extendedType when List.contains extendedType extendedTypes -> extendedType
@@ -732,10 +732,13 @@ module Emit =
                     let genericMatch = Regex.Match(unescaped, @"^(\w+)<([\w, <>]+)>$")
                     if genericMatch.Success then
                         let tName = DomTypeToTsType (genericMatch.Groups.[1].Value)
-                        let paramName = DomTypeToTsType (genericMatch.Groups.[2].Value)
+                        let paramNames =
+                            genericMatch.Groups.[2].Value.Split([| ", " |], StringSplitOptions.None)
+                            |> Array.map DomTypeToTsType
                         match tName with
-                        | "Array" -> paramName + "[]"
-                        | _ -> tName + "<" + paramName + ">"
+                        | "Array" -> paramNames.[0] + "[]"
+                        | "record" -> "{ [key: string]: " + paramNames.[1] + " }"
+                        | _ -> tName + "<" + (paramNames |> String.concat ", ") + ">"
                     elif objDomType.EndsWith("[]") then
                         let elementType = objDomType.Replace("[]", "").Trim() |> DomTypeToTsType
                         elementType + "[]"

@@ -10690,7 +10690,7 @@ interface URLSearchParams {
 
 declare var URLSearchParams: {
     prototype: URLSearchParams;
-    new(init?: string[][] | any<any> | string): URLSearchParams;
+    new(init?: string[][] | { [key: string]: string } | string): URLSearchParams;
 };
 
 interface ValidityState {
@@ -12964,7 +12964,7 @@ type GLubyte = number;
 type GLuint = number;
 type GLushort = number;
 type HashAlgorithmIdentifier = AlgorithmIdentifier;
-type HeadersInit = string[][] | any<any>;
+type HeadersInit = string[][] | { [key: string]: string };
 type HTMLOrSVGImageElement = HTMLImageElement | SVGImageElement;
 type HTMLOrSVGScriptElement = HTMLScriptElement | SVGScriptElement;
 type ImageBitmapSource = CanvasImageSource | Blob | ImageData;

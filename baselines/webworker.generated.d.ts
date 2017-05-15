@@ -1006,7 +1006,7 @@ interface URLSearchParams {
 
 declare var URLSearchParams: {
     prototype: URLSearchParams;
-    new(init?: string[][] | any<any> | string): URLSearchParams;
+    new(init?: string[][] | { [key: string]: string } | string): URLSearchParams;
 };
 
 interface WebSocketEventMap {
