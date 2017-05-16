@@ -389,25 +389,6 @@ interface EventSourceInit {
     withCredentials?: boolean;
 }
 
-interface ExtendableEventInit extends EventInit {
-}
-
-interface ExtendableMessageEventInit extends ExtendableEventInit {
-    data?: any;
-    lastEventId?: string;
-    origin?: string;
-    ports?: MessagePort[];
-    source?: Client | ServiceWorker | MessagePort;
-}
-
-interface FetchEventInit extends ExtendableEventInit {
-    clientId?: string;
-    preloadResponse?: Promise<any>;
-    request?: Request;
-    reservedClientId?: string;
-    targetClientId?: string;
-}
-
 interface FilePropertyBag {
     lastModified?: number;
     type?: string;
@@ -415,11 +396,6 @@ interface FilePropertyBag {
 
 interface FocusEventInit extends UIEventInit {
     relatedTarget?: EventTarget;
-}
-
-interface ForeignFetchEventInit extends ExtendableEventInit {
-    origin?: string;
-    request?: Request;
 }
 
 interface ForeignFetchOptions {
@@ -732,11 +708,6 @@ interface NotificationAction {
     title?: string;
 }
 
-interface NotificationEventInit extends ExtendableEventInit {
-    action?: string;
-    notification?: Notification;
-}
-
 interface NotificationOptions {
     actions?: NotificationAction[];
     badge?: string;
@@ -898,15 +869,6 @@ interface ProgressEventInit extends EventInit {
 interface PromiseRejectionEventInit extends EventInit {
     promise?: Promise<any>;
     reason?: any;
-}
-
-interface PushEventInit extends ExtendableEventInit {
-    data?: PushMessageDataInit;
-}
-
-interface PushSubscriptionChangeInit extends ExtendableEventInit {
-    newSubscription?: PushSubscription;
-    oldSubscription?: PushSubscription;
 }
 
 interface PushSubscriptionOptionsInit {
@@ -1385,11 +1347,6 @@ interface SVGBoundingBoxOptions {
     fill?: boolean;
     markers?: boolean;
     stroke?: boolean;
-}
-
-interface SyncEventInit extends ExtendableEventInit {
-    lastChance?: boolean;
-    tag?: string;
 }
 
 interface TouchEventInit extends EventModifierInit {
@@ -3022,14 +2979,10 @@ interface Document extends Node, NonElementParentNode, DocumentOrShadowRoot, Par
     createEvent(eventInterface: "ErrorEvent"): ErrorEvent;
     createEvent(eventInterface: "Event"): Event;
     createEvent(eventInterface: "Events"): Event;
-    createEvent(eventInterface: "ExtendableEvent"): ExtendableEvent;
-    createEvent(eventInterface: "ExtendableMessageEvent"): ExtendableMessageEvent;
-    createEvent(eventInterface: "FetchEvent"): FetchEvent;
     createEvent(eventInterface: "FocusEvent"): FocusEvent;
     createEvent(eventInterface: "GamepadEvent"): GamepadEvent;
     createEvent(eventInterface: "HashChangeEvent"): HashChangeEvent;
     createEvent(eventInterface: "IDBVersionChangeEvent"): IDBVersionChangeEvent;
-    createEvent(eventInterface: "InstallEvent"): InstallEvent;
     createEvent(eventInterface: "KeyboardEvent"): KeyboardEvent;
     createEvent(eventInterface: "MediaEncryptedEvent"): MediaEncryptedEvent;
     createEvent(eventInterface: "MediaKeyMessageEvent"): MediaKeyMessageEvent;
@@ -3038,7 +2991,6 @@ interface Document extends Node, NonElementParentNode, DocumentOrShadowRoot, Par
     createEvent(eventInterface: "MessageEvent"): MessageEvent;
     createEvent(eventInterface: "MouseEvent"): MouseEvent;
     createEvent(eventInterface: "MouseEvents"): MouseEvent;
-    createEvent(eventInterface: "NotificationEvent"): NotificationEvent;
     createEvent(eventInterface: "OfflineAudioCompletionEvent"): OfflineAudioCompletionEvent;
     createEvent(eventInterface: "OverconstrainedErrorEvent"): OverconstrainedErrorEvent;
     createEvent(eventInterface: "PageTransitionEvent"): PageTransitionEvent;
@@ -3047,8 +2999,6 @@ interface Document extends Node, NonElementParentNode, DocumentOrShadowRoot, Par
     createEvent(eventInterface: "PopStateEvent"): PopStateEvent;
     createEvent(eventInterface: "ProgressEvent"): ProgressEvent;
     createEvent(eventInterface: "PromiseRejectionEvent"): PromiseRejectionEvent;
-    createEvent(eventInterface: "PushEvent"): PushEvent;
-    createEvent(eventInterface: "PushSubscriptionChangeEvent"): PushSubscriptionChangeEvent;
     createEvent(eventInterface: "RTCDTMFToneChangeEvent"): RTCDTMFToneChangeEvent;
     createEvent(eventInterface: "RTCDataChannelEvent"): RTCDataChannelEvent;
     createEvent(eventInterface: "RTCErrorEvent"): RTCErrorEvent;
@@ -3060,7 +3010,6 @@ interface Document extends Node, NonElementParentNode, DocumentOrShadowRoot, Par
     createEvent(eventInterface: "SpeechRecognitionEvent"): SpeechRecognitionEvent;
     createEvent(eventInterface: "SpeechSynthesisEvent"): SpeechSynthesisEvent;
     createEvent(eventInterface: "StorageEvent"): StorageEvent;
-    createEvent(eventInterface: "SyncEvent"): SyncEvent;
     createEvent(eventInterface: "TouchEvent"): TouchEvent;
     createEvent(eventInterface: "TrackEvent"): TrackEvent;
     createEvent(eventInterface: "TransitionEvent"): TransitionEvent;

@@ -1,0 +1,10 @@
+{
+    "ExtendableEventInit": "ServiceWorker",
+    "ExtendableMessageEventInit": "ServiceWorker",
+    "FetchEventInit": "ServiceWorker",
+    "ForeignFetchEventInit": "ServiceWorker",
+    "NotificationEventInit": "ServiceWorker",
+    "PushEventInit": "ServiceWorker",
+    "PushSubscriptionChangeInit": "ServiceWorker",
+    "SyncEventInit": "ServiceWorker"
+}

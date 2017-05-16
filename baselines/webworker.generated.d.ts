@@ -52,6 +52,11 @@ interface FetchEventInit extends ExtendableEventInit {
     targetClientId?: string;
 }
 
+interface ForeignFetchEventInit extends ExtendableEventInit {
+    origin?: string;
+    request?: Request;
+}
+
 interface GetNotificationOptions {
     tag?: string;
 }
@@ -113,6 +118,11 @@ interface NotificationOptions {
 
 interface PushEventInit extends ExtendableEventInit {
     data?: PushMessageDataInit;
+}
+
+interface PushSubscriptionChangeInit extends ExtendableEventInit {
+    newSubscription?: PushSubscription;
+    oldSubscription?: PushSubscription;
 }
 
 interface PushSubscriptionOptionsInit {

@@ -280,6 +280,20 @@ module Data =
     let worker =
         (new StreamReader(Path.Combine(GlobalVars.inputFolder, "webworkers.specidl.xml"))).ReadToEnd() |> Browser.Parse
 
+    let knownExposures =
+        let asArray (k: string, v: JsonValue) =
+            match v with
+            | JsonValue.String s -> (k, [| s |])
+            | JsonValue.Array a -> (k, a |> Array.map JsonExtensions.AsString )
+            | _ -> failwith "Incorrect format"
+
+        File.ReadAllText(Path.Combine(GlobalVars.inputFolder, "knownExposures.json"))
+        |> JsonValue.Parse
+        |> JsonExtensions.Properties
+        |> Array.map asArray
+        |> Map.ofArray
+
+
     /// Check if the given element should be disabled or not
     /// reason is that ^a can be an interface, property or method, but they
     /// all share a 'tag' property
@@ -294,6 +308,13 @@ module Data =
                 | Flavor.Worker -> true
             | _ -> true
         filterByTag
+    
+    let inline ShouldKeepUnexposed flavor (name: string) = 
+        let exposure = knownExposures.TryFind name
+        match flavor with
+        | Flavor.All -> true
+        | Flavor.Web -> exposure.IsNone || Array.contains "Window" exposure.Value
+        | Flavor.Worker -> exposure.IsSome
 
     // Global interfacename to interface object map
     let allWebNonCallbackInterfaces =
@@ -468,7 +489,7 @@ module Data =
     /// Distinct event type list, used in the "createEvent" function
     let distinctETypeList =
         let usedEvents =
-            [ for i in GetNonCallbackInterfacesByFlavor Flavor.All do
+            [ for i in GetNonCallbackInterfacesByFlavor Flavor.Web do
                 match i.Events with
                 | Some es -> yield! es.Events
                 | _ -> () ]
@@ -476,7 +497,7 @@ module Data =
             |> List.distinct
 
         let unUsedEvents =
-            GetNonCallbackInterfacesByFlavor Flavor.All
+            GetNonCallbackInterfacesByFlavor Flavor.Web
             |> Array.choose (fun i ->
                 if i.Extends = "Event" && i.Name.EndsWith("Event") && not (List.contains i.Name usedEvents) then Some(i.Name) else None)
             |> Array.distinct
@@ -1427,7 +1448,7 @@ module Emit =
             Pt.Printl ""
 
         browser.Dictionaries
-        |> Array.filter (fun dict -> flavor <> Worker || knownWorkerInterfaces.Contains dict.Name)
+        |> Array.filter (fun dict -> ShouldKeepUnexposed flavor dict.Name || (flavor = Worker && knownWorkerInterfaces.Contains dict.Name))
         |> Array.iter emitDictionary
 
         if flavor = Worker then
