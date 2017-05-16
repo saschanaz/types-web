@@ -487,7 +487,6 @@ interface DOMMatrix extends DOMMatrixReadOnly {
     rotateSelf(rotX?: number, rotY?: number, rotZ?: number): DOMMatrix;
     scale3dSelf(scale?: number, originX?: number, originY?: number, originZ?: number): DOMMatrix;
     scaleSelf(scaleX?: number, scaleY?: number, scaleZ?: number, originX?: number, originY?: number, originZ?: number): DOMMatrix;
-    setMatrixValue(transformList: string): DOMMatrix;
     skewXSelf(sx?: number): DOMMatrix;
     skewYSelf(sy?: number): DOMMatrix;
     translateSelf(tx?: number, ty?: number, tz?: number): DOMMatrix;
@@ -1196,7 +1195,6 @@ interface Notification extends EventTarget {
 declare var Notification: {
     prototype: Notification;
     new(title: string, options?: NotificationOptions): Notification;
-    requestPermission(deprecatedCallback?: NotificationPermissionCallback): Promise<NotificationPermission>;
 };
 
 interface NotificationEvent extends ExtendableEvent {
@@ -1645,7 +1643,6 @@ declare var URL: {
     prototype: URL;
     new(url: string, base?: string): URL;
     createObjectURL(blob: Blob): string;
-    createObjectURL(mediaSource: MediaSource): string;
     revokeObjectURL(url: string): void;
 };
 
@@ -2035,7 +2032,6 @@ interface NavigatorID {
     readonly platform: string;
     readonly product: string;
     readonly userAgent: string;
-    taintEnabled(): boolean;
 }
 
 interface NavigatorLanguage {
@@ -2195,6 +2191,9 @@ declare type EventListenerOrEventListenerObject = EventListener | EventListenerO
 interface NotificationPermissionCallback {
     (permission: NotificationPermission): void;
 }
+interface OnErrorEventHandlerNonNull {
+    (event: Event | string, source?: string, lineno?: number, colno?: number, error?: any): any;
+}
 interface PerformanceObserverCallback {
     (entries: PerformanceObserverEntryList, observer: PerformanceObserver): void;
 }
@@ -2251,6 +2250,7 @@ type PerformanceEntryList = PerformanceEntry[];
 type PushMessageDataInit = BufferSource | string;
 type RequestInfo = Request | string;
 type IDBValidKey = number | string | Date | IDBArrayKey;
+type BinaryType = "blob" | "arraybuffer";
 type CanvasFillRule = "nonzero" | "evenodd";
 type CanvasLineCap = "butt" | "round" | "square";
 type CanvasLineJoin = "round" | "bevel" | "miter";

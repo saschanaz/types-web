@@ -1068,6 +1068,7 @@ module Emit =
 
         if methods.IsSome then
             methods.Value.Methods
+            |> Array.filter (ShouldKeepInherit flavor i)
             |> Array.filter mFilter
             |> Array.iter (emitMethod flavor prefix i)
 
