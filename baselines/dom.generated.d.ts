@@ -134,6 +134,13 @@ interface CacheBatchOperation {
     type?: string;
 }
 
+interface CacheQueryOptions {
+    cacheName?: string;
+    ignoreMethod?: boolean;
+    ignoreSearch?: boolean;
+    ignoreVary?: boolean;
+}
+
 interface CanvasRenderingContext2DSettings {
     alpha?: boolean;
 }

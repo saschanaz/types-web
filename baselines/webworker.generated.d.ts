@@ -1249,9 +1249,7 @@ interface PerformanceEventMap {
 }
 
 interface Performance extends EventTarget {
-    readonly navigation: PerformanceNavigation;
     onresourcetimingbufferfull: (this: Performance, ev: Event) => any;
-    readonly timing: PerformanceTiming;
     clearMarks(markName?: string): void;
     clearMeasures(measureName?: string): void;
     clearResourceTimings(): void;
@@ -2248,15 +2246,21 @@ type HeadersInit = string[][] | { [key: string]: string };
 type ImageBitmapSource = CanvasImageSource | Blob | ImageData;
 type MessageEventSource = never | MessagePort | ServiceWorker;
 type OffscreenRenderingContext = OffscreenCanvasRenderingContext2D | never;
+type OnErrorEventHandler = OnErrorEventHandlerNonNull;
 type PerformanceEntryList = PerformanceEntry[];
 type PushMessageDataInit = BufferSource | string;
 type RequestInfo = Request | string;
 type IDBValidKey = number | string | Date | IDBArrayKey;
 type CanvasFillRule = "nonzero" | "evenodd";
+type CanvasLineCap = "butt" | "round" | "square";
+type CanvasLineJoin = "round" | "bevel" | "miter";
 type ClientType = "window" | "worker" | "sharedworker" | "all";
 type IDBCursorDirection = "next" | "nextunique" | "prev" | "prevunique";
+type IDBRequestReadyState = "pending" | "done";
 type IDBTransactionMode = "readonly" | "readwrite" | "versionchange";
+type ImageSmoothingQuality = "low" | "medium" | "high";
 type KeyFormat = "raw" | "spki" | "pkcs8" | "jwk";
+type KeyType = "public" | "private" | "secret";
 type KeyUsage = "encrypt" | "decrypt" | "sign" | "verify" | "deriveKey" | "deriveBits" | "wrapKey" | "unwrapKey";
 type NotificationDirection = "auto" | "ltr" | "rtl";
 type NotificationPermission = "default" | "denied" | "granted";
@@ -2266,6 +2270,12 @@ type PushPermissionState = "denied" | "granted" | "prompt";
 type ReferrerPolicy = "" | "no-referrer" | "no-referrer-when-downgrade" | "same-origin" | "origin" | "strict-origin" | "origin-when-cross-origin" | "strict-origin-when-cross-origin" | "unsafe-url";
 type RequestCache = "default" | "no-store" | "reload" | "no-cache" | "force-cache" | "only-if-cached";
 type RequestCredentials = "omit" | "same-origin" | "include";
+type RequestDestination = "" | "audio" | "document" | "embed" | "font" | "image" | "manifest" | "object" | "report" | "script" | "serviceworker" | "sharedworker" | "style" | "track" | "video" | "worker" | "xslt";
 type RequestMode = "navigate" | "same-origin" | "no-cors" | "cors";
 type RequestRedirect = "follow" | "error" | "manual";
+type RequestType = "" | "audio" | "font" | "image" | "script" | "style" | "track" | "video";
+type ResponseType = "basic" | "cors" | "default" | "error" | "opaque" | "opaqueredirect";
+type ServiceWorkerState = "installing" | "installed" | "activating" | "activated" | "redundant";
+type VisibilityState = "hidden" | "visible" | "prerender" | "unloaded";
 type WorkerType = "classic" | "module";
+type XMLHttpRequestResponseType = "" | "arraybuffer" | "blob" | "document" | "json" | "text";

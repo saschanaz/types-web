@@ -7688,9 +7688,9 @@
         </method>
       </methods>
       <properties>
-        <property name="navigation" read-only="1" type="PerformanceNavigation"/>
+        <property name="navigation" read-only="1" type="PerformanceNavigation" exposed="Window"/>
         <property name="onresourcetimingbufferfull" type="EventHandler" event-handler="resourcetimingbufferfull"/>
-        <property name="timing" read-only="1" type="PerformanceTiming"/>
+        <property name="timing" read-only="1" type="PerformanceTiming" exposed="Window"/>
       </properties>
       <events>
         <event name="resourcetimingbufferfull" type="Event"/>
