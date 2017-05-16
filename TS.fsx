@@ -123,6 +123,10 @@ module Types =
     type InterfaceOrNamespace = 
         | Interface of Browser.Interface
         | Namespace of Browser.Namespace
+        member self.Exposed =
+            match self with
+            | Interface i -> i.Exposed
+            | Namespace n -> n.Exposed
 
     // Note:
     // Eventhandler's name and the eventName are not just off by "on".
@@ -309,6 +313,11 @@ module Data =
                 | Flavor.All | Flavor.Web -> true
                 | Flavor.Worker -> false
         filterByTag
+
+    let inline ShouldKeepInherit flavor inheritedExposure (i: ^a when ^a: (member Exposed: string option)) =
+        let exposure = (^a: (member Exposed: string option) i);
+        if exposure.IsSome then ShouldKeep flavor i
+        else ShouldKeep flavor inheritedExposure
 
     let inline ShouldKeepUnexposed flavor name = 
         let exposure = knownExposures.TryFind name
@@ -976,7 +985,7 @@ module Emit =
             match properties with
             | Some ps ->
                 ps.Properties
-                |> Array.filter (ShouldKeep flavor)
+                |> Array.filter (ShouldKeepInherit flavor i)
                 |> Array.iter emitProperty
             | None -> ()
 

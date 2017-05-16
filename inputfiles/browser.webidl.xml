@@ -8668,8 +8668,8 @@
         <property name="onmessage" type="EventHandler" event-handler="message"/>
         <property name="onnotificationclick" type="EventHandler" event-handler="notificationclick"/>
         <property name="onnotificationclose" type="EventHandler" event-handler="notificationclose"/>
-        <property name="onpush" type="EventHandler" event-handler="push"/>
-        <property name="onpushsubscriptionchange" type="EventHandler" event-handler="pushsubscriptionchange"/>
+        <property name="onpush" type="EventHandler" event-handler="push" exposed="Window Worker"/>
+        <property name="onpushsubscriptionchange" type="EventHandler" event-handler="pushsubscriptionchange" exposed="Window Worker"/>
         <property name="onsync" type="EventHandler" event-handler="sync"/>
         <property name="registration" read-only="1" type="ServiceWorkerRegistration"/>
       </properties>
@@ -8681,8 +8681,8 @@
         <event name="message" type="ExtendableMessageEvent"/>
         <event name="notificationclick" type="NotificationEvent"/>
         <event name="notificationclose" type="NotificationEvent"/>
-        <event name="push" type="PushEvent"/>
-        <event name="pushsubscriptionchange" type="PushSubscriptionChangeEvent"/>
+        <event name="push" type="PushEvent" exposed="Window Worker"/>
+        <event name="pushsubscriptionchange" type="PushSubscriptionChangeEvent" exposed="Window Worker"/>
         <event name="sync" type="SyncEvent"/>
       </events>
     </interface>
@@ -10493,13 +10493,13 @@
         <param name="base" optional="1" type="USVString"/>
       </constructor>
       <methods>
-        <method name="createObjectURL" static="1" type="DOMString">
+        <method name="createObjectURL" static="1" type="DOMString" exposed="Window DedicatedWorker SharedWorker">
           <param name="blob" type="Blob"/>
         </method>
-        <method name="createObjectURL" static="1" type="DOMString">
+        <method name="createObjectURL" static="1" type="DOMString" exposed="Window">
           <param name="mediaSource" type="MediaSource"/>
         </method>
-        <method name="revokeObjectURL" static="1" type="void">
+        <method name="revokeObjectURL" static="1" type="void" exposed="Window DedicatedWorker SharedWorker">
           <param name="url" type="DOMString"/>
         </method>
         <method name="toJSON" type="USVString"/>
