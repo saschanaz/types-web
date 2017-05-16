@@ -9,6 +9,7 @@ open System.Text.RegularExpressions
 open System.Web
 open Microsoft.FSharp.Reflection
 open FSharp.Data
+open System.Linq
 
 module GlobalVars =
     let inputFolder = Path.Combine(__SOURCE_DIRECTORY__, "inputfiles")
@@ -277,14 +278,10 @@ module Data =
     let browser =
         (new StreamReader(Path.Combine(GlobalVars.inputFolder, "browser.webidl.xml"))).ReadToEnd() |> Browser.Parse
 
-    let worker =
-        (new StreamReader(Path.Combine(GlobalVars.inputFolder, "webworkers.specidl.xml"))).ReadToEnd() |> Browser.Parse
-
     let knownExposures =
         let asArray (k: string, v: JsonValue) =
             match v with
-            | JsonValue.String s -> (k, [| s |])
-            | JsonValue.Array a -> (k, a |> Array.map JsonExtensions.AsString )
+            | JsonValue.String s -> (k, s.Split [| ' ' |])
             | _ -> failwith "Incorrect format"
 
         File.ReadAllText(Path.Combine(GlobalVars.inputFolder, "knownExposures.json"))
@@ -293,6 +290,7 @@ module Data =
         |> Array.map asArray
         |> Map.ofArray
 
+    let WorkerTypes = [| "Worker"; "DedicatedWorker"; "SharedWorker"; "ServiceWorker" |]
 
     /// Check if the given element should be disabled or not
     /// reason is that ^a can be an interface, property or method, but they
@@ -305,16 +303,25 @@ module Data =
                 match flavor with
                 | Flavor.All -> true
                 | Flavor.Web -> Array.contains "Window" exposedArray
-                | Flavor.Worker -> true
-            | _ -> true
+                | Flavor.Worker -> (exposedArray.Intersect WorkerTypes).Count() <> 0
+            | _ ->
+                match flavor with
+                | Flavor.All | Flavor.Web -> true
+                | Flavor.Worker -> false
         filterByTag
-    
-    let inline ShouldKeepUnexposed flavor (name: string) = 
+
+    let inline ShouldKeepUnexposed flavor name = 
         let exposure = knownExposures.TryFind name
         match flavor with
         | Flavor.All -> true
         | Flavor.Web -> exposure.IsNone || Array.contains "Window" exposure.Value
         | Flavor.Worker -> exposure.IsSome
+    
+    let inline getName ((i: ^a when ^a: (member Name: string))) = 
+        (^a: (member Name: string) i)
+
+    let inline getTypedefName ((i: ^a when ^a: (member NewType: string))) = 
+        (^a: (member NewType: string) i)
 
     // Global interfacename to interface object map
     let allWebNonCallbackInterfaces =
@@ -323,11 +330,8 @@ module Data =
     let allWebInterfaces =
         Array.concat [| browser.Interfaces; browser.CallbackInterfaces.Interfaces; browser.MixinInterfaces.Interfaces |]
 
-    let allWorkerAdditionalInterfaces =
-        Array.concat [| worker.Interfaces; worker.MixinInterfaces.Interfaces |]
-
     let allInterfaces =
-        Array.concat [| allWebInterfaces; allWorkerAdditionalInterfaces |]
+        Array.concat [| allWebInterfaces |]
 
     let inline toNameMap< ^a when ^a: (member Name: string) > (data: array< ^a > ) =
         data
@@ -338,15 +342,15 @@ module Data =
         allInterfaces |> toNameMap
 
     let allDictionariesMap =
-        Array.concat [| browser.Dictionaries; worker.Dictionaries |]
+        Array.concat [| browser.Dictionaries |]
         |> toNameMap
 
     let allEnumsMap =
-        Array.concat [| browser.Enums; worker.Enums |]
+        Array.concat [| browser.Enums |]
         |> toNameMap
 
     let allCallbackFuncs =
-        Array.concat [| browser.CallbackFunctions; worker.CallbackFunctions |]
+        Array.concat [| browser.CallbackFunctions |]
         |> toNameMap
 
     let GetInterfaceByName = allInterfacesMap.TryFind
@@ -363,28 +367,19 @@ module Data =
         |> set
 
     let GetNonCallbackInterfacesByFlavor flavor =
-        match flavor with
-        | Flavor.Web -> allWebNonCallbackInterfaces |> Array.filter (ShouldKeep Flavor.Web)
-        | Flavor.All -> allWebNonCallbackInterfaces |> Array.filter (ShouldKeep Flavor.All)
-        | Flavor.Worker ->
-            let isFromBrowserXml = allWebNonCallbackInterfaces |> Array.filter (fun i -> knownWorkerInterfaces.Contains i.Name)
-            Array.append isFromBrowserXml allWorkerAdditionalInterfaces
+        allWebNonCallbackInterfaces |> Array.filter (ShouldKeep flavor)
 
     let GetCallbackFuncsByFlavor flavor =
-        browser.CallbackFunctions
-        |> Array.filter (fun cb -> flavor <> Flavor.Worker || knownWorkerInterfaces.Contains cb.Name)
+        browser.CallbackFunctions |> Array.filter (getName >> ShouldKeepUnexposed flavor)
 
     let GetEnumsByFlavor flavor =
-        match flavor with
-        | Flavor.Web | Flavor.All -> browser.Enums
-        | Flavor.Worker ->
-            let isFromBrowserXml = browser.Enums |> Array.filter (fun i -> knownWorkerEnums.Contains i.Name)
-            Array.append isFromBrowserXml worker.Enums
+        browser.Enums |> Array.filter (getName >> ShouldKeepUnexposed flavor)
 
     let GetNamespacesByFlavor flavor =
-        match flavor with
-        | Flavor.Web | Flavor.All -> browser.Namespaces
-        | Flavor.Worker -> worker.Namespaces
+        browser.Namespaces |> Array.filter (ShouldKeep flavor)
+    
+    let GetTypedefsByFlavor flavor =
+        browser.Typedefs |> Array.filter (getTypedefName >> ShouldKeepUnexposed flavor)
 
     /// Event name to event type map
     let eNameToEType =
@@ -482,7 +477,7 @@ module Data =
             | Some i -> List.ofArray i.Implements
             | _ -> []
 
-        Array.concat [| allWebNonCallbackInterfaces; worker.Interfaces; worker.MixinInterfaces.Interfaces |]
+        Array.concat [| allWebNonCallbackInterfaces |]
         |> Array.map (fun i -> (i.Name, List.concat [ (getExtendList i.Name); (getImplementList i.Name) ]))
         |> Map.ofArray
 
@@ -590,7 +585,7 @@ module Data =
     let GetGlobalPollutor flavor =
         match flavor with
         | Flavor.Web | Flavor.All -> browser.Interfaces |> Array.tryFind (fun i -> i.PrimaryGlobal.IsSome)
-        | Flavor.Worker -> worker.Interfaces |> Array.tryFind (fun i -> i.Global.IsSome)
+        | Flavor.Worker -> browser.Interfaces |> Array.tryFind (fun i -> i.Global.IsSome && i.Name = "DedicatedWorkerGlobalScope")
 
     let GetGlobalPollutorName flavor =
         match GetGlobalPollutor flavor with
@@ -743,7 +738,8 @@ module Emit =
         | integerType when List.contains integerType integerTypes -> "number"
         | extendedType when List.contains extendedType extendedTypes -> extendedType
         | _ ->
-            if ignoreDOMTypes && Seq.contains objDomType ["Element"; "Window"; "Document"] then "any"
+            if ignoreDOMTypes && Seq.contains objDomType ["Element"; "Window"; "Document"; "WindowProxy"] then "never"
+            elif objDomType = "WindowProxy" then "Window"
             else
                 // Name of an interface / enum / dict. Just return itself
                 if allInterfacesMap.ContainsKey objDomType ||
@@ -1448,11 +1444,8 @@ module Emit =
             Pt.Printl ""
 
         browser.Dictionaries
-        |> Array.filter (fun dict -> ShouldKeepUnexposed flavor dict.Name || (flavor = Worker && knownWorkerInterfaces.Contains dict.Name))
+        |> Array.filter (getName >> ShouldKeepUnexposed flavor)
         |> Array.iter emitDictionary
-
-        if flavor = Worker then
-            worker.Dictionaries |> Array.iter emitDictionary
 
     let EmitAddedInterface (ai: InputJsonType.Root) =
         match ai.Extends with
@@ -1502,15 +1495,9 @@ module Emit =
         let emitTypeDefFromJson (typeDef: InputJsonType.Root) =
             Pt.Printl "type %s = %s;" typeDef.Name.Value typeDef.Type.Value
 
-        match flavor with
-        | Flavor.Worker ->
-            browser.Typedefs
-            |> Array.filter (fun typedef -> knownWorkerInterfaces.Contains typedef.NewType)
-            |> Array.iter emitTypeDef
-        | _ ->
-            browser.Typedefs
-            |> Array.filter (fun typedef -> getRemovedItemByName typedef.NewType ItemKind.TypeDef "" |> Option.isNone)
-            |> Array.iter emitTypeDef
+        GetTypedefsByFlavor flavor
+        |> Array.filter (fun typedef -> getRemovedItemByName typedef.NewType ItemKind.TypeDef "" |> Option.isNone)
+        |> Array.iter emitTypeDef
 
         InputJson.getAddedItems ItemKind.TypeDef flavor
         |> Array.iter emitTypeDefFromJson

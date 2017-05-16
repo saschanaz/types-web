@@ -134,13 +134,6 @@ interface CacheBatchOperation {
     type?: string;
 }
 
-interface CacheQueryOptions {
-    cacheName?: string;
-    ignoreMethod?: boolean;
-    ignoreSearch?: boolean;
-    ignoreVary?: boolean;
-}
-
 interface CanvasRenderingContext2DSettings {
     alpha?: boolean;
 }
@@ -154,12 +147,6 @@ interface ChannelMergerOptions extends AudioNodeOptions {
 
 interface ChannelSplitterOptions extends AudioNodeOptions {
     numberOfOutputs?: number;
-}
-
-interface ClientQueryOptions {
-    includeReserved?: boolean;
-    includeUncontrolled?: boolean;
-    type?: ClientType;
 }
 
 interface ClipboardEventInit extends EventInit {
@@ -396,17 +383,6 @@ interface FilePropertyBag {
 
 interface FocusEventInit extends UIEventInit {
     relatedTarget?: EventTarget;
-}
-
-interface ForeignFetchOptions {
-    origins?: string[];
-    scopes?: string[];
-}
-
-interface ForeignFetchResponse {
-    headers?: string[];
-    origin?: string;
-    response?: Response;
 }
 
 interface GainOptions extends AudioNodeOptions {
@@ -2765,7 +2741,7 @@ interface Document extends Node, NonElementParentNode, DocumentOrShadowRoot, Par
     readonly contentType: string;
     cookie: string;
     readonly currentScript: HTMLOrSVGScriptElement | null;
-    readonly defaultView: any;
+    readonly defaultView: Window | null;
     /**
      * Sets or gets a value that indicates whether the document can be edited.
      */
@@ -3036,7 +3012,7 @@ interface Document extends Node, NonElementParentNode, DocumentOrShadowRoot, Par
      * @param data String that specifies the nodeValue property of the text node.
      */
     createTextNode(data: string): Text;
-    createTouch(view: any, target: EventTarget, identifier: number, pageX: number, pageY: number, screenX: number, screenY: number): Touch;
+    createTouch(view: Window, target: EventTarget, identifier: number, pageX: number, pageY: number, screenX: number, screenY: number): Touch;
     createTouchList(...touches: Touch[]): TouchList;
     /**
      * Creates a TreeWalker object that you can use to traverse filtered lists of nodes or elements in a document.
@@ -4405,7 +4381,7 @@ interface HTMLFrameElement extends HTMLElement {
     /**
      * Retrieves the object of the specified.
      */
-    readonly contentWindow: any;
+    readonly contentWindow: Window | null;
     /**
      * Sets or retrieves whether to display a border for the frame.
      */
@@ -4555,7 +4531,7 @@ interface HTMLIFrameElement extends HTMLElement {
     /**
      * Retrieves the object of the specified.
      */
-    readonly contentWindow: any;
+    readonly contentWindow: Window | null;
     /**
      * Sets or retrieves whether to display a border for the frame.
      */
@@ -5324,7 +5300,7 @@ interface HTMLObjectElement extends HTMLElement {
      * Retrieves the document object of the page or frame.
      */
     readonly contentDocument: Document | null;
-    readonly contentWindow: any;
+    readonly contentWindow: Window | null;
     /**
      * Sets or retrieves the URL that references the data of the object.
      */
@@ -10893,7 +10869,7 @@ interface Window extends EventTarget, GlobalEventHandlers, WindowEventHandlers, 
     readonly document: Document;
     readonly external: External;
     readonly frameElement: Element | null;
-    readonly frames: any;
+    readonly frames: Window;
     readonly history: History;
     readonly innerHeight: number;
     readonly innerWidth: number;
@@ -10910,7 +10886,7 @@ interface Window extends EventTarget, GlobalEventHandlers, WindowEventHandlers, 
     readonly outerWidth: number;
     readonly pageXOffset: number;
     readonly pageYOffset: number;
-    readonly parent: any;
+    readonly parent: Window | null;
     readonly personalbar: BarProp;
     readonly screen: Screen;
     readonly screenX: number;
@@ -10918,12 +10894,12 @@ interface Window extends EventTarget, GlobalEventHandlers, WindowEventHandlers, 
     readonly scrollbars: BarProp;
     readonly scrollX: number;
     readonly scrollY: number;
-    readonly self: any;
+    readonly self: Window;
     status: string;
     readonly statusbar: BarProp;
     readonly toolbar: BarProp;
-    readonly top: any;
-    readonly window: any;
+    readonly top: Window | null;
+    readonly window: Window;
     Blob: typeof Blob;
     alert(message?: any): void;
     alert(message?: any): void;
@@ -12682,7 +12658,7 @@ declare var devicePixelRatio: number;
 declare var document: Document;
 declare var external: External;
 declare var frameElement: Element | null;
-declare var frames: any;
+declare var frames: Window;
 declare var history: History;
 declare var innerHeight: number;
 declare var innerWidth: number;
@@ -12699,7 +12675,7 @@ declare var outerHeight: number;
 declare var outerWidth: number;
 declare var pageXOffset: number;
 declare var pageYOffset: number;
-declare var parent: any;
+declare var parent: Window | null;
 declare var personalbar: BarProp;
 declare var screen: Screen;
 declare var screenX: number;
@@ -12707,12 +12683,12 @@ declare var screenY: number;
 declare var scrollbars: BarProp;
 declare var scrollX: number;
 declare var scrollY: number;
-declare var self: any;
+declare var self: Window;
 declare var status: string;
 declare var statusbar: BarProp;
 declare var toolbar: BarProp;
-declare var top: any;
-declare var window: any;
+declare var top: Window | null;
+declare var window: Window;
 declare function alert(message?: any): void;
 declare function alert(message?: any): void;
 declare function blur(): void;
@@ -12905,13 +12881,12 @@ type ImageBitmapSource = CanvasImageSource | Blob | ImageData;
 type Int32List = Int32Array | GLint[];
 type MediaProvider = MediaStream | MediaSource | Blob;
 type MediaStreamError = object;
-type MessageEventSource = any;
+type MessageEventSource = Window | MessagePort | ServiceWorker;
 type NamedCurve = string;
 type OffscreenRenderingContext = OffscreenCanvasRenderingContext2D | WebGLRenderingContext;
 type OnBeforeUnloadEventHandler = OnBeforeUnloadEventHandlerNonNull;
 type OnErrorEventHandler = OnErrorEventHandlerNonNull;
 type PerformanceEntryList = PerformanceEntry[];
-type PushMessageDataInit = BufferSource | string;
 type RenderingContext = CanvasRenderingContext2D | WebGLRenderingContext;
 type RequestInfo = Request | string;
 type TexImageSource = ImageBitmap | ImageData | HTMLImageElement | HTMLCanvasElement | HTMLVideoElement;
@@ -12932,7 +12907,6 @@ type CanvasTextAlign = "start" | "end" | "left" | "right" | "center";
 type CanvasTextBaseline = "top" | "hanging" | "middle" | "alphabetic" | "ideographic" | "bottom";
 type ChannelCountMode = "max" | "clamped-max" | "explicit";
 type ChannelInterpretation = "speakers" | "discrete";
-type ClientType = "window" | "worker" | "sharedworker" | "all";
 type ColorSpaceConversion = "none" | "default";
 type CSSBoxType = "margin" | "border" | "padding" | "content";
 type DistanceModelType = "linear" | "inverse" | "exponential";

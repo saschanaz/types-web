@@ -13504,7 +13504,7 @@
         </method>
       </methods>
     </namespace>
-    <namespace name="someNamespace" exposed="Window Worker Worklet">
+    <namespace name="someNamespace">
       <properties>
         <property name="someProperty" type="double" />
       </properties>
