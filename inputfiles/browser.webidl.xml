@@ -582,10 +582,9 @@
         <member name="targetClientId" default="&quot;&quot;" type="DOMString"/>
       </members>
     </dictionary>
-    <dictionary name="FilePropertyBag" extends="Object">
+    <dictionary name="FilePropertyBag" extends="BlobPropertyBag">
       <members>
         <member name="lastModified" type="long long"/>
-        <member name="type" default="&quot;&quot;" type="DOMString"/>
       </members>
     </dictionary>
     <dictionary name="FocusEventInit" extends="UIEventInit">
@@ -1553,7 +1552,7 @@
         <member name="dtx" type="RTCDtxStatus"/>
         <member name="fec" type="RTCRtpFecParameters"/>
         <member name="maxBitrate" type="unsigned long"/>
-        <member name="maxFramerate" type="unsigned long"/>
+        <member name="maxFramerate" type="double"/>
         <member name="priority" type="RTCPriorityType"/>
         <member name="ptime" type="unsigned long"/>
         <member name="rid" type="DOMString"/>
@@ -2856,14 +2855,12 @@
         <property name="type" type="BiquadFilterType"/>
       </properties>
     </interface>
-    <interface name="Blob" extends="Object" exposed="Window">
-      <constructor/>
+    <interface name="Blob" extends="Object" exposed="Window Worker">
       <constructor>
-        <param name="blobParts" type="sequence&lt;(ArrayBuffer or ArrayBufferView or Blob or DOMString)&gt;"/>
+        <param name="blobParts" optional="1" type="sequence&lt;BlobPart&gt;"/>
         <param name="options" optional="1" type="BlobPropertyBag"/>
       </constructor>
       <methods>
-        <method name="close" type="void"/>
         <method name="slice" type="Blob">
           <param name="start" optional="1" type="long long"/>
           <param name="end" optional="1" type="long long"/>
@@ -2871,7 +2868,6 @@
         </method>
       </methods>
       <properties>
-        <property name="isClosed" read-only="1" type="boolean"/>
         <property name="size" read-only="1" type="unsigned long long"/>
         <property name="type" read-only="1" type="DOMString"/>
       </properties>
@@ -4145,7 +4141,7 @@
         <param name="init" optional="1" type="(DOMString or sequence&lt;unrestricted double&gt;)"/>
       </constructor>
       <anonymous-methods>
-        <method stringifier="1" type="DOMString"/>
+        <method stringifier="1" type="DOMString" exposed="Window"/>
       </anonymous-methods>
       <methods>
         <method name="flipX" type="DOMMatrix"/>
@@ -4782,10 +4778,10 @@
         <property name="targetClientId" read-only="1" type="DOMString"/>
       </properties>
     </interface>
-    <interface name="File" extends="Blob" exposed="Window">
+    <interface name="File" extends="Blob" exposed="Window Worker">
       <constructor>
-        <param name="fileBits" type="sequence&lt;(Blob or DOMString or ArrayBufferView or ArrayBuffer)&gt;"/>
-        <param name="fileName" type="DOMString"/>
+        <param name="fileBits" type="sequence&lt;BlobPart&gt;"/>
+        <param name="fileName" type="USVString"/>
         <param name="options" optional="1" type="FilePropertyBag"/>
       </constructor>
       <properties>
@@ -4793,7 +4789,7 @@
         <property name="name" read-only="1" type="DOMString"/>
       </properties>
     </interface>
-    <interface name="FileList" extends="Object" exposed="Window">
+    <interface name="FileList" extends="Object" exposed="Window Worker">
       <methods>
         <method name="item" getter="1" nullable="1" type="File">
           <param name="index" type="unsigned long"/>
@@ -4803,7 +4799,7 @@
         <property name="length" read-only="1" type="unsigned long"/>
       </properties>
     </interface>
-    <interface name="FileReader" extends="EventTarget" exposed="Window">
+    <interface name="FileReader" extends="EventTarget" exposed="Window Worker">
       <constructor/>
       <constants>
         <constant name="DONE" type="unsigned short" value="2"/>
@@ -4815,6 +4811,9 @@
         <method name="readAsArrayBuffer" type="void">
           <param name="blob" type="Blob"/>
         </method>
+        <method name="readAsBinaryString" type="void">
+          <param name="blob" type="Blob"/>
+        </method>
         <method name="readAsDataURL" type="void">
           <param name="blob" type="Blob"/>
         </method>
@@ -4824,7 +4823,7 @@
         </method>
       </methods>
       <properties>
-        <property name="error" read-only="1" nullable="1" type="DOMError"/>
+        <property name="error" read-only="1" nullable="1" type="DOMException"/>
         <property name="onabort" type="EventHandler" event-handler="abort"/>
         <property name="onerror" type="EventHandler" event-handler="error"/>
         <property name="onload" type="EventHandler" event-handler="load"/>
@@ -4849,10 +4848,13 @@
         <event name="error" dispatch="sync" skips-window="1" type="ProgressEvent"/>
       </events>
     </interface>
-    <interface name="FileReaderSync" extends="Object" exposed="Worker">
+    <interface name="FileReaderSync" extends="Object" exposed="DedicatedWorker SharedWorker">
       <constructor/>
       <methods>
         <method name="readAsArrayBuffer" type="ArrayBuffer">
+          <param name="blob" type="Blob"/>
+        </method>
+        <method name="readAsBinaryString" type="DOMString">
           <param name="blob" type="Blob"/>
         </method>
         <method name="readAsDataURL" type="DOMString">
@@ -6348,13 +6350,17 @@
       </events>
       <element name="video" namespace="HTML"/>
     </interface>
-    <interface name="IDBCursor" extends="Object">
+    <interface name="IDBCursor" extends="Object" exposed="Window Worker">
       <methods>
         <method name="advance" type="void">
           <param name="count" type="unsigned long"/>
         </method>
         <method name="continue" type="void">
           <param name="key" optional="1" type="any"/>
+        </method>
+        <method name="continuePrimaryKey" type="void">
+          <param name="key" type="any"/>
+          <param name="primaryKey" type="any"/>
         </method>
         <method name="delete" type="IDBRequest"/>
         <method name="update" type="IDBRequest">
@@ -6368,17 +6374,17 @@
         <property name="source" read-only="1" type="(IDBObjectStore or IDBIndex)"/>
       </properties>
     </interface>
-    <interface name="IDBCursorWithValue" extends="IDBCursor">
+    <interface name="IDBCursorWithValue" extends="IDBCursor" exposed="Window Worker">
       <properties>
         <property name="value" read-only="1" type="any"/>
       </properties>
     </interface>
-    <interface name="IDBDatabase" extends="EventTarget">
+    <interface name="IDBDatabase" extends="EventTarget" exposed="Window Worker">
       <methods>
         <method name="close" type="void"/>
         <method name="createObjectStore" type="IDBObjectStore">
           <param name="name" type="DOMString"/>
-          <param name="optionalParameters" optional="1" type="IDBObjectStoreParameters"/>
+          <param name="options" optional="1" type="IDBObjectStoreParameters"/>
         </method>
         <method name="deleteObjectStore" type="void">
           <param name="name" type="DOMString"/>
@@ -6392,19 +6398,21 @@
         <property name="name" read-only="1" type="DOMString"/>
         <property name="objectStoreNames" read-only="1" type="DOMStringList"/>
         <property name="onabort" type="EventHandler" event-handler="abort"/>
+        <property name="onclose" type="EventHandler" event-handler="close"/>
         <property name="onerror" type="EventHandler" event-handler="error"/>
         <property name="onversionchange" type="EventHandler" event-handler="versionchange"/>
         <property name="version" read-only="1" type="unsigned long long"/>
       </properties>
       <events>
         <event name="abort" type="Event"/>
+        <event name="close" type="Event"/>
         <event name="error" type="Event"/>
         <event name="versionchange" type="IDBVersionChangeEvent"/>
         <event name="error" dispatch="sync" skips-window="1" type="Event"/>
         <event name="abort" dispatch="sync" skips-window="1" type="Event"/>
       </events>
     </interface>
-    <interface name="IDBFactory" extends="Object">
+    <interface name="IDBFactory" extends="Object" exposed="Window Worker">
       <methods>
         <method name="cmp" type="short">
           <param name="first" type="any"/>
@@ -6419,41 +6427,52 @@
         </method>
       </methods>
     </interface>
-    <interface name="IDBIndex" extends="Object">
+    <interface name="IDBIndex" extends="Object" exposed="Window Worker">
       <methods>
         <method name="count" type="IDBRequest">
-          <param name="key" optional="1" type="any"/>
+          <param name="query" optional="1" type="any"/>
         </method>
         <method name="get" type="IDBRequest">
-          <param name="key" type="any"/>
+          <param name="query" type="any"/>
+        </method>
+        <method name="getAll" type="IDBRequest">
+          <param name="query" optional="1" type="any"/>
+          <param name="count" optional="1" type="unsigned long"/>
+        </method>
+        <method name="getAllKeys" type="IDBRequest">
+          <param name="query" optional="1" type="any"/>
+          <param name="count" optional="1" type="unsigned long"/>
         </method>
         <method name="getKey" type="IDBRequest">
-          <param name="key" type="any"/>
+          <param name="query" type="any"/>
         </method>
         <method name="openCursor" type="IDBRequest">
-          <param name="range" optional="1" type="any"/>
+          <param name="query" optional="1" type="any"/>
           <param name="direction" default="&quot;next&quot;" optional="1" type="IDBCursorDirection"/>
         </method>
         <method name="openKeyCursor" type="IDBRequest">
-          <param name="range" optional="1" type="any"/>
+          <param name="query" optional="1" type="any"/>
           <param name="direction" default="&quot;next&quot;" optional="1" type="IDBCursorDirection"/>
         </method>
       </methods>
       <properties>
         <property name="keyPath" read-only="1" type="any"/>
         <property name="multiEntry" read-only="1" type="boolean"/>
-        <property name="name" read-only="1" type="DOMString"/>
+        <property name="name" type="DOMString"/>
         <property name="objectStore" read-only="1" type="IDBObjectStore"/>
         <property name="unique" read-only="1" type="boolean"/>
       </properties>
     </interface>
-    <interface name="IDBKeyRange" extends="Object">
+    <interface name="IDBKeyRange" extends="Object" exposed="Window Worker">
       <methods>
         <method name="bound" static="1" type="IDBKeyRange">
           <param name="lower" type="any"/>
           <param name="upper" type="any"/>
           <param name="lowerOpen" default="false" optional="1" type="boolean"/>
           <param name="upperOpen" default="false" optional="1" type="boolean"/>
+        </method>
+        <method name="includes" type="boolean">
+          <param name="key" type="any"/>
         </method>
         <method name="lowerBound" static="1" type="IDBKeyRange">
           <param name="lower" type="any"/>
@@ -6474,7 +6493,7 @@
         <property name="upperOpen" read-only="1" type="boolean"/>
       </properties>
     </interface>
-    <interface name="IDBObjectStore" extends="Object">
+    <interface name="IDBObjectStore" extends="Object" exposed="Window Worker">
       <methods>
         <method name="add" type="IDBRequest">
           <param name="value" type="any"/>
@@ -6482,27 +6501,42 @@
         </method>
         <method name="clear" type="IDBRequest"/>
         <method name="count" type="IDBRequest">
-          <param name="key" optional="1" type="any"/>
+          <param name="query" optional="1" type="any"/>
         </method>
         <method name="createIndex" type="IDBIndex">
           <param name="name" type="DOMString"/>
           <param name="keyPath" type="(DOMString or sequence&lt;DOMString&gt;)"/>
-          <param name="optionalParameters" optional="1" type="IDBIndexParameters"/>
+          <param name="options" optional="1" type="IDBIndexParameters"/>
         </method>
         <method name="delete" type="IDBRequest">
-          <param name="key" type="any"/>
+          <param name="query" type="any"/>
         </method>
         <method name="deleteIndex" type="void">
-          <param name="indexName" type="DOMString"/>
+          <param name="name" type="DOMString"/>
         </method>
         <method name="get" type="IDBRequest">
-          <param name="key" type="any"/>
+          <param name="query" type="any"/>
+        </method>
+        <method name="getAll" type="IDBRequest">
+          <param name="query" optional="1" type="any"/>
+          <param name="count" optional="1" type="unsigned long"/>
+        </method>
+        <method name="getAllKeys" type="IDBRequest">
+          <param name="query" optional="1" type="any"/>
+          <param name="count" optional="1" type="unsigned long"/>
+        </method>
+        <method name="getKey" type="IDBRequest">
+          <param name="query" type="any"/>
         </method>
         <method name="index" type="IDBIndex">
           <param name="name" type="DOMString"/>
         </method>
         <method name="openCursor" type="IDBRequest">
-          <param name="range" optional="1" type="any"/>
+          <param name="query" optional="1" type="any"/>
+          <param name="direction" default="&quot;next&quot;" optional="1" type="IDBCursorDirection"/>
+        </method>
+        <method name="openKeyCursor" type="IDBRequest">
+          <param name="query" optional="1" type="any"/>
           <param name="direction" default="&quot;next&quot;" optional="1" type="IDBCursorDirection"/>
         </method>
         <method name="put" type="IDBRequest">
@@ -6514,11 +6548,11 @@
         <property name="autoIncrement" read-only="1" type="boolean"/>
         <property name="indexNames" read-only="1" type="DOMStringList"/>
         <property name="keyPath" read-only="1" type="any"/>
-        <property name="name" read-only="1" type="DOMString"/>
+        <property name="name" type="DOMString"/>
         <property name="transaction" read-only="1" type="IDBTransaction"/>
       </properties>
     </interface>
-    <interface name="IDBOpenDBRequest" extends="IDBRequest">
+    <interface name="IDBOpenDBRequest" extends="IDBRequest" exposed="Window Worker">
       <properties>
         <property name="onblocked" type="EventHandler" event-handler="blocked"/>
         <property name="onupgradeneeded" type="EventHandler" event-handler="upgradeneeded"/>
@@ -6528,22 +6562,22 @@
         <event name="upgradeneeded" dispatch="sync" skips-window="1" type="IDBVersionChangeEvent"/>
       </events>
     </interface>
-    <interface name="IDBRequest" extends="EventTarget">
+    <interface name="IDBRequest" extends="EventTarget" exposed="Window Worker">
       <properties>
-        <property name="error" read-only="1" type="DOMError"/>
+        <property name="error" read-only="1" nullable="1" type="DOMException"/>
         <property name="onerror" type="EventHandler" event-handler="error"/>
         <property name="onsuccess" type="EventHandler" event-handler="success"/>
         <property name="readyState" read-only="1" type="IDBRequestReadyState"/>
         <property name="result" read-only="1" type="any"/>
         <property name="source" read-only="1" nullable="1" type="(IDBObjectStore or IDBIndex or IDBCursor)"/>
-        <property name="transaction" read-only="1" type="IDBTransaction"/>
+        <property name="transaction" read-only="1" nullable="1" type="IDBTransaction"/>
       </properties>
       <events>
         <event name="error" bubbles="1" dispatch="sync" skips-window="1" type="Event"/>
         <event name="success" bubbles="1" dispatch="sync" skips-window="1" type="Event"/>
       </events>
     </interface>
-    <interface name="IDBTransaction" extends="EventTarget">
+    <interface name="IDBTransaction" extends="EventTarget" exposed="Window Worker">
       <methods>
         <method name="abort" type="void"/>
         <method name="objectStore" type="IDBObjectStore">
@@ -6552,8 +6586,9 @@
       </methods>
       <properties>
         <property name="db" read-only="1" type="IDBDatabase"/>
-        <property name="error" read-only="1" type="DOMError"/>
+        <property name="error" read-only="1" type="DOMException"/>
         <property name="mode" read-only="1" type="IDBTransactionMode"/>
+        <property name="objectStoreNames" read-only="1" type="DOMStringList"/>
         <property name="onabort" type="EventHandler" event-handler="abort"/>
         <property name="oncomplete" type="EventHandler" event-handler="complete"/>
         <property name="onerror" type="EventHandler" event-handler="error"/>
@@ -6564,7 +6599,7 @@
         <event name="complete" dispatch="sync" skips-window="1" type="Event"/>
       </events>
     </interface>
-    <interface name="IDBVersionChangeEvent" extends="Event">
+    <interface name="IDBVersionChangeEvent" extends="Event" exposed="Window Worker">
       <constructor>
         <param name="type" type="DOMString"/>
         <param name="eventInitDict" optional="1" type="IDBVersionChangeEventInit"/>
@@ -7998,7 +8033,7 @@
         <property name="startOffset" read-only="1" type="unsigned long"/>
       </properties>
     </interface>
-    <interface name="ReadableStream" extends="Object">
+    <interface name="ReadableStream" extends="Object" exposed="Window Worker">
       <methods>
         <method name="cancel" type="Promise&lt;void&gt;"/>
         <method name="getReader" type="ReadableStreamDefaultReader"/>
@@ -8007,7 +8042,7 @@
         <property name="locked" read-only="1" type="boolean"/>
       </properties>
     </interface>
-    <interface name="ReadableStreamDefaultReader" extends="Object">
+    <interface name="ReadableStreamDefaultReader" extends="Object" exposed="Window Worker">
       <constructor>
         <param name="stream" type="ReadableStream"/>
       </constructor>
@@ -10458,9 +10493,6 @@
         <param name="base" optional="1" type="USVString"/>
       </constructor>
       <methods>
-        <method name="createFor" static="1" type="DOMString">
-          <param name="blob" type="Blob"/>
-        </method>
         <method name="createObjectURL" static="1" type="DOMString">
           <param name="blob" type="Blob"/>
         </method>
@@ -10821,7 +10853,6 @@
       <implements>WindowSessionStorage</implements>
       <implements>WindowLocalStorage</implements>
       <implements>GlobalPerformance</implements>
-      <implements>IDBEnvironment</implements>
       <implements>GlobalCrypto</implements>
       <implements>SpeechSynthesisGetter</implements>
       <events>
@@ -11755,11 +11786,6 @@
         <property name="protocol" type="USVString"/>
         <property name="search" type="USVString"/>
         <property name="username" type="USVString"/>
-      </properties>
-    </interface>
-    <interface name="IDBEnvironment" extends="Object" no-interface-object="1">
-      <properties>
-        <property name="indexedDB" read-only="1" type="IDBFactory"/>
       </properties>
     </interface>
     <interface name="LinkStyle" extends="Object" no-interface-object="1">
@@ -12999,6 +13025,7 @@
       </methods>
       <properties>
         <property name="caches" read-only="1" type="CacheStorage"/>
+        <property name="indexedDB" read-only="1" type="IDBFactory"/>
         <property name="origin" read-only="1" type="USVString"/>
       </properties>
     </interface>
@@ -13007,14 +13034,12 @@
         <property name="sessionStorage" read-only="1" type="Storage"/>
       </properties>
     </interface>
-    <interface name="WorkerUtils" extends="Object" no-interface-object="1" sn:partial="1">
-      <implements>IDBEnvironment</implements>
-    </interface>
   </mixin-interfaces>
   <typedefs>
     <typedef new-type="AlgorithmIdentifier" type="(object or DOMString)"/>
     <typedef new-type="ArrayBufferView" type="(Int8Array or Int16Array or Int32Array or Uint8Array or Uint16Array or Uint32Array or Uint8ClampedArray or Float32Array or Float64Array or DataView)"/>
     <typedef new-type="BigInteger" type="Uint8Array"/>
+    <typedef new-type="BlobPart" type="(BufferSource or Blob or USVString)"/>
     <typedef new-type="BodyInit" type="(Blob or BufferSource or FormData or URLSearchParams or ReadableStream or USVString)"/>
     <typedef new-type="BufferSource" type="(ArrayBufferView or ArrayBuffer)"/>
     <typedef new-type="CanvasImageSource" type="(HTMLOrSVGImageElement or HTMLVideoElement or HTMLCanvasElement or ImageBitmap or OffscreenCanvas)"/>

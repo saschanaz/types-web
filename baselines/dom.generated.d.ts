@@ -376,9 +376,8 @@ interface EventSourceInit {
     withCredentials?: boolean;
 }
 
-interface FilePropertyBag {
+interface FilePropertyBag extends BlobPropertyBag {
     lastModified?: number;
-    type?: string;
 }
 
 interface FocusEventInit extends UIEventInit {
@@ -1814,10 +1813,8 @@ declare var BiquadFilterNode: {
 };
 
 interface Blob {
-    readonly isClosed: boolean;
     readonly size: number;
     readonly type: string;
-    close(): void;
     slice(start?: number, end?: number, contentType?: string): Blob;
 }
 
@@ -3595,7 +3592,7 @@ interface FileReaderEventMap {
 }
 
 interface FileReader extends EventTarget {
-    readonly error: any;
+    readonly error: DOMException | null;
     onabort: (this: FileReader, ev: ProgressEvent) => any;
     onerror: (this: FileReader, ev: ProgressEvent) => any;
     onload: (this: FileReader, ev: ProgressEvent) => any;
@@ -3606,6 +3603,7 @@ interface FileReader extends EventTarget {
     readonly result: string | ArrayBuffer | null;
     abort(): void;
     readAsArrayBuffer(blob: Blob): void;
+    readAsBinaryString(blob: Blob): void;
     readAsDataURL(blob: Blob): void;
     readAsText(blob: Blob, label?: string): void;
     readonly DONE: number;
@@ -6352,6 +6350,7 @@ interface IDBCursor {
     source: IDBObjectStore | IDBIndex;
     advance(count: number): void;
     continue(key?: IDBKeyRange | IDBValidKey): void;
+    continuePrimaryKey(key: any, primaryKey: any): void;
     delete(): IDBRequest;
     update(value: any): IDBRequest;
 }
@@ -6372,6 +6371,7 @@ declare var IDBCursorWithValue: {
 
 interface IDBDatabaseEventMap {
     "abort": Event;
+    "close": Event;
     "error": Event;
     "versionchange": IDBVersionChangeEvent;
 }
@@ -6380,6 +6380,7 @@ interface IDBDatabase extends EventTarget {
     readonly name: string;
     readonly objectStoreNames: DOMStringList;
     onabort: (this: IDBDatabase, ev: Event) => any;
+    onclose: (this: IDBDatabase, ev: Event) => any;
     onerror: (this: IDBDatabase, ev: Event) => any;
     onversionchange: (this: IDBDatabase, ev: IDBVersionChangeEvent) => any;
     version: number;
@@ -6411,11 +6412,13 @@ declare var IDBFactory: {
 interface IDBIndex {
     keyPath: string | string[];
     readonly multiEntry: boolean;
-    readonly name: string;
+    name: string;
     readonly objectStore: IDBObjectStore;
     readonly unique: boolean;
     count(key?: IDBKeyRange | IDBValidKey): IDBRequest;
     get(key: IDBKeyRange | IDBValidKey): IDBRequest;
+    getAll(query?: any, count?: number): IDBRequest;
+    getAllKeys(query?: any, count?: number): IDBRequest;
     getKey(key: IDBKeyRange | IDBValidKey): IDBRequest;
     openCursor(range?: IDBKeyRange | IDBValidKey, direction?: IDBCursorDirection): IDBRequest;
     openKeyCursor(range?: IDBKeyRange | IDBValidKey, direction?: IDBCursorDirection): IDBRequest;
@@ -6431,6 +6434,7 @@ interface IDBKeyRange {
     readonly lowerOpen: boolean;
     readonly upper: any;
     readonly upperOpen: boolean;
+    includes(key: any): boolean;
 }
 
 declare var IDBKeyRange: {
@@ -6446,17 +6450,21 @@ interface IDBObjectStore {
     readonly autoIncrement: boolean;
     readonly indexNames: DOMStringList;
     keyPath: string | string[];
-    readonly name: string;
+    name: string;
     readonly transaction: IDBTransaction;
     add(value: any, key?: IDBKeyRange | IDBValidKey): IDBRequest;
     clear(): IDBRequest;
     count(key?: IDBKeyRange | IDBValidKey): IDBRequest;
     createIndex(name: string, keyPath: string | string[], optionalParameters?: IDBIndexParameters): IDBIndex;
     delete(key: IDBKeyRange | IDBValidKey): IDBRequest;
-    deleteIndex(indexName: string): void;
-    get(key: any): IDBRequest;
+    deleteIndex(name: string): void;
+    get(query: any): IDBRequest;
+    getAll(query?: any, count?: number): IDBRequest;
+    getAllKeys(query?: any, count?: number): IDBRequest;
+    getKey(query: any): IDBRequest;
     index(name: string): IDBIndex;
     openCursor(range?: IDBKeyRange | IDBValidKey, direction?: IDBCursorDirection): IDBRequest;
+    openKeyCursor(query?: any, direction?: IDBCursorDirection): IDBRequest;
     put(value: any, key?: IDBKeyRange | IDBValidKey): IDBRequest;
 }
 
@@ -6494,7 +6502,7 @@ interface IDBRequest extends EventTarget {
     readonly readyState: IDBRequestReadyState;
     readonly result: any;
     source: IDBObjectStore | IDBIndex | IDBCursor;
-    readonly transaction: IDBTransaction;
+    readonly transaction: IDBTransaction | null;
     addEventListener<K extends keyof IDBRequestEventMap>(type: K, listener: (this: IDBRequest, ev: IDBRequestEventMap[K]) => any, useCapture?: boolean): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
@@ -6514,6 +6522,7 @@ interface IDBTransaction extends EventTarget {
     readonly db: IDBDatabase;
     readonly error: DOMException;
     readonly mode: IDBTransactionMode;
+    readonly objectStoreNames: DOMStringList;
     onabort: (this: IDBTransaction, ev: Event) => any;
     oncomplete: (this: IDBTransaction, ev: Event) => any;
     onerror: (this: IDBTransaction, ev: Event) => any;
@@ -10577,7 +10586,6 @@ interface URL {
 declare var URL: {
     prototype: URL;
     new(url: string, base?: string): URL;
-    createFor(blob: Blob): string;
     createObjectURL(blob: Blob): string;
     createObjectURL(mediaSource: MediaSource): string;
     revokeObjectURL(url: string): void;
@@ -10860,7 +10868,7 @@ interface WindowEventMap extends GlobalEventHandlersEventMap, WindowEventHandler
     "deviceorientation": DeviceOrientationEvent;
 }
 
-interface Window extends EventTarget, GlobalEventHandlers, WindowEventHandlers, WindowOrWorkerGlobalScope, WindowSessionStorage, WindowLocalStorage, GlobalPerformance, IDBEnvironment, GlobalCrypto, SpeechSynthesisGetter {
+interface Window extends EventTarget, GlobalEventHandlers, WindowEventHandlers, WindowOrWorkerGlobalScope, WindowSessionStorage, WindowLocalStorage, GlobalPerformance, GlobalCrypto, SpeechSynthesisGetter {
     readonly applicationCache: ApplicationCache;
     readonly audioWorklet: Worklet;
     readonly closed: boolean;
@@ -11523,10 +11531,6 @@ interface HTMLHyperlinkElementUtilsBase {
 
 interface HTMLHyperlinkElementUtils extends HTMLHyperlinkElementUtilsBase {
     href: string;
-}
-
-interface IDBEnvironment {
-    readonly indexedDB: IDBFactory;
 }
 
 interface LinkStyle {
@@ -12195,6 +12199,7 @@ interface WindowLocalStorage {
 
 interface WindowOrWorkerGlobalScope {
     readonly caches: CacheStorage;
+    readonly indexedDB: IDBFactory;
     readonly origin: string;
     atob(data: string): string;
     btoa(data: string): string;
@@ -12211,9 +12216,6 @@ interface WindowOrWorkerGlobalScope {
 
 interface WindowSessionStorage {
     readonly sessionStorage: Storage;
-}
-
-interface WorkerUtils extends IDBEnvironment {
 }
 
 declare namespace console {
@@ -12823,6 +12825,7 @@ declare var onstorage: (this: Window, ev: StorageEvent) => any;
 declare var onunhandledrejection: (this: Window, ev: PromiseRejectionEvent) => any;
 declare var onunload: (this: Window, ev: Event) => any;
 declare var caches: CacheStorage;
+declare var indexedDB: IDBFactory;
 declare var origin: string;
 declare function atob(data: string): string;
 declare function btoa(data: string): string;
@@ -12838,13 +12841,13 @@ declare function setTimeout(handler: any, timeout?: any, ...args: any[]): number
 declare var sessionStorage: Storage;
 declare var localStorage: Storage;
 declare var performance: Performance;
-declare var indexedDB: IDBFactory;
 declare var crypto: Crypto;
 declare var speechSynthesis: SpeechSynthesis;
 declare function addEventListener<K extends keyof WindowEventMap>(type: K, listener: (this: Window, ev: WindowEventMap[K]) => any, useCapture?: boolean): void;
 declare function addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 type AlgorithmIdentifier = object | string;
 type BigInteger = Uint8Array;
+type BlobPart = BufferSource | Blob | string;
 type BodyInit = Blob | BufferSource | FormData | URLSearchParams | ReadableStream | string;
 type BufferSource = ArrayBufferView | ArrayBuffer;
 type CanvasImageSource = HTMLOrSVGImageElement | HTMLVideoElement | HTMLCanvasElement | ImageBitmap | OffscreenCanvas;

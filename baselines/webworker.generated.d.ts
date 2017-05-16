@@ -132,6 +132,21 @@ interface GetNotificationOptions {
     tag?: string;
 }
 
+interface IDBIndexParameters {
+    multiEntry?: boolean;
+    unique?: boolean;
+}
+
+interface IDBObjectStoreParameters {
+    autoIncrement?: boolean;
+    keyPath?: string | string[];
+}
+
+interface IDBVersionChangeEventInit extends EventInit {
+    newVersion?: number;
+    oldVersion?: number;
+}
+
 interface ImageEncodeOptions {
     quality?: number;
     type?: string;
@@ -251,6 +266,12 @@ interface ResponseInit {
     statusText?: string;
 }
 
+interface RsaOtherPrimesInfo {
+    d?: string;
+    r?: string;
+    t?: string;
+}
+
 interface SyncEventInit extends ExtendableEventInit {
     lastChance?: boolean;
     tag?: string;
@@ -269,6 +290,15 @@ interface EventListener {
 interface NodeFilter {
     (evt: Event): void;
 }
+
+interface Blob {
+    slice(start?: number, end?: number, contentType?: string): Blob;
+}
+
+declare var Blob: {
+    prototype: Blob;
+    new (blobParts?: any[], options?: BlobPropertyBag): Blob;
+};
 
 interface BroadcastChannelEventMap {
     "message": MessageEvent;
@@ -604,8 +634,57 @@ declare var FetchEvent: {
     new(type: string, eventInitDict: FetchEventInit): FetchEvent;
 };
 
+interface File extends Blob {
+}
+
+declare var File: {
+    prototype: File;
+    new (parts: (ArrayBuffer | ArrayBufferView | Blob | string)[], filename: string, properties?: FilePropertyBag): File;
+};
+
+interface FileList {
+    item(index: number): File | null;
+    [index: number]: File;
+}
+
+declare var FileList: {
+    prototype: FileList;
+    new(): FileList;
+};
+
+interface FileReaderEventMap {
+    "abort": ProgressEvent;
+    "error": ProgressEvent;
+    "load": ProgressEvent;
+    "loadend": ProgressEvent;
+    "loadstart": ProgressEvent;
+    "progress": ProgressEvent;
+}
+
+interface FileReader extends EventTarget {
+    abort(): void;
+    readAsArrayBuffer(blob: Blob): void;
+    readAsBinaryString(blob: Blob): void;
+    readAsDataURL(blob: Blob): void;
+    readAsText(blob: Blob, label?: string): void;
+    readonly DONE: number;
+    readonly EMPTY: number;
+    readonly LOADING: number;
+    addEventListener<K extends keyof FileReaderEventMap>(type: K, listener: (this: FileReader, ev: FileReaderEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
+}
+
+declare var FileReader: {
+    prototype: FileReader;
+    new(): FileReader;
+    readonly DONE: number;
+    readonly EMPTY: number;
+    readonly LOADING: number;
+};
+
 interface FileReaderSync {
     readAsArrayBuffer(blob: Blob): ArrayBuffer;
+    readAsBinaryString(blob: Blob): string;
     readAsDataURL(blob: Blob): string;
     readAsText(blob: Blob, label?: string): string;
 }
@@ -651,6 +730,166 @@ interface Headers {
 declare var Headers: {
     prototype: Headers;
     new(init?: HeadersInit): Headers;
+};
+
+interface IDBCursor {
+    advance(count: number): void;
+    continue(key?: IDBKeyRange | IDBValidKey): void;
+    continuePrimaryKey(key: any, primaryKey: any): void;
+    delete(): IDBRequest;
+    update(value: any): IDBRequest;
+}
+
+declare var IDBCursor: {
+    prototype: IDBCursor;
+    new(): IDBCursor;
+};
+
+interface IDBCursorWithValue extends IDBCursor {
+}
+
+declare var IDBCursorWithValue: {
+    prototype: IDBCursorWithValue;
+    new(): IDBCursorWithValue;
+};
+
+interface IDBDatabaseEventMap {
+    "abort": Event;
+    "close": Event;
+    "error": Event;
+    "versionchange": IDBVersionChangeEvent;
+}
+
+interface IDBDatabase extends EventTarget {
+    close(): void;
+    createObjectStore(name: string, optionalParameters?: IDBObjectStoreParameters): IDBObjectStore;
+    deleteObjectStore(name: string): void;
+    transaction(storeNames: string | string[], mode?: IDBTransactionMode): IDBTransaction;
+    addEventListener(type: "versionchange", listener: (ev: IDBVersionChangeEvent) => any, useCapture?: boolean): void;
+    addEventListener<K extends keyof IDBDatabaseEventMap>(type: K, listener: (this: IDBDatabase, ev: IDBDatabaseEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
+}
+
+declare var IDBDatabase: {
+    prototype: IDBDatabase;
+    new(): IDBDatabase;
+};
+
+interface IDBFactory {
+    cmp(first: any, second: any): number;
+    deleteDatabase(name: string): IDBOpenDBRequest;
+    open(name: string, version?: number): IDBOpenDBRequest;
+}
+
+declare var IDBFactory: {
+    prototype: IDBFactory;
+    new(): IDBFactory;
+};
+
+interface IDBIndex {
+    count(key?: IDBKeyRange | IDBValidKey): IDBRequest;
+    get(key: IDBKeyRange | IDBValidKey): IDBRequest;
+    getAll(query?: any, count?: number): IDBRequest;
+    getAllKeys(query?: any, count?: number): IDBRequest;
+    getKey(key: IDBKeyRange | IDBValidKey): IDBRequest;
+    openCursor(range?: IDBKeyRange | IDBValidKey, direction?: IDBCursorDirection): IDBRequest;
+    openKeyCursor(range?: IDBKeyRange | IDBValidKey, direction?: IDBCursorDirection): IDBRequest;
+}
+
+declare var IDBIndex: {
+    prototype: IDBIndex;
+    new(): IDBIndex;
+};
+
+interface IDBKeyRange {
+    includes(key: any): boolean;
+}
+
+declare var IDBKeyRange: {
+    prototype: IDBKeyRange;
+    new(): IDBKeyRange;
+    bound(lower: any, upper: any, lowerOpen?: boolean, upperOpen?: boolean): IDBKeyRange;
+    lowerBound(lower: any, open?: boolean): IDBKeyRange;
+    only(value: any): IDBKeyRange;
+    upperBound(upper: any, open?: boolean): IDBKeyRange;
+};
+
+interface IDBObjectStore {
+    add(value: any, key?: IDBKeyRange | IDBValidKey): IDBRequest;
+    clear(): IDBRequest;
+    count(key?: IDBKeyRange | IDBValidKey): IDBRequest;
+    createIndex(name: string, keyPath: string | string[], optionalParameters?: IDBIndexParameters): IDBIndex;
+    delete(key: IDBKeyRange | IDBValidKey): IDBRequest;
+    deleteIndex(name: string): void;
+    get(query: any): IDBRequest;
+    getAll(query?: any, count?: number): IDBRequest;
+    getAllKeys(query?: any, count?: number): IDBRequest;
+    getKey(query: any): IDBRequest;
+    index(name: string): IDBIndex;
+    openCursor(range?: IDBKeyRange | IDBValidKey, direction?: IDBCursorDirection): IDBRequest;
+    openKeyCursor(query?: any, direction?: IDBCursorDirection): IDBRequest;
+    put(value: any, key?: IDBKeyRange | IDBValidKey): IDBRequest;
+}
+
+declare var IDBObjectStore: {
+    prototype: IDBObjectStore;
+    new(): IDBObjectStore;
+};
+
+interface IDBOpenDBRequestEventMap extends IDBRequestEventMap {
+    "blocked": Event;
+    "upgradeneeded": IDBVersionChangeEvent;
+}
+
+interface IDBOpenDBRequest extends IDBRequest {
+    addEventListener<K extends keyof IDBOpenDBRequestEventMap>(type: K, listener: (this: IDBOpenDBRequest, ev: IDBOpenDBRequestEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
+}
+
+declare var IDBOpenDBRequest: {
+    prototype: IDBOpenDBRequest;
+    new(): IDBOpenDBRequest;
+};
+
+interface IDBRequestEventMap {
+    "error": Event;
+    "success": Event;
+}
+
+interface IDBRequest extends EventTarget {
+    addEventListener<K extends keyof IDBRequestEventMap>(type: K, listener: (this: IDBRequest, ev: IDBRequestEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
+}
+
+declare var IDBRequest: {
+    prototype: IDBRequest;
+    new(): IDBRequest;
+};
+
+interface IDBTransactionEventMap {
+    "abort": Event;
+    "complete": Event;
+    "error": Event;
+}
+
+interface IDBTransaction extends EventTarget {
+    abort(): void;
+    objectStore(name: string): IDBObjectStore;
+    addEventListener<K extends keyof IDBTransactionEventMap>(type: K, listener: (this: IDBTransaction, ev: IDBTransactionEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
+}
+
+declare var IDBTransaction: {
+    prototype: IDBTransaction;
+    new(): IDBTransaction;
+};
+
+interface IDBVersionChangeEvent extends Event {
+}
+
+declare var IDBVersionChangeEvent: {
+    prototype: IDBVersionChangeEvent;
+    new(type: string, eventInitDict?: IDBVersionChangeEventInit): IDBVersionChangeEvent;
 };
 
 interface ImageBitmap {
@@ -910,6 +1149,27 @@ declare var PushSubscriptionOptions: {
     new(): PushSubscriptionOptions;
 };
 
+interface ReadableStream {
+    cancel(): Promise<void>;
+    getReader(): ReadableStreamDefaultReader;
+}
+
+declare var ReadableStream: {
+    prototype: ReadableStream;
+    new(): ReadableStream;
+};
+
+interface ReadableStreamDefaultReader {
+    cancel(): Promise<void>;
+    read(): Promise<any>;
+    releaseLock(): void;
+}
+
+declare var ReadableStreamDefaultReader: {
+    prototype: ReadableStreamDefaultReader;
+    new(stream: ReadableStream): ReadableStreamDefaultReader;
+};
+
 interface Request extends Body {
     clone(): Request;
 }
@@ -1076,7 +1336,6 @@ interface URL {
 declare var URL: {
     prototype: URL;
     new(url: string, base?: string): URL;
-    createFor(blob: Blob): string;
     createObjectURL(blob: Blob): string;
     createObjectURL(mediaSource: MediaSource): string;
     revokeObjectURL(url: string): void;
@@ -1575,13 +1834,15 @@ type FormDataEntryValue = File | string;
 type HeadersInit = string[][] | { [key: string]: string };
 type ImageBitmapSource = CanvasImageSource | Blob | ImageData;
 type MessageEventSource = never | MessagePort | ServiceWorker;
-type OffscreenRenderingContext = OffscreenCanvasRenderingContext2D | WebGLRenderingContext;
+type OffscreenRenderingContext = OffscreenCanvasRenderingContext2D | never;
 type PerformanceEntryList = PerformanceEntry[];
 type PushMessageDataInit = BufferSource | string;
 type RequestInfo = Request | string;
 type IDBValidKey = number | string | Date | IDBArrayKey;
 type CanvasFillRule = "nonzero" | "evenodd";
 type ClientType = "window" | "worker" | "sharedworker" | "all";
+type IDBCursorDirection = "next" | "nextunique" | "prev" | "prevunique";
+type IDBTransactionMode = "readonly" | "readwrite" | "versionchange";
 type KeyFormat = "raw" | "spki" | "pkcs8" | "jwk";
 type KeyUsage = "encrypt" | "decrypt" | "sign" | "verify" | "deriveKey" | "deriveBits" | "wrapKey" | "unwrapKey";
 type NotificationDirection = "auto" | "ltr" | "rtl";

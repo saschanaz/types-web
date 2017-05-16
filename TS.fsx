@@ -738,7 +738,7 @@ module Emit =
         | integerType when List.contains integerType integerTypes -> "number"
         | extendedType when List.contains extendedType extendedTypes -> extendedType
         | _ ->
-            if ignoreDOMTypes && Seq.contains objDomType ["Element"; "Window"; "Document"; "WindowProxy"] then "never"
+            if ignoreDOMTypes && Seq.contains objDomType ["Element"; "Window"; "Document"; "WindowProxy"; "WebGLRenderingContext"] then "never"
             elif objDomType = "WindowProxy" then "Window"
             else
                 // Name of an interface / enum / dict. Just return itself
