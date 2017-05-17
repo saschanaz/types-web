@@ -2239,7 +2239,7 @@ declare function addEventListener(type: string, listener: EventListenerOrEventLi
 type AlgorithmIdentifier = object | string;
 type BodyInit = Blob | BufferSource | FormData | URLSearchParams | ReadableStream | string;
 type BufferSource = ArrayBufferView | ArrayBuffer;
-type CanvasImageSource = HTMLOrSVGImageElement | HTMLVideoElement | HTMLCanvasElement | ImageBitmap | OffscreenCanvas;
+type CanvasImageSource = never | never | never | ImageBitmap | OffscreenCanvas;
 type FormDataEntryValue = File | string;
 type HeadersInit = string[][] | { [key: string]: string };
 type ImageBitmapSource = CanvasImageSource | Blob | ImageData;
