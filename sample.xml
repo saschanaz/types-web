@@ -11320,6 +11320,9 @@
           <param name="object" type="any" />
           <param name="options" default="0" optional="1" type="ObjectURLOptions" />
         </method>
+        <method name="createObjectURL" static="1" type="DOMString" exposed="Window">
+          <param name="mediaSource" type="MediaSource"/>
+        </method>
         <method name="revokeObjectURL" static="1" type="void">
           <param name="url" type="DOMString" />
         </method>
@@ -13504,7 +13507,7 @@
         </method>
       </methods>
     </namespace>
-    <namespace name="someNamespace" exposed="Window Worker Worklet">
+    <namespace name="someNamespace">
       <properties>
         <property name="someProperty" type="double" />
       </properties>

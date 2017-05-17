@@ -156,12 +156,6 @@ interface ChannelSplitterOptions extends AudioNodeOptions {
     numberOfOutputs?: number;
 }
 
-interface ClientQueryOptions {
-    includeReserved?: boolean;
-    includeUncontrolled?: boolean;
-    type?: ClientType;
-}
-
 interface ClipboardEventInit extends EventInit {
     clipboardData?: DataTransfer | null;
 }
@@ -389,48 +383,12 @@ interface EventSourceInit {
     withCredentials?: boolean;
 }
 
-interface ExtendableEventInit extends EventInit {
-}
-
-interface ExtendableMessageEventInit extends ExtendableEventInit {
-    data?: any;
-    lastEventId?: string;
-    origin?: string;
-    ports?: MessagePort[];
-    source?: Client | ServiceWorker | MessagePort | null;
-}
-
-interface FetchEventInit extends ExtendableEventInit {
-    clientId?: string;
-    preloadResponse: Promise<any>;
-    request: Request;
-    reservedClientId?: string;
-    targetClientId?: string;
-}
-
-interface FilePropertyBag {
+interface FilePropertyBag extends BlobPropertyBag {
     lastModified?: number;
-    type?: string;
 }
 
 interface FocusEventInit extends UIEventInit {
     relatedTarget?: EventTarget | null;
-}
-
-interface ForeignFetchEventInit extends ExtendableEventInit {
-    origin?: string;
-    request: Request;
-}
-
-interface ForeignFetchOptions {
-    origins: string[];
-    scopes: string[];
-}
-
-interface ForeignFetchResponse {
-    headers?: string[];
-    origin?: string;
-    response: Response;
 }
 
 interface GainOptions extends AudioNodeOptions {
@@ -732,11 +690,6 @@ interface NotificationAction {
     title: string;
 }
 
-interface NotificationEventInit extends ExtendableEventInit {
-    action?: string;
-    notification: Notification;
-}
-
 interface NotificationOptions {
     actions?: NotificationAction[];
     badge?: string;
@@ -898,15 +851,6 @@ interface ProgressEventInit extends EventInit {
 interface PromiseRejectionEventInit extends EventInit {
     promise: Promise<any>;
     reason?: any;
-}
-
-interface PushEventInit extends ExtendableEventInit {
-    data?: PushMessageDataInit;
-}
-
-interface PushSubscriptionChangeInit extends ExtendableEventInit {
-    newSubscription?: PushSubscription;
-    oldSubscription?: PushSubscription;
 }
 
 interface PushSubscriptionOptionsInit {
@@ -1387,11 +1331,6 @@ interface SVGBoundingBoxOptions {
     stroke?: boolean;
 }
 
-interface SyncEventInit extends ExtendableEventInit {
-    lastChance?: boolean;
-    tag: string;
-}
-
 interface TouchEventInit extends EventModifierInit {
     changedTouches?: Touch[];
     targetTouches?: Touch[];
@@ -1865,10 +1804,8 @@ declare var BiquadFilterNode: {
 };
 
 interface Blob {
-    readonly isClosed: boolean;
     readonly size: number;
     readonly type: string;
-    close(): void;
     slice(start?: number, end?: number, contentType?: string): Blob;
 }
 
@@ -2792,7 +2729,7 @@ interface Document extends Node, NonElementParentNode, DocumentOrShadowRoot, Par
     readonly contentType: string;
     cookie: string;
     readonly currentScript: HTMLScriptElement | SVGScriptElement | null;
-    readonly defaultView: any;
+    readonly defaultView: Window | null;
     /**
      * Sets or gets a value that indicates whether the document can be edited.
      */
@@ -3006,14 +2943,10 @@ interface Document extends Node, NonElementParentNode, DocumentOrShadowRoot, Par
     createEvent(eventInterface: "ErrorEvent"): ErrorEvent;
     createEvent(eventInterface: "Event"): Event;
     createEvent(eventInterface: "Events"): Event;
-    createEvent(eventInterface: "ExtendableEvent"): ExtendableEvent;
-    createEvent(eventInterface: "ExtendableMessageEvent"): ExtendableMessageEvent;
-    createEvent(eventInterface: "FetchEvent"): FetchEvent;
     createEvent(eventInterface: "FocusEvent"): FocusEvent;
     createEvent(eventInterface: "GamepadEvent"): GamepadEvent;
     createEvent(eventInterface: "HashChangeEvent"): HashChangeEvent;
     createEvent(eventInterface: "IDBVersionChangeEvent"): IDBVersionChangeEvent;
-    createEvent(eventInterface: "InstallEvent"): InstallEvent;
     createEvent(eventInterface: "KeyboardEvent"): KeyboardEvent;
     createEvent(eventInterface: "MediaEncryptedEvent"): MediaEncryptedEvent;
     createEvent(eventInterface: "MediaKeyMessageEvent"): MediaKeyMessageEvent;
@@ -3022,7 +2955,6 @@ interface Document extends Node, NonElementParentNode, DocumentOrShadowRoot, Par
     createEvent(eventInterface: "MessageEvent"): MessageEvent;
     createEvent(eventInterface: "MouseEvent"): MouseEvent;
     createEvent(eventInterface: "MouseEvents"): MouseEvent;
-    createEvent(eventInterface: "NotificationEvent"): NotificationEvent;
     createEvent(eventInterface: "OfflineAudioCompletionEvent"): OfflineAudioCompletionEvent;
     createEvent(eventInterface: "OverconstrainedErrorEvent"): OverconstrainedErrorEvent;
     createEvent(eventInterface: "PageTransitionEvent"): PageTransitionEvent;
@@ -3031,8 +2963,6 @@ interface Document extends Node, NonElementParentNode, DocumentOrShadowRoot, Par
     createEvent(eventInterface: "PopStateEvent"): PopStateEvent;
     createEvent(eventInterface: "ProgressEvent"): ProgressEvent;
     createEvent(eventInterface: "PromiseRejectionEvent"): PromiseRejectionEvent;
-    createEvent(eventInterface: "PushEvent"): PushEvent;
-    createEvent(eventInterface: "PushSubscriptionChangeEvent"): PushSubscriptionChangeEvent;
     createEvent(eventInterface: "RTCDTMFToneChangeEvent"): RTCDTMFToneChangeEvent;
     createEvent(eventInterface: "RTCDataChannelEvent"): RTCDataChannelEvent;
     createEvent(eventInterface: "RTCErrorEvent"): RTCErrorEvent;
@@ -3044,7 +2974,6 @@ interface Document extends Node, NonElementParentNode, DocumentOrShadowRoot, Par
     createEvent(eventInterface: "SpeechRecognitionEvent"): SpeechRecognitionEvent;
     createEvent(eventInterface: "SpeechSynthesisEvent"): SpeechSynthesisEvent;
     createEvent(eventInterface: "StorageEvent"): StorageEvent;
-    createEvent(eventInterface: "SyncEvent"): SyncEvent;
     createEvent(eventInterface: "TouchEvent"): TouchEvent;
     createEvent(eventInterface: "TrackEvent"): TrackEvent;
     createEvent(eventInterface: "TransitionEvent"): TransitionEvent;
@@ -3071,7 +3000,7 @@ interface Document extends Node, NonElementParentNode, DocumentOrShadowRoot, Par
      * @param data String that specifies the nodeValue property of the text node.
      */
     createTextNode(data: string): Text;
-    createTouch(view: any, target: EventTarget, identifier: number, pageX: number, pageY: number, screenX: number, screenY: number): Touch;
+    createTouch(view: Window, target: EventTarget, identifier: number, pageX: number, pageY: number, screenX: number, screenY: number): Touch;
     createTouchList(...touches: Touch[]): TouchList;
     /**
      * Creates a TreeWalker object that you can use to traverse filtered lists of nodes or elements in a document.
@@ -3655,7 +3584,7 @@ interface FileReaderEventMap {
 }
 
 interface FileReader extends EventTarget {
-    readonly error: any;
+    readonly error: DOMException | null;
     onabort: (this: FileReader, ev: ProgressEvent) => any;
     onerror: (this: FileReader, ev: ProgressEvent) => any;
     onload: (this: FileReader, ev: ProgressEvent) => any;
@@ -3666,6 +3595,7 @@ interface FileReader extends EventTarget {
     readonly result: string | ArrayBuffer | null;
     abort(): void;
     readAsArrayBuffer(blob: Blob): void;
+    readAsBinaryString(blob: Blob): void;
     readAsDataURL(blob: Blob): void;
     readAsText(blob: Blob, label?: string): void;
     readonly DONE: number;
@@ -4441,7 +4371,7 @@ interface HTMLFrameElement extends HTMLElement {
     /**
      * Retrieves the object of the specified.
      */
-    readonly contentWindow: any;
+    readonly contentWindow: Window | null;
     /**
      * Sets or retrieves whether to display a border for the frame.
      */
@@ -4591,7 +4521,7 @@ interface HTMLIFrameElement extends HTMLElement {
     /**
      * Retrieves the object of the specified.
      */
-    readonly contentWindow: any;
+    readonly contentWindow: Window | null;
     /**
      * Sets or retrieves whether to display a border for the frame.
      */
@@ -5360,7 +5290,7 @@ interface HTMLObjectElement extends HTMLElement {
      * Retrieves the document object of the page or frame.
      */
     readonly contentDocument: Document | null;
-    readonly contentWindow: any;
+    readonly contentWindow: Window | null;
     /**
      * Sets or retrieves the URL that references the data of the object.
      */
@@ -6412,6 +6342,7 @@ interface IDBCursor {
     source: IDBObjectStore | IDBIndex;
     advance(count: number): void;
     continue(key?: IDBKeyRange | IDBValidKey): void;
+    continuePrimaryKey(key: any, primaryKey: any): void;
     delete(): IDBRequest;
     update(value: any): IDBRequest;
 }
@@ -6432,6 +6363,7 @@ declare var IDBCursorWithValue: {
 
 interface IDBDatabaseEventMap {
     "abort": Event;
+    "close": Event;
     "error": Event;
     "versionchange": IDBVersionChangeEvent;
 }
@@ -6440,6 +6372,7 @@ interface IDBDatabase extends EventTarget {
     readonly name: string;
     readonly objectStoreNames: DOMStringList;
     onabort: (this: IDBDatabase, ev: Event) => any;
+    onclose: (this: IDBDatabase, ev: Event) => any;
     onerror: (this: IDBDatabase, ev: Event) => any;
     onversionchange: (this: IDBDatabase, ev: IDBVersionChangeEvent) => any;
     version: number;
@@ -6471,11 +6404,13 @@ declare var IDBFactory: {
 interface IDBIndex {
     keyPath: string | string[];
     readonly multiEntry: boolean;
-    readonly name: string;
+    name: string;
     readonly objectStore: IDBObjectStore;
     readonly unique: boolean;
     count(key?: IDBKeyRange | IDBValidKey): IDBRequest;
     get(key: IDBKeyRange | IDBValidKey): IDBRequest;
+    getAll(query?: any, count?: number): IDBRequest;
+    getAllKeys(query?: any, count?: number): IDBRequest;
     getKey(key: IDBKeyRange | IDBValidKey): IDBRequest;
     openCursor(range?: IDBKeyRange | IDBValidKey, direction?: IDBCursorDirection): IDBRequest;
     openKeyCursor(range?: IDBKeyRange | IDBValidKey, direction?: IDBCursorDirection): IDBRequest;
@@ -6491,6 +6426,7 @@ interface IDBKeyRange {
     readonly lowerOpen: boolean;
     readonly upper: any;
     readonly upperOpen: boolean;
+    includes(key: any): boolean;
 }
 
 declare var IDBKeyRange: {
@@ -6506,17 +6442,21 @@ interface IDBObjectStore {
     readonly autoIncrement: boolean;
     readonly indexNames: DOMStringList;
     keyPath: string | string[];
-    readonly name: string;
+    name: string;
     readonly transaction: IDBTransaction;
     add(value: any, key?: IDBKeyRange | IDBValidKey): IDBRequest;
     clear(): IDBRequest;
     count(key?: IDBKeyRange | IDBValidKey): IDBRequest;
     createIndex(name: string, keyPath: string | string[], optionalParameters?: IDBIndexParameters): IDBIndex;
     delete(key: IDBKeyRange | IDBValidKey): IDBRequest;
-    deleteIndex(indexName: string): void;
-    get(key: any): IDBRequest;
+    deleteIndex(name: string): void;
+    get(query: any): IDBRequest;
+    getAll(query?: any, count?: number): IDBRequest;
+    getAllKeys(query?: any, count?: number): IDBRequest;
+    getKey(query: any): IDBRequest;
     index(name: string): IDBIndex;
     openCursor(range?: IDBKeyRange | IDBValidKey, direction?: IDBCursorDirection): IDBRequest;
+    openKeyCursor(query?: any, direction?: IDBCursorDirection): IDBRequest;
     put(value: any, key?: IDBKeyRange | IDBValidKey): IDBRequest;
 }
 
@@ -6554,7 +6494,7 @@ interface IDBRequest extends EventTarget {
     readonly readyState: IDBRequestReadyState;
     readonly result: any;
     source: IDBObjectStore | IDBIndex | IDBCursor;
-    readonly transaction: IDBTransaction;
+    readonly transaction: IDBTransaction | null;
     addEventListener<K extends keyof IDBRequestEventMap>(type: K, listener: (this: IDBRequest, ev: IDBRequestEventMap[K]) => any, useCapture?: boolean): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
@@ -6574,6 +6514,7 @@ interface IDBTransaction extends EventTarget {
     readonly db: IDBDatabase;
     readonly error: DOMException;
     readonly mode: IDBTransactionMode;
+    readonly objectStoreNames: DOMStringList;
     onabort: (this: IDBTransaction, ev: Event) => any;
     oncomplete: (this: IDBTransaction, ev: Event) => any;
     onerror: (this: IDBTransaction, ev: Event) => any;
@@ -10638,7 +10579,6 @@ interface URL {
 declare var URL: {
     prototype: URL;
     new(url: string, base?: string): URL;
-    createFor(blob: Blob): string;
     createObjectURL(blob: Blob): string;
     createObjectURL(mediaSource: MediaSource): string;
     revokeObjectURL(url: string): void;
@@ -10921,7 +10861,7 @@ interface WindowEventMap extends GlobalEventHandlersEventMap, WindowEventHandler
     "deviceorientation": DeviceOrientationEvent;
 }
 
-interface Window extends EventTarget, GlobalEventHandlers, WindowEventHandlers, WindowOrWorkerGlobalScope, WindowSessionStorage, WindowLocalStorage, GlobalPerformance, IDBEnvironment, GlobalCrypto, SpeechSynthesisGetter {
+interface Window extends EventTarget, GlobalEventHandlers, WindowEventHandlers, WindowOrWorkerGlobalScope, WindowSessionStorage, WindowLocalStorage, GlobalPerformance, GlobalCrypto, SpeechSynthesisGetter {
     readonly applicationCache: ApplicationCache;
     readonly audioWorklet: Worklet;
     readonly closed: boolean;
@@ -10930,7 +10870,7 @@ interface Window extends EventTarget, GlobalEventHandlers, WindowEventHandlers, 
     readonly document: Document;
     readonly external: External;
     readonly frameElement: Element | null;
-    readonly frames: any;
+    readonly frames: Window;
     readonly history: History;
     readonly innerHeight: number;
     readonly innerWidth: number;
@@ -10947,7 +10887,7 @@ interface Window extends EventTarget, GlobalEventHandlers, WindowEventHandlers, 
     readonly outerWidth: number;
     readonly pageXOffset: number;
     readonly pageYOffset: number;
-    readonly parent: any;
+    readonly parent: Window | null;
     readonly personalbar: BarProp;
     readonly screen: Screen;
     readonly screenX: number;
@@ -10955,12 +10895,12 @@ interface Window extends EventTarget, GlobalEventHandlers, WindowEventHandlers, 
     readonly scrollbars: BarProp;
     readonly scrollX: number;
     readonly scrollY: number;
-    readonly self: any;
+    readonly self: Window;
     status: string;
     readonly statusbar: BarProp;
     readonly toolbar: BarProp;
-    readonly top: any;
-    readonly window: any;
+    readonly top: Window | null;
+    readonly window: Window;
     URLSearchParams: typeof URLSearchParams;
     Blob: typeof Blob;
     alert(message?: any): void;
@@ -11585,10 +11525,6 @@ interface HTMLHyperlinkElementUtilsBase {
 
 interface HTMLHyperlinkElementUtils extends HTMLHyperlinkElementUtilsBase {
     href: string;
-}
-
-interface IDBEnvironment {
-    readonly indexedDB: IDBFactory;
 }
 
 interface LinkStyle {
@@ -12257,6 +12193,7 @@ interface WindowLocalStorage {
 
 interface WindowOrWorkerGlobalScope {
     readonly caches: CacheStorage;
+    readonly indexedDB: IDBFactory;
     readonly origin: string;
     atob(data: string): string;
     btoa(data: string): string;
@@ -12273,9 +12210,6 @@ interface WindowOrWorkerGlobalScope {
 
 interface WindowSessionStorage {
     readonly sessionStorage: Storage;
-}
-
-interface WorkerUtils extends IDBEnvironment {
 }
 
 declare namespace console {
@@ -12732,7 +12666,7 @@ declare var devicePixelRatio: number;
 declare var document: Document;
 declare var external: External;
 declare var frameElement: Element | null;
-declare var frames: any;
+declare var frames: Window;
 declare var history: History;
 declare var innerHeight: number;
 declare var innerWidth: number;
@@ -12749,7 +12683,7 @@ declare var outerHeight: number;
 declare var outerWidth: number;
 declare var pageXOffset: number;
 declare var pageYOffset: number;
-declare var parent: any;
+declare var parent: Window | null;
 declare var personalbar: BarProp;
 declare var screen: Screen;
 declare var screenX: number;
@@ -12757,12 +12691,12 @@ declare var screenY: number;
 declare var scrollbars: BarProp;
 declare var scrollX: number;
 declare var scrollY: number;
-declare var self: any;
+declare var self: Window;
 declare var status: string;
 declare var statusbar: BarProp;
 declare var toolbar: BarProp;
-declare var top: any;
-declare var window: any;
+declare var top: Window | null;
+declare var window: Window;
 declare function alert(message?: any): void;
 declare function alert(message?: any): void;
 declare function blur(): void;
@@ -12897,6 +12831,7 @@ declare var onstorage: (this: Window, ev: StorageEvent) => any;
 declare var onunhandledrejection: (this: Window, ev: PromiseRejectionEvent) => any;
 declare var onunload: (this: Window, ev: Event) => any;
 declare var caches: CacheStorage;
+declare var indexedDB: IDBFactory;
 declare var origin: string;
 declare function atob(data: string): string;
 declare function btoa(data: string): string;
@@ -12912,13 +12847,13 @@ declare function setTimeout(handler: any, timeout?: any, ...args: any[]): number
 declare var sessionStorage: Storage;
 declare var localStorage: Storage;
 declare var performance: Performance;
-declare var indexedDB: IDBFactory;
 declare var crypto: Crypto;
 declare var speechSynthesis: SpeechSynthesis;
 declare function addEventListener<K extends keyof WindowEventMap>(type: K, listener: (this: Window, ev: WindowEventMap[K]) => any, useCapture?: boolean): void;
 declare function addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 type AlgorithmIdentifier = any;
 type BigInteger = Uint8Array;
+type BlobPart = BufferSource | Blob | string;
 type BodyInit = Blob | BufferSource | FormData | URLSearchParams | ReadableStream | string;
 type BufferSource = ArrayBufferView | ArrayBuffer;
 type CanvasImageSource = HTMLOrSVGImageElement | HTMLVideoElement | HTMLCanvasElement | ImageBitmap | OffscreenCanvas;
@@ -12955,13 +12890,12 @@ type ImageBitmapSource = CanvasImageSource | Blob | ImageData;
 type Int32List = Int32Array | GLint[];
 type MediaProvider = MediaStream | MediaSource | Blob;
 type MediaStreamError = any;
-type MessageEventSource = any;
+type MessageEventSource = Window | MessagePort | ServiceWorker;
 type NamedCurve = string;
 type OffscreenRenderingContext = OffscreenCanvasRenderingContext2D | WebGLRenderingContext;
 type OnBeforeUnloadEventHandler = OnBeforeUnloadEventHandlerNonNull;
 type OnErrorEventHandler = OnErrorEventHandlerNonNull;
 type PerformanceEntryList = PerformanceEntry[];
-type PushMessageDataInit = BufferSource | string;
 type RenderingContext = CanvasRenderingContext2D | WebGLRenderingContext;
 type RequestInfo = Request | string;
 type TexImageSource = ImageBitmap | ImageData | HTMLImageElement | HTMLCanvasElement | HTMLVideoElement;
@@ -12982,7 +12916,6 @@ type CanvasTextAlign = "start" | "end" | "left" | "right" | "center";
 type CanvasTextBaseline = "top" | "hanging" | "middle" | "alphabetic" | "ideographic" | "bottom";
 type ChannelCountMode = "max" | "clamped-max" | "explicit";
 type ChannelInterpretation = "speakers" | "discrete";
-type ClientType = "window" | "worker" | "sharedworker" | "all";
 type ColorSpaceConversion = "none" | "default";
 type CSSBoxType = "margin" | "border" | "padding" | "content";
 type DistanceModelType = "linear" | "inverse" | "exponential";
