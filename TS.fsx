@@ -119,6 +119,11 @@ module Types =
         | Method of Browser.Method
         | Ctor of Browser.Constructor
         | CallBackFun of Browser.CallbackFunction
+        member self.Params =
+            match self with
+            | Method m -> m.Params
+            | Ctor ctor -> ctor.Params
+            | CallBackFun callback -> callback.Params
 
     type InterfaceOrNamespace = 
         | Interface of Browser.Interface
@@ -348,44 +353,23 @@ module Data =
     let allWebNonCallbackInterfaces =
         Array.concat [| browser.Interfaces; browser.MixinInterfaces.Interfaces |]
 
-    let allWebInterfaces =
-        Array.concat [| browser.Interfaces; browser.CallbackInterfaces.Interfaces; browser.MixinInterfaces.Interfaces |]
-
     let allInterfaces =
-        Array.concat [| allWebInterfaces |]
+        Array.concat [| browser.Interfaces; browser.CallbackInterfaces.Interfaces; browser.MixinInterfaces.Interfaces |]
 
     let inline toNameMap< ^a when ^a: (member Name: string) > (data: array< ^a > ) =
         data
         |> Array.map (fun x -> ((^a: (member Name: string) x), x))
         |> Map.ofArray
 
-    let allInterfacesMap =
-        allInterfaces |> toNameMap
+    let allInterfacesMap = allInterfaces |> toNameMap
 
-    let allDictionariesMap =
-        Array.concat [| browser.Dictionaries |]
-        |> toNameMap
+    let allDictionariesMap = browser.Dictionaries |> toNameMap
 
-    let allEnumsMap =
-        Array.concat [| browser.Enums |]
-        |> toNameMap
+    let allEnumsMap = browser.Enums |> toNameMap
 
-    let allCallbackFuncs =
-        Array.concat [| browser.CallbackFunctions |]
-        |> toNameMap
+    let allCallbackFuncs = browser.CallbackFunctions |> toNameMap
 
     let GetInterfaceByName = allInterfacesMap.TryFind
-
-    type KnownWorkerInterfaceType = JsonProvider<"inputfiles/knownWorkerInterfaces.json", InferTypesFromValues=false>
-    let knownWorkerInterfaces =
-        File.ReadAllText(Path.Combine(GlobalVars.inputFolder, "knownWorkerInterfaces.json"))
-        |> KnownWorkerInterfaceType.Parse
-        |> set
-
-    let knownWorkerEnums =
-        File.ReadAllText(Path.Combine(GlobalVars.inputFolder, "knownWorkerEnums.json"))
-        |> KnownWorkerInterfaceType.Parse
-        |> set
 
     let GetNonCallbackInterfacesByFlavor flavor =
         allWebNonCallbackInterfaces |> Array.filter (ShouldKeep flavor)
@@ -474,12 +458,11 @@ module Data =
             yield! [ for e in i.Elements do
                         yield (e.Name, i.Name) ] ]
         |> Seq.groupBy fst
-        |> Seq.map (fun (key, group) -> (key, Seq.map snd group))
-        |> Seq.map (fun (key, group) ->
+        |> Seq.map ((fun (key, group) -> (key, Seq.map snd group)) >> (fun (key, group) ->
             key,
             match Seq.length group with
             | 1 -> Seq.head group
-            | _ -> resolveElementConflict key group)
+            | _ -> resolveElementConflict key group))
         |> Map.ofSeq
 
     /// Interface name to all its implemented / inherited interfaces name list map
@@ -616,28 +599,12 @@ module Data =
     /// Return a sequence of returntype * HashSet<paramCombination> tuple
     let GetOverloads (f : Function) (decomposeMultipleTypes : bool) =
         let getParams (f : Function) =
-            match f with
-            | Method m ->
-                [ for p in m.Params do
-                    yield { Type = p.Type
-                            Name = p.Name
-                            Optional = p.Optional.IsSome
-                            Variadic = p.Variadic.IsSome
-                            Nullable = p.Nullable.IsSome } ]
-            | Ctor c ->
-                [ for p in c.Params do
-                    yield { Type = p.Type
-                            Name = p.Name
-                            Optional = p.Optional.IsSome
-                            Variadic = p.Variadic.IsSome
-                            Nullable = p.Nullable.IsSome } ]
-            | CallBackFun cb ->
-                [ for p in cb.Params do
-                    yield { Type = p.Type
-                            Name = p.Name
-                            Optional = p.Optional.IsSome
-                            Variadic = p.Variadic.IsSome
-                            Nullable = p.Nullable.IsSome } ]
+            [ for p in f.Params do
+                yield { Type = p.Type
+                        Name = p.Name
+                        Optional = p.Optional.IsSome
+                        Variadic = p.Variadic.IsSome
+                        Nullable = p.Nullable.IsSome } ]
 
         let getReturnType (f : Function) =
             match f with
