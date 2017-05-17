@@ -379,7 +379,7 @@ interface Clients {
     claim(): Promise<void>;
     get(id: string): Promise<any>;
     matchAll(options?: ClientQueryOptions): Promise<Client[]>;
-    openWindow(url: string): any;
+    openWindow(url: string): Promise<WindowClient | null>;
 }
 
 declare var Clients: {
@@ -1326,7 +1326,7 @@ declare var PushEvent: {
 
 interface PushManager {
     readonly supportedContentEncodings: ReadonlyArray<string>;
-    getSubscription(): any;
+    getSubscription(): Promise<PushSubscription | null>;
     permissionState(options?: PushSubscriptionOptionsInit): Promise<PushPermissionState>;
     subscribe(options?: PushSubscriptionOptionsInit): Promise<PushSubscription>;
 }

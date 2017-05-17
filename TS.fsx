@@ -691,64 +691,6 @@ module Emit =
     let integerTypes =
         ["byte";"octet";"short";"unsigned short";"long";"unsigned long";"long long";"unsigned long long"]
 
-    /// Get typescript type using object dom type, object name, and it's associated interface name
-    let rec DomTypeToTsType (objDomType: string) =
-        match objDomType.Trim('?') with
-        | "any" -> "any"
-        | "bool" | "boolean" | "Boolean" -> "boolean"
-        | "Date" -> "Date"
-        | "Error" -> "Error"
-        | "DOMException" -> "DOMException"
-        | "DOMHighResTimeStamp" -> "number"
-        | "DOMString" | "USVString" | "ByteString" -> "string"
-        | "DOMTimeStamp" -> "number"
-        | "double" | "float" | "unrestricted double" | "unrestricted float" -> "number"
-        | "Function" -> "Function"
-        | "FrozenArray" -> "ReadonlyArray"
-        | "object" -> "any"
-        | "Promise" -> "Promise"
-        | "ReadyState" -> "string"
-        | "sequence" -> "Array"
-        | "record" -> "record"
-        | "void" -> "void"
-        | integerType when List.contains integerType integerTypes -> "number"
-        | extendedType when List.contains extendedType extendedTypes -> extendedType
-        | _ ->
-            if ignoreDOMTypes && (Seq.contains objDomType ["Element"; "Window"; "Document"; "WindowProxy"; "WebGLRenderingContext"] || objDomType.StartsWith "HTML") then "never"
-            elif objDomType = "WindowProxy" then "Window"
-            else
-                // Name of an interface / enum / dict. Just return itself
-                if allInterfacesMap.ContainsKey objDomType ||
-                    allCallbackFuncs.ContainsKey objDomType ||
-                    allDictionariesMap.ContainsKey objDomType ||
-                    allEnumsMap.ContainsKey objDomType then
-                    objDomType
-                // Name of a type alias. Just return itself
-                elif typeDefSet.Contains objDomType then objDomType
-                // Union types
-                elif objDomType.Contains(" or ") then
-                    let allTypes = objDomType.Trim('(', ')').Split([|" or "|], StringSplitOptions.None)
-                                    |> Array.map (fun t -> DomTypeToTsType (t.Trim('?', ' ')))
-                    if Seq.contains "any" allTypes then "any" else String.concat " | " allTypes
-                else
-                    // Check if is array type, which looks like "sequence<DOMString>"
-                    let unescaped = System.Web.HttpUtility.HtmlDecode(objDomType)
-                    let genericMatch = Regex.Match(unescaped, @"^(\w+)<([\w, <>]+)>$")
-                    if genericMatch.Success then
-                        let tName = DomTypeToTsType (genericMatch.Groups.[1].Value)
-                        let paramNames =
-                            genericMatch.Groups.[2].Value.Split([| ", " |], StringSplitOptions.None)
-                            |> Array.map DomTypeToTsType
-                        match tName with
-                        | "Array" -> paramNames.[0] + "[]"
-                        | "record" -> "{ [key: string]: " + paramNames.[1] + " }"
-                        | _ -> tName + "<" + (paramNames |> String.concat ", ") + ">"
-                    elif objDomType.EndsWith("[]") then
-                        let elementType = objDomType.Replace("[]", "").Trim() |> DomTypeToTsType
-                        elementType + "[]"
-                    else "any"
-
-
     let makeNullable (originalType: string) =
         match originalType with
         | "any" -> "any"
@@ -756,6 +698,67 @@ module Emit =
         | t when t.Contains "| null" -> t
         | functionType when functionType.Contains "=>" -> "(" + functionType + ") | null"
         | _ -> originalType + " | null"
+
+    /// Get typescript type using object dom type, object name, and it's associated interface name
+    let rec DomTypeToTsType (objDomType: string) =
+        let nullable = objDomType.EndsWith "?"
+        let nonNullType = objDomType.Trim('?')
+        let resolvedType =
+            match nonNullType with
+            | "any" -> "any"
+            | "bool" | "boolean" | "Boolean" -> "boolean"
+            | "Date" -> "Date"
+            | "Error" -> "Error"
+            | "DOMException" -> "DOMException"
+            | "DOMHighResTimeStamp" -> "number"
+            | "DOMString" | "USVString" | "ByteString" -> "string"
+            | "DOMTimeStamp" -> "number"
+            | "double" | "float" | "unrestricted double" | "unrestricted float" -> "number"
+            | "Function" -> "Function"
+            | "FrozenArray" -> "ReadonlyArray"
+            | "object" -> "any"
+            | "Promise" -> "Promise"
+            | "sequence" -> "Array"
+            | "record" -> "record"
+            | "void" -> "void"
+            | integerType when List.contains integerType integerTypes -> "number"
+            | extendedType when List.contains extendedType extendedTypes -> extendedType
+            | _ ->
+                if ignoreDOMTypes && (Seq.contains nonNullType ["Element"; "Window"; "Document"; "WindowProxy"; "WebGLRenderingContext"] || nonNullType.StartsWith "HTML") then "never"
+                elif nonNullType = "WindowProxy" then "Window"
+                else
+                    // Name of an interface / enum / dict. Just return itself
+                    if allInterfacesMap.ContainsKey nonNullType ||
+                        allCallbackFuncs.ContainsKey nonNullType ||
+                        allDictionariesMap.ContainsKey nonNullType ||
+                        allEnumsMap.ContainsKey nonNullType then
+                        nonNullType
+                    // Name of a type alias. Just return itself
+                    elif typeDefSet.Contains nonNullType then nonNullType
+                    // Union types
+                    elif nonNullType.Contains(" or ") then
+                        let allTypes = nonNullType.Trim('(', ')').Split([|" or "|], StringSplitOptions.None)
+                                        |> Array.map DomTypeToTsType
+                        if Seq.contains "any" allTypes then "any" else String.concat " | " allTypes
+                    else
+                        // Check if is array type, which looks like "sequence<DOMString>"
+                        let unescaped = System.Web.HttpUtility.HtmlDecode(nonNullType)
+                        let genericMatch = Regex.Match(unescaped, @"^(\w+)<(.+)>$")
+                        if genericMatch.Success then
+                            let tName = DomTypeToTsType (genericMatch.Groups.[1].Value)
+                            let paramNames =
+                                genericMatch.Groups.[2].Value.Split([| ", " |], StringSplitOptions.None)
+                                |> Array.map DomTypeToTsType
+                            match tName with
+                            | "Array" -> if paramNames.[0].Contains "|" then "(" + paramNames.[0] + ")" + "[]" else paramNames.[0] + "[]"
+                            | "record" -> "{ [key: string]: " + paramNames.[1] + " }"
+                            | _ -> tName + "<" + (paramNames |> String.concat ", ") + ">"
+                        elif nonNullType.EndsWith("[]") then
+                            let elementType = nonNullType.Replace("[]", "").Trim() |> DomTypeToTsType
+                            elementType + "[]"
+                        else "any"
+
+        if nullable then makeNullable resolvedType else resolvedType
 
     let DomTypeToNullableTsType (objDomType: string) (nullable: bool) =
         let resolvedType = DomTypeToTsType objDomType

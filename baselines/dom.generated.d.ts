@@ -6881,7 +6881,7 @@ interface MediaSource extends EventTarget {
     onsourceclose: (this: MediaSource, ev: Event) => any;
     onsourceended: (this: MediaSource, ev: Event) => any;
     onsourceopen: (this: MediaSource, ev: Event) => any;
-    readonly readyState: string;
+    readonly readyState: ReadyState;
     readonly sourceBuffers: SourceBufferList;
     addSourceBuffer(type: string): SourceBuffer;
     clearLiveSeekableRange(): void;
@@ -7153,7 +7153,7 @@ interface Navigator extends NavigatorID, NavigatorLanguage, NavigatorOnLine, Nav
     readonly serviceWorker: ServiceWorkerContainer;
     readonly hardwareConcurrency: number;
     readonly languages: string[];
-    getGamepads(): any;
+    getGamepads(): (Gamepad | null)[];
     requestMediaKeySystemAccess(keySystem: string, supportedConfigurations: MediaKeySystemConfiguration[]): Promise<MediaKeySystemAccess>;
     sendBeacon(url: string, data?: BodyInit): boolean;
     vibrate(pattern: number | number[]): boolean;
@@ -7742,7 +7742,7 @@ declare var PromiseRejectionEvent: {
 
 interface PushManager {
     readonly supportedContentEncodings: ReadonlyArray<string>;
-    getSubscription(): any;
+    getSubscription(): Promise<PushSubscription | null>;
     permissionState(options?: PushSubscriptionOptionsInit): Promise<PushPermissionState>;
     subscribe(options?: PushSubscriptionOptionsInit): Promise<PushSubscription>;
 }
