@@ -2295,7 +2295,6 @@ interface CSSStyleDeclaration {
     cssFloat: CSSOMString;
     cssText: CSSOMString;
     cursor: string | null;
-    dashed_attribute: CSSOMString;
     direction: string | null;
     display: string | null;
     dominantBaseline: string | null;
