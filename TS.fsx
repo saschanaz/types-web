@@ -735,7 +735,6 @@ module Emit =
         | "DOMHighResTimeStamp" -> "number"
         | "DOMString" | "USVString" | "ByteString" -> "string"
         | "DOMTimeStamp" -> "number"
-        | "EventListener" -> "EventListenerOrEventListenerObject"
         | "double" | "float" | "unrestricted double" | "unrestricted float" -> "number"
         | "Function" -> "Function"
         | "FrozenArray" -> "ReadonlyArray"
@@ -882,12 +881,6 @@ module Emit =
             (if p.Variadic && pType.Contains(" | ") then "(" + pType + ")" else pType) +
             (if p.Variadic then "[]" else "")
         String.Join(", ", (List.map paramToString ps))
-
-    let EmitCallBackInterface (i:Browser.Interface) =
-        Pt.Printl "interface %s {" i.Name
-        Pt.PrintWithAddedIndent "(evt: Event): void;"
-        Pt.Printl "}"
-        Pt.Printl ""
 
     let EmitCallBackFunctions flavor =
         let emitCallbackFunctionsFromJson (cb: InputJson.InputJsonType.Root) =
@@ -1109,7 +1102,7 @@ module Emit =
 
         if shouldEmitStringEventHandler then
             Pt.Printl
-                "%saddEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;"
+                "%saddEventListener(type: string, listener: EventListener, useCapture?: boolean): void;"
                 fPrefix
 
     let EmitConstructorSignature flavor (i:Browser.Interface) =
@@ -1401,6 +1394,22 @@ module Emit =
                 EmitInterface flavor i
                 EmitConstructor flavor i
 
+    let EmitCallBackInterface flavor (i:Browser.Interface) =
+        if i.Exposed.IsNone || ShouldKeep flavor i then
+            let m = i.Methods.Value.Methods.[0]
+            let overload = (GetOverloads (Function.Method m) false).[0]
+            let paramsString = ParamsToString overload.ParamCombinations
+            let returnType = DomTypeToTsType m.Type
+            Pt.Printl "type %s = (%s) => %s | { %s(%s): %s; };" i.Name paramsString returnType m.Name.Value paramsString returnType
+            Pt.Printl ""
+            if i.Constants.IsSome then
+                Pt.Printl "declare var %s: {" i.Name
+                Pt.IncreaseIndent()
+                EmitConstants i
+                Pt.DecreaseIndent()
+                Pt.Printl "}"
+                Pt.Printl ""
+
     let EmitDictionaries flavor =
         let emitDictionary (dict:Browser.Dictionary) =
             match dict.Extends with
@@ -1516,15 +1525,12 @@ module Emit =
         Pt.Printl ""
 
         EmitDictionaries flavor
-        browser.CallbackInterfaces.Interfaces |> Array.iter EmitCallBackInterface
+        browser.CallbackInterfaces.Interfaces |> Array.iter (EmitCallBackInterface flavor)
         EmitNonCallbackInterfaces flavor
         EmitNamespaces flavor
 
         // Add missed interface definition from the spec
         InputJson.getAddedItems InputJson.Interface flavor |> Array.iter EmitAddedInterface
-
-        Pt.Printl "declare type EventListenerOrEventListenerObject = EventListener | EventListenerObject;"
-        Pt.Printl ""
 
         EmitCallBackFunctions flavor
 
