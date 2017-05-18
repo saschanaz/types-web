@@ -10925,7 +10925,7 @@
       <properties>
         <property name="location" read-only="1" type="WorkerLocation"/>
         <property name="navigator" read-only="1" type="WorkerNavigator"/>
-        <property name="onerror" type="OnErrorEventHandler"/>
+        <property name="onerror" type="OnErrorEventHandler" event-handler="error"/>
         <property name="onlanguagechange" type="EventHandler" event-handler="languagechange"/>
         <property name="onoffline" type="EventHandler" event-handler="offline"/>
         <property name="ononline" type="EventHandler" event-handler="online"/>
@@ -10935,6 +10935,7 @@
       </properties>
       <implements>WindowOrWorkerGlobalScope</implements>
       <events>
+        <event name="error" type="ErrorEvent"/>
         <event name="languagechange" type="Event"/>
         <event name="offline" type="Event"/>
         <event name="online" type="Event"/>
@@ -11631,7 +11632,7 @@
         <property name="ondurationchange" type="EventHandler" event-handler="durationchange"/>
         <property name="onemptied" type="EventHandler" event-handler="emptied"/>
         <property name="onended" type="EventHandler" event-handler="ended"/>
-        <property name="onerror" type="OnErrorEventHandler"/>
+        <property name="onerror" type="OnErrorEventHandler" event-handler="error"/>
         <property name="onfocus" type="EventHandler" event-handler="focus"/>
         <property name="oninput" type="EventHandler" event-handler="input"/>
         <property name="oninvalid" type="EventHandler" event-handler="invalid"/>
@@ -11713,6 +11714,7 @@
         <event name="durationchange" type="Event"/>
         <event name="emptied" type="Event"/>
         <event name="ended" type="Event"/>
+        <event name="error" type="Event"/>
         <event name="focus" type="Event"/>
         <event name="input" type="Event"/>
         <event name="invalid" type="Event"/>
@@ -12943,7 +12945,7 @@
       <properties>
         <property name="onafterprint" type="EventHandler" event-handler="afterprint"/>
         <property name="onbeforeprint" type="EventHandler" event-handler="beforeprint"/>
-        <property name="onbeforeunload" type="OnBeforeUnloadEventHandler"/>
+        <property name="onbeforeunload" type="OnBeforeUnloadEventHandler" event-handler="beforeunload"/>
         <property name="onhashchange" type="EventHandler" event-handler="hashchange"/>
         <property name="onlanguagechange" type="EventHandler" event-handler="languagechange"/>
         <property name="onmessage" type="EventHandler" event-handler="message"/>
@@ -12961,6 +12963,7 @@
       <events>
         <event name="afterprint" type="Event"/>
         <event name="beforeprint" type="Event"/>
+        <event name="beforeunload" type="BeforeUnloadEvent"/>
         <event name="hashchange" type="HashChangeEvent"/>
         <event name="languagechange" type="Event"/>
         <event name="message" type="MessageEvent"/>

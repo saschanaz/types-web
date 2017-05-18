@@ -1746,6 +1746,7 @@ declare var Worker: {
 };
 
 interface WorkerGlobalScopeEventMap {
+    "error": ErrorEvent;
     "languagechange": Event;
     "offline": Event;
     "online": Event;

@@ -11373,6 +11373,7 @@ interface GlobalEventHandlersEventMap {
     "durationchange": Event;
     "emptied": Event;
     "ended": Event;
+    "error": Event;
     "focus": Event;
     "input": Event;
     "invalid": Event;
@@ -12165,6 +12166,7 @@ interface WebGLRenderingContextBase {
 interface WindowEventHandlersEventMap {
     "afterprint": Event;
     "beforeprint": Event;
+    "beforeunload": BeforeUnloadEvent;
     "hashchange": HashChangeEvent;
     "languagechange": Event;
     "message": MessageEvent;
