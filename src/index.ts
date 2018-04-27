@@ -75,6 +75,14 @@ function emitDom() {
                 merge(base.properties, partial.properties, true);
             }
         }
+        for (const partial of w.partialMixins) {
+            const base = webidl.mixins!.mixin[partial.name];
+            if (base) {
+                merge(base.constants, partial.constants, true);
+                merge(base.methods, partial.methods, true);
+                merge(base.properties, partial.properties, true);
+            }
+        }
         for (const partial of w.partialDictionaries) {
             const base = webidl.dictionaries!.dictionary[partial.name];
             if (base) {

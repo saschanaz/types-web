@@ -1560,6 +1560,7 @@ interface Request extends Body {
     readonly destination: RequestDestination;
     readonly headers: Headers;
     readonly integrity: string;
+    readonly isReloadNavigation: boolean;
     readonly keepalive: boolean;
     readonly method: string;
     readonly mode: RequestMode;
@@ -1876,6 +1877,9 @@ declare var WindowClient: {
 
 interface WindowConsole {
     readonly console: Console;
+}
+
+interface WindowOrWorkerGlobalScope {
 }
 
 interface WorkerEventMap extends AbstractWorkerEventMap {

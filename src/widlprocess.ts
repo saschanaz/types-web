@@ -5,6 +5,7 @@ import { getEmptyWebIDL } from "./helpers";
 export function convert(text: string) {
     const rootTypes = webidl2.parse(text);
     const partialInterfaces: Browser.Interface[] = [];
+    const partialMixins: Browser.Interface[] = [];
     const partialDictionaries: Browser.Dictionary[] = [];
     const includes: webidl2.IncludesType[] = [];
     const browser = getEmptyWebIDL();
@@ -19,7 +20,13 @@ export function convert(text: string) {
             }
         }
         else if (rootType.type === "interface mixin") {
-            browser["mixins"]!.mixin[rootType.name] = convertInterfaceMixin(rootType);
+            const converted = convertInterfaceMixin(rootType);
+            if (rootType.partial) {
+                partialMixins.push(converted);
+            }
+            else {
+                browser["mixins"]!.mixin[rootType.name] = converted;
+            }
         }
         else if (rootType.type === "callback interface") {
             browser["callback-interfaces"]!.interface[rootType.name] = convertInterface(rootType);
@@ -47,7 +54,7 @@ export function convert(text: string) {
             includes.push(rootType);
         }
     }
-    return { browser, partialInterfaces, partialDictionaries, includes };
+    return { browser, partialInterfaces, partialMixins, partialDictionaries, includes };
 }
 
 function hasExtAttr(extAttrs: webidl2.ExtendedAttributes[], name: string) {
