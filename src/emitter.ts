@@ -122,7 +122,7 @@ function isEventHandler(p: Browser.Property) {
     return p.type === "EventHandlerNonNull" || p.type === "EventHandler";
 }
 
-export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
+export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor, unfilteredInterfaceNames: Set<string>) {
     // Global print target
     const printer = createTextWriter("\n");
 
@@ -313,8 +313,6 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
             case "DOMTimeStamp": return "number";
             case "EventListener": return "EventListenerOrEventListenerObject";
             default:
-                if (flavor === Flavor.Worker && (objDomType === "Element" || objDomType === "Window" || objDomType === "Document" || objDomType === "AbortSignal" || objDomType === "HTMLFormElement")) return "object";
-                if (flavor === Flavor.Web && objDomType === "Client") return "object";
                 // Name of an interface / enum / dict. Just return itself
                 if (allInterfacesMap[objDomType] ||
                     allLegacyWindowAliases.includes(objDomType) ||
@@ -323,6 +321,8 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
                     allEnumsMap[objDomType]) return objDomType;
                 // Name of a type alias. Just return itself
                 if (allTypeDefsMap.has(objDomType)) return objDomType;
+                // Known interface name but not for the target flavor
+                if (unfilteredInterfaceNames.has(objDomType)) return "never";
                 // Union types
                 if (objDomType.includes(" or ")) {
                     const allTypes: string[] = decomposeTypes(objDomType).map(t => convertDomTypeToTsTypeSimple(t.replace("?", "")));

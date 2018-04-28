@@ -5,7 +5,7 @@ import { filter, merge, filterProperties, exposesTo, getEmptyWebIDL, resolveExpo
 import { Flavor, emitWebIDl } from "./emitter";
 import { convert } from "./widlprocess";
 
-function emitDomWorker(webidl: Browser.WebIdl, forceKnownWorkerTypes: Set<string>, tsWorkerOutput: string) {
+function emitDomWorker(webidl: Browser.WebIdl, unfilteredInterfaceNames: Set<string>, forceKnownWorkerTypes: Set<string>, tsWorkerOutput: string) {
     const worker = getEmptyWebIDL();
     if (webidl.interfaces) worker.interfaces!.interface = filter(webidl.interfaces.interface, o => exposesTo(o, "Worker"));
 
@@ -20,21 +20,21 @@ function emitDomWorker(webidl: Browser.WebIdl, forceKnownWorkerTypes: Set<string
     if (webidl.mixins) worker.mixins!.mixin = filterProperties(webidl.mixins.mixin, isKnownWorkerName);
     if (webidl.typedefs) worker.typedefs!.typedef = webidl.typedefs.typedef.filter(t => knownWorkerTypes.has(t["new-type"]));
 
-    const result = emitWebIDl(worker, Flavor.Worker);
+    const result = emitWebIDl(worker, Flavor.Worker, unfilteredInterfaceNames);
     fs.writeFileSync(tsWorkerOutput, result);
     return;
 }
 
-function emitDomWeb(webidl: Browser.WebIdl, tsWebOutput: string) {
+function emitDomWeb(webidl: Browser.WebIdl, unfilteredInterfaceNames: Set<string>, tsWebOutput: string) {
     const browser = filter(webidl, o => exposesTo(o, "Window"));
 
-    const result = emitWebIDl(browser, Flavor.Web);
+    const result = emitWebIDl(browser, Flavor.Web, unfilteredInterfaceNames);
     fs.writeFileSync(tsWebOutput, result);
     return;
 }
 
 function emitES6DomIterators(webidl: Browser.WebIdl, tsWebES6Output: string) {
-    fs.writeFileSync(tsWebES6Output, emitWebIDl(webidl, Flavor.ES6Iterators));
+    fs.writeFileSync(tsWebES6Output, emitWebIDl(webidl, Flavor.ES6Iterators, new Set()));
 }
 
 function emitDom() {
@@ -96,10 +96,10 @@ function emitDom() {
             }
         }
     }
+    webidl = merge(webidl, comments);
     webidl = prune(webidl, removedItems);
     webidl = merge(webidl, addedItems);
     webidl = merge(webidl, overriddenItems);
-    webidl = merge(webidl, comments);
     for (const name in webidl.interfaces!.interface) {
         const i = webidl.interfaces!.interface[name];
         if (i["override-exposed"]) {
@@ -107,8 +107,10 @@ function emitDom() {
         }
     }
 
-    emitDomWeb(webidl, tsWebOutput);
-    emitDomWorker(webidl, knownWorkerTypes, tsWorkerOutput);
+    const unfilteredInterfaceNames = new Set(Object.keys(webidl.interfaces!.interface));
+
+    emitDomWeb(webidl, unfilteredInterfaceNames, tsWebOutput);
+    emitDomWorker(webidl, unfilteredInterfaceNames, knownWorkerTypes, tsWorkerOutput);
     emitES6DomIterators(webidl, tsWebES6Output);
 
     function prune(obj: Browser.WebIdl, template: Partial<Browser.WebIdl>): Browser.WebIdl {
@@ -128,7 +130,7 @@ function emitDom() {
             if (!template) return obj;
             const filtered: any = {};
             for (const k in obj) {
-                if (k in template) {
+                if (template.hasOwnProperty(k)) {
                     if (template[k] !== null) {
                         filtered[k] = filterByNull(obj[k], template[k]);
                     }
