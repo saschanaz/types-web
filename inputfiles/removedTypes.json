@@ -21,6 +21,13 @@
     "interfaces": {
         "interface": {
             "FileReaderProgressEvent": null,
+            "HTMLCanvasElement": {
+                "methods": {
+                    "method": {
+                        "msToBlob": null
+                    }
+                }
+            },
             "HTMLElement": {
                 "methods": {
                     "method": {
