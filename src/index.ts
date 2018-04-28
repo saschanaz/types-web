@@ -56,7 +56,8 @@ function emitDom() {
     const addedItems = require(path.join(inputFolder, "addedTypes.json"));
     const comments = require(path.join(inputFolder, "comments.json"));
     const removedItems = require(path.join(inputFolder, "removedTypes.json"));
-    const widlStandardTypes = fs.readdirSync(path.join(inputFolder, "idl")).map(
+    // Note: sort readdir result to match OS sort behavior between Windows and Linux
+    const widlStandardTypes = fs.readdirSync(path.join(inputFolder, "idl")).sort().map(
         filename => fs.readFileSync(path.join(inputFolder, "idl", filename), { encoding: "utf-8" })
     ).map(convert);
 
