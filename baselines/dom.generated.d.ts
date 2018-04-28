@@ -4622,7 +4622,7 @@ interface Document extends Node, GlobalEventHandlers, ParentNode, DocumentEvent 
      * @param data String that specifies the nodeValue property of the text node.
      */
     createTextNode(data: string): Text;
-    createTouch(view: Window, target: EventTarget, identifier: number, pageX: number, pageY: number, screenX: number, screenY: number): Touch;
+    createTouch(view: WindowProxy, target: EventTarget, identifier: number, pageX: number, pageY: number, screenX: number, screenY: number): Touch;
     createTouchList(...touches: Touch[]): TouchList;
     /**
      * Creates a TreeWalker object that you can use to traverse filtered lists of nodes or elements in a document.
@@ -16626,7 +16626,7 @@ type RenderingContext = CanvasRenderingContext2D | ImageBitmapRenderingContext |
 type HTMLOrSVGImageElement = HTMLImageElement | SVGImageElement;
 type CanvasImageSource = HTMLOrSVGImageElement | HTMLVideoElement | HTMLCanvasElement | ImageBitmap | OffscreenCanvas;
 type OffscreenRenderingContext = OffscreenCanvasRenderingContext2D | WebGLRenderingContext;
-type MessageEventSource = Window | MessagePort | ServiceWorker;
+type MessageEventSource = WindowProxy | MessagePort | ServiceWorker;
 type PerformanceEntryList = PerformanceEntry[];
 type PushMessageDataInit = BufferSource | string;
 type VibratePattern = number | number[];
@@ -16671,6 +16671,7 @@ type RTCIceGatherCandidate = RTCIceCandidateDictionary | RTCIceCandidateComplete
 type RTCTransport = RTCDtlsTransport | RTCSrtpSdesTransport;
 type USVString = string;
 type payloadtype = number;
+type WindowProxy = Window;
 type AnimationPlayState = "idle" | "running" | "paused" | "finished";
 type AppendMode = "segments" | "sequence";
 type AudioContextLatencyCategory = "balanced" | "interactive" | "playback";

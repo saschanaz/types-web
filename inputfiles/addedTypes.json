@@ -2577,6 +2577,10 @@
             {
                 "new-type": "payloadtype",
                 "override-type": "number"
+            },
+            {
+                "new-type": "WindowProxy",
+                "type": "Window"
             }
         ]
     }
