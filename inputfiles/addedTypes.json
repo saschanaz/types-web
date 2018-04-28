@@ -2617,6 +2617,10 @@
                         "type": "ServiceWorker"
                     }
                 ]
+            },
+            {
+                "new-type": "WindowProxy",
+                "type": "Window"
             }
         ]
     }
