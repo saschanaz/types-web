@@ -98,6 +98,10 @@
     },
     "interfaces": {
         "interface": {
+            "AbortSignal": {
+                "name": "AbortSignal",
+                "override-exposed": "Window Worker"
+            },
             "RTCIdentityProviderGlobalScope": {
                 "exposed": "RTCIdentityProviderGlobalScope",
                 "extends": "Object",
@@ -813,7 +817,12 @@
                             ]
                         }
                     }
-                }
+                },
+                "element": [
+                    {
+                        "name": "canvas"
+                    }
+                ]
             },
             "BeforeUnloadEvent": {
                 "name": "BeforeUnloadEvent",
