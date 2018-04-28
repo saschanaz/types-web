@@ -885,12 +885,11 @@ interface ErrorEvent extends Event {
     readonly filename: string;
     readonly lineno: number;
     readonly message: string;
-    initErrorEvent(typeArg: string, canBubbleArg: boolean, cancelableArg: boolean, messageArg: string, filenameArg: string, linenoArg: number): void;
 }
 
 declare var ErrorEvent: {
     prototype: ErrorEvent;
-    new(typeArg: string, eventInitDict?: ErrorEventInit): ErrorEvent;
+    new(type: string, eventInitDict?: ErrorEventInit): ErrorEvent;
 };
 
 interface Event {
@@ -1739,6 +1738,7 @@ interface Request extends Body {
     readonly destination: RequestDestination;
     readonly headers: Headers;
     readonly integrity: string;
+    readonly isReloadNavigation: boolean;
     readonly keepalive: boolean;
     readonly method: string;
     readonly mode: RequestMode;
@@ -2057,6 +2057,18 @@ interface WindowConsole {
     readonly console: Console;
 }
 
+interface WindowOrWorkerGlobalScope {
+    readonly origin: string;
+    atob(data: string): string;
+    btoa(data: string): string;
+    clearInterval(handle?: number): void;
+    clearTimeout(handle?: number): void;
+    createImageBitmap(image: ImageBitmapSource, options?: ImageBitmapOptions): Promise<ImageBitmap>;
+    createImageBitmap(image: ImageBitmapSource, sx: number, sy: number, sw: number, sh: number, options?: ImageBitmapOptions): Promise<ImageBitmap>;
+    setInterval(handler: TimerHandler, timeout?: number, ...arguments: any[]): number;
+    setTimeout(handler: TimerHandler, timeout?: number, ...arguments: any[]): number;
+}
+
 interface WorkerEventMap extends AbstractWorkerEventMap {
     "message": MessageEvent;
 }
@@ -2081,7 +2093,7 @@ interface WorkerGlobalScopeEventMap {
     "error": ErrorEvent;
 }
 
-interface WorkerGlobalScope extends EventTarget, WorkerUtils, WindowConsole, GlobalFetch {
+interface WorkerGlobalScope extends EventTarget, WorkerUtils, WindowConsole, GlobalFetch, WindowOrWorkerGlobalScope {
     readonly caches: CacheStorage;
     readonly isSecureContext: boolean;
     readonly location: WorkerLocation;
@@ -2266,6 +2278,15 @@ declare function atob(encodedString: string): string;
 declare function btoa(rawString: string): string;
 declare var console: Console;
 declare function fetch(input?: Request | string, init?: RequestInit): Promise<Response>;
+declare var origin: string;
+declare function atob(data: string): string;
+declare function btoa(data: string): string;
+declare function clearInterval(handle?: number): void;
+declare function clearTimeout(handle?: number): void;
+declare function createImageBitmap(image: ImageBitmapSource, options?: ImageBitmapOptions): Promise<ImageBitmap>;
+declare function createImageBitmap(image: ImageBitmapSource, sx: number, sy: number, sw: number, sh: number, options?: ImageBitmapOptions): Promise<ImageBitmap>;
+declare function setInterval(handler: TimerHandler, timeout?: number, ...arguments: any[]): number;
+declare function setTimeout(handler: TimerHandler, timeout?: number, ...arguments: any[]): number;
 declare function addEventListener<K extends keyof DedicatedWorkerGlobalScopeEventMap>(type: K, listener: (this: DedicatedWorkerGlobalScope, ev: DedicatedWorkerGlobalScopeEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
 declare function addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
 declare function removeEventListener<K extends keyof DedicatedWorkerGlobalScopeEventMap>(type: K, listener: (this: DedicatedWorkerGlobalScope, ev: DedicatedWorkerGlobalScopeEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
@@ -2278,6 +2299,8 @@ type HTMLOrSVGImageElement = never | never;
 type CanvasImageSource = HTMLOrSVGImageElement | never | never | ImageBitmap | OffscreenCanvas;
 type OffscreenRenderingContext = OffscreenCanvasRenderingContext2D | never;
 type MessageEventSource = WindowProxy | MessagePort | ServiceWorker;
+type ImageBitmapSource = CanvasImageSource | Blob | ImageData;
+type TimerHandler = string | Function;
 type DOMHighResTimeStamp = number;
 type PerformanceEntryList = PerformanceEntry[];
 type PushMessageDataInit = BufferSource | string;

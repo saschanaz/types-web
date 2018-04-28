@@ -32,6 +32,14 @@
         "title": "HTML - Communication"
     },
     {
+        "url": "https://html.spec.whatwg.org/multipage/imagebitmap-and-animations.html",
+        "title": "HTML - ImageBitmap and animations"
+    },
+    {
+        "url": "https://html.spec.whatwg.org/multipage/webappapis.html",
+        "title": "HTML - Web application APIs"
+    },
+    {
         "url": "https://www.w3.org/TR/IndexedDB-2/",
         "title": "Indexed Database"
     },
