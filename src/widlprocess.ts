@@ -89,8 +89,10 @@ function convertInterfaceCommon(i: webidl2.InterfaceType | webidl2.InterfaceMixi
         extends: "Object",
         constants: { constant: {} },
         methods: { method: {} },
+        "anonymous-methods": { method: [] },
         properties: { property: {} },
         constructor: getConstructor(i.extAttrs, i.name),
+        "named-constructor": getNamedConstructor(i.extAttrs, i.name),
         exposed: getExtAttrConcatenated(i.extAttrs, "Exposed"),
         global: getExtAttrConcatenated(i.extAttrs, "Global"),
         "no-interface-object": hasExtAttr(i.extAttrs, "NoInterfaceObject") ? 1 : undefined,
@@ -106,14 +108,17 @@ function convertInterfaceCommon(i: webidl2.InterfaceType | webidl2.InterfaceMixi
         else if (member.type === "attribute") {
             result.properties!.property[member.name] = convertAttribute(member, result.exposed);
         }
-        else if (member.type === "operation" && member.name) {
+        else if (member.type === "operation" && member.idlType) {
             const operation = convertOperation(member, result.exposed);
             const { method } = result.methods;
-            if (method[member.name]) {
+            if (!member.name) {
+                result["anonymous-methods"]!.method.push(operation);
+            }
+            else if (method[member.name]) {
                 method[member.name].signature.push(...operation.signature);
             }
             else {
-                method[member.name] = operation;
+                method[member.name] = operation as Browser.Method;
             }
         }
         else if (member.type === "iterable" || member.type === "maplike" || member.type === "setlike") {
@@ -145,8 +150,22 @@ function getConstructor(extAttrs: webidl2.ExtendedAttributes[], parent: string) 
     }
 }
 
-function convertOperation(operation: webidl2.OperationMemberType, inheritedExposure: string | undefined): Browser.Method {
-    if (!operation.name || !operation.idlType) {
+function getNamedConstructor(extAttrs: webidl2.ExtendedAttributes[], parent: string): Browser.NamedConstructor | undefined {
+    for (const extAttr of extAttrs) {
+        if (extAttr.name === "NamedConstructor" && typeof extAttr.rhs.value === "string") {
+            return {
+                name: extAttr.rhs.value,
+                signature: [{
+                    type: parent,
+                    param: extAttr.arguments ? extAttr.arguments.map(convertArgument) : []
+                }]
+            }
+        }
+    }
+}
+
+function convertOperation(operation: webidl2.OperationMemberType, inheritedExposure: string | undefined): Browser.AnonymousMethod | Browser.Method {
+    if (!operation.idlType) {
         throw new Error("Unexpected anonymous operation");
     }
     return {

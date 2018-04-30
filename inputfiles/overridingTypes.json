@@ -1012,9 +1012,18 @@
                         "selectedOptions": {
                             "name": "selectedOptions",
                             "override-type": "HTMLCollectionOf<HTMLOptionElement>"
+                        },
+                        "labels": {
+                            "name": "labels",
+                            "override-type": "NodeListOf<HTMLLabelElement>"
                         }
                     }
-                }
+                },
+                "element": [
+                    {
+                        "name": "select"
+                    }
+                ]
             },
             "HTMLDataListElement": {
                 "name": "HTMLDataListElement",
@@ -1025,7 +1034,12 @@
                             "override-type": "HTMLCollectionOf<HTMLOptionElement>"
                         }
                     }
-                }
+                },
+                "element": [
+                    {
+                        "name": "datalist"
+                    }
+                ]
             },
             "HTMLTableElement": {
                 "name": "HTMLTableElement",
@@ -1465,6 +1479,30 @@
                     }
                 }
             },
+            "HTMLButtonElement": {
+                "name": "HTMLButtonElement",
+                "properties": {
+                    "property": {
+                        "labels": {
+                            "name": "labels",
+                            "override-type": "NodeListOf<HTMLLabelElement>"
+                        }
+                    }
+                },
+                "element": [
+                    {
+                        "name": "button"
+                    }
+                ]
+            },
+            "HTMLFieldSetElement": {
+                "name": "HTMLFieldSetElement",
+                "element": [
+                    {
+                        "name": "fieldset"
+                    }
+                ]
+            },
             "HTMLLabelElement": {
                 "name": "HTMLLabelElement",
                 "properties": {
@@ -1477,6 +1515,30 @@
                     }
                 }
             },
+            "HTMLLegendElement": {
+                "name": "HTMLLegendElement",
+                "element": [
+                    {
+                        "name": "legend"
+                    }
+                ]
+            },
+            "HTMLMeterElement": {
+                "name": "HTMLMeterElement",
+                "properties": {
+                    "property": {
+                        "labels": {
+                            "name": "labels",
+                            "override-type": "NodeListOf<HTMLLabelElement>"
+                        }
+                    }
+                },
+                "element": [
+                    {
+                        "name": "meter"
+                    }
+                ]
+            },
             "HTMLOptGroupElement": {
                 "name": "HTMLOptGroupElement",
                 "properties": {
@@ -1487,10 +1549,63 @@
                             "override-type": "HTMLFormElement | null"
                         }
                     }
-                }
+                },
+                "element": [
+                    {
+                        "name": "optgroup"
+                    }
+                ]
+            },
+            "HTMLOptionElement": {
+                "name": "HTMLOptionElement",
+                "element": [
+                    {
+                        "name": "option"
+                    }
+                ]
+            },
+            "HTMLOutputElement": {
+                "name": "HTMLOutputElement",
+                "properties": {
+                    "property": {
+                        "labels": {
+                            "name": "labels",
+                            "override-type": "NodeListOf<HTMLLabelElement>"
+                        }
+                    }
+                },
+                "element": [
+                    {
+                        "name": "output"
+                    }
+                ]
+            },
+            "HTMLProgressElement": {
+                "name": "HTMLProgressElement",
+                "properties": {
+                    "property": {
+                        "labels": {
+                            "name": "labels",
+                            "override-type": "NodeListOf<HTMLLabelElement>"
+                        }
+                    }
+                },
+                "element": [
+                    {
+                        "name": "progress"
+                    }
+                ]
             },
             "HTMLTextAreaElement": {
                 "name": "HTMLTextAreaElement",
+                "properties": {
+                    "property": {
+                        "labels": {
+                            "name": "labels",
+                            "override-type": "NodeListOf<HTMLLabelElement>"
+                        }
+                    }
+                },
                 "methods": {
                     "method": {
                         "setSelectionRange": {
@@ -1500,7 +1615,12 @@
                             ]
                         }
                     }
-                }
+                },
+                "element": [
+                    {
+                        "name": "textarea"
+                    }
+                ]
             },
             "Headers": {
                 "name": "Headers",
@@ -2114,10 +2234,6 @@
             },
             "CryptoKey": {
                 "name": "CryptoKey",
-                "override-exposed": "Window Worker"
-            },
-            "DOMStringList": {
-                "name": "DOMStringList",
                 "override-exposed": "Window Worker"
             },
             "ErrorEvent": {
