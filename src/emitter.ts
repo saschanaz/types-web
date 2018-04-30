@@ -255,7 +255,7 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor, unfilteredInt
             type = { name: convertDomTypeToTsTypeSimple(obj.type), nullable: !!obj.nullable };
         }
         else {
-            const types = obj.type.map(convertDomTypeToTsTypeWorker);
+            const types = obj.type.map(convertDomTypeToTsTypeWorker).filter(t => t.name !== "never");
             const isAny = types.find(t => t.name === "any");
             if (isAny) {
                 type = {
@@ -265,7 +265,7 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor, unfilteredInt
             }
             else {
                 type = {
-                    name: types.map(t => t.name).join(" | "),
+                    name: types.length ? types.map(t => t.name).join(" | ") : "never",
                     nullable: !!types.find(t => t.nullable)
                 };
             }

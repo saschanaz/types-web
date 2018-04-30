@@ -416,7 +416,7 @@ interface ExtendableMessageEventInit extends ExtendableEventInit {
     lastEventId?: string;
     origin?: string;
     ports?: MessagePort[];
-    source?: never | ServiceWorker | MessagePort;
+    source?: ServiceWorker | MessagePort;
 }
 
 interface FetchEventInit extends ExtendableEventInit {
