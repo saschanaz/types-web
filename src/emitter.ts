@@ -241,12 +241,6 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor, unfilteredInt
             : i2Name === "Object";
     }
 
-    // Some params have the type of "(DOMString or DOMString [] or Number)"
-    // we need to transform it into [“DOMString", "DOMString []", "Number"]
-    function decomposeTypes(t: string) {
-        return t.replace(/[\(\)]/g, "").split(" or ");
-    }
-
     /// Get typescript type using object dom type, object name, and it's associated interface name
     function convertDomTypeToTsType(obj: Browser.Typed): string {
         if (obj["override-type"]) return obj["override-type"]!;
@@ -323,11 +317,6 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor, unfilteredInt
                 if (allTypeDefsMap.has(objDomType)) return objDomType;
                 // Known interface name but not for the target flavor
                 if (unfilteredInterfaceNames.has(objDomType)) return "never";
-                // Union types
-                if (objDomType.includes(" or ")) {
-                    const allTypes: string[] = decomposeTypes(objDomType).map(t => convertDomTypeToTsTypeSimple(t.replace("?", "")));
-                    return allTypes.includes("any") ? "any" : allTypes.join(" | ");
-                }
                 else {
                     // Check if is array type, which looks like "sequence<DOMString>"
                     const unescaped = objDomType; // System.Web.HttpUtility.HtmlDecode(objDomType)
