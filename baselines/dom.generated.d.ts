@@ -3358,10 +3358,8 @@ interface Console {
     info(message?: any, ...optionalParams: any[]): void;
     log(message?: any, ...optionalParams: any[]): void;
     markTimeline(label?: string): void;
-    msIsIndependentlyComposed(element: Element): boolean;
     profile(reportName?: string): void;
     profileEnd(): void;
-    select(element: Element): void;
     table(...tabularData: any[]): void;
     time(label?: string): void;
     timeEnd(label?: string): void;
@@ -5114,7 +5112,7 @@ interface Event {
     readonly eventPhase: number;
     readonly isTrusted: boolean;
     returnValue: boolean;
-    readonly srcElement: Element | null;
+    readonly srcElement: EventTarget | null;
     readonly target: EventTarget | null;
     readonly timeStamp: number;
     readonly type: string;

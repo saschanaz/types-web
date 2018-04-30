@@ -567,10 +567,8 @@ interface Console {
     info(message?: any, ...optionalParams: any[]): void;
     log(message?: any, ...optionalParams: any[]): void;
     markTimeline(label?: string): void;
-    msIsIndependentlyComposed(element: never): boolean;
     profile(reportName?: string): void;
     profileEnd(): void;
-    select(element: never): void;
     table(...tabularData: any[]): void;
     time(label?: string): void;
     timeEnd(label?: string): void;
@@ -903,7 +901,7 @@ interface Event {
     readonly eventPhase: number;
     readonly isTrusted: boolean;
     returnValue: boolean;
-    readonly srcElement: never | null;
+    readonly srcElement: EventTarget | null;
     readonly target: EventTarget | null;
     readonly timeStamp: number;
     readonly type: string;
@@ -1086,7 +1084,7 @@ interface FormData {
 
 declare var FormData: {
     prototype: FormData;
-    new(form?: never): FormData;
+    new(): FormData;
 };
 
 interface GlobalFetch {

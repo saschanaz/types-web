@@ -465,13 +465,25 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor, unfilteredInt
         function paramToString(p: Browser.Param) {
             const isOptional = !p.variadic && p.optional;
             const pType = isOptional ? convertDomTypeToTsType(p) : convertDomTypeToNullableTsType(p);
+            if (pType === "never") {
+                return;
+            }
             return (p.variadic ? "..." : "") +
                 adjustParamName(p.name) +
                 (isOptional ? "?: " : ": ") +
                 pType +
                 (p.variadic ? "[]" : "");
         }
-        return ps.map(paramToString).join(", ");
+        const results: string[] = [];
+        for (const p of ps) {
+            const str = paramToString(p);
+            if (str === undefined) {
+                break; // only emit preceding params
+            } else {
+                results.push(str);
+            }
+        }
+        return results.join(", ");
     }
 
     function emitCallBackInterface(i: Browser.Interface) {
