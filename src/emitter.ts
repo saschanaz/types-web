@@ -122,7 +122,7 @@ function isEventHandler(p: Browser.Property) {
     return p.type === "EventHandlerNonNull" || p.type === "EventHandler";
 }
 
-export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor, unfilteredInterfaceNames: Set<string>) {
+export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor, globalKnownNames: Set<string>) {
     // Global print target
     const printer = createTextWriter("\n");
 
@@ -315,22 +315,8 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor, unfilteredInt
                     allEnumsMap[objDomType]) return objDomType;
                 // Name of a type alias. Just return itself
                 if (allTypeDefsMap.has(objDomType)) return objDomType;
-                // Known interface name but not for the target flavor
-                if (unfilteredInterfaceNames.has(objDomType)) return "never";
-                else {
-                    // Check if is array type, which looks like "sequence<DOMString>"
-                    const unescaped = objDomType; // System.Web.HttpUtility.HtmlDecode(objDomType)
-                    const genericMatch = /^(\w+)<([\w, <>]+)>$/;
-                    const match = genericMatch.exec(unescaped);
-                    if (match) {
-                        const tName: string = convertDomTypeToTsTypeSimple(match[1]);
-                        const paramName: string = convertDomTypeToTsTypeSimple(match[2]);
-                        return tName === "Array" ? paramName + "[]" : tName + "<" + paramName + ">";
-                    }
-                    if (objDomType.endsWith("[]")) {
-                        return convertDomTypeToTsTypeSimple(objDomType.replace("[]", "").trim()) + "[]";
-                    }
-                }
+                // Known type name but not for the target flavor
+                if (globalKnownNames.has(objDomType)) return "never";
         }
 
         throw new Error("Unknown DOM type: " + objDomType);
