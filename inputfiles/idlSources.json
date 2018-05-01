@@ -1,5 +1,9 @@
 [
     {
+        "url": "https://www.w3.org/TR/css-animations-1/",
+        "title": "CSS Animations"
+    },
+    {
         "url": "https://encoding.spec.whatwg.org/",
         "title": "Encoding"
     },
@@ -74,6 +78,10 @@
     {
         "url": "https://w3c.github.io/ServiceWorker/",
         "title": "Service Workers"
+    },
+    {
+        "url": "https://storage.spec.whatwg.org/",
+        "title": "Storage"
     },
     {
         "url": "https://w3c.github.io/touch-events/",
