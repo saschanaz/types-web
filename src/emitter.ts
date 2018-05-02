@@ -122,7 +122,7 @@ function isEventHandler(p: Browser.Property) {
     return p.type === "EventHandlerNonNull" || p.type === "EventHandler";
 }
 
-export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor, globalKnownNames: Set<string>) {
+export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
     // Global print target
     const printer = createTextWriter("\n");
 
@@ -242,20 +242,20 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor, globalKnownNa
     }
 
     /// Get typescript type using object dom type, object name, and it's associated interface name
-    function convertDomTypeToTsType(obj: Browser.Typed): string {
+    function convertDomTypeToTsType(obj: Browser.Typed, fallbackToNever?: boolean): string {
         if (obj["override-type"]) return obj["override-type"]!;
         if (!obj.type) throw new Error("Missing type " + JSON.stringify(obj));
-        const type = convertDomTypeToTsTypeWorker(obj);
+        const type = convertDomTypeToTsTypeWorker(obj, fallbackToNever);
         return type.nullable ? makeNullable(type.name) : type.name;
     }
 
-    function convertDomTypeToTsTypeWorker(obj: Browser.Typed): { name: string; nullable: boolean } {
+    function convertDomTypeToTsTypeWorker(obj: Browser.Typed, fallbackToNever?: boolean): { name: string; nullable: boolean } {
         let type;
         if (typeof obj.type === "string") {
-            type = { name: convertDomTypeToTsTypeSimple(obj.type), nullable: !!obj.nullable };
+            type = { name: convertDomTypeToTsTypeSimple(obj.type, fallbackToNever), nullable: !!obj.nullable };
         }
         else {
-            const types = obj.type.map(convertDomTypeToTsTypeWorker).filter(t => t.name !== "never");
+            const types = obj.type.map(t => convertDomTypeToTsTypeWorker(t, true)).filter(t => t.name !== "never");
             const isAny = types.find(t => t.name === "any");
             if (isAny) {
                 type = {
@@ -271,7 +271,7 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor, globalKnownNa
             }
         }
 
-        const subtypes = arrayify(obj.subtype).map(convertDomTypeToTsTypeWorker);
+        const subtypes = arrayify(obj.subtype).map(t => convertDomTypeToTsTypeWorker(t));
         const subtypeString = subtypes.map(subtype => subtype.nullable ? makeNullable(subtype.name) : subtype.name).join(", ");
 
         return {
@@ -298,7 +298,7 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor, globalKnownNa
         return obj;
     }
 
-    function convertDomTypeToTsTypeSimple(objDomType: string): string {
+    function convertDomTypeToTsTypeSimple(objDomType: string, fallbackToNever?: boolean): string {
         if (baseTypeConversionMap.has(objDomType)) {
             return baseTypeConversionMap.get(objDomType)!;
         }
@@ -315,10 +315,11 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor, globalKnownNa
                     allEnumsMap[objDomType]) return objDomType;
                 // Name of a type alias. Just return itself
                 if (allTypeDefsMap.has(objDomType)) return objDomType;
-                // Known type name but not for the target flavor
-                if (globalKnownNames.has(objDomType)) return "never";
         }
 
+        if (fallbackToNever) {
+            return "never";
+        }
         throw new Error("Unknown DOM type: " + objDomType);
     }
 
@@ -333,8 +334,8 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor, globalKnownNa
         }
     }
 
-    function convertDomTypeToNullableTsType(obj: Browser.Typed) {
-        const resolvedType = convertDomTypeToTsType(obj);
+    function convertDomTypeToNullableTsType(obj: Browser.Typed, fallbackToNever?: boolean) {
+        const resolvedType = convertDomTypeToTsType(obj, fallbackToNever);
         return obj.nullable ? makeNullable(resolvedType) : resolvedType;
     }
 
@@ -450,7 +451,7 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor, globalKnownNa
     function paramsToString(ps: Browser.Param[]) {
         function paramToString(p: Browser.Param) {
             const isOptional = !p.variadic && p.optional;
-            const pType = isOptional ? convertDomTypeToTsType(p) : convertDomTypeToNullableTsType(p);
+            const pType = isOptional ? convertDomTypeToTsType(p, true) : convertDomTypeToNullableTsType(p);
             if (pType === "never") {
                 return;
             }
@@ -659,7 +660,7 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor, globalKnownNa
         if (!i.iterator) {
             return;
         }
-        const subtype = i.iterator.type.map(convertDomTypeToTsType);
+        const subtype = i.iterator.type.map(t => convertDomTypeToTsType(t));
         const value = subtype[subtype.length - 1];
         const key = subtype.length > 1 ? subtype[0] :
             i.iterator.kind === "iterable" ? "number" : value;
@@ -1072,7 +1073,7 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor, globalKnownNa
                 if (i.iterator.type.length === 1) {
                     return [convertDomTypeToTsType(i.iterator.type[0])];
                 }
-                return i.iterator.type.map(convertDomTypeToTsType);
+                return i.iterator.type.map(t => convertDomTypeToTsType(t));
             }
             else if (i.name !== "Window" && i.properties) {
                 const iterableGetter = findIterableGetter();

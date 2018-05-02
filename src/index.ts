@@ -5,7 +5,7 @@ import { filter, merge, filterProperties, exposesTo, getEmptyWebIDL, resolveExpo
 import { Flavor, emitWebIDl } from "./emitter";
 import { convert } from "./widlprocess";
 
-function emitDomWorker(webidl: Browser.WebIdl, globalKnownNames: Set<string>, forceKnownWorkerTypes: Set<string>, tsWorkerOutput: string) {
+function emitDomWorker(webidl: Browser.WebIdl, forceKnownWorkerTypes: Set<string>, tsWorkerOutput: string) {
     const worker = getEmptyWebIDL();
     if (webidl.interfaces) worker.interfaces!.interface = filter(webidl.interfaces.interface, o => exposesTo(o, "Worker"));
 
@@ -19,11 +19,9 @@ function emitDomWorker(webidl: Browser.WebIdl, globalKnownNames: Set<string>, fo
     const isKnownWorkerName = (o: { name: string }) => knownWorkerIDLTypes.has(o.name);
 
     if (webidl.typedefs) {
-        const typedefs = webidl.typedefs.typedef.filter(t => knownWorkerIDLTypes.has(t["new-type"]));
-        // typedefs that simply is never
-        const neverTypes = new Set(typedefs.filter(t => !t["override-type"] && collectTypeReferences(t).every(r => !knownWorkerAllTypes.has(r))).map(t => t["new-type"]));
-        worker.typedefs!.typedef = typedefs.filter(t => !neverTypes.has(t["new-type"]));
-        neverTypes.forEach(name => globalKnownNames.add(name));
+        worker.typedefs!.typedef = webidl.typedefs.typedef
+            .filter(t => knownWorkerIDLTypes.has(t["new-type"]))
+            .filter(t => t["override-type"] || collectTypeReferences(t).some(r => knownWorkerAllTypes.has(r)));
     }
 
     if (webidl["callback-functions"]) worker["callback-functions"]!["callback-function"] = filterProperties(webidl["callback-functions"]!["callback-function"], isKnownWorkerName);
@@ -32,21 +30,21 @@ function emitDomWorker(webidl: Browser.WebIdl, globalKnownNames: Set<string>, fo
     if (webidl.enums) worker.enums!.enum = filterProperties(webidl.enums.enum, isKnownWorkerName);
     if (webidl.mixins) worker.mixins!.mixin = filterProperties(webidl.mixins.mixin, isKnownWorkerName);
 
-    const result = emitWebIDl(worker, Flavor.Worker, globalKnownNames);
+    const result = emitWebIDl(worker, Flavor.Worker);
     fs.writeFileSync(tsWorkerOutput, result);
     return;
 }
 
-function emitDomWeb(webidl: Browser.WebIdl, globalKnownNames: Set<string>, tsWebOutput: string) {
+function emitDomWeb(webidl: Browser.WebIdl, tsWebOutput: string) {
     const browser = filter(webidl, o => exposesTo(o, "Window"));
 
-    const result = emitWebIDl(browser, Flavor.Web, globalKnownNames);
+    const result = emitWebIDl(browser, Flavor.Web);
     fs.writeFileSync(tsWebOutput, result);
     return;
 }
 
 function emitES6DomIterators(webidl: Browser.WebIdl, tsWebES6Output: string) {
-    fs.writeFileSync(tsWebES6Output, emitWebIDl(webidl, Flavor.ES6Iterators, new Set()));
+    fs.writeFileSync(tsWebES6Output, emitWebIDl(webidl, Flavor.ES6Iterators));
 }
 
 function emitDom() {
@@ -121,10 +119,8 @@ function emitDom() {
         }
     }
 
-    const unfilteredInterfaceNames = new Set(Object.keys(webidl.interfaces!.interface));
-
-    emitDomWeb(webidl, unfilteredInterfaceNames, tsWebOutput);
-    emitDomWorker(webidl, unfilteredInterfaceNames, knownWorkerTypes, tsWorkerOutput);
+    emitDomWeb(webidl, tsWebOutput);
+    emitDomWorker(webidl, knownWorkerTypes, tsWorkerOutput);
     emitES6DomIterators(webidl, tsWebES6Output);
 
     function prune(obj: Browser.WebIdl, template: Partial<Browser.WebIdl>): Browser.WebIdl {
