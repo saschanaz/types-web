@@ -70,7 +70,7 @@ export function merge<T>(src: T, target: T, shallow?: boolean): T {
                     if (Array.isArray(srcProp) !== Array.isArray(targetProp)) {
                         throw new Error("Mismatch on property: " + k + JSON.stringify(targetProp));
                     }
-                    if (shallow && "name" in src[k] && "name" in target[k]) {
+                    if (shallow && typeof (src[k] as any).name === "string" && typeof (target[k] as any).name === "string") {
                         src[k] = target[k];
                     }
                     else {
@@ -272,5 +272,14 @@ export function followTypeReferences(webidl: Browser.WebIdl, filteredInterfaces:
             set.add(type.name || type["new-type"]);
             collectTypeReferences(type).forEach(follow);
         }
+    }
+}
+
+export function markAsDeprecated(i: Browser.Interface) {
+    for (const method of mapToArray(i.methods.method)) {
+        method.deprecated = 1;
+    }
+    for (const property of mapToArray(i.properties!.property)) {
+        property.deprecated = 1;
     }
 }

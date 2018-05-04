@@ -901,9 +901,6 @@
             "HTMLFrameElement": {
                 "properties": {
                     "property": {
-                        "width": {
-                            "comment": "/**\r\n     * Sets or retrieves the width of the object.\r\n     */"
-                        },
                         "scrolling": {
                             "comment": "/**\r\n     * Sets or retrieves whether the frame can be scrolled.\r\n     */"
                         },
@@ -912,12 +909,6 @@
                         },
                         "marginWidth": {
                             "comment": "/**\r\n     * Sets or retrieves the left and right margin widths before displaying the text in a frame.\r\n     */"
-                        },
-                        "borderColor": {
-                            "comment": "/**\r\n     * Sets or retrieves the border color of the object.\r\n     */"
-                        },
-                        "frameSpacing": {
-                            "comment": "/**\r\n     * Sets or retrieves the amount of additional space between the frames.\r\n     */"
                         },
                         "frameBorder": {
                             "comment": "/**\r\n     * Sets or retrieves whether to display a border for the frame.\r\n     */"
@@ -934,20 +925,11 @@
                         "name": {
                             "comment": "/**\r\n     * Sets or retrieves the frame name.\r\n     */"
                         },
-                        "height": {
-                            "comment": "/**\r\n     * Sets or retrieves the height of the object.\r\n     */"
-                        },
                         "contentDocument": {
                             "comment": "/**\r\n     * Retrieves the document object of the page or frame.\r\n     */"
                         },
-                        "border": {
-                            "comment": "/**\r\n     * Specifies the properties of a border drawn around an object.\r\n     */"
-                        },
                         "longDesc": {
                             "comment": "/**\r\n     * Sets or retrieves a URI to a long description of the object.\r\n     */"
-                        },
-                        "onload": {
-                            "comment": "/**\r\n     * Raised when the object has been completely received from the server.\r\n     */"
                         }
                     }
                 }
@@ -969,12 +951,6 @@
                         },
                         "cols": {
                             "comment": "/**\r\n     * Sets or retrieves the frame widths of the object.\r\n     */"
-                        },
-                        "onblur": {
-                            "comment": "/**\r\n     * Fires when the object loses the input focus.\r\n     */"
-                        },
-                        "onfocus": {
-                            "comment": "/**\r\n     * Fires when the object receives focus.\r\n     */"
                         }
                     }
                 }

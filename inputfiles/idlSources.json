@@ -4,6 +4,10 @@
         "title": "CSS Animations"
     },
     {
+        "url": "https://www.w3.org/TR/css-transitions-1/",
+        "title": "CSS Transitions"
+    },
+    {
         "url": "https://encoding.spec.whatwg.org/",
         "title": "Encoding"
     },
@@ -46,6 +50,11 @@
     {
         "url": "https://html.spec.whatwg.org/multipage/form-elements.html",
         "title": "HTML - Form elements"
+    },
+    {
+        "url": "https://html.spec.whatwg.org/multipage/obsolete.html",
+        "title": "HTML - Obsolete features",
+        "deprecated": true
     },
     {
         "url": "https://www.w3.org/TR/IndexedDB-2/",

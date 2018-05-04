@@ -89,6 +89,22 @@
                         {
                             "name": "touchstart",
                             "type": "TouchEvent"
+                        },
+                        {
+                            "name": "transitionrun",
+                            "type": "TransitionEvent"
+                        },
+                        {
+                            "name": "transitionstart",
+                            "type": "TransitionEvent"
+                        },
+                        {
+                            "name": "transitionend",
+                            "type": "TransitionEvent"
+                        },
+                        {
+                            "name": "transitioncancel",
+                            "type": "TransitionEvent"
                         }
                     ]
                 }
@@ -1101,6 +1117,38 @@
                 "element": [
                     {
                         "name": "datalist"
+                    }
+                ]
+            },
+            "HTMLDirectoryElement": {
+                "name": "HTMLDirectoryElement",
+                "element": [
+                    {
+                        "name": "dir"
+                    }
+                ]
+            },
+            "HTMLFontElement": {
+                "name": "HTMLFontElement",
+                "element": [
+                    {
+                        "name": "font"
+                    }
+                ]
+            },
+            "HTMLFrameElement": {
+                "name": "HTMLFrameElement",
+                "element": [
+                    {
+                        "name": "frame"
+                    }
+                ]
+            },
+            "HTMLFrameSetElement": {
+                "name": "HTMLFrameSetElement",
+                "element": [
+                    {
+                        "name": "frameset"
                     }
                 ]
             },
@@ -2293,7 +2341,12 @@
                             "type": "Event"
                         }
                     ]
-                }
+                },
+                "element": [
+                    {
+                        "name": "marquee"
+                    }
+                ]
             },
             "CryptoKey": {
                 "name": "CryptoKey",

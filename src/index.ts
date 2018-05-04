@@ -1,7 +1,7 @@
 import * as Browser from "./types";
 import * as fs from "fs";
 import * as path from "path";
-import { filter, merge, filterProperties, exposesTo, getEmptyWebIDL, resolveExposure, collectTypeReferences, baseTypeConversionMap, followTypeReferences } from "./helpers";
+import { filter, merge, filterProperties, exposesTo, getEmptyWebIDL, resolveExposure, collectTypeReferences, baseTypeConversionMap, followTypeReferences, markAsDeprecated, mapToArray } from "./helpers";
 import { Flavor, emitWebIDl } from "./emitter";
 import { convert } from "./widlprocess";
 
@@ -67,9 +67,15 @@ function emitDom() {
     const comments = require(path.join(inputFolder, "comments.json"));
     const removedItems = require(path.join(inputFolder, "removedTypes.json"));
     // Note: sort readdir result to match OS sort behavior between Windows and Linux
-    const widlStandardTypes = fs.readdirSync(path.join(inputFolder, "idl")).sort().map(
-        filename => fs.readFileSync(path.join(inputFolder, "idl", filename), { encoding: "utf-8" })
-    ).map(convert);
+    const widlStandardTypes = fs.readdirSync(path.join(inputFolder, "idl")).sort().map(filename => {
+        const file = fs.readFileSync(path.join(inputFolder, "idl", filename), { encoding: "utf-8" });
+        const result = convert(file);
+        if (filename.endsWith(".deprecated.widl")) {
+            mapToArray(result.browser.interfaces!.interface).forEach(markAsDeprecated);
+            result.partialInterfaces.forEach(markAsDeprecated);
+        }
+        return result;
+    });
 
     /// Load the input file
     let webidl: Browser.WebIdl = require(path.join(inputFolder, "browser.webidl.preprocessed.json"));

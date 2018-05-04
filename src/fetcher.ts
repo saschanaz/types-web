@@ -8,13 +8,15 @@ fetchIDLs();
 interface IDLSource {
     url: string;
     title: string;
+    deprecated?: boolean;
 }
 
 async function fetchIDLs() {
     const idlSources = require("../inputfiles/idlSources.json") as IDLSource[];
-    await Promise.all(idlSources.map(async source =>{
+    await Promise.all(idlSources.map(async source => {
         const idl = await fetchIDL(source);
-        fs.writeFileSync(path.join(__dirname, `../inputfiles/idl/${source.title}.widl`), idl + '\n');
+        const title = source.deprecated ? `${source.title}.deprecated` : source.title;
+        fs.writeFileSync(path.join(__dirname, `../inputfiles/idl/${title}.widl`), idl + '\n');
     }));
 }
 

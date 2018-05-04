@@ -39,6 +39,9 @@
                     }
                 }
             },
+            "HTMLHRElement": {
+                "implements": null
+            },
             "StorageEvent": {
                 "methods": {
                     "method": {
