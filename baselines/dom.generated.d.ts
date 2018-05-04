@@ -6382,7 +6382,7 @@ interface HTMLFrameElement extends HTMLElement {
      * Retrieves the object of the specified.
      */
     /** @deprecated */
-    readonly contentWindow: Window | null;
+    readonly contentWindow: WindowProxy | null;
     /**
      * Sets or retrieves whether to display a border for the frame.
      */
