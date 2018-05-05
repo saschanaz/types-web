@@ -24,6 +24,14 @@
     },
     "interfaces": {
         "interface": {
+            "Console": {
+                "methods": {
+                    "method": {
+                        "msIsIndependentlyComposed": null,
+                        "select": null
+                    }
+                }
+            },
             "FileReaderProgressEvent": null,
             "HTMLElement": {
                 "methods": {
