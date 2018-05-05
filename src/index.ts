@@ -1,35 +1,13 @@
 import * as Browser from "./types";
 import * as fs from "fs";
 import * as path from "path";
-import { filter, merge, filterProperties, exposesTo, getEmptyWebIDL, resolveExposure, collectTypeReferences, baseTypeConversionMap, followTypeReferences, markAsDeprecated, mapToArray } from "./helpers";
+import { filter, merge, exposesTo, resolveExposure, markAsDeprecated, mapToArray } from "./helpers";
 import { Flavor, emitWebIDl } from "./emitter";
 import { convert } from "./widlprocess";
+import { getExposedTypes } from "./expose";
 
 function emitDomWorker(webidl: Browser.WebIdl, forceKnownWorkerTypes: Set<string>, tsWorkerOutput: string) {
-    const worker = getEmptyWebIDL();
-    if (webidl.interfaces) worker.interfaces!.interface = filter(webidl.interfaces.interface, o => exposesTo(o, "Worker"));
-
-    const knownWorkerIDLTypes = followTypeReferences(webidl, worker.interfaces!.interface);
-    forceKnownWorkerTypes.forEach(t => knownWorkerIDLTypes.add(t));
-    const knownWorkerAllTypes = new Set([
-        ...knownWorkerIDLTypes,
-        ...Object.keys(worker.interfaces!.interface),
-        ...baseTypeConversionMap.keys()
-    ]);
-    const isKnownWorkerName = (o: { name: string }) => knownWorkerIDLTypes.has(o.name);
-
-    if (webidl.typedefs) {
-        worker.typedefs!.typedef = webidl.typedefs.typedef
-            .filter(t => knownWorkerIDLTypes.has(t["new-type"]))
-            .filter(t => t["override-type"] || collectTypeReferences(t).some(r => knownWorkerAllTypes.has(r)));
-    }
-
-    if (webidl["callback-functions"]) worker["callback-functions"]!["callback-function"] = filterProperties(webidl["callback-functions"]!["callback-function"], isKnownWorkerName);
-    if (webidl["callback-interfaces"]) worker["callback-interfaces"]!.interface = filterProperties(webidl["callback-interfaces"]!.interface, isKnownWorkerName);
-    if (webidl.dictionaries) worker.dictionaries!.dictionary = filterProperties(webidl.dictionaries.dictionary, isKnownWorkerName);
-    if (webidl.enums) worker.enums!.enum = filterProperties(webidl.enums.enum, isKnownWorkerName);
-    if (webidl.mixins) worker.mixins!.mixin = filterProperties(webidl.mixins.mixin, isKnownWorkerName);
-
+    const worker = getExposedTypes(webidl, forceKnownWorkerTypes, "Worker");
     const result = emitWebIDl(worker, Flavor.Worker);
     fs.writeFileSync(tsWorkerOutput, result);
     return;
