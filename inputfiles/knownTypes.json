@@ -1,0 +1,20 @@
+{
+    "Window": [
+        "AesCbcParams",
+        "AesCtrParams",
+        "AesDerivedKeyParams",
+        "AesGcmParams",
+        "AesKeyAlgorithm",
+        "AesKeyGenParams",
+        "AudioParamDescriptor",
+        "CanvasRenderingContext2DSettings",
+        
+    ],
+    "Worker": [
+        "ClientTypes",
+        "IDBArrayKey",
+        "IDBValidKey",
+        "MessageEventSource",
+        "PromiseRejectionEventInit"
+    ]
+}

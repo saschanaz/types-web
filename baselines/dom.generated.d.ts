@@ -86,11 +86,6 @@ interface AudioBufferSourceOptions {
     playbackRate?: number;
 }
 
-interface AudioContextInfo {
-    currentTime?: number;
-    sampleRate?: number;
-}
-
 interface AudioContextOptions {
     latencyHint?: AudioContextLatencyCategory | number;
     sampleRate?: number;
@@ -100,14 +95,6 @@ interface AudioNodeOptions {
     channelCount?: number;
     channelCountMode?: ChannelCountMode;
     channelInterpretation?: ChannelInterpretation;
-}
-
-interface AudioParamDescriptor {
-    automationRate?: AutomationRate;
-    defaultValue?: number;
-    maxValue?: number;
-    minValue?: number;
-    name: string;
 }
 
 interface AudioProcessingEventInit extends EventInit {
@@ -141,10 +128,6 @@ interface BlobPropertyBag {
     type?: string;
 }
 
-interface ByteLengthChunk {
-    byteLength?: number;
-}
-
 interface CacheQueryOptions {
     cacheName?: string;
     ignoreMethod?: boolean;
@@ -152,30 +135,8 @@ interface CacheQueryOptions {
     ignoreVary?: boolean;
 }
 
-interface CanvasRenderingContext2DSettings {
-    alpha?: boolean;
-}
-
 interface ChannelMergerOptions extends AudioNodeOptions {
     numberOfInputs?: number;
-}
-
-interface ChannelSplitterOptions extends AudioNodeOptions {
-    numberOfOutputs?: number;
-}
-
-interface ClientData {
-    challenge: string;
-    extensions?: WebAuthnExtensions;
-    hashAlg: string | Algorithm;
-    origin: string;
-    rpId: string;
-    tokenBinding?: string;
-}
-
-interface ClientQueryOptions {
-    includeUncontrolled?: boolean;
-    type?: ClientTypes;
 }
 
 interface CloseEventInit extends EventInit {
@@ -194,13 +155,6 @@ interface ComputedEffectTiming extends EffectTiming {
     endTime?: number;
     localTime?: number | null;
     progress?: number | null;
-}
-
-interface ComputedKeyframe extends Record<keyof CSSStyleDeclaration, string> {
-    composite?: CompositeOperation | null;
-    computedOffset?: number;
-    easing?: string;
-    offset?: number | null;
 }
 
 interface ConfirmSiteSpecificExceptionsInformation extends ExceptionInformation {
@@ -229,11 +183,6 @@ interface ConstrainDoubleRange extends DoubleRange {
 interface ConstrainLongRange extends LongRange {
     exact?: number;
     ideal?: number;
-}
-
-interface ConstrainVideoFacingModeParameters {
-    exact?: VideoFacingModeEnum | VideoFacingModeEnum[];
-    ideal?: VideoFacingModeEnum | VideoFacingModeEnum[];
 }
 
 interface ConvolverOptions extends AudioNodeOptions {
@@ -347,26 +296,6 @@ interface DynamicsCompressorOptions extends AudioNodeOptions {
     threshold?: number;
 }
 
-interface EcKeyAlgorithm extends KeyAlgorithm {
-    namedCurve: string;
-}
-
-interface EcKeyGenParams extends Algorithm {
-    namedCurve: string;
-}
-
-interface EcKeyImportParams extends Algorithm {
-    namedCurve: string;
-}
-
-interface EcdhKeyDeriveParams extends Algorithm {
-    public: CryptoKey;
-}
-
-interface EcdsaParams extends Algorithm {
-    hash: string | Algorithm;
-}
-
 interface EffectTiming {
     delay?: number;
     direction?: PlaybackDirection;
@@ -418,25 +347,6 @@ interface ExceptionInformation {
     domain?: string | null;
 }
 
-interface ExtendableEventInit extends EventInit {
-}
-
-interface ExtendableMessageEventInit extends ExtendableEventInit {
-    data?: any;
-    lastEventId?: string;
-    origin?: string;
-    ports?: MessagePort[];
-    source?: ServiceWorker | MessagePort;
-}
-
-interface FetchEventInit extends ExtendableEventInit {
-    clientId?: string;
-    preloadResponse: Promise<any>;
-    request: Request;
-    resultingClientId?: string;
-    targetClientId?: string;
-}
-
 interface FilePropertyBag extends BlobPropertyBag {
     lastModified?: number;
 }
@@ -477,27 +387,6 @@ interface HashChangeEventInit extends EventInit {
     oldURL?: string;
 }
 
-interface HkdfParams extends Algorithm {
-    hash: string | Algorithm;
-    info: Int8Array | Int16Array | Int32Array | Uint8Array | Uint16Array | Uint32Array | Uint8ClampedArray | Float32Array | Float64Array | DataView | ArrayBuffer;
-    salt: Int8Array | Int16Array | Int32Array | Uint8Array | Uint16Array | Uint32Array | Uint8ClampedArray | Float32Array | Float64Array | DataView | ArrayBuffer;
-}
-
-interface HmacImportParams extends Algorithm {
-    hash: string | Algorithm;
-    length?: number;
-}
-
-interface HmacKeyAlgorithm extends KeyAlgorithm {
-    hash: KeyAlgorithm;
-    length: number;
-}
-
-interface HmacKeyGenParams extends Algorithm {
-    hash: string | Algorithm;
-    length?: number;
-}
-
 interface IDBIndexParameters {
     multiEntry?: boolean;
     unique?: boolean;
@@ -516,10 +405,6 @@ interface IDBVersionChangeEventInit extends EventInit {
 interface IIRFilterOptions extends AudioNodeOptions {
     feedback: number[];
     feedforward: number[];
-}
-
-interface ImageBitmapRenderingContextSettings {
-    alpha?: boolean;
 }
 
 interface ImageEncodeOptions {
@@ -574,12 +459,6 @@ interface KeyboardEventInit extends EventModifierInit {
     repeat?: boolean;
 }
 
-interface Keyframe extends Record<keyof CSSStyleDeclaration, string> {
-    composite?: CompositeOperation | null;
-    easing?: string;
-    offset?: number | null;
-}
-
 interface KeyframeAnimationOptions extends KeyframeEffectOptions {
     id?: string;
 }
@@ -600,75 +479,6 @@ interface MSAccountInfo {
     rpDisplayName: string;
     userDisplayName: string;
     userId?: string;
-}
-
-interface MSAudioLocalClientEvent extends MSLocalClientEventBase {
-    cpuInsufficientEventRatio?: number;
-    deviceCaptureNotFunctioningEventRatio?: number;
-    deviceClippingEventRatio?: number;
-    deviceEchoEventRatio?: number;
-    deviceGlitchesEventRatio?: number;
-    deviceHalfDuplexAECEventRatio?: number;
-    deviceHowlingEventCount?: number;
-    deviceLowSNREventRatio?: number;
-    deviceLowSpeechLevelEventRatio?: number;
-    deviceMultipleEndpointsEventCount?: number;
-    deviceNearEndToEchoRatioEventRatio?: number;
-    deviceRenderMuteEventRatio?: number;
-    deviceRenderNotFunctioningEventRatio?: number;
-    deviceRenderZeroVolumeEventRatio?: number;
-    networkDelayEventRatio?: number;
-    networkSendQualityEventRatio?: number;
-}
-
-interface MSAudioRecvPayload extends MSPayloadBase {
-    burstLossLength1?: number;
-    burstLossLength2?: number;
-    burstLossLength3?: number;
-    burstLossLength4?: number;
-    burstLossLength5?: number;
-    burstLossLength6?: number;
-    burstLossLength7?: number;
-    burstLossLength8OrHigher?: number;
-    fecRecvDistance1?: number;
-    fecRecvDistance2?: number;
-    fecRecvDistance3?: number;
-    packetReorderDepthAvg?: number;
-    packetReorderDepthMax?: number;
-    packetReorderRatio?: number;
-    ratioCompressedSamplesAvg?: number;
-    ratioConcealedSamplesAvg?: number;
-    ratioStretchedSamplesAvg?: number;
-    samplingRate?: number;
-    signal?: MSAudioRecvSignal;
-}
-
-interface MSAudioRecvSignal {
-    initialSignalLevelRMS?: number;
-    recvNoiseLevelCh1?: number;
-    recvSignalLevelCh1?: number;
-    renderLoopbackSignalLevel?: number;
-    renderNoiseLevel?: number;
-    renderSignalLevel?: number;
-}
-
-interface MSAudioSendPayload extends MSPayloadBase {
-    audioFECUsed?: boolean;
-    samplingRate?: number;
-    sendMutePercent?: number;
-    signal?: MSAudioSendSignal;
-}
-
-interface MSAudioSendSignal {
-    noiseLevel?: number;
-    sendNoiseLevelCh1?: number;
-    sendSignalLevelCh1?: number;
-}
-
-interface MSConnectivity {
-    iceType?: MSIceType;
-    iceWarningFlags?: MSIceWarningFlags;
-    relayAddress?: MSRelayAddress;
 }
 
 interface MSCredentialFilter {
@@ -694,206 +504,13 @@ interface MSDSHEventInit extends EventInit {
     timestamp?: number;
 }
 
-interface MSDelay {
-    roundTrip?: number;
-    roundTripMax?: number;
-}
-
-interface MSDescription extends RTCStats {
-    connectivity?: MSConnectivity;
-    deviceDevName?: string;
-    localAddr?: MSIPAddressInfo;
-    networkconnectivity?: MSNetworkConnectivityInfo;
-    reflexiveLocalIPAddr?: MSIPAddressInfo;
-    remoteAddr?: MSIPAddressInfo;
-    transport?: RTCIceProtocol;
-}
-
-interface MSFIDOCredentialParameters extends MSCredentialParameters {
-    algorithm?: string | Algorithm;
-    authenticators?: string[];
-}
-
-interface MSIPAddressInfo {
-    ipAddr?: string;
-    manufacturerMacAddrMask?: string;
-    port?: number;
-}
-
-interface MSIceWarningFlags {
-    allocationMessageIntegrityFailed?: boolean;
-    alternateServerReceived?: boolean;
-    connCheckMessageIntegrityFailed?: boolean;
-    connCheckOtherError?: boolean;
-    fipsAllocationFailure?: boolean;
-    multipleRelayServersAttempted?: boolean;
-    noRelayServersConfigured?: boolean;
-    portRangeExhausted?: boolean;
-    pseudoTLSFailure?: boolean;
-    tcpNatConnectivityFailed?: boolean;
-    tcpRelayConnectivityFailed?: boolean;
-    turnAuthUnknownUsernameError?: boolean;
-    turnTcpAllocateFailed?: boolean;
-    turnTcpSendFailed?: boolean;
-    turnTcpTimedOut?: boolean;
-    turnTurnTcpConnectivityFailed?: boolean;
-    turnUdpAllocateFailed?: boolean;
-    turnUdpSendFailed?: boolean;
-    udpLocalConnectivityFailed?: boolean;
-    udpNatConnectivityFailed?: boolean;
-    udpRelayConnectivityFailed?: boolean;
-    useCandidateChecksFailed?: boolean;
-}
-
-interface MSJitter {
-    interArrival?: number;
-    interArrivalMax?: number;
-    interArrivalSD?: number;
-}
-
-interface MSLocalClientEventBase extends RTCStats {
-    networkBandwidthLowEventRatio?: number;
-    networkReceiveQualityEventRatio?: number;
-}
-
-interface MSNetwork extends RTCStats {
-    delay?: MSDelay;
-    jitter?: MSJitter;
-    packetLoss?: MSPacketLoss;
-    utilization?: MSUtilization;
-}
-
-interface MSNetworkConnectivityInfo {
-    linkspeed?: number;
-    networkConnectionDetails?: string;
-    vpn?: boolean;
-}
-
-interface MSNetworkInterfaceType {
-    interfaceTypeEthernet?: boolean;
-    interfaceTypePPP?: boolean;
-    interfaceTypeTunnel?: boolean;
-    interfaceTypeWWAN?: boolean;
-    interfaceTypeWireless?: boolean;
-}
-
-interface MSOutboundNetwork extends MSNetwork {
-    appliedBandwidthLimit?: number;
-}
-
-interface MSPacketLoss {
-    lossRate?: number;
-    lossRateMax?: number;
-}
-
-interface MSPayloadBase extends RTCStats {
-    payloadDescription?: string;
-}
-
 interface MSPortRange {
     max?: number;
     min?: number;
 }
 
-interface MSRelayAddress {
-    port?: number;
-    relayAddress?: string;
-}
-
 interface MSSignatureParameters {
     userPrompt?: string;
-}
-
-interface MSTransportDiagnosticsStats extends RTCStats {
-    allocationTimeInMs?: number;
-    baseAddress?: string;
-    baseInterface?: MSNetworkInterfaceType;
-    iceRole?: RTCIceRole;
-    iceWarningFlags?: MSIceWarningFlags;
-    interfaces?: MSNetworkInterfaceType;
-    localAddrType?: MSIceAddrType;
-    localAddress?: string;
-    localInterface?: MSNetworkInterfaceType;
-    localMR?: string;
-    localMRTCPPort?: number;
-    localSite?: string;
-    msRtcEngineVersion?: string;
-    networkName?: string;
-    numConsentReqReceived?: number;
-    numConsentReqSent?: number;
-    numConsentRespReceived?: number;
-    numConsentRespSent?: number;
-    portRangeMax?: number;
-    portRangeMin?: number;
-    protocol?: RTCIceProtocol;
-    remoteAddrType?: MSIceAddrType;
-    remoteAddress?: string;
-    remoteMR?: string;
-    remoteMRTCPPort?: number;
-    remoteSite?: string;
-    rtpRtcpMux?: boolean;
-    stunVer?: number;
-}
-
-interface MSUtilization {
-    bandwidthEstimation?: number;
-    bandwidthEstimationAvg?: number;
-    bandwidthEstimationMax?: number;
-    bandwidthEstimationMin?: number;
-    bandwidthEstimationStdDev?: number;
-    packets?: number;
-}
-
-interface MSVideoPayload extends MSPayloadBase {
-    durationSeconds?: number;
-    resolution?: string;
-    videoBitRateAvg?: number;
-    videoBitRateMax?: number;
-    videoFrameRateAvg?: number;
-    videoPacketLossRate?: number;
-}
-
-interface MSVideoRecvPayload extends MSVideoPayload {
-    lowBitRateCallPercent?: number;
-    lowFrameRateCallPercent?: number;
-    recvBitRateAverage?: number;
-    recvBitRateMaximum?: number;
-    recvCodecType?: string;
-    recvFpsHarmonicAverage?: number;
-    recvFrameRateAverage?: number;
-    recvNumResSwitches?: number;
-    recvReorderBufferMaxSuccessfullyOrderedExtent?: number;
-    recvReorderBufferMaxSuccessfullyOrderedLateTime?: number;
-    recvReorderBufferPacketsDroppedDueToBufferExhaustion?: number;
-    recvReorderBufferPacketsDroppedDueToTimeout?: number;
-    recvReorderBufferReorderedPackets?: number;
-    recvResolutionHeight?: number;
-    recvResolutionWidth?: number;
-    recvVideoStreamsMax?: number;
-    recvVideoStreamsMin?: number;
-    recvVideoStreamsMode?: number;
-    reorderBufferTotalPackets?: number;
-    videoFrameLossRate?: number;
-    videoPostFECPLR?: number;
-    videoResolutions?: MSVideoResolutionDistribution;
-}
-
-interface MSVideoResolutionDistribution {
-    cifQuality?: number;
-    h1080Quality?: number;
-    h1440Quality?: number;
-    h2160Quality?: number;
-    h720Quality?: number;
-    vgaQuality?: number;
-}
-
-interface MSVideoSendPayload extends MSVideoPayload {
-    sendBitRateAverage?: number;
-    sendBitRateMaximum?: number;
-    sendFrameRateAverage?: number;
-    sendResolutionHeight?: number;
-    sendResolutionWidth?: number;
-    sendVideoStreamsMax?: number;
 }
 
 interface MediaElementAudioSourceOptions {
@@ -1062,11 +679,6 @@ interface NotificationAction {
     title: string;
 }
 
-interface NotificationEventInit extends ExtendableEventInit {
-    action?: string;
-    notification: Notification;
-}
-
 interface NotificationOptions {
     actions?: NotificationAction[];
     badge?: string;
@@ -1187,12 +799,6 @@ interface PaymentShippingOption {
     selected?: boolean;
 }
 
-interface Pbkdf2Params extends Algorithm {
-    hash: string | Algorithm;
-    iterations: number;
-    salt: Int8Array | Int16Array | Int32Array | Uint8Array | Uint16Array | Uint32Array | Uint8ClampedArray | Float32Array | Float64Array | DataView | ArrayBuffer;
-}
-
 interface PerformanceObserverInit {
     buffered?: boolean;
     entryTypes: string[];
@@ -1236,26 +842,6 @@ interface ProgressEventInit extends EventInit {
     total?: number;
 }
 
-interface PromiseRejectionEventInit extends EventInit {
-    promise: Promise<any>;
-    reason?: any;
-}
-
-interface PropertyIndexedKeyframes extends Record<keyof CSSStyleDeclaration, string | string[]> {
-    composite?: CompositeOperation | (CompositeOperation | null)[];
-    easing?: string | string[];
-    offset?: number | (number | null)[];
-}
-
-interface PushEventInit extends ExtendableEventInit {
-    data?: PushMessageDataInit;
-}
-
-interface PushSubscriptionChangeInit extends ExtendableEventInit {
-    newSubscription?: PushSubscription;
-    oldSubscription?: PushSubscription;
-}
-
 interface PushSubscriptionJSON {
     endpoint?: string;
     expirationTime?: number | null;
@@ -1270,13 +856,6 @@ interface PushSubscriptionOptionsInit {
 interface QueuingStrategy {
     highWaterMark?: number;
     size?: WritableStreamChunkCallback;
-}
-
-interface RTCAnswerOptions extends RTCOfferAnswerOptions {
-}
-
-interface RTCCertificateExpiration {
-    expires?: number;
 }
 
 interface RTCConfiguration {
@@ -1312,22 +891,8 @@ interface RTCDtlsFingerprint {
     value?: string;
 }
 
-interface RTCDtlsParameters {
-    fingerprints?: RTCDtlsFingerprint[];
-    role?: RTCDtlsRole;
-}
-
 interface RTCErrorEventInit extends EventInit {
     error?: RTCError | null;
-}
-
-interface RTCIceCandidateAttributes extends RTCStats {
-    addressSourceUrl?: string;
-    candidateType?: RTCStatsIceCandidateType;
-    ipAddress?: string;
-    portNumber?: number;
-    priority?: number;
-    transport?: string;
 }
 
 interface RTCIceCandidateComplete {
@@ -1358,22 +923,6 @@ interface RTCIceCandidatePair {
     remote?: RTCIceCandidate;
 }
 
-interface RTCIceCandidatePairStats extends RTCStats {
-    availableIncomingBitrate?: number;
-    availableOutgoingBitrate?: number;
-    bytesReceived?: number;
-    bytesSent?: number;
-    localCandidateId?: string;
-    nominated?: boolean;
-    priority?: number;
-    readable?: boolean;
-    remoteCandidateId?: string;
-    roundTripTime?: number;
-    state?: RTCStatsIceCandidatePairState;
-    transportId?: string;
-    writable?: boolean;
-}
-
 interface RTCIceGatherOptions {
     gatherPolicy?: RTCIceGatherPolicy;
     iceservers?: RTCIceServer[];
@@ -1392,55 +941,10 @@ interface RTCIceServer {
     username?: string;
 }
 
-interface RTCIdentityAssertionResult {
-    assertion: string;
-    idp: RTCIdentityProviderDetails;
-}
-
-interface RTCIdentityProvider {
-    generateAssertion: GenerateAssertionCallback;
-    validateAssertion: ValidateAssertionCallback;
-}
-
-interface RTCIdentityProviderDetails {
-    domain: string;
-    protocol?: string;
-}
-
 interface RTCIdentityProviderOptions {
     peerIdentity?: string;
     protocol?: string;
     usernameHint?: string;
-}
-
-interface RTCIdentityValidationResult {
-    contents: string;
-    identity: string;
-}
-
-interface RTCInboundRTPStreamStats extends RTCRTPStreamStats {
-    bytesReceived?: number;
-    fractionLost?: number;
-    jitter?: number;
-    packetsLost?: number;
-    packetsReceived?: number;
-}
-
-interface RTCMediaStreamTrackStats extends RTCStats {
-    audioLevel?: number;
-    echoReturnLoss?: number;
-    echoReturnLossEnhancement?: number;
-    frameHeight?: number;
-    frameWidth?: number;
-    framesCorrupted?: number;
-    framesDecoded?: number;
-    framesDropped?: number;
-    framesPerSecond?: number;
-    framesReceived?: number;
-    framesSent?: number;
-    remoteSource?: boolean;
-    ssrcIds?: string[];
-    trackIdentifier?: string;
 }
 
 interface RTCOAuthCredential {
@@ -1458,13 +962,6 @@ interface RTCOfferOptions extends RTCOfferAnswerOptions {
     offerToReceiveVideo?: boolean;
 }
 
-interface RTCOutboundRTPStreamStats extends RTCRTPStreamStats {
-    bytesSent?: number;
-    packetsSent?: number;
-    roundTripTime?: number;
-    targetBitrate?: number;
-}
-
 interface RTCPeerConnectionIceErrorEventInit extends EventInit {
     errorCode: number;
     hostCandidate?: string;
@@ -1475,25 +972,6 @@ interface RTCPeerConnectionIceErrorEventInit extends EventInit {
 interface RTCPeerConnectionIceEventInit extends EventInit {
     candidate?: RTCIceCandidate | null;
     url?: string | null;
-}
-
-interface RTCRTPStreamStats extends RTCStats {
-    associateStatsId?: string;
-    codecId?: string;
-    firCount?: number;
-    isRemote?: boolean;
-    mediaTrackId?: string;
-    mediaType?: string;
-    nackCount?: number;
-    pliCount?: number;
-    sliCount?: number;
-    ssrc?: string;
-    transportId?: string;
-}
-
-interface RTCRtcpFeedback {
-    parameter?: string;
-    type?: string;
 }
 
 interface RTCRtcpParameters {
@@ -1545,18 +1023,6 @@ interface RTCRtpEncodingParameters extends RTCRtpCodingParameters {
     scaleResolutionDownBy?: number;
 }
 
-interface RTCRtpFecParameters {
-    mechanism?: string;
-    ssrc?: number;
-}
-
-interface RTCRtpHeaderExtension {
-    kind?: string;
-    preferredEncrypt?: boolean;
-    preferredId?: number;
-    uri?: string;
-}
-
 interface RTCRtpHeaderExtensionCapability {
     uri?: string;
 }
@@ -1577,10 +1043,6 @@ interface RTCRtpReceiveParameters extends RTCRtpParameters {
     encodings: RTCRtpDecodingParameters[];
 }
 
-interface RTCRtpRtxParameters {
-    ssrc?: number;
-}
-
 interface RTCRtpSendParameters extends RTCRtpParameters {
     degradationPreference?: RTCDegradationPreference;
     encodings: RTCRtpEncodingParameters[];
@@ -1595,12 +1057,6 @@ interface RTCRtpTransceiverInit {
     direction?: RTCRtpTransceiverDirection;
     sendEncodings?: RTCRtpEncodingParameters[];
     streams?: MediaStream[];
-}
-
-interface RTCRtpUnhandled {
-    muxId?: string;
-    payloadType?: number;
-    ssrc?: number;
 }
 
 interface RTCSessionDescriptionInit {
@@ -1623,22 +1079,8 @@ interface RTCSrtpSdesParameters {
     tag?: number;
 }
 
-interface RTCSsrcRange {
-    max?: number;
-    min?: number;
-}
-
-interface RTCStats {
-    id: string;
-    timestamp: number;
-    type: RTCStatsType;
-}
-
 interface RTCStatsEventInit extends EventInit {
     report: RTCStatsReport;
-}
-
-interface RTCStatsReport {
 }
 
 interface RTCTrackEventInit extends EventInit {
@@ -1646,16 +1088,6 @@ interface RTCTrackEventInit extends EventInit {
     streams?: MediaStream[];
     track: MediaStreamTrack;
     transceiver: RTCRtpTransceiver;
-}
-
-interface RTCTransportStats extends RTCStats {
-    activeConnection?: boolean;
-    bytesReceived?: number;
-    bytesSent?: number;
-    localCertificateId?: string;
-    remoteCertificateId?: string;
-    rtcpTransportStatsId?: string;
-    selectedCandidatePairId?: string;
 }
 
 interface RegistrationOptions {
@@ -1686,40 +1118,10 @@ interface ResponseInit {
     statusText?: string;
 }
 
-interface RsaHashedImportParams extends Algorithm {
-    hash: string | Algorithm;
-}
-
-interface RsaHashedKeyAlgorithm extends RsaKeyAlgorithm {
-    hash: KeyAlgorithm;
-}
-
-interface RsaHashedKeyGenParams extends RsaKeyGenParams {
-    hash: string | Algorithm;
-}
-
-interface RsaKeyAlgorithm extends KeyAlgorithm {
-    modulusLength: number;
-    publicExponent: Uint8Array;
-}
-
-interface RsaKeyGenParams extends Algorithm {
-    modulusLength: number;
-    publicExponent: Uint8Array;
-}
-
-interface RsaOaepParams extends Algorithm {
-    label?: Int8Array | Int16Array | Int32Array | Uint8Array | Uint16Array | Uint32Array | Uint8ClampedArray | Float32Array | Float64Array | DataView | ArrayBuffer;
-}
-
 interface RsaOtherPrimesInfo {
     d?: string;
     r?: string;
     t?: string;
-}
-
-interface RsaPssParams extends Algorithm {
-    saltLength: number;
 }
 
 interface ScopedCredentialDescriptor {
@@ -1738,20 +1140,6 @@ interface ScopedCredentialOptions {
 interface ScopedCredentialParameters {
     algorithm: string | Algorithm;
     type: ScopedCredentialType;
-}
-
-interface ScrollIntoViewOptions extends ScrollOptions {
-    block?: ScrollLogicalPosition;
-    inline?: ScrollLogicalPosition;
-}
-
-interface ScrollOptions {
-    behavior?: ScrollBehavior;
-}
-
-interface ScrollToOptions extends ScrollOptions {
-    left?: number;
-    top?: number;
 }
 
 interface SecurityPolicyViolationEventInit extends EventInit {
@@ -1800,11 +1188,6 @@ interface StoreExceptionsInformation extends ExceptionInformation {
 
 interface StoreSiteSpecificExceptionsInformation extends StoreExceptionsInformation {
     arrayOfDomainStrings?: string[];
-}
-
-interface SyncEventInit extends ExtendableEventInit {
-    lastChance?: boolean;
-    tag: string;
 }
 
 interface TextDecodeOptions {
@@ -3251,19 +2634,6 @@ interface CanvasPathDrawingStyles {
     setLineDash(segments: number[]): void;
 }
 
-interface CanvasPathMethods {
-    arc(x: number, y: number, radius: number, startAngle: number, endAngle: number, anticlockwise?: boolean): void;
-    arcTo(x1: number, y1: number, x2: number, y2: number, radius: number): void;
-    arcTo(x1: number, y1: number, x2: number, y2: number, radiusX: number, radiusY: number, rotation: number): void;
-    bezierCurveTo(cp1x: number, cp1y: number, cp2x: number, cp2y: number, x: number, y: number): void;
-    closePath(): void;
-    ellipse(x: number, y: number, radiusX: number, radiusY: number, rotation: number, startAngle: number, endAngle: number, anticlockwise?: boolean): void;
-    lineTo(x: number, y: number): void;
-    moveTo(x: number, y: number): void;
-    quadraticCurveTo(cpx: number, cpy: number, x: number, y: number): void;
-    rect(x: number, y: number, w: number, h: number): void;
-}
-
 interface CanvasPattern {
     setTransform(transform?: DOMMatrix2DInit): void;
 }
@@ -3666,10 +3036,6 @@ declare var DOMImplementation: {
 
 interface DOML2DeprecatedColorProperty {
     color: string;
-}
-
-interface DOML2DeprecatedSizeProperty {
-    size: number;
 }
 
 interface DOMMatrix extends DOMMatrixReadOnly {
@@ -11711,15 +11077,6 @@ declare var RadioNodeList: {
     new(): RadioNodeList;
 };
 
-interface RandomSource {
-    getRandomValues<T extends Int8Array | Uint8ClampedArray | Uint8Array | Int16Array | Uint16Array | Int32Array | Uint32Array>(array: T): T;
-}
-
-declare var RandomSource: {
-    prototype: RandomSource;
-    new(): RandomSource;
-};
-
 interface Range {
     readonly collapsed: boolean;
     readonly commonAncestorContainer: Node;
@@ -16705,20 +16062,12 @@ interface EventHandlerNonNull {
     (event: Event): any;
 }
 
-interface ForEachCallback {
-    (keyId: Int8Array | Int16Array | Int32Array | Uint8Array | Uint16Array | Uint32Array | Uint8ClampedArray | Float32Array | Float64Array | DataView | ArrayBuffer | null, status: MediaKeyStatus): void;
-}
-
 interface FrameRequestCallback {
     (time: number): void;
 }
 
 interface FunctionStringCallback {
     (data: string): void;
-}
-
-interface GenerateAssertionCallback {
-    (contents: string, origin: string, options: RTCIdentityProviderOptions): Promise<RTCIdentityAssertionResult>;
 }
 
 interface IntersectionObserverCallback {
@@ -16767,14 +16116,6 @@ interface RTCPeerConnectionErrorCallback {
 
 interface RTCSessionDescriptionCallback {
     (description: RTCSessionDescriptionInit): void;
-}
-
-interface RTCStatsCallback {
-    (report: RTCStatsReport): void;
-}
-
-interface ValidateAssertionCallback {
-    (assertion: string, origin: string): Promise<RTCIdentityValidationResult>;
 }
 
 interface VoidFunction {
@@ -17237,49 +16578,11 @@ type OffscreenRenderingContext = OffscreenCanvasRenderingContext2D | WebGLRender
 type MessageEventSource = WindowProxy | MessagePort | ServiceWorker;
 type DOMHighResTimeStamp = number;
 type PerformanceEntryList = PerformanceEntry[];
-type PushMessageDataInit = BufferSource | string;
 type VibratePattern = number | number[];
 type BufferSource = ArrayBufferView | ArrayBuffer;
 type DOMTimeStamp = number;
 type FormDataEntryValue = File | string;
-type ScrollBehavior = "auto" | "instant" | "smooth";
-type ScrollLogicalPosition = "start" | "center" | "end" | "nearest";
-type MouseWheelEvent = WheelEvent;
-type ScrollRestoration = "auto" | "manual";
-type InsertPosition = "beforebegin" | "afterbegin" | "beforeend" | "afterend";
-type OrientationLockType = "any" | "natural" | "portrait" | "landscape" | "portrait-primary" | "portrait-secondary" | "landscape-primary"| "landscape-secondary";
-type IDBValidKey = number | string | Date | BufferSource | IDBArrayKey;
 type AlgorithmIdentifier = string | Algorithm;
-type MutationRecordType = "attributes" | "characterData" | "childList";
-type AAGUID = string;
-type ByteString = string;
-type ConstrainBoolean = boolean | ConstrainBooleanParameters;
-type ConstrainDOMString = string | string[] | ConstrainDOMStringParameters;
-type ConstrainDouble = number | ConstrainDoubleRange;
-type ConstrainLong = number | ConstrainLongRange;
-type CryptoOperationData = ArrayBufferView;
-type GLbitfield = number;
-type GLboolean = boolean;
-type GLbyte = number;
-type GLclampf = number;
-type GLenum = number;
-type GLfloat = number;
-type GLint = number;
-type GLintptr = number;
-type GLshort = number;
-type GLsizei = number;
-type GLsizeiptr = number;
-type GLubyte = number;
-type GLuint = number;
-type GLushort = number;
-type IDBKeyPath = string;
-type MSInboundPayload = MSVideoRecvPayload | MSAudioRecvPayload;
-type MSLocalClientEvent = MSLocalClientEventBase | MSAudioLocalClientEvent;
-type MSOutboundPayload = MSVideoSendPayload | MSAudioSendPayload;
-type RTCIceGatherCandidate = RTCIceCandidateDictionary | RTCIceCandidateComplete;
-type RTCTransport = RTCDtlsTransport | RTCSrtpSdesTransport;
-type USVString = string;
-type payloadtype = number;
 type WindowProxy = Window;
 type AnimationPlayState = "idle" | "running" | "paused" | "finished";
 type AppendMode = "segments" | "sequence";
@@ -17297,11 +16600,8 @@ type CanvasTextAlign = "start" | "end" | "left" | "right" | "center";
 type CanvasTextBaseline = "top" | "hanging" | "middle" | "alphabetic" | "ideographic" | "bottom";
 type ChannelCountMode = "max" | "clamped-max" | "explicit";
 type ChannelInterpretation = "speakers" | "discrete";
-type ClientTypes = "window" | "worker" | "sharedworker" | "all";
 type CompositeOperation = "replace" | "add" | "accumulate";
-type DisplayCaptureSurfaceType = "monitor" | "window" | "application" | "browser";
 type DistanceModelType = "linear" | "inverse" | "exponential";
-type DocumentReadyState = "loading" | "interactive" | "complete";
 type EndOfStreamError = "network" | "decode";
 type ExpandGranularity = "character" | "word" | "sentence" | "textedit";
 type FillMode = "none" | "forwards" | "backwards" | "both" | "auto";
@@ -17314,14 +16614,8 @@ type IDBRequestReadyState = "pending" | "done";
 type IDBTransactionMode = "readonly" | "readwrite" | "versionchange";
 type ImageSmoothingQuality = "low" | "medium" | "high";
 type IterationCompositeOperation = "replace" | "accumulate";
-type KeyFormat = "raw" | "spki" | "pkcs8" | "jwk";
-type KeyType = "public" | "private" | "secret";
-type KeyUsage = "encrypt" | "decrypt" | "sign" | "verify" | "deriveKey" | "deriveBits" | "wrapKey" | "unwrapKey";
 type ListeningState = "inactive" | "active" | "disambiguation";
 type MSCredentialType = "FIDO_2_0";
-type MSIceAddrType = "os" | "stun" | "turn" | "peer-derived";
-type MSIceType = "failed" | "direct" | "relay";
-type MSStatsType = "description" | "localclientevent" | "inbound-network" | "outbound-network" | "inbound-payload" | "outbound-payload" | "transportdiagnostics";
 type MSTransportType = "Embedded" | "USB" | "NFC" | "BT";
 type MSWebViewPermissionState = "unknown" | "defer" | "allow" | "deny";
 type MSWebViewPermissionType = "geolocation" | "unlimitedIndexedDBQuota" | "media" | "pointerlock" | "webnotifications";
@@ -17347,10 +16641,8 @@ type PushPermissionState = "denied" | "granted" | "prompt";
 type RTCBundlePolicy = "balanced" | "max-compat" | "max-bundle";
 type RTCDataChannelState = "connecting" | "open" | "closing" | "closed";
 type RTCDegradationPreference = "maintain-framerate" | "maintain-resolution" | "balanced";
-type RTCDtlsRole = "auto" | "client" | "server";
 type RTCDtlsTransportState = "new" | "connecting" | "connected" | "closed" | "failed";
 type RTCDtxStatus = "disabled" | "enabled";
-type RTCErrorDetailType = "data-channel-failure" | "dtls-failure" | "fingerprint-failure" | "idp-bad-script-failure" | "idp-execution-failure" | "idp-load-failure" | "idp-need-login" | "idp-timeout" | "idp-tls-failure" | "idp-token-expired" | "idp-token-invalid" | "sctp-failure" | "sdp-syntax-error" | "hardware-encoder-not-available" | "hardware-encoder-error";
 type RTCIceCandidateType = "host" | "srflx" | "prflx" | "relay";
 type RTCIceComponent = "rtp" | "rtcp";
 type RTCIceConnectionState = "new" | "checking" | "connected" | "completed" | "disconnected" | "failed" | "closed";
@@ -17370,9 +16662,6 @@ type RTCRtpTransceiverDirection = "sendrecv" | "sendonly" | "recvonly" | "inacti
 type RTCSctpTransportState = "new" | "connecting" | "connected" | "closed";
 type RTCSdpType = "offer" | "pranswer" | "answer" | "rollback";
 type RTCSignalingState = "stable" | "have-local-offer" | "have-remote-offer" | "have-local-pranswer" | "have-remote-pranswer" | "closed";
-type RTCStatsIceCandidatePairState = "frozen" | "waiting" | "inprogress" | "failed" | "succeeded" | "cancelled";
-type RTCStatsIceCandidateType = "host" | "serverreflexive" | "peerreflexive" | "relayed";
-type RTCStatsType = "inboundrtp" | "outboundrtp" | "session" | "datachannel" | "track" | "transport" | "candidatepair" | "localcandidate" | "remotecandidate";
 type ReadyState = "closed" | "open" | "ended";
 type ReferrerPolicy = "" | "no-referrer" | "no-referrer-when-downgrade" | "origin-only" | "origin-when-cross-origin" | "unsafe-url";
 type RequestCache = "default" | "no-store" | "reload" | "no-cache" | "force-cache" | "only-if-cached";
@@ -17390,8 +16679,6 @@ type TextTrackMode = "disabled" | "hidden" | "showing";
 type TouchType = "direct" | "stylus";
 type Transport = "usb" | "nfc" | "ble";
 type VRDisplayEventReason = "mounted" | "navigation" | "requested" | "unmounted";
-type VREye = "left" | "right";
-type VideoFacingModeEnum = "user" | "environment" | "left" | "right";
 type VisibilityState = "hidden" | "visible" | "prerender" | "unloaded";
 type WorkerType = "classic" | "module";
 type XMLHttpRequestResponseType = "" | "arraybuffer" | "blob" | "document" | "json" | "text";
