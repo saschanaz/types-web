@@ -1,20 +1,20 @@
 import * as Browser from "./types";
 import * as fs from "fs";
 import * as path from "path";
-import { filter, merge, exposesTo, resolveExposure, markAsDeprecated, mapToArray } from "./helpers";
+import { merge, resolveExposure, markAsDeprecated, mapToArray } from "./helpers";
 import { Flavor, emitWebIDl } from "./emitter";
 import { convert } from "./widlprocess";
 import { getExposedTypes } from "./expose";
 
-function emitDomWorker(webidl: Browser.WebIdl, forceKnownWorkerTypes: Set<string>, tsWorkerOutput: string) {
-    const worker = getExposedTypes(webidl, forceKnownWorkerTypes, "Worker");
+function emitDomWorker(webidl: Browser.WebIdl, tsWorkerOutput: string, forceKnownTypes: Set<string>) {
+    const worker = getExposedTypes(webidl, "Worker", forceKnownTypes);
     const result = emitWebIDl(worker, Flavor.Worker);
     fs.writeFileSync(tsWorkerOutput, result);
     return;
 }
 
-function emitDomWeb(webidl: Browser.WebIdl, tsWebOutput: string) {
-    const browser = filter(webidl, o => exposesTo(o, "Window"));
+function emitDomWeb(webidl: Browser.WebIdl, tsWebOutput: string, forceKnownTypes: Set<string>) {
+    const browser = getExposedTypes(webidl, "Window", forceKnownTypes);
 
     const result = emitWebIDl(browser, Flavor.Web);
     fs.writeFileSync(tsWebOutput, result);
@@ -58,7 +58,7 @@ function emitDom() {
     /// Load the input file
     let webidl: Browser.WebIdl = require(path.join(inputFolder, "browser.webidl.preprocessed.json"));
 
-    const knownWorkerTypes = new Set<string>(require(path.join(inputFolder, "knownWorkerTypes.json")));
+    const { Window: knownWindowTypes, Worker: knownWorkerTypes } = require(path.join(inputFolder, "knownTypes.json"));
 
     for (const w of widlStandardTypes) {
         webidl = merge(webidl, w.browser, true);
@@ -103,8 +103,8 @@ function emitDom() {
         }
     }
 
-    emitDomWeb(webidl, tsWebOutput);
-    emitDomWorker(webidl, knownWorkerTypes, tsWorkerOutput);
+    emitDomWeb(webidl, tsWebOutput, new Set(knownWindowTypes));
+    emitDomWorker(webidl, tsWorkerOutput, new Set(knownWorkerTypes));
     emitES6DomIterators(webidl, tsWebES6Output);
 
     function prune(obj: Browser.WebIdl, template: Partial<Browser.WebIdl>): Browser.WebIdl {

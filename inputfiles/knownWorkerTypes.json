@@ -1,7 +1,0 @@
-[
-    "ClientTypes",
-    "IDBArrayKey",
-    "IDBValidKey",
-    "MessageEventSource",
-    "PromiseRejectionEventInit"
-]
