@@ -15,7 +15,6 @@ function emitDomWorker(webidl: Browser.WebIdl, tsWorkerOutput: string, forceKnow
 
 function emitDomWeb(webidl: Browser.WebIdl, tsWebOutput: string, forceKnownTypes: Set<string>) {
     const browser = getExposedTypes(webidl, "Window", forceKnownTypes);
-
     const result = emitWebIDl(browser, Flavor.Web);
     fs.writeFileSync(tsWebOutput, result);
     return;

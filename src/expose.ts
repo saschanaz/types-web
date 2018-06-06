@@ -36,65 +36,61 @@ export function getExposedTypes(webidl: Browser.WebIdl, target: string, forceKno
     if (webidl.enums) worker.enums!.enum = filterProperties(webidl.enums.enum, isKnownWorkerName);
     if (webidl.mixins) worker.mixins!.mixin = filterProperties(webidl.mixins.mixin, isKnownWorkerName);
 
-    return deepClone(worker, o => {
-        if (Array.isArray(o.type)) {
-            return {
-                ...o,
-                type: cutNeverFromUnions(o.type, knownWorkerAllTypes)
-            }
-        }
-        if (Array.isArray(o.signature)) {
-            return {
-                ...o,
-                signature: o.signature.map((s: any) => cutSignatureByType(s, knownWorkerAllTypes))
-            };
-        }
-    });
+    return deepFilterUnexposedTypes(worker, knownWorkerAllTypes);
 }
 
-function cutNeverFromUnions(union: Browser.Typed[], knownTypes: Set<string>): Browser.Typed[] {
-    const result: Browser.Typed[] = [];
-    for (const type of union) {
-        if (Array.isArray(type.type)) {
-            if (cutNeverFromUnions(type.type, knownTypes).length) {
+function deepFilterUnexposedTypes(webidl: Browser.WebIdl, knownTypes: Set<string>) {
+    return deepClone(webidl, o => {
+        if (Array.isArray(o.type)) {
+            return { ...o, type: filterUnknownTypeFromUnion(o.type) }
+        }
+        if (Array.isArray(o.signature)) {
+            return { ...o, signature: o.signature.map(filterUnknownTypeFromSignature) };
+        }
+    });
+
+    function filterUnknownTypeFromUnion(union: Browser.Typed[]): Browser.Typed[] {
+        const result: Browser.Typed[] = [];
+        for (const type of union) {
+            if (Array.isArray(type.type)) {
+                const filteredUnion = filterUnknownTypeFromUnion(type.type);
+                if (filteredUnion.length) {
+                    result.push({ ...type, type: filteredUnion });
+                }
+            }
+            else if (type["override-type"] || knownTypes.has(type.type)) {
                 result.push(type);
             }
         }
-        else if (type["override-type"] || knownTypes.has(type.type)) {
-            result.push(type);
-        }
+        return result;
     }
-    return result;
-}
 
-function cutSignatureByType(signature: Browser.Signature, knownTypes: Set<string>) {
-    if (!signature.param) {
-        return signature;
-    }
-    const param: Browser.Param[] = [];
-    for (const p of signature.param) {
-        if (Array.isArray(p.type)) {
-            const cut = cutNeverFromUnions(p.type, knownTypes);
-            if (p.optional && !cut.length) {
-                break;
+    function filterUnknownTypeFromSignature(signature: Browser.Signature) {
+        if (!signature.param) {
+            return signature;
+        }
+        const param: Browser.Param[] = [];
+        for (const p of signature.param) {
+            const types = Array.isArray(p.type) ? p.type : [p];
+            const filtered = filterUnknownTypeFromUnion(types);
+            if (filtered.length > 1) {
+                param.push({ ...p, type: filtered });
+            }
+            else if (filtered.length === 1) {
+                param.push({ ...p, ...filtered[0] });
+            }
+            else if (!p.optional) {
+                throw new Error("A non-optional parameter has unknown type");
             }
             else {
-                if (cut.length > 1) {
-                    param.push({ ...p, type: cut })
-                }
-                else if (cut.length === 1) {
-                    param.push({ ...p, ...cut[0] });
-                }
-                continue;
+                // safe to skip
+                break;
             }
         }
-        else if (p.optional && !knownTypes.has(p.type)) {
-            break;
-        }
-        param.push(p);
+        return { ...signature, param };
     }
-    return { ...signature, param };
 }
+
 
 function deepClone<T>(o: T, custom: (o: any) => any): T {
     if (!o || typeof o !== "object") {
