@@ -3,7 +3,7 @@ import * as path from "path";
 import fetch from "node-fetch";
 import { JSDOM } from "jsdom";
 
-fetchIDLs();
+fetchIDLs(process.argv.slice(2));
 
 interface IDLSource {
     url: string;
@@ -17,8 +17,9 @@ const idlSelector = [
     "pre:not(.extract) code.idl" // HTML
 ].join(",");
 
-async function fetchIDLs() {
-    const idlSources = require("../inputfiles/idlSources.json") as IDLSource[];
+async function fetchIDLs(filter: string[]) {
+    const idlSources = (require("../inputfiles/idlSources.json") as IDLSource[])
+        .filter(source => !filter.length || filter.includes(source.title));
     await Promise.all(idlSources.map(async source => {
         const { idl, comments } = await fetchIDL(source);
         fs.writeFileSync(path.join(__dirname, `../inputfiles/idl/${source.title}.widl`), idl + '\n');
@@ -61,6 +62,8 @@ function processComments(dom: DocumentFragment) {
 
     const result: Record<string, string> = {};
     for (const element of elements) {
+        // no innerText support from JSDOM, so as a workaround
+        normalizeTextNodes(element);
         for (const {dt, dd} of generateDescriptionPairs(element)) {
             elements.push(...importNestedList(dd));
             const comment = dd
@@ -103,8 +106,8 @@ function getCommentText(text: string) {
 }
 
 function* generateDescriptionPairs(domIntro: Element) {
-    const dt: Element[] = [];
-    const dd: Element[] = [];
+    const dt: HTMLDataElement[] = [];
+    const dd: HTMLDataElement[] = [];
     let element = domIntro.firstElementChild;
     while (element) {
         switch (element.localName) {
@@ -113,10 +116,10 @@ function* generateDescriptionPairs(domIntro: Element) {
                     yield { dt: [...dt], dd: [...dd] };
                     dt.length = dd.length = 0;
                 }
-                dt.push(element)
+                dt.push(element as HTMLDataElement)
                 break;
             case "dd":
-                dd.push(element)
+                dd.push(element as HTMLDataElement)
                 break;
             default:
                 debugger;
@@ -133,6 +136,16 @@ function* importNestedList(elements: Element[]) {
         for (const dl of element.getElementsByTagName("dl")) {
             dl.remove();
             yield dl;
+        }
+    }
+}
+
+function normalizeTextNodes(element: Element) {
+    for (const node of element.childNodes) {
+        if (node.nodeType === 1) {
+            normalizeTextNodes(node as Element);
+        } else if (node.nodeType === 3) {
+            node.textContent = node.textContent!.replace(/\s+/g, " ");
         }
     }
 }
