@@ -2,13 +2,13 @@ import * as Browser from "./types";
 import * as fs from "fs";
 import * as path from "path";
 import { merge, resolveExposure, markAsDeprecated, mapToArray } from "./helpers";
-import { Flavor, emitWebIDl } from "./emitter";
+import { Flavor, emitWebIdl } from "./emitter";
 import { convert } from "./widlprocess";
 import { getExposedTypes } from "./expose";
 
 function emitDomWorker(webidl: Browser.WebIdl, tsWorkerOutput: string, forceKnownWorkerTypes: Set<string>) {
     const worker = getExposedTypes(webidl, "Worker", forceKnownWorkerTypes);
-    const result = emitWebIDl(worker, Flavor.Worker);
+    const result = emitWebIdl(worker, Flavor.Worker);
     fs.writeFileSync(tsWorkerOutput, result);
     return;
 }
@@ -16,13 +16,13 @@ function emitDomWorker(webidl: Browser.WebIdl, tsWorkerOutput: string, forceKnow
 function emitDomWeb(webidl: Browser.WebIdl, tsWebOutput: string, forceKnownWindowTypes: Set<string>) {
     const browser = getExposedTypes(webidl, "Window", forceKnownWindowTypes);
 
-    const result = emitWebIDl(browser, Flavor.Web);
+    const result = emitWebIdl(browser, Flavor.Web);
     fs.writeFileSync(tsWebOutput, result);
     return;
 }
 
 function emitES6DomIterators(webidl: Browser.WebIdl, tsWebIteratorsOutput: string) {
-    fs.writeFileSync(tsWebIteratorsOutput, emitWebIDl(webidl, Flavor.ES6Iterators));
+    fs.writeFileSync(tsWebIteratorsOutput, emitWebIdl(webidl, Flavor.ES6Iterators));
 }
 
 function emitDom() {

@@ -120,7 +120,7 @@ function isEventHandler(p: Browser.Property) {
     return typeof p["event-handler"] === "string";
 }
 
-export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
+export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor) {
     // Global print target
     const printer = createTextWriter("\n");
 
