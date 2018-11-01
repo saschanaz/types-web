@@ -146,50 +146,6 @@
     },
     "interfaces": {
         "interface": {
-            "Headers": {
-                "iterator": {
-                    "comments": {
-                        "comment": {
-                            "entries": "/**\r\n * Returns an iterator allowing to go through all key/value pairs contained in this object.\r\n */",
-                            "keys": "/**\r\n * Returns an iterator allowing to go through all keys of the key/value pairs contained in this object.\r\n */",
-                            "values": "/**\r\n * Returns an iterator allowing to go through all values of the key/value pairs contained in this object.\r\n */"
-                        }
-                    }
-                }
-            },
-            "FormData": {
-                "iterator": {
-                    "comments": {
-                        "comment": {
-                            "entries": "/**\r\n * Returns an array of key, value pairs for every entry in the list.\r\n */",
-                            "keys": "/**\r\n * Returns a list of keys in the list.\r\n */",
-                            "values": "/**\r\n * Returns a list of values in the list.\r\n */"
-                        }
-                    }
-                }
-            },
-            "NodeListOf<TNode extends Node>": {
-                "iterator": {
-                    "comments": {
-                        "comment": {
-                            "entries": "/**\r\n * Returns an array of key, value pairs for every entry in the list.\r\n */",
-                            "keys": "/**\r\n * Returns an list of keys in the list.\r\n */",
-                            "values": "/**\r\n * Returns an list of values in the list.\r\n */"
-                        }
-                    }
-                }
-            },
-            "NodeList": {
-                "iterator": {
-                    "comments": {
-                        "comment": {
-                            "entries": "/**\r\n * Returns an array of key, value pairs for every entry in the list.\r\n */",
-                            "keys": "/**\r\n * Returns an list of keys in the list.\r\n */",
-                            "values": "/**\r\n * Returns an list of values in the list.\r\n */"
-                        }
-                    }
-                }
-            },
             "HTMLTableElement": {
                 "properties": {
                     "property": {
@@ -1874,15 +1830,6 @@
                         }
                     },
                     "constructor": "/**\r\n * Constructor returning a URLSearchParams object.\r\n */"
-                },
-                "iterator": {
-                    "comments": {
-                        "comment": {
-                            "entries": "/**\r\n * Returns an array of key, value pairs for every entry in the search params.\r\n */",
-                            "keys": "/**\r\n * Returns a list of keys in the search params.\r\n */",
-                            "values": "/**\r\n * Returns a list of values in the search params.\r\n */"
-                        }
-                    }
                 }
             }
         }

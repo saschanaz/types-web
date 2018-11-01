@@ -664,7 +664,8 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
     function emitSignatures(method: { signature: Browser.Signature[], "override-signatures"?: string[], "additional-signatures"?: string[] }, prefix: string, name: string, printLine: (s: string) => void) {
         if (method["override-signatures"]) {
             method["override-signatures"]!.forEach(s => printLine(`${prefix}${s};`));
-        } else {
+        }
+        else {
             if (method["additional-signatures"]) {
                 method["additional-signatures"]!.forEach(s => printLine(`${prefix}${s};`));
             }
@@ -699,6 +700,11 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
         const key = subtype.length > 1 ? subtype[0] :
             i.iterator.kind === "iterable" ? "number" : value;
         const name = i.name.replace(/ extends \w+/, "");
+        printer.printLine("/**");
+        printer.printLine(" * Performs the specified action for each element in an list.");
+        printer.printLine(" * @param callbackfn  A function that accepts up to three arguments. forEach calls the callbackfn function one time for each element in the list.");
+        printer.printLine(" * @param thisArg  An object to which the this keyword can refer in the callbackfn function. If thisArg is omitted, undefined is used as the this value.");
+        printer.printLine(" */");
         printer.printLine(`forEach(callbackfn: (value: ${value}, key: ${key}, parent: ${name}) => void, thisArg?: any): void;`);
     }
 
@@ -1145,7 +1151,7 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
             return `[${types.join(", ")}]`;
         }
 
-        function emitIterableDeclarationMethods(i: Browser.Interface, subtypes: string[]) {
+        function emitIterableDeclarationMethods(subtypes: string[]) {
             let [keyType, valueType] = subtypes;
             if (!valueType) {
                 valueType = keyType;
@@ -1155,22 +1161,19 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
             const methods = [{
                 name: 'entries',
                 definition: `IterableIterator<[${keyType}, ${valueType}]>`,
+                comment: "/**\r\n * Returns an iterator allowing to go through all key/value pairs contained in this object.\r\n */",
             }, {
                 name: 'keys',
                 definition: `IterableIterator<${keyType}>`,
+                comment: "/**\r\n * Returns an iterator allowing to go through all keys of the key/value pairs contained in this object.\r\n */",
             }, {
                 name: 'values',
                 definition: `IterableIterator<${valueType}>`,
+                comment: "/**\r\n * Returns an iterator allowing to go through all values of the key/value pairs contained in this object.\r\n */",
             }];
 
-            const comments = i.iterator
-                && i.iterator.comments
-                && i.iterator.comments.comment;
-
             methods.forEach((m) => {
-                if (comments && comments[m.name]) {
-                    comments[m.name].split('\n').forEach(printer.printLine);
-                }
+                m.comment.split('\n').forEach(printer.printLine);
                 printer.printLine(`${m.name}(): ${m.definition};`);
             });
         }
@@ -1199,7 +1202,7 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
                 printer.printLine(`[Symbol.iterator](): IterableIterator<${stringifySingleOrTupleTypes(subtypes)}>;`);
             }
             if (i.iterator && i.iterator.kind === "iterable") {
-                emitIterableDeclarationMethods(i, subtypes);
+                emitIterableDeclarationMethods(subtypes);
             }
             printer.decreaseIndent();
             printer.printLine("}");

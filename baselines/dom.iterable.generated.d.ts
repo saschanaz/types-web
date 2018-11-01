@@ -31,8 +31,17 @@ interface DOMStringList {
 
 interface DOMTokenList {
     [Symbol.iterator](): IterableIterator<string>;
+    /**
+     * Returns an iterator allowing to go through all key/value pairs contained in this object.
+     */
     entries(): IterableIterator<[number, string]>;
+    /**
+     * Returns an iterator allowing to go through all keys of the key/value pairs contained in this object.
+     */
     keys(): IterableIterator<number>;
+    /**
+     * Returns an iterator allowing to go through all values of the key/value pairs contained in this object.
+     */
     values(): IterableIterator<string>;
 }
 
@@ -47,15 +56,15 @@ interface FileList {
 interface FormData {
     [Symbol.iterator](): IterableIterator<[string, FormDataEntryValue]>;
     /**
-     * Returns an array of key, value pairs for every entry in the list.
+     * Returns an iterator allowing to go through all key/value pairs contained in this object.
      */
     entries(): IterableIterator<[string, FormDataEntryValue]>;
     /**
-     * Returns a list of keys in the list.
+     * Returns an iterator allowing to go through all keys of the key/value pairs contained in this object.
      */
     keys(): IterableIterator<string>;
     /**
-     * Returns a list of values in the list.
+     * Returns an iterator allowing to go through all values of the key/value pairs contained in this object.
      */
     values(): IterableIterator<FormDataEntryValue>;
 }
@@ -111,15 +120,15 @@ interface NamedNodeMap {
 interface NodeList {
     [Symbol.iterator](): IterableIterator<Node>;
     /**
-     * Returns an array of key, value pairs for every entry in the list.
+     * Returns an iterator allowing to go through all key/value pairs contained in this object.
      */
     entries(): IterableIterator<[number, Node]>;
     /**
-     * Returns an list of keys in the list.
+     * Returns an iterator allowing to go through all keys of the key/value pairs contained in this object.
      */
     keys(): IterableIterator<number>;
     /**
-     * Returns an list of values in the list.
+     * Returns an iterator allowing to go through all values of the key/value pairs contained in this object.
      */
     values(): IterableIterator<Node>;
 }
@@ -127,15 +136,15 @@ interface NodeList {
 interface NodeListOf<TNode extends Node> {
     [Symbol.iterator](): IterableIterator<TNode>;
     /**
-     * Returns an array of key, value pairs for every entry in the list.
+     * Returns an iterator allowing to go through all key/value pairs contained in this object.
      */
     entries(): IterableIterator<[number, TNode]>;
     /**
-     * Returns an list of keys in the list.
+     * Returns an iterator allowing to go through all keys of the key/value pairs contained in this object.
      */
     keys(): IterableIterator<number>;
     /**
-     * Returns an list of values in the list.
+     * Returns an iterator allowing to go through all values of the key/value pairs contained in this object.
      */
     values(): IterableIterator<TNode>;
 }
@@ -198,15 +207,15 @@ interface TouchList {
 interface URLSearchParams {
     [Symbol.iterator](): IterableIterator<[string, string]>;
     /**
-     * Returns an array of key, value pairs for every entry in the search params.
+     * Returns an iterator allowing to go through all key/value pairs contained in this object.
      */
     entries(): IterableIterator<[string, string]>;
     /**
-     * Returns a list of keys in the search params.
+     * Returns an iterator allowing to go through all keys of the key/value pairs contained in this object.
      */
     keys(): IterableIterator<string>;
     /**
-     * Returns a list of values in the search params.
+     * Returns an iterator allowing to go through all values of the key/value pairs contained in this object.
      */
     values(): IterableIterator<string>;
 }
