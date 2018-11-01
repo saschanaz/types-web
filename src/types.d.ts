@@ -107,6 +107,7 @@ export interface CallbackFunction {
 
 export interface Constructor {
     signature: Signature[];
+    "override-signatures"?: string[];
     comment?: string;
     specs?: string;
 }

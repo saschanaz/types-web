@@ -321,6 +321,9 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor) {
         if (baseTypeConversionMap.has(objDomType)) {
             return baseTypeConversionMap.get(objDomType)!;
         }
+        if (objDomType === "sequence") {
+            return flavor === Flavor.ES6Iterators ? "Iterable" : "Array"
+        }
         switch (objDomType) {
             case "CustomElementConstructor": return "Function";
             case "DOMHighResTimeStamp": return "number";
@@ -1106,6 +1109,27 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor) {
         return printer.getResult();
     }
 
+    function signatureHasSequenceParam(signature: Browser.Signature) {
+        return !!signature.param && signature.param.some(p => p.type === "sequence");
+    }
+
+    function emitSignaturesWithIterableParams(i: Browser.Interface) {
+        if (typeof i.constructor === "object" && !i.constructor["override-signatures"]) {
+            i.constructor.signature
+                .filter(signatureHasSequenceParam)
+                .forEach(signature => emitSignature(signature, "", "", s => printer.printLine(s)));
+        }
+        if (i.methods) {
+            mapToArray(i.methods.method)
+                .filter(m => !m["override-signatures"])
+                .forEach(m => {
+                    m.signature
+                        .filter(signatureHasSequenceParam)
+                        .forEach(signature => emitSignature(signature, "", "", s => printer.printLine(s)));
+                })
+        }
+    }
+
     function emitIterator(i: Browser.Interface) {
 
         // check anonymous unsigned long getter and length property
@@ -1198,6 +1222,7 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor) {
             printer.printLine("");
             printer.printLine(`interface ${name} ${iteratorExtends}{`);
             printer.increaseIndent();
+            emitSignaturesWithIterableParams(i);
             if (!iteratorExtends) {
                 printer.printLine(`[Symbol.iterator](): IterableIterator<${stringifySingleOrTupleTypes(subtypes)}>;`);
             }
