@@ -382,7 +382,7 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
         }
 
         return expectedMName === m.name &&
-            m.signature && m.signature.length === 1 &&
+            m.signature.length === 1 &&
             convertDomTypeToNullableTsType(m.signature[0]) === expectedMType &&
             m.signature[0].param && m.signature[0].param!.length === expectedParamType.length &&
             expectedParamType.every((pt, idx) => convertDomTypeToTsType(m.signature[0].param![idx]) === pt);
@@ -661,11 +661,10 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
         printLine(`${prefix || ""}${name || ""}(${paramsString}): ${returnType};`);
     }
 
-    function emitSignatures(method: { signature?: Browser.Signature[], "override-signatures"?: string[], "additional-signatures"?: string[] }, prefix: string, name: string, printLine: (s: string) => void) {
+    function emitSignatures(method: { signature: Browser.Signature[], "override-signatures"?: string[], "additional-signatures"?: string[] }, prefix: string, name: string, printLine: (s: string) => void) {
         if (method["override-signatures"]) {
             method["override-signatures"]!.forEach(s => printLine(`${prefix}${s};`));
-        }
-        else if (method.signature) {
+        } else {
             if (method["additional-signatures"]) {
                 method["additional-signatures"]!.forEach(s => printLine(`${prefix}${s};`));
             }
@@ -844,7 +843,7 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
 
     /// To decide if a given method is an indexer and should be emited
     function shouldEmitIndexerSignature(i: Browser.Interface, m: Browser.AnonymousMethod) {
-        if (m.getter && m.signature && m.signature[0].param && m.signature[0].param!.length === 1) {
+        if (m.getter && m.signature[0].param && m.signature[0].param!.length === 1) {
             // TypeScript array indexer can only be number or string
             // for string, it must return a more generic type then all
             // the other properties, following the Dictionary pattern
@@ -855,7 +854,7 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
                         return true;
                     }
                     const sig = m.signature[0];
-                    const mTypes = distinct(i.methods && map(i.methods.method, m => m.signature && m.signature.length && m.signature[0].type || "void").filter(t => t !== "void") || []);
+                    const mTypes = distinct(i.methods && map(i.methods.method, m => m.signature.length && m.signature[0].type || "void").filter(t => t !== "void") || []);
                     const amTypes = distinct(i["anonymous-methods"] && i["anonymous-methods"]!.method.map(m => m.signature[0].type).filter(t => t !== "void") || []); // |>  Array.distinct
                     const pTypes = distinct(i.properties && map(i.properties.property, m => m.type).filter(t => t !== "void") || []); // |>  Array.distinct
 
@@ -878,7 +877,7 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
                 .concat(i["anonymous-methods"] && i["anonymous-methods"]!.method || [])
                 .filter(m => shouldEmitIndexerSignature(i, m) && matchScope(emitScope, m))
                 .forEach(m => {
-                    const indexer = (m.signature && m.signature.length && m.signature[0].param && m.signature[0].param!.length) ? m.signature[0].param![0] : undefined;
+                    const indexer = (m.signature.length && m.signature[0].param && m.signature[0].param!.length) ? m.signature[0].param![0] : undefined;
                     if (indexer) {
                         printer.printLine(`[${indexer.name}: ${convertDomTypeToTsType(indexer)}]: ${convertDomTypeToTsType({
                             type: m.signature[0].type,

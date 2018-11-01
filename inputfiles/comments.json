@@ -169,13 +169,6 @@
                 }
             },
             "NodeListOf<TNode extends Node>": {
-                "methods": {
-                    "method": {
-                        "forEach": {
-                            "comment": "/**\r\n * Performs the specified action for each node in an list.\r\n * @param callbackfn  A function that accepts up to three arguments. forEach calls the callbackfn function one time for each element in the list.\r\n * @param thisArg  An object to which the this keyword can refer in the callbackfn function. If thisArg is omitted, undefined is used as the this value.\r\n */"
-                        }
-                    }
-                },
                 "iterator": {
                     "comments": {
                         "comment": {
@@ -187,13 +180,6 @@
                 }
             },
             "NodeList": {
-                "methods": {
-                    "method": {
-                        "forEach": {
-                            "comment": "/**\r\n * Performs the specified action for each node in an list.\r\n * @param callbackfn  A function that accepts up to three arguments. forEach calls the callbackfn function one time for each element in the list.\r\n * @param thisArg  An object to which the this keyword can refer in the callbackfn function. If thisArg is omitted, undefined is used as the this value.\r\n */"
-                        }
-                    }
-                },
                 "iterator": {
                     "comments": {
                         "comment": {
@@ -838,9 +824,6 @@
                         },
                         "createNodeIterator": {
                             "comment": "/**\r\n * Creates a NodeIterator object that you can use to traverse filtered lists of nodes or elements in a document.\r\n * @param root The root element or node to start traversing on.\r\n * @param whatToShow The type of nodes or elements to appear in the node list\r\n * @param filter A custom NodeFilter function to use. For more information, see filter. Use null for no filter.\r\n * @param entityReferenceExpansion A flag that specifies whether entity reference nodes are expanded.\r\n */"
-                        },
-                        "getSelection": {
-                            "comment": "/**\r\n * Returns an object representing the current selection of the document that is loaded into the object displaying a webpage.\r\n */"
                         },
                         "getElementById": {
                             "comment": "/**\r\n * Returns a reference to the first object with the specified value of the ID or NAME attribute.\r\n * @param elementId String that specifies the ID value. Case-insensitive.\r\n */"
