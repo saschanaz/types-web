@@ -702,8 +702,8 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
         const name = i.name.replace(/ extends \w+/, "");
         printer.printLine("/**");
         printer.printLine(" * Performs the specified action for each element in an list.");
-        printer.printLine(" * @param callbackfn  A function that accepts up to three arguments. forEach calls the callbackfn function one time for each element in the list.");
-        printer.printLine(" * @param thisArg  An object to which the this keyword can refer in the callbackfn function. If thisArg is omitted, undefined is used as the this value.");
+        printer.printLine(" * @param callbackfn A function that accepts up to three arguments. forEach calls the callbackfn function one time for each element in the list.");
+        printer.printLine(" * @param thisArg An object to which the this keyword can refer in the callbackfn function. If thisArg is omitted, undefined is used as the this value.");
         printer.printLine(" */");
         printer.printLine(`forEach(callbackfn: (value: ${value}, key: ${key}, parent: ${name}) => void, thisArg?: any): void;`);
     }
