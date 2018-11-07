@@ -2,11 +2,20 @@
 /// DOM Iterable APIs
 /////////////////////////////
 
+interface AudioParam {
+    setValueCurveAtTime(values: Iterable<number>, startTime: number, duration: number): AudioParam;
+}
+
 interface AudioParamMap extends ReadonlyMap<string, AudioParam> {
 }
 
 interface AudioTrackList {
     [Symbol.iterator](): IterableIterator<AudioTrack>;
+}
+
+interface BaseAudioContext {
+    createIIRFilter(feedforward: Iterable<number>, feedback: Iterable<number>): IIRFilterNode;
+    createPeriodicWave(real: Iterable<number>, imag: Iterable<number>, constraints?: PeriodicWaveConstraints): PeriodicWave;
 }
 
 interface CSSRuleList {
@@ -15,6 +24,14 @@ interface CSSRuleList {
 
 interface CSSStyleDeclaration {
     [Symbol.iterator](): IterableIterator<string>;
+}
+
+interface Cache {
+    addAll(requests: Iterable<RequestInfo>): Promise<void>;
+}
+
+interface CanvasPathDrawingStyles {
+    setLineDash(segments: Iterable<number>): void;
 }
 
 interface ClientRectList {
@@ -117,6 +134,10 @@ interface NamedNodeMap {
     [Symbol.iterator](): IterableIterator<Attr>;
 }
 
+interface Navigator {
+    requestMediaKeySystemAccess(keySystem: string, supportedConfigurations: Iterable<MediaKeySystemConfiguration>): Promise<MediaKeySystemAccess>;
+}
+
 interface NodeList {
     [Symbol.iterator](): IterableIterator<Node>;
     /**
@@ -155,6 +176,10 @@ interface Plugin {
 
 interface PluginArray {
     [Symbol.iterator](): IterableIterator<Plugin>;
+}
+
+interface RTCRtpTransceiver {
+    setCodecPreferences(codecs: Iterable<RTCRtpCodecCapability>): void;
 }
 
 interface RTCStatsReport extends ReadonlyMap<string, any> {
@@ -220,6 +245,18 @@ interface URLSearchParams {
     values(): IterableIterator<string>;
 }
 
+interface VRDisplay {
+    requestPresent(layers: Iterable<VRLayer>): Promise<void>;
+}
+
 interface VideoTrackList {
     [Symbol.iterator](): IterableIterator<VideoTrack>;
+}
+
+interface WEBGL_draw_buffers {
+    drawBuffersWEBGL(buffers: Iterable<GLenum>): void;
+}
+
+interface WebAuthentication {
+    makeCredential(accountInformation: Account, cryptoParameters: Iterable<ScopedCredentialParameters>, attestationChallenge: Int8Array | Int16Array | Int32Array | Uint8Array | Uint16Array | Uint32Array | Uint8ClampedArray | Float32Array | Float64Array | DataView | ArrayBuffer | null, options?: ScopedCredentialOptions): Promise<ScopedCredentialInfo>;
 }

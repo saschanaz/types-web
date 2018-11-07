@@ -358,7 +358,7 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor) {
         return obj.nullable ? makeNullable(resolvedType) : resolvedType;
     }
 
-    function nameWithForwardedTypes (i: Browser.Interface) {
+    function nameWithForwardedTypes(i: Browser.Interface) {
         const typeParameters = i["type-parameters"];
 
         if (!typeParameters) return i.name;
@@ -392,7 +392,7 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor) {
     }
 
     function processInterfaceType(i: Browser.Interface | Browser.Dictionary, name: string) {
-        function typeParameterWithDefault (type: Browser.TypeParameter) {
+        function typeParameterWithDefault(type: Browser.TypeParameter) {
             return type.default ? type.name + " = " + type.default : type.name
         }
 
@@ -634,9 +634,9 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor) {
         }
     }
 
-    function emitMethod(prefix: string, m: Browser.Method, conflictedMembers: Set<string>) {
+    function emitMethod(prefix: string, m: Browser.Method, conflictedMembers?: Set<string>) {
         function printLine(content: string) {
-            if (m.name && conflictedMembers.has(m.name)) {
+            if (m.name && conflictedMembers && conflictedMembers.has(m.name)) {
                 printer.printLineToStack(content);
             }
             else {
@@ -1113,20 +1113,20 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor) {
         return !!signature.param && signature.param.some(p => p.type === "sequence");
     }
 
-    function emitSignaturesWithIterableParams(i: Browser.Interface) {
-        if (typeof i.constructor === "object" && !i.constructor["override-signatures"]) {
-            i.constructor.signature
-                .filter(signatureHasSequenceParam)
-                .forEach(signature => emitSignature(signature, "", "", s => printer.printLine(s)));
-        }
+    function getMethodsWithIterableParams(i: Browser.Interface) {
+        const methods: Browser.Method[] = [];
         if (i.methods) {
             mapToArray(i.methods.method)
-                .filter(m => !m["override-signatures"])
                 .forEach(m => {
-                    m.signature
-                        .filter(signatureHasSequenceParam)
-                        .forEach(signature => emitSignature(signature, "", "", s => printer.printLine(s)));
-                })
+                    const filtered = m.signature
+                        .filter(signatureHasSequenceParam);
+                    if (filtered.length) {
+                        methods.push({ ...m, signature: filtered });
+                    }
+                });
+        }
+        if (methods.length) {
+            return methods;
         }
     }
 
@@ -1204,29 +1204,32 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor) {
 
         function getIteratorExtends(iterator: Browser.Iterator | undefined, subtypes: string[]) {
             if (!iterator) {
-                return "";
+                return;
             }
             const base = iterator.kind === "maplike" ? `Map<${subtypes[0]}, ${subtypes[1]}>` :
                 iterator.kind === "setlike" ? `Set<${subtypes[0]}>` : undefined;
             if (!base) {
-                return "";
+                return;
             }
             const result = iterator.readonly ? `Readonly${base}` : base;
             return `extends ${result} `;
         }
 
         const subtypes = getIteratorSubtypes();
-        if (subtypes) {
-            const iteratorExtends = getIteratorExtends(i.iterator, subtypes);
+        const methodsWithIterableParams = getMethodsWithIterableParams(i);
+        if (subtypes || methodsWithIterableParams) {
+            const iteratorExtends = (subtypes && getIteratorExtends(i.iterator, subtypes)) || "";
             const name = extendConflictsBaseTypes[i.name] ? `${i.name}Base` : i.name;
             printer.printLine("");
             printer.printLine(`interface ${name} ${iteratorExtends}{`);
             printer.increaseIndent();
-            emitSignaturesWithIterableParams(i);
-            if (!iteratorExtends) {
+            if (methodsWithIterableParams) {
+                methodsWithIterableParams.map(m => emitMethod("", m));
+            }
+            if (subtypes && !iteratorExtends) {
                 printer.printLine(`[Symbol.iterator](): IterableIterator<${stringifySingleOrTupleTypes(subtypes)}>;`);
             }
-            if (i.iterator && i.iterator.kind === "iterable") {
+            if (subtypes && i.iterator && i.iterator.kind === "iterable") {
                 emitIterableDeclarationMethods(subtypes);
             }
             printer.decreaseIndent();
