@@ -747,6 +747,10 @@
                 "events": {
                     "event": [
                         {
+                            "name": "DOMContentLoaded",
+                            "type": "Event"
+                        },
+                        {
                             "name": "visibilitychange",
                             "type": "Event"
                         }
