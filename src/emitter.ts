@@ -1,16 +1,11 @@
 import * as Browser from "./types";
-import { mapToArray, distinct, map, toNameMap, mapDefined, arrayToMap, flatMap, integerTypes, baseTypeConversionMap } from "./helpers";
+import { mapToArray, distinct, map, toNameMap, arrayToMap, flatMap, integerTypes, baseTypeConversionMap } from "./helpers";
 
 export const enum Flavor {
     Web,
     Worker,
     ES6Iterators
 }
-
-// Note:
-// Eventhandler's name and the eventName are not just off by "on".
-// For example, handlers named "onabort" may handle "SVGAbort" event in the XML file
-type EventHandler = { name: string; eventName: string; eventType: string };
 
 /// Decide which members of a function to emit
 enum EmitScope {
@@ -19,7 +14,6 @@ enum EmitScope {
     All
 }
 
-const defaultEventType = "Event";
 const tsKeywords = new Set(["default", "delete", "continue"]);
 const extendConflictsBaseTypes: Record<string, { extendType: string[], memberNames: Set<string> }> = {
     "HTMLCollection": { extendType: ["HTMLFormControlsCollection"], memberNames: new Set(["namedItem"]) },
@@ -160,14 +154,29 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
     /// 1. eventhanlder name: "onready", "onabort" etc.
     /// 2. the event name that it handles: "ready", "SVGAbort" etc.
     /// And they don't just differ by an "on" prefix!
-    const iNameToEhList = arrayToMap(allInterfaces, i => i.name, i =>
-        !i.properties ? [] : mapDefined<Browser.Property, EventHandler>(mapToArray(i.properties.property), p => {
-            const eventName = p["event-handler"]!;
-            if (eventName === undefined) return undefined;
-            const eType = eNameToEType[eventName] || defaultEventType;
-            const eventType = eType === "Event" || dependsOn(eType, "Event") ? eType : defaultEventType;
-            return { name: p.name, eventName, eventType };
-        }));
+    const iNameToEhList = arrayToMap(allInterfaces, i => i.name, i => i.events ? i.events.event : []);
+    //     const dict = arrayToMap(i.events ? i.events.event : [], e => e.name, e => e);
+    //     if (i.properties) {
+    //         for (const p of mapToArray(i.properties.property)) {
+    //             const name = p["event-handler"];
+    //             if (name) {
+    //                 dict[name] = { name, type: eNameToEType[name] || "Event" };
+    //             }
+    //         }
+    //     }
+    //     const x = !i.properties ? [] : mapDefined<Browser.Property, Browser.Event>(mapToArray(i.properties.property), p => {
+    //         const name = p["event-handler"];
+    //         if (!name) return;
+    //         return { name, type: eNameToEType[name] || "Event" };
+    //     });
+    //     x;
+    //     return mapToArray(dict);
+    // });
+        // return !i.properties ? [] : mapDefined<Browser.Property, Browser.Event>(mapToArray(i.properties.property), p => {
+        //     const name = p["event-handler"];
+        //     if (!name) return;
+        //     return { name, type: eNameToEType[name] || "Event" };
+        // })});
 
     const iNameToConstList = arrayToMap(allInterfaces, i => i.name, i =>
         !i.constants ? [] : mapToArray(i.constants.constant));
@@ -251,13 +260,6 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
             }
         }
         return eNameToEType[eName] || "Event";
-    }
-
-    /// Determine if interface1 depends on interface2
-    function dependsOn(i1Name: string, i2Name: string) {
-        return iNameToIDependList[i1Name]
-            ? iNameToIDependList[i1Name].includes(i2Name)
-            : i2Name === "Object";
     }
 
     /// Get typescript type using object dom type, object name, and it's associated interface name
@@ -562,15 +564,18 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
         }
     }
 
-    // A covariant  EventHandler is one that is defined in a parent interface as then redefined in current interface with a more specific argument types
+    // A covariant EventHandler is one that is defined in a parent interface as then redefined in current interface with a more specific argument types
     // These patterns are unsafe, and flagged as error under --strictFunctionTypes.
     // Here we know the property is already defined on the interface, we elide its declaration if the parent has the same handler defined
     function isCovariantEventHandler(i: Browser.Interface, p: Browser.Property) {
-        return isEventHandler(p) &&
-            iNameToEhParents[i.name] && iNameToEhParents[i.name].length > 0 &&
+        return isEventHandler(p) && isCovariantEvent(i, p["event-handler"]!);
+    }
+
+    function isCovariantEvent(i: Browser.Interface, eventName: string) {
+        return iNameToEhParents[i.name] && iNameToEhParents[i.name].length > 0 &&
             !!iNameToEhParents[i.name].find(
                 i => iNameToEhList[i.name] && iNameToEhList[i.name].length > 0 &&
-                    !!iNameToEhList[i.name].find(e => e.name === p.name));
+                    !!iNameToEhList[i.name].find(e => e.name === eventName))
     }
 
     function emitProperty(prefix: string, i: Browser.Interface, emitScope: EmitScope, p: Browser.Property, conflictedMembers: Set<string>) {
@@ -894,8 +899,8 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
     }
 
     function emitInterfaceEventMap(i: Browser.Interface) {
-        function emitInterfaceEventMapEntry(eHandler: EventHandler) {
-            printer.printLine(`"${eHandler.eventName}": ${getEventTypeInInterface(eHandler.eventName, i)};`);
+        function emitInterfaceEventMapEntry(eHandler: Browser.Event) {
+            printer.printLine(`"${eHandler.name}": ${getEventTypeInInterface(eHandler.name, i)};`);
         }
 
         const hasEventHandlers = iNameToEhList[i.name] && iNameToEhList[i.name].length;
@@ -911,6 +916,7 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
             printer.endLine();
             printer.increaseIndent();
             iNameToEhList[i.name]
+                .filter(e => !isCovariantEvent(i, e.name))
                 .sort(compareName)
                 .forEach(emitInterfaceEventMapEntry);
             printer.decreaseIndent();
