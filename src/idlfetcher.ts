@@ -37,6 +37,9 @@ async function fetchIDLs(filter: string[]) {
 
 async function fetchIDL(source: IDLSource) {
     const response = await fetch(source.url);
+    if (!response.ok) {
+        throw new Error(`Failed to fetch from ${source.url}, status ${response.status}`);
+    }
     if (source.url.endsWith(".idl")) {
         return { idl: await response.text() };
     }
