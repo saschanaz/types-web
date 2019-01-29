@@ -65,7 +65,6 @@ partial interface CSSStyleDeclaration {
   [CEReactions] attribute [TreatNullAs=EmptyString] CSSOMString webkitTransitionTimingFunction;
   [CEReactions] attribute [TreatNullAs=EmptyString] CSSOMString webkitTransition;
   [CEReactions] attribute [TreatNullAs=EmptyString] CSSOMString webkitTextSizeAdjust;
-  [CEReactions] attribute [TreatNullAs=EmptyString] CSSOMString webkitAppearance;
   [CEReactions] attribute [TreatNullAs=EmptyString] CSSOMString webkitBoxFlex;
   [CEReactions] attribute [TreatNullAs=EmptyString] CSSOMString webkitBoxOrdinalGroup;
   [CEReactions] attribute [TreatNullAs=EmptyString] CSSOMString webkitBoxAlign;

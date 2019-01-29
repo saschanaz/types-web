@@ -1845,6 +1845,10 @@
             "WebGLVertexArrayObjectOES": {
                 "override-exposed": "Window Worker"
             },
+            "WebGL2RenderingContext": {
+                "name": "WebGL2RenderingContext",
+                "exposed": ""
+            },
             "SVGCursorElement": {
                 "name": "SVGCursorElement",
                 "extends": "SVGElement",

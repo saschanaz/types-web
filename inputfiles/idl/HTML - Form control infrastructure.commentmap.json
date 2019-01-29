@@ -6,5 +6,6 @@
     "cva-validity": "Returns true if the element's value has no validity problems; false otherwise.",
     "cva-checkvalidity": "Returns true if the element's value has no validity problems; false otherwise. Fires an invalid event at the element in the latter case.",
     "cva-reportvalidity": "Returns true if the element's value has no validity problems; otherwise, returns false, fires\nan invalid event at the element, and (if the event isn't\ncanceled) reports the problem to the user.",
-    "cva-validationmessage": "Returns the error message that would be shown to the user if the element was to be checked\nfor validity."
+    "cva-validationmessage": "Returns the error message that would be shown to the user if the element was to be checked\nfor validity.",
+    "formdataevent-formdata": "Returns a FormData object representing names and values of elements associated\nto the target form. Operations on the FormData object will affect\nform data to be submitted."
 }

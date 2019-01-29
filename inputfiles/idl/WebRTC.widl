@@ -70,22 +70,22 @@ enum RTCIceGatheringState {
 };
 
 enum RTCPeerConnectionState {
+    "closed",
+    "failed",
+    "disconnected",
     "new",
     "connecting",
-    "connected",
-    "disconnected",
-    "failed",
-    "closed"
+    "connected"
 };
 
 enum RTCIceConnectionState {
+    "closed",
+    "failed",
+    "disconnected",
     "new",
     "checking",
-    "connected",
     "completed",
-    "disconnected",
-    "failed",
-    "closed"
+    "connected"
 };
 
 [ Constructor (optional RTCConfiguration configuration), Exposed=Window]
@@ -163,7 +163,7 @@ interface RTCIceCandidate {
     readonly        attribute DOMString?              foundation;
     readonly        attribute RTCIceComponent?        component;
     readonly        attribute unsigned long?          priority;
-    readonly        attribute DOMString?              ip;
+    readonly        attribute DOMString?              address;
     readonly        attribute RTCIceProtocol?         protocol;
     readonly        attribute unsigned short?         port;
     readonly        attribute RTCIceCandidateType?    type;
@@ -292,6 +292,7 @@ dictionary RTCRtpSendParameters : RTCRtpParameters {
              required DOMString             transactionId;
              required sequence<RTCRtpEncodingParameters>  encodings;
              RTCDegradationPreference       degradationPreference = "balanced";
+             RTCPriorityType                priority = "low";
 };
 
 dictionary RTCRtpReceiveParameters : RTCRtpParameters {
@@ -309,7 +310,6 @@ dictionary RTCRtpEncodingParameters : RTCRtpCodingParameters {
              octet               codecPayloadType;
              RTCDtxStatus        dtx;
              boolean             active = true;
-             RTCPriorityType     priority = "low";
              unsigned long       ptime;
              unsigned long       maxBitrate;
              double              maxFramerate;
@@ -397,7 +397,8 @@ dictionary RTCRtpSynchronizationSource : RTCRtpContributingSource {
 };
 
 [Exposed=Window] interface RTCDtlsTransport : EventTarget {
-    readonly        attribute RTCIceTransport       transport;
+    [SameObject]
+    readonly        attribute RTCIceTransport       iceTransport;
     readonly        attribute RTCDtlsTransportState state;
     sequence<ArrayBuffer> getRemoteCertificates ();
                     attribute EventHandler          onstatechange;
@@ -515,6 +516,7 @@ enum RTCSctpTransportState {
     readonly        attribute RTCPriorityType     priority;
     readonly        attribute RTCDataChannelState readyState;
     readonly        attribute unsigned long       bufferedAmount;
+                    [EnforceRange]
                     attribute unsigned long       bufferedAmountLowThreshold;
                     attribute EventHandler        onopen;
                     attribute EventHandler        onbufferedamountlow;
@@ -531,7 +533,9 @@ enum RTCSctpTransportState {
 
 dictionary RTCDataChannelInit {
              boolean         ordered = true;
+             [EnforceRange]
              unsigned short  maxPacketLifeTime;
+             [EnforceRange]
              unsigned short  maxRetransmits;
              USVString       protocol = "";
              boolean         negotiated = false;

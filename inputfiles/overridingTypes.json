@@ -893,12 +893,6 @@
                     }
                 }
             },
-            "OffscreenCanvas": {
-                "exposed": ""
-            },
-            "OffscreenCanvasRenderingContext2D": {
-                "exposed": ""
-            },
             "BeforeUnloadEvent": {
                 "name": "BeforeUnloadEvent",
                 "properties": {
