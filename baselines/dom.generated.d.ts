@@ -4476,8 +4476,6 @@ interface Document extends Node, NonElementParentNode, DocumentOrShadowRoot, Par
      * @param data String that specifies the nodeValue property of the text node.
      */
     createTextNode(data: string): Text;
-    createTouch(view: WindowProxy, target: EventTarget, identifier: number, pageX: number, pageY: number, screenX: number, screenY: number): Touch;
-    createTouchList(...touches: Touch[]): TouchList;
     /**
      * Creates a TreeWalker object that you can use to traverse filtered lists of nodes or elements in a document.
      * @param root The root element or node to start traversing on.
