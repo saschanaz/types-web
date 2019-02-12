@@ -141,6 +141,7 @@ function getCommentText(text: string) {
  * Remove common indentation:
  *     <pre>
  *       typedef Type = "type";
+ *
  *       dictionary Dictionary {
  *         "member"
  *       };
@@ -155,7 +156,7 @@ function trimCommonIndentation(text: string) {
     if (!lines[lines.length - 1].trim()) {
         lines.pop();
     }
-    const commonIndentation = Math.min(...lines.map(getIndentation));
+    const commonIndentation = Math.min(...lines.filter(line => line.trim()).map(getIndentation));
     return lines.map(line => line.slice(commonIndentation)).join("\n");
 }
 
