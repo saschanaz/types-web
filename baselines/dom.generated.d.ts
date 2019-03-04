@@ -334,6 +334,11 @@ interface DeviceOrientationEventInit extends EventInit {
     gamma?: number | null;
 }
 
+interface DevicePermissionDescriptor extends PermissionDescriptor {
+    deviceId?: string;
+    name: "camera" | "microphone" | "speaker";
+}
+
 interface DeviceRotationRateDict {
     alpha?: number | null;
     beta?: number | null;
@@ -733,6 +738,11 @@ interface MessageEventInit extends EventInit {
     source?: MessageEventSource | null;
 }
 
+interface MidiPermissionDescriptor extends PermissionDescriptor {
+    name: "midi";
+    sysex?: boolean;
+}
+
 interface MouseEventInit extends EventModifierInit {
     button?: number;
     buttons?: number;
@@ -906,6 +916,10 @@ interface PeriodicWaveOptions extends PeriodicWaveConstraints {
     real?: number[] | Float32Array;
 }
 
+interface PermissionDescriptor {
+    name: PermissionName;
+}
+
 interface PipeOptions {
     preventAbort?: boolean;
     preventCancel?: boolean;
@@ -951,6 +965,11 @@ interface PropertyIndexedKeyframes {
     easing?: string | string[];
     offset?: number | (number | null)[];
     [property: string]: string | string[] | number | null | (number | null)[] | undefined;
+}
+
+interface PushPermissionDescriptor extends PermissionDescriptor {
+    name: "push";
+    userVisibleOnly?: boolean;
 }
 
 interface PushSubscriptionJSON {
@@ -10498,6 +10517,7 @@ interface Navigator extends NavigatorID, NavigatorOnLine, NavigatorContentUtils,
     readonly msManipulationViewsEnabled: boolean;
     readonly msMaxTouchPoints: number;
     readonly msPointerEnabled: boolean;
+    readonly permissions: Permissions;
     readonly plugins: PluginArray;
     readonly pointerEnabled: boolean;
     readonly serviceWorker: ServiceWorkerContainer;
@@ -11369,6 +11389,33 @@ interface PermissionRequestedEvent extends Event {
 declare var PermissionRequestedEvent: {
     prototype: PermissionRequestedEvent;
     new(): PermissionRequestedEvent;
+};
+
+interface PermissionStatusEventMap {
+    "change": Event;
+}
+
+interface PermissionStatus extends EventTarget {
+    onchange: ((this: PermissionStatus, ev: Event) => any) | null;
+    readonly state: PermissionState;
+    addEventListener<K extends keyof PermissionStatusEventMap>(type: K, listener: (this: PermissionStatus, ev: PermissionStatusEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener<K extends keyof PermissionStatusEventMap>(type: K, listener: (this: PermissionStatus, ev: PermissionStatusEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+}
+
+declare var PermissionStatus: {
+    prototype: PermissionStatus;
+    new(): PermissionStatus;
+};
+
+interface Permissions {
+    query(permissionDesc: PermissionDescriptor | DevicePermissionDescriptor | MidiPermissionDescriptor | PushPermissionDescriptor): Promise<PermissionStatus>;
+}
+
+declare var Permissions: {
+    prototype: Permissions;
+    new(): Permissions;
 };
 
 /** The Plugin interface provides information about a browser plugin. */
@@ -18357,6 +18404,8 @@ type OverSampleType = "none" | "2x" | "4x";
 type PanningModelType = "equalpower" | "HRTF";
 type PaymentComplete = "success" | "fail" | "unknown";
 type PaymentShippingType = "shipping" | "delivery" | "pickup";
+type PermissionName = "geolocation" | "notifications" | "push" | "midi" | "camera" | "microphone" | "speaker" | "device-info" | "background-sync" | "bluetooth" | "persistent-storage" | "ambient-light-sensor" | "accelerometer" | "gyroscope" | "magnetometer" | "clipboard";
+type PermissionState = "granted" | "denied" | "prompt";
 type PlaybackDirection = "normal" | "reverse" | "alternate" | "alternate-reverse";
 type PositionAlignSetting = "line-left" | "center" | "line-right" | "auto";
 type PushEncryptionKeyName = "p256dh" | "auth";

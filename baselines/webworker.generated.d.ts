@@ -120,6 +120,11 @@ interface DOMRectInit {
     y?: number;
 }
 
+interface DevicePermissionDescriptor extends PermissionDescriptor {
+    deviceId?: string;
+    name: "camera" | "microphone" | "speaker";
+}
+
 interface EcKeyGenParams extends Algorithm {
     namedCurve: NamedCurve;
 }
@@ -243,6 +248,11 @@ interface MessageEventInit extends EventInit {
     source?: MessageEventSource | null;
 }
 
+interface MidiPermissionDescriptor extends PermissionDescriptor {
+    name: "midi";
+    sysex?: boolean;
+}
+
 interface NavigationPreloadState {
     enabled?: boolean;
     headerValue?: string;
@@ -287,6 +297,10 @@ interface PerformanceObserverInit {
     entryTypes: string[];
 }
 
+interface PermissionDescriptor {
+    name: PermissionName;
+}
+
 interface PipeOptions {
     preventAbort?: boolean;
     preventCancel?: boolean;
@@ -306,6 +320,11 @@ interface PromiseRejectionEventInit extends EventInit {
 
 interface PushEventInit extends ExtendableEventInit {
     data?: PushMessageDataInit;
+}
+
+interface PushPermissionDescriptor extends PermissionDescriptor {
+    name: "push";
+    userVisibleOnly?: boolean;
 }
 
 interface PushSubscriptionChangeInit extends ExtendableEventInit {
@@ -2320,6 +2339,33 @@ declare var PerformanceResourceTiming: {
     new(): PerformanceResourceTiming;
 };
 
+interface PermissionStatusEventMap {
+    "change": Event;
+}
+
+interface PermissionStatus extends EventTarget {
+    onchange: ((this: PermissionStatus, ev: Event) => any) | null;
+    readonly state: PermissionState;
+    addEventListener<K extends keyof PermissionStatusEventMap>(type: K, listener: (this: PermissionStatus, ev: PermissionStatusEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener<K extends keyof PermissionStatusEventMap>(type: K, listener: (this: PermissionStatus, ev: PermissionStatusEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+}
+
+declare var PermissionStatus: {
+    prototype: PermissionStatus;
+    new(): PermissionStatus;
+};
+
+interface Permissions {
+    query(permissionDesc: PermissionDescriptor | DevicePermissionDescriptor | MidiPermissionDescriptor | PushPermissionDescriptor): Promise<PermissionStatus>;
+}
+
+declare var Permissions: {
+    prototype: Permissions;
+    new(): Permissions;
+};
+
 /** The ProgressEvent interface represents events measuring progress of an underlying process, like an HTTP request (for an XMLHttpRequest, or the loading of the underlying resource of an <img>, <audio>, <video>, <style> or <link>). */
 interface ProgressEvent extends Event {
     readonly lengthComputable: boolean;
@@ -4053,6 +4099,7 @@ declare var WorkerLocation: {
 
 /** The WorkerNavigator interface represents a subset of the Navigator interface allowed to be accessed from a Worker. Such an object is initialized for each worker and is available via the WorkerGlobalScope.navigator property obtained by calling window.self.navigator. */
 interface WorkerNavigator extends NavigatorID, NavigatorOnLine, NavigatorBeacon, NavigatorConcurrentHardware, NavigatorStorage {
+    readonly permissions: Permissions;
     readonly serviceWorker: ServiceWorkerContainer;
 }
 
@@ -4391,6 +4438,8 @@ type KeyType = "public" | "private" | "secret";
 type KeyUsage = "encrypt" | "decrypt" | "sign" | "verify" | "deriveKey" | "deriveBits" | "wrapKey" | "unwrapKey";
 type NotificationDirection = "auto" | "ltr" | "rtl";
 type NotificationPermission = "default" | "denied" | "granted";
+type PermissionName = "geolocation" | "notifications" | "push" | "midi" | "camera" | "microphone" | "speaker" | "device-info" | "background-sync" | "bluetooth" | "persistent-storage" | "ambient-light-sensor" | "accelerometer" | "gyroscope" | "magnetometer" | "clipboard";
+type PermissionState = "granted" | "denied" | "prompt";
 type PushEncryptionKeyName = "p256dh" | "auth";
 type PushPermissionState = "denied" | "granted" | "prompt";
 type ReferrerPolicy = "" | "no-referrer" | "no-referrer-when-downgrade" | "same-origin" | "origin" | "strict-origin" | "origin-when-cross-origin" | "strict-origin-when-cross-origin" | "unsafe-url";

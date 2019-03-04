@@ -15,7 +15,8 @@ interface IDLSource {
 const idlSelector = [
     "pre.idl:not(.extract):not(.example)", // bikeshed and ReSpec
     "pre.code code.idl-code", // Web Cryptography
-    "pre:not(.extract) code.idl" // HTML
+    "pre:not(.extract) code.idl", // HTML
+    "#permission-registry + pre.highlight" // Permissions
 ].join(",");
 
 const cssPropSelector = "dfn.css[data-dfn-type=property]";

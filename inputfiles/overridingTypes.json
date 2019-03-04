@@ -2751,6 +2751,17 @@
                         }
                     }
                 }
+            },
+            "Permissions": {
+                "methods": {
+                    "method": {
+                        "query": {
+                            "override-signatures": [
+                                "query(permissionDesc: PermissionDescriptor | DevicePermissionDescriptor | MidiPermissionDescriptor | PushPermissionDescriptor): Promise<PermissionStatus>"
+                            ]
+                        }
+                    }
+                }
             }
         }
     },
@@ -3091,6 +3102,39 @@
                         },
                         "writableType": {
                             "override-type": "undefined"
+                        }
+                    }
+                }
+            },
+            "DevicePermissionDescriptor": {
+                "members": {
+                    "member": {
+                        "name": {
+                            "name": "name",
+                            "required": 1,
+                            "override-type": "\"camera\" | \"microphone\" | \"speaker\""
+                        }
+                    }
+                }
+            },
+            "MidiPermissionDescriptor": {
+                "members": {
+                    "member": {
+                        "name": {
+                            "name": "name",
+                            "required": 1,
+                            "override-type": "\"midi\""
+                        }
+                    }
+                }
+            },
+            "PushPermissionDescriptor": {
+                "members": {
+                    "member": {
+                        "name": {
+                            "name": "name",
+                            "required": 1,
+                            "override-type": "\"push\""
                         }
                     }
                 }
