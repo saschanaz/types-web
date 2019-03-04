@@ -37,6 +37,10 @@
         "title": "DOM Parsing and Serialization"
     },
     {
+        "url": "https://wiki.whatwg.org/wiki/DOM_XPath",
+        "title": "DOM XPath"
+    },
+    {
         "url": "https://encoding.spec.whatwg.org/",
         "title": "Encoding"
     },

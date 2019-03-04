@@ -307,17 +307,6 @@
     },
     "interfaces": {
         "interface": {
-            "XPathNSResolver": {
-                "methods": {
-                    "method": {
-                        "lookupNamespaceURI": {
-                            "override-signatures": [
-                                "lookupNamespaceURI(prefix: string): string | null"
-                            ]
-                        }
-                    }
-                }
-            },
             "CryptoKey": {
                 "properties": {
                     "property": {
@@ -510,12 +499,6 @@
                             "name": "elementsFromPoint",
                             "override-signatures": [
                                 "elementsFromPoint(x: number, y: number): Element[]"
-                            ]
-                        },
-                        "evaluate": {
-                            "name": "evaluate",
-                            "override-signatures": [
-                                "evaluate(expression: string, contextNode: Node, resolver: XPathNSResolver | ((prefix: string) => string | null) | null, type: number, result: XPathResult | null): XPathResult"
                             ]
                         },
                         "getElementsByTagNameNS": {
@@ -1485,32 +1468,6 @@
                             "name": "initMouseEvent",
                             "override-signatures": [
                                 "initMouseEvent(typeArg: string, canBubbleArg: boolean, cancelableArg: boolean, viewArg: Window, detailArg: number, screenXArg: number, screenYArg: number, clientXArg: number, clientYArg: number, ctrlKeyArg: boolean, altKeyArg: boolean, shiftKeyArg: boolean, metaKeyArg: boolean, buttonArg: number, relatedTargetArg: EventTarget | null): void"
-                            ]
-                        }
-                    }
-                }
-            },
-            "XPathEvaluator": {
-                "name": "XPathEvaluator",
-                "methods": {
-                    "method": {
-                        "evaluate": {
-                            "name": "evaluate",
-                            "override-signatures": [
-                                "evaluate(expression: string, contextNode: Node, resolver: XPathNSResolver | ((prefix: string) => string | null) | null, type: number, result: XPathResult | null): XPathResult"
-                            ]
-                        }
-                    }
-                }
-            },
-            "XPathExpression": {
-                "name": "XPathExpression",
-                "methods": {
-                    "method": {
-                        "evaluate": {
-                            "name": "evaluate",
-                            "override-signatures": [
-                                "evaluate(contextNode: Node, type: number, result: XPathResult | null): XPathResult"
                             ]
                         }
                     }
