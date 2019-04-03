@@ -305,6 +305,16 @@
     "callback-interfaces": {
         "interface": {}
     },
+    "enums": {
+        "enum": {
+            "ImportExportKind": {
+                "legacy-namespace": "WebAssembly"
+            },
+            "TableKind": {
+                "legacy-namespace": "WebAssembly"
+            }
+        }
+    },
     "interfaces": {
         "interface": {
             "CryptoKey": {
@@ -608,7 +618,8 @@
                             "nullable": false
                         },
                         "body": {
-                            "nullable": false
+                            "nullable": false,
+                            "override-type": "HTMLBodyElement | HTMLFrameSetElement"
                        }
                     }
                 }
@@ -2376,19 +2387,6 @@
                     ]
                 }
             },
-            "BroadcastChannel": {
-                "name": "BroadcastChannel",
-                "methods": {
-                    "method": {
-                        "postMessage": {
-                            "name": "postMessage",
-                            "override-signatures": [
-                                "postMessage(message: any): void"
-                            ]
-                        }
-                    }
-                }
-            },
             "MessagePort": {
                 "name": "MessagePort",
                 "methods": {
@@ -2704,6 +2702,17 @@
                         "size": {
                             "override-signatures": [
                                 "size(chunk: any): 1"
+                            ]
+                        }
+                    }
+                }
+            },
+            "Permissions": {
+                "methods": {
+                    "method": {
+                        "query": {
+                            "override-signatures": [
+                                "query(permissionDesc: PermissionDescriptor | DevicePermissionDescriptor | MidiPermissionDescriptor | PushPermissionDescriptor): Promise<PermissionStatus>"
                             ]
                         }
                     }
@@ -3051,6 +3060,57 @@
                         }
                     }
                 }
+            },
+            "DevicePermissionDescriptor": {
+                "members": {
+                    "member": {
+                        "name": {
+                            "name": "name",
+                            "required": 1,
+                            "override-type": "\"camera\" | \"microphone\" | \"speaker\""
+                        }
+                    }
+                }
+            },
+            "MidiPermissionDescriptor": {
+                "members": {
+                    "member": {
+                        "name": {
+                            "name": "name",
+                            "required": 1,
+                            "override-type": "\"midi\""
+                        }
+                    }
+                }
+            },
+            "PushPermissionDescriptor": {
+                "members": {
+                    "member": {
+                        "name": {
+                            "name": "name",
+                            "required": 1,
+                            "override-type": "\"push\""
+                        }
+                    }
+                }
+            },
+            "ModuleExportDescriptor": {
+                "legacy-namespace": "WebAssembly"
+            },
+            "ModuleImportDescriptor": {
+                "legacy-namespace": "WebAssembly"
+            },
+            "MemoryDescriptor": {
+                "legacy-namespace": "WebAssembly"
+            },
+            "TableDescriptor": {
+                "legacy-namespace": "WebAssembly"
+            },
+            "GlobalDescriptor": {
+                "legacy-namespace": "WebAssembly"
+            },
+            "WebAssemblyInstantiatedSource": {
+                "legacy-namespace": "WebAssembly"
             }
         }
     },
