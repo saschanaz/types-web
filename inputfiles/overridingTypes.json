@@ -305,6 +305,16 @@
     "callback-interfaces": {
         "interface": {}
     },
+    "enums": {
+        "enum": {
+            "ImportExportKind": {
+                "legacy-namespace": "WebAssembly"
+            },
+            "TableKind": {
+                "legacy-namespace": "WebAssembly"
+            }
+        }
+    },
     "interfaces": {
         "interface": {
             "XPathNSResolver": {
@@ -625,7 +635,8 @@
                             "nullable": false
                         },
                         "body": {
-                            "nullable": false
+                            "nullable": false,
+                            "override-type": "HTMLBodyElement | HTMLFrameSetElement"
                        }
                     }
                 }
@@ -1459,6 +1470,10 @@
                             "name": "form",
                             "read-only": 1,
                             "override-type": "HTMLFormElement | null"
+                        },
+                        "valueAsDate": {
+                            "name": "valueAsDate",
+                            "override-type": "Date | null"
                         }
                     }
                 },
@@ -2415,19 +2430,6 @@
                     ]
                 }
             },
-            "BroadcastChannel": {
-                "name": "BroadcastChannel",
-                "methods": {
-                    "method": {
-                        "postMessage": {
-                            "name": "postMessage",
-                            "override-signatures": [
-                                "postMessage(message: any): void"
-                            ]
-                        }
-                    }
-                }
-            },
             "MessagePort": {
                 "name": "MessagePort",
                 "methods": {
@@ -3090,6 +3092,24 @@
                         }
                     }
                 }
+            },
+            "ModuleExportDescriptor": {
+                "legacy-namespace": "WebAssembly"
+            },
+            "ModuleImportDescriptor": {
+                "legacy-namespace": "WebAssembly"
+            },
+            "MemoryDescriptor": {
+                "legacy-namespace": "WebAssembly"
+            },
+            "TableDescriptor": {
+                "legacy-namespace": "WebAssembly"
+            },
+            "GlobalDescriptor": {
+                "legacy-namespace": "WebAssembly"
+            },
+            "WebAssemblyInstantiatedSource": {
+                "legacy-namespace": "WebAssembly"
             }
         }
     },

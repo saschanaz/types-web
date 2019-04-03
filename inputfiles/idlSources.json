@@ -13,12 +13,28 @@
         "title": "CSS Animations"
     },
     {
+        "url": "https://www.w3.org/TR/css-multicol-1/",
+        "title": "CSS Multi-column Layout"
+    },
+    {
+        "url": "https://www.w3.org/TR/css-ui-3/",
+        "title": "CSS Basic User Interface"
+    },
+    {
+        "url": "https://drafts.csswg.org/css-images-3/",
+        "title": "CSS Images"
+    },
+    {
         "url": "https://drafts.csswg.org/cssom-view/",
         "title": "CSSOM View"
     },
     {
         "url": "https://www.w3.org/TR/css-transitions-1/",
         "title": "CSS Transitions"
+    },
+    {
+        "url": "https://www.w3.org/TR/css-will-change/",
+        "title": "CSS Will Change"
     },
     {
         "url": "https://dom.spec.whatwg.org/",
@@ -195,6 +211,10 @@
         "title": "Indexed Database"
     },
     {
+        "url": "https://www.w3.org/TR/intersection-observer/",
+        "title": "Intersection Observer"
+    },
+    {
         "url": "https://www.w3.org/TR/media-source/",
         "title": "Media Source Extensions"
     },
@@ -278,6 +298,10 @@
     {
         "url": "https://drafts.csswg.org/web-animations/",
         "title": "Web Animations"
+    },
+    {
+        "url": "https://www.w3.org/TR/wasm-js-api-1/",
+        "title": "WebAssembly JavaScript Interface"
     },
     {
         "url": "https://webaudio.github.io/web-audio-api/",
