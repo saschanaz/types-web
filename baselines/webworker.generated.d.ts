@@ -4346,10 +4346,10 @@ declare function addEventListener<K extends keyof DedicatedWorkerGlobalScopeEven
 declare function addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
 declare function removeEventListener<K extends keyof DedicatedWorkerGlobalScopeEventMap>(type: K, listener: (this: DedicatedWorkerGlobalScope, ev: DedicatedWorkerGlobalScopeEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
 declare function removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
-type BlobPart = BufferSource | Blob | string;
 type HeadersInit = Headers | string[][] | Record<string, string>;
 type BodyInit = Blob | BufferSource | FormData | URLSearchParams | ReadableStream<Uint8Array> | string;
 type RequestInfo = Request | string;
+type BlobPart = BufferSource | Blob | string;
 type DOMHighResTimeStamp = number;
 type CanvasImageSource = ImageBitmap;
 type MessageEventSource = MessagePort | ServiceWorker;

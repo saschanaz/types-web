@@ -45,12 +45,16 @@
         "title": "Encrypted Media Extensions"
     },
     {
+        "url": "https://fetch.spec.whatwg.org/",
+        "title": "Fetch"
+    },
+    {
         "url": "https://w3c.github.io/FileAPI/",
         "title": "File"
     },
     {
-        "url": "https://fetch.spec.whatwg.org/",
-        "title": "Fetch"
+        "url": "https://www.w3.org/TR/filter-effects-1/",
+        "title": "Filter Effects"
     },
     {
         "url": "https://fullscreen.spec.whatwg.org/",
