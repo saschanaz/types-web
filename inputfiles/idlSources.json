@@ -1,5 +1,9 @@
 [
     {
+        "url": "https://www.w3.org/TR/beacon/",
+        "title": "Beacon"
+    },
+    {
         "url": "https://www.w3.org/TR/clipboard-apis/",
         "title": "Clipboard"
     },
@@ -179,6 +183,10 @@
         "title": "HTML - Session history and navigation"
     },
     {
+        "url": "https://html.spec.whatwg.org/multipage/system-state.html",
+        "title": "HTML - System state and capabilities"
+    },
+    {
         "url": "https://html.spec.whatwg.org/multipage/tables.html",
         "title": "HTML - Tabular data"
     },
@@ -290,6 +298,10 @@
     {
         "url": "https://w3c.github.io/touch-events/",
         "title": "Touch Events"
+    },
+    {
+        "url": "https://www.w3.org/TR/tracking-dnt/",
+        "title": "Tracking Preference Expression"
     },
     {
         "url": "https://url.spec.whatwg.org/",

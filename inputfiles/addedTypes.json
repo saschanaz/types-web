@@ -769,11 +769,6 @@
                             "name": "pointerEnabled",
                             "read-only": 1,
                             "override-type": "boolean"
-                        },
-                        "doNotTrack": {
-                            "name": "doNotTrack",
-                            "read-only": 1,
-                            "override-type": "string | null"
                         }
                     }
                 }

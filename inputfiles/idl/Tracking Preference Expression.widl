@@ -1,0 +1,32 @@
+partial interface Navigator {
+    readonly attribute DOMString? doNotTrack;
+};
+
+partial interface Navigator {
+    Promise<TrackingExResult> storeTrackingException (
+      TrackingExData properties
+    );
+};
+dictionary TrackingExData {
+   DOMString? site;
+   sequence<DOMString>? targets;
+   DOMString? name;
+   DOMString? explanation;
+   DOMString? details;
+   long?      maxAge;
+};
+dictionary TrackingExResult {
+  boolean isSiteWide;
+};
+
+partial interface Navigator {
+  Promise<void> removeTrackingException (
+    TrackingExData properties
+  );
+};
+
+partial interface Navigator {
+  Promise<boolean> trackingExceptionExists (
+    TrackingExData properties
+  );
+};

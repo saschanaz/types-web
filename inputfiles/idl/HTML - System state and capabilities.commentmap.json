@@ -1,0 +1,12 @@
+{
+    "navigator": "Returns true if there's a plugin that supports the MIME type \"application/x-java-vm\".",
+    "plugin-name": "Returns the plugin's name.",
+    "plugin-description": "Returns the plugin's description.",
+    "plugin-filename": "Returns the plugin library's filename, if applicable on the current platform.",
+    "plugin-length": "Returns the number of MIME types, represented by MimeType objects, supported by the plugin.",
+    "plugin-item": "plugin[name]",
+    "mimetype-type": "Returns the MIME type.",
+    "mimetype-description": "Returns the MIME type's description.",
+    "mimetype-suffixes": "Returns the MIME type's typical file extensions, in a comma-separated list.",
+    "mimetype-enabledplugin": "Returns the Plugin object that implements this MIME type."
+}

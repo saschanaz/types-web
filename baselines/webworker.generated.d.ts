@@ -2130,10 +2130,7 @@ interface NavigatorID {
     readonly appVersion: string;
     readonly platform: string;
     readonly product: string;
-    readonly productSub: string;
     readonly userAgent: string;
-    readonly vendor: string;
-    readonly vendorSub: string;
 }
 
 interface NavigatorOnLine {
