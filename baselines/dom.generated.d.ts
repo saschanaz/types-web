@@ -236,7 +236,7 @@ interface ConstrainDoubleRange extends DoubleRange {
     ideal?: number;
 }
 
-interface ConstrainLongRange extends LongRange {
+interface ConstrainULongRange extends ULongRange {
     exact?: number;
     ideal?: number;
 }
@@ -606,11 +606,6 @@ interface KeyframeEffectOptions extends EffectTiming {
     iterationComposite?: IterationCompositeOperation;
 }
 
-interface LongRange {
-    max?: number;
-    min?: number;
-}
-
 interface MediaElementAudioSourceOptions {
     mediaElement: HTMLMediaElement;
 }
@@ -668,39 +663,45 @@ interface MediaStreamTrackAudioSourceOptions {
 }
 
 interface MediaStreamTrackEventInit extends EventInit {
-    track?: MediaStreamTrack | null;
+    track: MediaStreamTrack;
 }
 
 interface MediaTrackCapabilities {
-    aspectRatio?: number | DoubleRange;
+    aspectRatio?: DoubleRange;
+    autoGainControl?: boolean[];
+    channelCount?: ULongRange;
     deviceId?: string;
     echoCancellation?: boolean[];
-    facingMode?: string;
-    frameRate?: number | DoubleRange;
+    facingMode?: string[];
+    frameRate?: DoubleRange;
     groupId?: string;
-    height?: number | LongRange;
-    sampleRate?: number | LongRange;
-    sampleSize?: number | LongRange;
-    volume?: number | DoubleRange;
-    width?: number | LongRange;
+    height?: ULongRange;
+    latency?: DoubleRange;
+    noiseSuppression?: boolean[];
+    resizeMode?: string[];
+    sampleRate?: ULongRange;
+    sampleSize?: ULongRange;
+    volume?: DoubleRange;
+    width?: ULongRange;
 }
 
 interface MediaTrackConstraintSet {
-    aspectRatio?: number | ConstrainDoubleRange;
-    channelCount?: number | ConstrainLongRange;
-    deviceId?: string | string[] | ConstrainDOMStringParameters;
-    displaySurface?: string | string[] | ConstrainDOMStringParameters;
-    echoCancellation?: boolean | ConstrainBooleanParameters;
-    facingMode?: string | string[] | ConstrainDOMStringParameters;
-    frameRate?: number | ConstrainDoubleRange;
-    groupId?: string | string[] | ConstrainDOMStringParameters;
-    height?: number | ConstrainLongRange;
-    latency?: number | ConstrainDoubleRange;
-    logicalSurface?: boolean | ConstrainBooleanParameters;
-    sampleRate?: number | ConstrainLongRange;
-    sampleSize?: number | ConstrainLongRange;
-    volume?: number | ConstrainDoubleRange;
-    width?: number | ConstrainLongRange;
+    aspectRatio?: ConstrainDouble;
+    autoGainControl?: ConstrainBoolean;
+    channelCount?: ConstrainULong;
+    deviceId?: ConstrainDOMString;
+    echoCancellation?: ConstrainBoolean;
+    facingMode?: ConstrainDOMString;
+    frameRate?: ConstrainDouble;
+    groupId?: ConstrainDOMString;
+    height?: ConstrainULong;
+    latency?: ConstrainDouble;
+    noiseSuppression?: ConstrainBoolean;
+    resizeMode?: ConstrainDOMString;
+    sampleRate?: ConstrainULong;
+    sampleSize?: ConstrainULong;
+    volume?: ConstrainDouble;
+    width?: ConstrainULong;
 }
 
 interface MediaTrackConstraints extends MediaTrackConstraintSet {
@@ -709,12 +710,17 @@ interface MediaTrackConstraints extends MediaTrackConstraintSet {
 
 interface MediaTrackSettings {
     aspectRatio?: number;
+    autoGainControl?: boolean;
+    channelCount?: number;
     deviceId?: string;
     echoCancellation?: boolean;
     facingMode?: string;
     frameRate?: number;
     groupId?: string;
     height?: number;
+    latency?: number;
+    noiseSuppression?: boolean;
+    resizeMode?: string;
     sampleRate?: number;
     sampleSize?: number;
     volume?: number;
@@ -723,12 +729,17 @@ interface MediaTrackSettings {
 
 interface MediaTrackSupportedConstraints {
     aspectRatio?: boolean;
+    autoGainControl?: boolean;
+    channelCount?: boolean;
     deviceId?: boolean;
     echoCancellation?: boolean;
     facingMode?: boolean;
     frameRate?: boolean;
     groupId?: boolean;
     height?: boolean;
+    latency?: boolean;
+    noiseSuppression?: boolean;
+    resizeMode?: boolean;
     sampleRate?: boolean;
     sampleSize?: boolean;
     volume?: boolean;
@@ -1574,6 +1585,11 @@ interface TransitionEventInit extends EventInit {
 interface UIEventInit extends EventInit {
     detail?: number;
     view?: Window | null;
+}
+
+interface ULongRange {
+    max?: number;
+    min?: number;
 }
 
 interface UnderlyingByteSource {
@@ -9421,6 +9437,15 @@ interface InnerHTML {
     innerHTML: string;
 }
 
+interface InputDeviceInfo extends MediaDeviceInfo {
+    getCapabilities(): MediaTrackCapabilities;
+}
+
+declare var InputDeviceInfo: {
+    prototype: InputDeviceInfo;
+    new(): InputDeviceInfo;
+};
+
 /** provides a way to asynchronously observe changes in the intersection of a target element with an ancestor element or with a top-level document's viewport. */
 interface IntersectionObserver {
     readonly root: Element | null;
@@ -9853,6 +9878,7 @@ interface MediaDeviceInfo {
     readonly groupId: string;
     readonly kind: MediaDeviceKind;
     readonly label: string;
+    toJSON(): any;
 }
 
 declare var MediaDeviceInfo: {
@@ -9869,7 +9895,7 @@ interface MediaDevices extends EventTarget {
     ondevicechange: ((this: MediaDevices, ev: Event) => any) | null;
     enumerateDevices(): Promise<MediaDeviceInfo[]>;
     getSupportedConstraints(): MediaTrackSupportedConstraints;
-    getUserMedia(constraints: MediaStreamConstraints): Promise<MediaStream>;
+    getUserMedia(constraints?: MediaStreamConstraints): Promise<MediaStream>;
     addEventListener<K extends keyof MediaDevicesEventMap>(type: K, listener: (this: MediaDevices, ev: MediaDevicesEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
     removeEventListener<K extends keyof MediaDevicesEventMap>(type: K, listener: (this: MediaDevices, ev: MediaDevicesEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
@@ -10081,9 +10107,7 @@ declare var MediaSource: {
 };
 
 interface MediaStreamEventMap {
-    "active": Event;
     "addtrack": MediaStreamTrackEvent;
-    "inactive": Event;
     "removetrack": MediaStreamTrackEvent;
 }
 
@@ -10091,9 +10115,7 @@ interface MediaStreamEventMap {
 interface MediaStream extends EventTarget {
     readonly active: boolean;
     readonly id: string;
-    onactive: ((this: MediaStream, ev: Event) => any) | null;
     onaddtrack: ((this: MediaStream, ev: MediaStreamTrackEvent) => any) | null;
-    oninactive: ((this: MediaStream, ev: Event) => any) | null;
     onremovetrack: ((this: MediaStream, ev: MediaStreamTrackEvent) => any) | null;
     addTrack(track: MediaStreamTrack): void;
     clone(): MediaStream;
@@ -10102,7 +10124,6 @@ interface MediaStream extends EventTarget {
     getTracks(): MediaStreamTrack[];
     getVideoTracks(): MediaStreamTrack[];
     removeTrack(track: MediaStreamTrack): void;
-    stop(): void;
     addEventListener<K extends keyof MediaStreamEventMap>(type: K, listener: (this: MediaStream, ev: MediaStreamEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
     removeEventListener<K extends keyof MediaStreamEventMap>(type: K, listener: (this: MediaStream, ev: MediaStreamEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
@@ -10166,7 +10187,7 @@ declare var MediaStreamEvent: {
 };
 
 interface MediaStreamTrackEventMap {
-    "ended": MediaStreamErrorEvent;
+    "ended": Event;
     "isolationchange": Event;
     "mute": Event;
     "overconstrained": MediaStreamErrorEvent;
@@ -10181,15 +10202,13 @@ interface MediaStreamTrack extends EventTarget {
     readonly kind: string;
     readonly label: string;
     readonly muted: boolean;
-    onended: ((this: MediaStreamTrack, ev: MediaStreamErrorEvent) => any) | null;
+    onended: ((this: MediaStreamTrack, ev: Event) => any) | null;
     onisolationchange: ((this: MediaStreamTrack, ev: Event) => any) | null;
     onmute: ((this: MediaStreamTrack, ev: Event) => any) | null;
     onoverconstrained: ((this: MediaStreamTrack, ev: MediaStreamErrorEvent) => any) | null;
     onunmute: ((this: MediaStreamTrack, ev: Event) => any) | null;
-    readonly readonly: boolean;
     readonly readyState: MediaStreamTrackState;
-    readonly remote: boolean;
-    applyConstraints(constraints: MediaTrackConstraints): Promise<void>;
+    applyConstraints(constraints?: MediaTrackConstraints): Promise<void>;
     clone(): MediaStreamTrack;
     getCapabilities(): MediaTrackCapabilities;
     getConstraints(): MediaTrackConstraints;
@@ -10221,7 +10240,7 @@ interface MediaStreamTrackEvent extends Event {
 
 declare var MediaStreamTrackEvent: {
     prototype: MediaStreamTrackEvent;
-    new(typeArg: string, eventInitDict?: MediaStreamTrackEventInit): MediaStreamTrackEvent;
+    new(type: string, eventInitDict: MediaStreamTrackEventInit): MediaStreamTrackEvent;
 };
 
 /** An interface of the Channel Messaging API allows us to create a new message channel and send data through it via its two MessagePort properties. */
@@ -10521,6 +10540,7 @@ interface Navigator extends NavigatorID, NavigatorOnLine, NavigatorContentUtils,
     gamepadInputEmulation: GamepadInputEmulationType;
     readonly geolocation: Geolocation;
     readonly maxTouchPoints: number;
+    readonly mediaDevices: MediaDevices;
     readonly mimeTypes: MimeTypeArray;
     readonly msManipulationViewsEnabled: boolean;
     readonly msMaxTouchPoints: number;
@@ -10531,6 +10551,7 @@ interface Navigator extends NavigatorID, NavigatorOnLine, NavigatorContentUtils,
     readonly serviceWorker: ServiceWorkerContainer;
     readonly webdriver: boolean;
     getGamepads(): (Gamepad | null)[];
+    getUserMedia(constraints: MediaStreamConstraints, successCallback: NavigatorUserMediaSuccessCallback, errorCallback: NavigatorUserMediaErrorCallback): void;
     getVRDisplays(): Promise<VRDisplay[]>;
     javaEnabled(): boolean;
     msLaunchUri(uri: string, successCallback?: MSLaunchUriCallback, noHandlerCallback?: MSLaunchUriCallback): void;
@@ -10960,6 +10981,15 @@ interface OscillatorNode extends AudioScheduledSourceNode {
 declare var OscillatorNode: {
     prototype: OscillatorNode;
     new(context: BaseAudioContext, options?: OscillatorOptions): OscillatorNode;
+};
+
+interface OverconstrainedError extends Error {
+    constraint: string;
+}
+
+declare var OverconstrainedError: {
+    prototype: OverconstrainedError;
+    new(): OverconstrainedError;
 };
 
 interface OverflowEvent extends UIEvent {
@@ -18444,6 +18474,10 @@ type ImageBitmapSource = CanvasImageSource | Blob | ImageData;
 type OnErrorEventHandler = OnErrorEventHandlerNonNull | null;
 type OnBeforeUnloadEventHandler = OnBeforeUnloadEventHandlerNonNull | null;
 type TimerHandler = string | Function;
+type ConstrainULong = number | ConstrainULongRange;
+type ConstrainDouble = number | ConstrainDoubleRange;
+type ConstrainBoolean = boolean | ConstrainBooleanParameters;
+type ConstrainDOMString = string | string[] | ConstrainDOMStringParameters;
 type PerformanceEntryList = PerformanceEntry[];
 type VibratePattern = number | number[];
 type AlgorithmIdentifier = string | Algorithm;
@@ -18470,10 +18504,6 @@ type FormDataEntryValue = File | string;
 type InsertPosition = "beforebegin" | "afterbegin" | "beforeend" | "afterend";
 type IDBValidKey = number | string | Date | BufferSource | IDBArrayKey;
 type MutationRecordType = "attributes" | "characterData" | "childList";
-type ConstrainBoolean = boolean | ConstrainBooleanParameters;
-type ConstrainDOMString = string | string[] | ConstrainDOMStringParameters;
-type ConstrainDouble = number | ConstrainDoubleRange;
-type ConstrainLong = number | ConstrainLongRange;
 type IDBKeyPath = string;
 type Transferable = ArrayBuffer | MessagePort | ImageBitmap;
 type RTCIceGatherCandidate = RTCIceCandidateDictionary | RTCIceCandidateComplete;

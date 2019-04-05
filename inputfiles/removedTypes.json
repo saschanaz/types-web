@@ -119,6 +119,7 @@
             "MSDSHEvent": null,
             "MSPortRange": null,
             "MSStreamReader": null,
+            "OverconstrainedErrorEvent": null,
             "Screen": {
                 "methods": {
                     "method": {

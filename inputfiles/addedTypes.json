@@ -1848,6 +1848,43 @@
                 "name": "SVGAnimateMotionElement",
                 "extends": "SVGAnimationElement",
                 "exposed": "Window"
+            },
+            "MediaStream": {
+                "events": {
+                    "event": [
+                        {
+                            "name": "addtrack",
+                            "type": "MediaStreamTrackEvent"
+                        },
+                        {
+                            "name": "removetrack",
+                            "type": "MediaStreamTrackEvent"
+                        }
+                    ]
+                }
+            },
+            "MediaStreamTrack": {
+                "events": {
+                    "event": [
+                        {
+                            "name": "overconstrained",
+                            "type": "MediaStreamErrorEvent"
+                        }
+                    ]
+                }
+            },
+            "OverconstrainedError": {
+                "name": "OverconstrainedError",
+                "extends": "Error",
+                "exposed": "Window",
+                "properties": {
+                    "property": {
+                        "constraint": {
+                            "name": "constraint",
+                            "type": "DOMString"
+                        }
+                    }
+                }
             }
         }
     },
@@ -1941,22 +1978,6 @@
             {
                 "new-type": "MutationRecordType",
                 "override-type": "\"attributes\" | \"characterData\" | \"childList\""
-            },
-            {
-                "new-type": "ConstrainBoolean",
-                "override-type": "boolean | ConstrainBooleanParameters"
-            },
-            {
-                "new-type": "ConstrainDOMString",
-                "override-type": "string | string[] | ConstrainDOMStringParameters"
-            },
-            {
-                "new-type": "ConstrainDouble",
-                "override-type": "number | ConstrainDoubleRange"
-            },
-            {
-                "new-type": "ConstrainLong",
-                "override-type": "number | ConstrainLongRange"
             },
             {
                 "new-type": "IDBKeyPath",

@@ -2861,25 +2861,6 @@
                     }
                 }
             },
-            "MediaTrackConstraintSet": {
-                "name": "MediaTrackConstraintSet",
-                "members": {
-                    "member": {
-                        "echoCancellation": {
-                            "name": "echoCancellation",
-                            "override-type": "boolean | ConstrainBooleanParameters"
-                        },
-                        "channelCount": {
-                            "name": "channelCount",
-                            "override-type": "number | ConstrainLongRange"
-                        },
-                        "latency": {
-                            "name": "latency",
-                            "override-type": "number | ConstrainDoubleRange"
-                        }
-                    }
-                }
-            },
             "BaseKeyframe": {
                 "name": "Keyframe",
                 "override-index-signatures": [
