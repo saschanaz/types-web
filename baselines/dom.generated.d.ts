@@ -5410,7 +5410,7 @@ interface GlobalEventHandlersEventMap {
     "animationend": AnimationEvent;
     "animationiteration": AnimationEvent;
     "animationstart": AnimationEvent;
-    "auxclick": Event;
+    "auxclick": MouseEvent;
     "blur": FocusEvent;
     "cancel": Event;
     "canplay": Event;
@@ -5503,7 +5503,7 @@ interface GlobalEventHandlers {
     onanimationend: ((this: GlobalEventHandlers, ev: AnimationEvent) => any) | null;
     onanimationiteration: ((this: GlobalEventHandlers, ev: AnimationEvent) => any) | null;
     onanimationstart: ((this: GlobalEventHandlers, ev: AnimationEvent) => any) | null;
-    onauxclick: ((this: GlobalEventHandlers, ev: Event) => any) | null;
+    onauxclick: ((this: GlobalEventHandlers, ev: MouseEvent) => any) | null;
     /**
      * Fires when the object loses the input focus.
      * @param ev The focus event.
@@ -18132,7 +18132,7 @@ declare var onanimationcancel: ((this: Window, ev: AnimationEvent) => any) | nul
 declare var onanimationend: ((this: Window, ev: AnimationEvent) => any) | null;
 declare var onanimationiteration: ((this: Window, ev: AnimationEvent) => any) | null;
 declare var onanimationstart: ((this: Window, ev: AnimationEvent) => any) | null;
-declare var onauxclick: ((this: Window, ev: Event) => any) | null;
+declare var onauxclick: ((this: Window, ev: MouseEvent) => any) | null;
 /**
  * Fires when the object loses the input focus.
  * @param ev The focus event.

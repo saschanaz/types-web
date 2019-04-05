@@ -75,6 +75,10 @@
                 "events": {
                     "event": [
                         {
+                            "name": "auxclick",
+                            "type": "MouseEvent"
+                        },
+                        {
                             "name": "cancel",
                             "type": "Event"
                         },
