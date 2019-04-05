@@ -310,21 +310,27 @@ interface DelayOptions extends AudioNodeOptions {
     maxDelayTime?: number;
 }
 
-interface DeviceAccelerationDict {
+interface DeviceLightEventInit extends EventInit {
+    value?: number;
+}
+
+interface DeviceMotionEventAccelerationInit {
     x?: number | null;
     y?: number | null;
     z?: number | null;
 }
 
-interface DeviceLightEventInit extends EventInit {
-    value?: number;
+interface DeviceMotionEventInit extends EventInit {
+    acceleration?: DeviceMotionEventAccelerationInit;
+    accelerationIncludingGravity?: DeviceMotionEventAccelerationInit;
+    interval?: number;
+    rotationRate?: DeviceMotionEventRotationRateInit;
 }
 
-interface DeviceMotionEventInit extends EventInit {
-    acceleration?: DeviceAccelerationDict | null;
-    accelerationIncludingGravity?: DeviceAccelerationDict | null;
-    interval?: number | null;
-    rotationRate?: DeviceRotationRateDict | null;
+interface DeviceMotionEventRotationRateInit {
+    alpha?: number | null;
+    beta?: number | null;
+    gamma?: number | null;
 }
 
 interface DeviceOrientationEventInit extends EventInit {
@@ -337,12 +343,6 @@ interface DeviceOrientationEventInit extends EventInit {
 interface DevicePermissionDescriptor extends PermissionDescriptor {
     deviceId?: string;
     name: "camera" | "microphone" | "speaker";
-}
-
-interface DeviceRotationRateDict {
-    alpha?: number | null;
-    beta?: number | null;
-    gamma?: number | null;
 }
 
 interface DocumentTimelineOptions {
@@ -4075,17 +4075,28 @@ declare var DeviceLightEvent: {
 
 /** The DeviceMotionEvent provides web developers with information about the speed of changes for the device's position and orientation. */
 interface DeviceMotionEvent extends Event {
-    readonly acceleration: DeviceAcceleration | null;
-    readonly accelerationIncludingGravity: DeviceAcceleration | null;
-    readonly interval: number | null;
-    readonly rotationRate: DeviceRotationRate | null;
-    initDeviceMotionEvent(type: string, bubbles: boolean, cancelable: boolean, acceleration: DeviceAccelerationDict | null, accelerationIncludingGravity: DeviceAccelerationDict | null, rotationRate: DeviceRotationRateDict | null, interval: number | null): void;
+    readonly acceleration: DeviceMotionEventAcceleration | null;
+    readonly accelerationIncludingGravity: DeviceMotionEventAcceleration | null;
+    readonly interval: number;
+    readonly rotationRate: DeviceMotionEventRotationRate | null;
 }
 
 declare var DeviceMotionEvent: {
     prototype: DeviceMotionEvent;
-    new(typeArg: string, eventInitDict?: DeviceMotionEventInit): DeviceMotionEvent;
+    new(type: string, eventInitDict?: DeviceMotionEventInit): DeviceMotionEvent;
 };
+
+interface DeviceMotionEventAcceleration {
+    readonly x: number | null;
+    readonly y: number | null;
+    readonly z: number | null;
+}
+
+interface DeviceMotionEventRotationRate {
+    readonly alpha: number | null;
+    readonly beta: number | null;
+    readonly gamma: number | null;
+}
 
 /** The DeviceOrientationEvent provides web developers with information from the physical orientation of the device running the web page. */
 interface DeviceOrientationEvent extends Event {
@@ -4093,12 +4104,11 @@ interface DeviceOrientationEvent extends Event {
     readonly alpha: number | null;
     readonly beta: number | null;
     readonly gamma: number | null;
-    initDeviceOrientationEvent(type: string, bubbles: boolean, cancelable: boolean, alpha: number | null, beta: number | null, gamma: number | null, absolute: boolean): void;
 }
 
 declare var DeviceOrientationEvent: {
     prototype: DeviceOrientationEvent;
-    new(typeArg: string, eventInitDict?: DeviceOrientationEventInit): DeviceOrientationEvent;
+    new(type: string, eventInitDict?: DeviceOrientationEventInit): DeviceOrientationEvent;
 };
 
 /** Provides information about the rate at which the device is rotating around all three axes. */
@@ -16907,6 +16917,7 @@ interface WindowEventMap extends GlobalEventHandlersEventMap, WindowEventHandler
     "devicelight": DeviceLightEvent;
     "devicemotion": DeviceMotionEvent;
     "deviceorientation": DeviceOrientationEvent;
+    "deviceorientationabsolute": DeviceOrientationEvent;
     "drag": DragEvent;
     "dragend": DragEvent;
     "dragenter": DragEvent;
@@ -17029,6 +17040,7 @@ interface Window extends EventTarget, WindowTimers, WindowSessionStorage, Window
     ondevicelight: ((this: Window, ev: DeviceLightEvent) => any) | null;
     ondevicemotion: ((this: Window, ev: DeviceMotionEvent) => any) | null;
     ondeviceorientation: ((this: Window, ev: DeviceOrientationEvent) => any) | null;
+    ondeviceorientationabsolute: ((this: Window, ev: DeviceOrientationEvent) => any) | null;
     onmousewheel: ((this: Window, ev: Event) => any) | null;
     onmsgesturechange: ((this: Window, ev: Event) => any) | null;
     onmsgesturedoubletap: ((this: Window, ev: Event) => any) | null;
@@ -18024,6 +18036,7 @@ declare var oncompassneedscalibration: ((this: Window, ev: Event) => any) | null
 declare var ondevicelight: ((this: Window, ev: DeviceLightEvent) => any) | null;
 declare var ondevicemotion: ((this: Window, ev: DeviceMotionEvent) => any) | null;
 declare var ondeviceorientation: ((this: Window, ev: DeviceOrientationEvent) => any) | null;
+declare var ondeviceorientationabsolute: ((this: Window, ev: DeviceOrientationEvent) => any) | null;
 declare var onmousewheel: ((this: Window, ev: Event) => any) | null;
 declare var onmsgesturechange: ((this: Window, ev: Event) => any) | null;
 declare var onmsgesturedoubletap: ((this: Window, ev: Event) => any) | null;

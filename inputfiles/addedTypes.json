@@ -314,6 +314,12 @@
                     ]
                 }
             },
+            "DeviceMotionEventAcceleration": {
+                "no-interface-object": 1
+            },
+            "DeviceMotionEventRotationRate": {
+                "no-interface-object": 1
+            },
             "RTCError": {
                 "specs": "webrtc",
                 "constructor": {
@@ -535,7 +541,15 @@
                 ],
                 "override-index-signatures": [
                     "[index: number]: Window"
-                ]
+                ],
+                "events": {
+                    "event": [
+                        {
+                            "name": "deviceorientationabsolute",
+                            "type": "DeviceOrientationEvent"
+                        }
+                    ]
+                }
             },
             "URLSearchParams": {
                 "name": "URLSearchParams",

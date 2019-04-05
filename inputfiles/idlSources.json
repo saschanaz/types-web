@@ -37,6 +37,10 @@
         "title": "CSS Will Change"
     },
     {
+        "url": "https://w3c.github.io/deviceorientation/",
+        "title": "DeviceOrientation Event"
+    },
+    {
         "url": "https://dom.spec.whatwg.org/",
         "title": "DOM"
     },
