@@ -18001,6 +18001,8 @@ interface SVGElementTagNameMap {
     "metadata": SVGMetadataElement;
     "path": SVGPathElement;
     "pattern": SVGPatternElement;
+    "polygon": SVGPolygonElement;
+    "polyline": SVGPolylineElement;
     "radialGradient": SVGRadialGradientElement;
     "rect": SVGRectElement;
     "script": SVGScriptElement;

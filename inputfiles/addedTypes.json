@@ -1895,6 +1895,22 @@
                     }
                 ]
             },
+            "SVGPolygonElement": {
+                "element": [
+                    {
+                        "namespace": "SVG",
+                        "name": "polygon"
+                    }
+                ]
+            },
+            "SVGPolylineElement": {
+                "element": [
+                    {
+                        "namespace": "SVG",
+                        "name": "polyline"
+                    }
+                ]
+            },
             "MediaStream": {
                 "events": {
                     "event": [
