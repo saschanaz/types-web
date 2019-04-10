@@ -1854,6 +1854,11 @@ declare var AnimationEvent: {
     new(type: string, animationEventInitDict?: AnimationEventInit): AnimationEvent;
 };
 
+interface AnimationFrameProvider {
+    cancelAnimationFrame(handle: number): void;
+    requestAnimationFrame(callback: FrameRequestCallback): number;
+}
+
 interface AnimationPlaybackEvent extends Event {
     readonly currentTime: number | null;
     readonly timelineTime: number | null;
@@ -17100,7 +17105,7 @@ interface WindowEventMap extends GlobalEventHandlersEventMap, WindowEventHandler
 }
 
 /** A window containing a DOM document; the document property points to the DOM document loaded in that window. */
-interface Window extends EventTarget, WindowTimers, WindowSessionStorage, WindowLocalStorage, WindowConsole, GlobalEventHandlers, IDBEnvironment, WindowBase64, GlobalFetch, WindowOrWorkerGlobalScope, WindowEventHandlers {
+interface Window extends EventTarget, WindowTimers, WindowSessionStorage, WindowLocalStorage, WindowConsole, GlobalEventHandlers, IDBEnvironment, WindowBase64, GlobalFetch, AnimationFrameProvider, WindowOrWorkerGlobalScope, WindowEventHandlers {
     Blob: typeof Blob;
     TextDecoder: typeof TextDecoder;
     TextEncoder: typeof TextEncoder;
@@ -17195,7 +17200,6 @@ interface Window extends EventTarget, WindowTimers, WindowSessionStorage, Window
     readonly window: Window;
     alert(message?: any): void;
     blur(): void;
-    cancelAnimationFrame(handle: number): void;
     /** @deprecated */
     captureEvents(): void;
     close(): void;
@@ -17215,7 +17219,6 @@ interface Window extends EventTarget, WindowTimers, WindowSessionStorage, Window
     prompt(message?: string, _default?: string): string | null;
     /** @deprecated */
     releaseEvents(): void;
-    requestAnimationFrame(callback: FrameRequestCallback): number;
     resizeBy(x: number, y: number): void;
     resizeTo(x: number, y: number): void;
     scroll(options?: ScrollToOptions): void;
@@ -18191,7 +18194,6 @@ declare var top: Window;
 declare var window: Window;
 declare function alert(message?: any): void;
 declare function blur(): void;
-declare function cancelAnimationFrame(handle: number): void;
 /** @deprecated */
 declare function captureEvents(): void;
 declare function close(): void;
@@ -18211,7 +18213,6 @@ declare function print(): void;
 declare function prompt(message?: string, _default?: string): string | null;
 /** @deprecated */
 declare function releaseEvents(): void;
-declare function requestAnimationFrame(callback: FrameRequestCallback): number;
 declare function resizeBy(x: number, y: number): void;
 declare function resizeTo(x: number, y: number): void;
 declare function scroll(options?: ScrollToOptions): void;
@@ -18504,6 +18505,8 @@ declare var indexedDB: IDBFactory;
 declare function atob(encodedString: string): string;
 declare function btoa(rawString: string): string;
 declare function fetch(input: RequestInfo, init?: RequestInit): Promise<Response>;
+declare function cancelAnimationFrame(handle: number): void;
+declare function requestAnimationFrame(callback: FrameRequestCallback): number;
 declare var caches: CacheStorage;
 declare var crypto: Crypto;
 declare var indexedDB: IDBFactory;
