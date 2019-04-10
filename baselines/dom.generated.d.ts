@@ -5244,6 +5244,11 @@ interface External {
     IsSearchProviderInstalled(): void;
 }
 
+declare var External: {
+    prototype: External;
+    new(): External;
+};
+
 /** Provides information about files and allows JavaScript in a web page to access their content. */
 interface File extends Blob {
     readonly lastModified: number;
