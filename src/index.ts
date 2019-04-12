@@ -32,12 +32,12 @@ function emitDom() {
 
     // ${name} will be substituted with the name of an interface
     const removeVerboseIntroductions: [RegExp, string][] = [
-        [/^(The|A) ${name} interface of (the\s*)*([a-z\s]+ API)(\\\'s)?/, 'An interface of the $3 '],
+        [/^(The|A) ${name} interface of (the\s*)*((?:(?!API)[A-Za-z\s])+ API)/, 'An interface of the $3 '],
         [/^(The|A) ${name} (interface|event|object) (is|represents|describes|defines)?/, ''],
         [/^An object implementing the ${name} interface (is|represents|describes|defines)/, ''],
         [/^The ${name} is an interface representing/, ''],
         [/^This type (is|represents|describes|defines)?/, ''],
-        [/^The ([a-z\s]+ API(\\\'s)?) ${name} (represents|is|describes|defines)/, 'The $1 ']
+        [/^The (((?:(?!API)[A-Za-z\s])+ API)) ${name} (represents|is|describes|defines)/, 'The $1 ']
     ];
 
     // Create output folder
@@ -90,7 +90,7 @@ function emitDom() {
         for (const regTemplate of removeVerboseIntroductions) {
             const [{ source: template }, replace] = regTemplate;
 
-            const reg = new RegExp(template.replace(/\$\{name\}/g, name) + '\\s*', 'i');
+            const reg = new RegExp(template.replace(/\$\{name\}/g, name) + '\\s*');
             const product = description.replace(reg, replace);
             if (product !== description) {
                 return product.charAt(0).toUpperCase() + product.slice(1);

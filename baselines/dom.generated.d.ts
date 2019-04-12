@@ -11203,7 +11203,7 @@ interface PaymentRequestEventMap {
     "shippingoptionchange": Event;
 }
 
-/** An interface of the Payment Request API is the primary access point into the API , and lets web content and apps accept payments from the end user. */
+/** An interface of the Payment Request API is the primary access point into the API, and lets web content and apps accept payments from the end user. */
 interface PaymentRequest extends EventTarget {
     readonly id: string;
     onshippingaddresschange: ((this: PaymentRequest, ev: Event) => any) | null;
@@ -15682,7 +15682,7 @@ declare var URLSearchParams: {
     new(init?: string[][] | Record<string, string> | string | URLSearchParams): URLSearchParams;
 };
 
-/** An interface of the WebVR API represents any VR device supported by this API . It includes generic information such as device IDs and descriptions, as well as methods for starting to present a VR scene, retrieving eye parameters and display capabilities, and other important functionality. */
+/** An interface of the WebVR API represents any VR device supported by this API. It includes generic information such as device IDs and descriptions, as well as methods for starting to present a VR scene, retrieving eye parameters and display capabilities, and other important functionality. */
 interface VRDisplay extends EventTarget {
     readonly capabilities: VRDisplayCapabilities;
     depthFar: number;
