@@ -6,8 +6,28 @@ import { Flavor, emitWebIdl } from "./emitter";
 import { convert } from "./widlprocess";
 import { getExposedTypes } from "./expose";
 
+function mergeNamesakes(filtered: Browser.WebIdl) {
+    const targets = [
+        ...Object.values(filtered.interfaces!.interface),
+        ...Object.values(filtered.mixins!.mixin),
+        ...filtered.namespaces!
+    ];
+    for (const i of targets) {
+        if (!i.properties || !i.properties.namesakes) {
+            continue;
+        }
+        const { property } = i.properties!;
+        for (const [prop] of Object.values(i.properties.namesakes)) {
+            if (prop) {
+                property[prop.name] = merge(property[prop.name] || {}, prop);
+            }
+        }
+    }
+}
+
 function emitDomWorker(webidl: Browser.WebIdl, tsWorkerOutput: string, forceKnownWorkerTypes: Set<string>) {
     const worker = getExposedTypes(webidl, "Worker", forceKnownWorkerTypes);
+    mergeNamesakes(worker);
     const result = emitWebIdl(worker, Flavor.Worker);
     fs.writeFileSync(tsWorkerOutput, result);
     return;
@@ -15,7 +35,7 @@ function emitDomWorker(webidl: Browser.WebIdl, tsWorkerOutput: string, forceKnow
 
 function emitDomWeb(webidl: Browser.WebIdl, tsWebOutput: string, forceKnownWindowTypes: Set<string>) {
     const browser = getExposedTypes(webidl, "Window", forceKnownWindowTypes);
-
+    mergeNamesakes(browser);
     const result = emitWebIdl(browser, Flavor.Web);
     fs.writeFileSync(tsWebOutput, result);
     return;

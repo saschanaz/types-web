@@ -1075,15 +1075,13 @@
             },
             "Performance": {
                 "name": "Performance",
-                "properties": {
-                    "events": {
-                        "event": [
-                            {
-                                "name": "resourcetimingbufferfull",
-                                "type": "Event"
-                            }
-                        ]
-                    }
+                "events": {
+                    "event": [
+                        {
+                            "name": "resourcetimingbufferfull",
+                            "type": "Event"
+                        }
+                    ]
                 }
             },
             "KeyboardEvent": {

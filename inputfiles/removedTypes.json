@@ -216,6 +216,12 @@
                         "ontouchmove": null,
                         "ontouchstart": null
                     }
+                },
+                "methods": {
+                    "method": {
+                        "cancelAnimationFrame": null,
+                        "requestAnimationFrame": null
+                    }
                 }
             },
             "WheelEvent": {
