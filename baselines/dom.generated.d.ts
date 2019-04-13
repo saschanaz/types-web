@@ -2594,7 +2594,7 @@ interface CSSStyleDeclaration {
     clipPath: string | null;
     clipRule: string | null;
     color: string | null;
-    colorInterpolationFilters: string | null;
+    colorInterpolationFilters: string;
     columnCount: string;
     columnFill: string;
     columnGap: string;
@@ -2619,7 +2619,7 @@ interface CSSStyleDeclaration {
     fill: string | null;
     fillOpacity: string | null;
     fillRule: string | null;
-    filter: string | null;
+    filter: string;
     flex: string | null;
     flexBasis: string | null;
     flexDirection: string | null;
@@ -2627,8 +2627,8 @@ interface CSSStyleDeclaration {
     flexGrow: string | null;
     flexShrink: string | null;
     flexWrap: string | null;
-    floodColor: string | null;
-    floodOpacity: string | null;
+    floodColor: string;
+    floodOpacity: string;
     font: string | null;
     fontFamily: string | null;
     fontFeatureSettings: string | null;
@@ -2675,7 +2675,7 @@ interface CSSStyleDeclaration {
     left: string | null;
     readonly length: number;
     letterSpacing: string | null;
-    lightingColor: string | null;
+    lightingColor: string;
     lineBreak: string | null;
     lineHeight: string | null;
     listStyle: string | null;
@@ -13337,18 +13337,12 @@ declare var SVGFETurbulenceElement: {
 
 /** Provides access to the properties of <filter> elements, as well as methods to manipulate them. */
 interface SVGFilterElement extends SVGElement, SVGURIReference {
-    /** @deprecated */
-    readonly filterResX: SVGAnimatedInteger;
-    /** @deprecated */
-    readonly filterResY: SVGAnimatedInteger;
     readonly filterUnits: SVGAnimatedEnumeration;
     readonly height: SVGAnimatedLength;
     readonly primitiveUnits: SVGAnimatedEnumeration;
     readonly width: SVGAnimatedLength;
     readonly x: SVGAnimatedLength;
     readonly y: SVGAnimatedLength;
-    /** @deprecated */
-    setFilterRes(filterResX: number, filterResY: number): void;
     addEventListener<K extends keyof SVGElementEventMap>(type: K, listener: (this: SVGFilterElement, ev: SVGElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
     removeEventListener<K extends keyof SVGElementEventMap>(type: K, listener: (this: SVGFilterElement, ev: SVGElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
@@ -18541,10 +18535,10 @@ declare function addEventListener<K extends keyof WindowEventMap>(type: K, liste
 declare function addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
 declare function removeEventListener<K extends keyof WindowEventMap>(type: K, listener: (this: Window, ev: WindowEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
 declare function removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
-type BlobPart = BufferSource | Blob | string;
 type HeadersInit = Headers | string[][] | Record<string, string>;
 type BodyInit = Blob | BufferSource | FormData | URLSearchParams | ReadableStream<Uint8Array> | string;
 type RequestInfo = Request | string;
+type BlobPart = BufferSource | Blob | string;
 type DOMHighResTimeStamp = number;
 type RenderingContext = CanvasRenderingContext2D | ImageBitmapRenderingContext | WebGLRenderingContext;
 type HTMLOrSVGImageElement = HTMLImageElement | SVGImageElement;
