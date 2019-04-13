@@ -2807,8 +2807,9 @@ interface CSSStyleDeclaration {
     textUnderlinePosition: string | null;
     top: string | null;
     touchAction: string;
-    transform: string | null;
-    transformOrigin: string | null;
+    transform: string;
+    transformBox: string;
+    transformOrigin: string;
     transformStyle: string | null;
     transition: string;
     transitionDelay: string;
