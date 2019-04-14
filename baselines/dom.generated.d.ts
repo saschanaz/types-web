@@ -2755,6 +2755,7 @@ interface CSSStyleDeclaration {
     outlineStyle: string;
     outlineWidth: string;
     overflow: string | null;
+    overflowAnchor: string;
     overflowX: string | null;
     overflowY: string | null;
     padding: string | null;
