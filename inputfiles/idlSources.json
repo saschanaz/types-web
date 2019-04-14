@@ -29,6 +29,10 @@
         "title": "CSSOM View"
     },
     {
+        "url": "https://www.w3.org/TR/css-text-3/",
+        "title": "CSS Text"
+    },
+    {
         "url": "https://www.w3.org/TR/css-transitions-1/",
         "title": "CSS Transitions"
     },

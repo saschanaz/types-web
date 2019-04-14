@@ -58,6 +58,14 @@
                     }
                 }
             },
+            "CSSStyleDeclaration": {
+                "properties": {
+                    "property": {
+                        "hangingPunctuation": null,
+                        "textAlignAll": null
+                    }
+                }
+            },
             "DeviceMotionEvent": {
                 "methods": {
                     "method": {
