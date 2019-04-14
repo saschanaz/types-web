@@ -37,6 +37,10 @@
         "title": "CSS Will Change"
     },
     {
+        "url": "https://www.w3.org/TR/css-writing-modes-3/",
+        "title": "CSS Writing Modes"
+    },
+    {
         "url": "https://w3c.github.io/deviceorientation/",
         "title": "DeviceOrientation Event"
     },
