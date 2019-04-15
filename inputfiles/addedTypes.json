@@ -465,16 +465,12 @@
                 "name": "CSSStyleDeclaration",
                 "properties": {
                     "property": {
-                        "resize": {
-                            "name": "resize",
-                            "override-type": "string | null"
-                        },
                         "touchAction": {
                             "deprecated": 0
                         },
                         "userSelect": {
                             "name": "userSelect",
-                            "override-type": "string | null"
+                            "type": "CSSOMString"
                         }
                     }
                 }

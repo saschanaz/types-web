@@ -2773,7 +2773,7 @@ interface CSSStyleDeclaration {
     pointerEvents: string | null;
     position: string | null;
     quotes: string | null;
-    resize: string | null;
+    resize: string;
     right: string | null;
     rotate: string | null;
     rowGap: string | null;
@@ -2818,7 +2818,7 @@ interface CSSStyleDeclaration {
     transitionTimingFunction: string;
     translate: string | null;
     unicodeBidi: string | null;
-    userSelect: string | null;
+    userSelect: string;
     verticalAlign: string | null;
     visibility: string | null;
     /** @deprecated */
