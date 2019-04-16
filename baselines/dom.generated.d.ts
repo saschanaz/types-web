@@ -780,12 +780,33 @@ interface MultiCacheQueryOptions extends CacheQueryOptions {
 }
 
 interface MutationObserverInit {
+    /**
+     * Set to a list of attribute local names (without namespace) if not all attribute mutations need to be observed and attributes is true or omitted.
+     */
     attributeFilter?: string[];
+    /**
+     * Set to true if attributes is true or omitted and target's attribute value before the mutation needs to be recorded.
+     */
     attributeOldValue?: boolean;
+    /**
+     * Set to true if mutations to target's attributes are to be observed. Can be omitted if attributeOldValue or attributeFilter is specified.
+     */
     attributes?: boolean;
+    /**
+     * Set to true if mutations to target's data are to be observed. Can be omitted if characterDataOldValue is specified.
+     */
     characterData?: boolean;
+    /**
+     * Set to true if characterData is set to true or omitted and target's data before the mutation needs to be recorded.
+     */
     characterDataOldValue?: boolean;
+    /**
+     * Set to true if mutations to target's children are to be observed.
+     */
     childList?: boolean;
+    /**
+     * Set to true if mutations to not just target, but also target's descendants are to be observed.
+     */
     subtree?: boolean;
 }
 
@@ -1390,18 +1411,57 @@ interface RegistrationOptions {
 }
 
 interface RequestInit {
+    /**
+     * A BodyInit object or null to set request's body.
+     */
     body?: BodyInit | null;
+    /**
+     * A string indicating how the request will interact with the browser's cache to set request's cache.
+     */
     cache?: RequestCache;
+    /**
+     * A string indicating whether credentials will be sent with the request always, never, or only when sent to a same-origin URL. Sets request's credentials.
+     */
     credentials?: RequestCredentials;
+    /**
+     * A Headers object, an object literal, or an array of two-item arrays to set request's headers.
+     */
     headers?: HeadersInit;
+    /**
+     * A cryptographic hash of the resource to be fetched by request. Sets request's integrity.
+     */
     integrity?: string;
+    /**
+     * A boolean to set request's keepalive.
+     */
     keepalive?: boolean;
+    /**
+     * A string to set request's method.
+     */
     method?: string;
+    /**
+     * A string to indicate whether the request will use CORS, or will be restricted to same-origin URLs. Sets request's mode.
+     */
     mode?: RequestMode;
+    /**
+     * A string indicating whether request follows redirects, results in an error upon encountering a redirect, or returns the redirect (in an opaque fashion). Sets request's redirect.
+     */
     redirect?: RequestRedirect;
+    /**
+     * A string whose value is a same-origin URL, "about:client", or the empty string, to set request's referrer.
+     */
     referrer?: string;
+    /**
+     * A referrer policy to set request's referrerPolicy.
+     */
     referrerPolicy?: ReferrerPolicy;
+    /**
+     * An AbortSignal to set request's signal.
+     */
     signal?: AbortSignal | null;
+    /**
+     * Can only be null. Used to disassociate request from any Window.
+     */
     window?: any;
 }
 
@@ -1706,8 +1766,7 @@ interface AbortController {
      */
     readonly signal: AbortSignal;
     /**
-     * Invoking this method will set this object's AbortSignal's aborted flag and
-     * signal to any observers that the associated activity is to be aborted.
+     * Invoking this method will set this object's AbortSignal's aborted flag and signal to any observers that the associated activity is to be aborted.
      */
     abort(): void;
 }
@@ -1724,8 +1783,7 @@ interface AbortSignalEventMap {
 /** A signal object that allows you to communicate with a DOM request (such as a Fetch) and abort it if required via an AbortController object. */
 interface AbortSignal extends EventTarget {
     /**
-     * Returns true if this AbortSignal's AbortController has signaled to abort, and false
-     * otherwise.
+     * Returns true if this AbortSignal's AbortController has signaled to abort, and false otherwise.
      */
     readonly aborted: boolean;
     onabort: ((this: AbortSignal, ev: Event) => any) | null;
@@ -1741,10 +1799,25 @@ declare var AbortSignal: {
 };
 
 interface AbstractRange {
+    /**
+     * Returns true if range is collapsed, and false otherwise.
+     */
     readonly collapsed: boolean;
+    /**
+     * Returns range's end node.
+     */
     readonly endContainer: Node;
+    /**
+     * Returns range's end offset.
+     */
     readonly endOffset: number;
+    /**
+     * Returns range's start node.
+     */
     readonly startContainer: Node;
+    /**
+     * Returns range's start offset.
+     */
     readonly startOffset: number;
 }
 
@@ -3124,11 +3197,9 @@ interface CanvasFilters {
 /** An opaque object describing a gradient. It is returned by the methods CanvasRenderingContext2D.createLinearGradient() or CanvasRenderingContext2D.createRadialGradient(). */
 interface CanvasGradient {
     /**
-     * Adds a color stop with the given color to the gradient at the given offset. 0.0 is the offset
-     * at one end of the gradient, 1.0 is the offset at the other end.
-     * Throws an "IndexSizeError" DOMException if the offset
-     * is out of range. Throws a "SyntaxError" DOMException if
-     * the color cannot be parsed.
+     * Adds a color stop with the given color to the gradient at the given offset. 0.0 is the offset at one end of the gradient, 1.0 is the offset at the other end.
+     * 
+     * Throws an "IndexSizeError" DOMException if the offset is out of range. Throws a "SyntaxError" DOMException if the color cannot be parsed.
      */
     addColorStop(offset: number, color: string): void;
 }
@@ -3176,8 +3247,7 @@ interface CanvasPathDrawingStyles {
 /** An opaque object describing a pattern, based on an image, a canvas, or a video, created by the CanvasRenderingContext2D.createPattern() method. */
 interface CanvasPattern {
     /**
-     * Sets the transformation matrix that will be used when rendering the pattern during a fill or
-     * stroke painting operation.
+     * Sets the transformation matrix that will be used when rendering the pattern during a fill or stroke painting operation.
      */
     setTransform(transform?: DOMMatrix2DInit): void;
 }
@@ -3294,14 +3364,14 @@ declare var CharacterData: {
 interface ChildNode extends Node {
     /**
      * Inserts nodes just after node, while replacing strings in nodes with equivalent Text nodes.
-     * Throws a "HierarchyRequestError" DOMException if the constraints of
-     * the node tree are violated.
+     * 
+     * Throws a "HierarchyRequestError" DOMException if the constraints of the node tree are violated.
      */
     after(...nodes: (Node | string)[]): void;
     /**
      * Inserts nodes just before node, while replacing strings in nodes with equivalent Text nodes.
-     * Throws a "HierarchyRequestError" DOMException if the constraints of
-     * the node tree are violated.
+     * 
+     * Throws a "HierarchyRequestError" DOMException if the constraints of the node tree are violated.
      */
     before(...nodes: (Node | string)[]): void;
     /**
@@ -3310,8 +3380,8 @@ interface ChildNode extends Node {
     remove(): void;
     /**
      * Replaces node with nodes, while replacing strings in nodes with equivalent Text nodes.
-     * Throws a "HierarchyRequestError" DOMException if the constraints of
-     * the node tree are violated.
+     * 
+     * Throws a "HierarchyRequestError" DOMException if the constraints of the node tree are violated.
      */
     replaceWith(...nodes: (Node | string)[]): void;
 }
@@ -3534,8 +3604,7 @@ declare var CustomElementRegistry: {
 
 interface CustomEvent<T = any> extends Event {
     /**
-     * Returns any custom data event was created with.
-     * Typically used for synthetic events.
+     * Returns any custom data event was created with. Typically used for synthetic events.
      */
     readonly detail: T;
     initCustomEvent(typeArg: string, canBubbleArg: boolean, cancelableArg: boolean, detailArg: T): void;
@@ -3859,8 +3928,7 @@ interface DOMStringList {
      */
     readonly length: number;
     /**
-     * Returns true if strings contains string, and false
-     * otherwise.
+     * Returns true if strings contains string, and false otherwise.
      */
     contains(string: string): boolean;
     /**
@@ -3893,15 +3961,16 @@ interface DOMTokenList {
     readonly length: number;
     /**
      * Returns the associated set as string.
+     * 
      * Can be set, to change the associated attribute.
      */
     value: string;
     /**
      * Adds all arguments passed, except those already present.
-     * Throws a "SyntaxError" DOMException if one of the arguments is the empty
-     * string.
-     * Throws an "InvalidCharacterError" DOMException if one of the arguments
-     * contains any ASCII whitespace.
+     * 
+     * Throws a "SyntaxError" DOMException if one of the arguments is the empty string.
+     * 
+     * Throws an "InvalidCharacterError" DOMException if one of the arguments contains any ASCII whitespace.
      */
     add(...tokens: string[]): void;
     /**
@@ -3909,32 +3978,42 @@ interface DOMTokenList {
      */
     contains(token: string): boolean;
     /**
-     * tokenlist[index]
+     * Returns the token with index index.
      */
     item(index: number): string | null;
     /**
      * Removes arguments passed, if they are present.
-     * Throws a "SyntaxError" DOMException if one of the arguments is the empty
-     * string.
-     * Throws an "InvalidCharacterError" DOMException if one of the arguments
-     * contains any ASCII whitespace.
+     * 
+     * Throws a "SyntaxError" DOMException if one of the arguments is the empty string.
+     * 
+     * Throws an "InvalidCharacterError" DOMException if one of the arguments contains any ASCII whitespace.
      */
     remove(...tokens: string[]): void;
     /**
      * Replaces token with newToken.
+     * 
      * Returns true if token was replaced with newToken, and false otherwise.
-     * Throws a "SyntaxError" DOMException if one of the arguments is the empty
-     * string.
-     * Throws an "InvalidCharacterError" DOMException if one of the arguments
-     * contains any ASCII whitespace.
+     * 
+     * Throws a "SyntaxError" DOMException if one of the arguments is the empty string.
+     * 
+     * Throws an "InvalidCharacterError" DOMException if one of the arguments contains any ASCII whitespace.
      */
     replace(oldToken: string, newToken: string): void;
     /**
-     * Returns true if token is in the associated attribute's supported tokens. Returns
-     * false otherwise.
+     * Returns true if token is in the associated attribute's supported tokens. Returns false otherwise.
+     * 
      * Throws a TypeError if the associated attribute has no supported tokens defined.
      */
     supports(token: string): boolean;
+    /**
+     * If force is not given, "toggles" token, removing it if it's present and adding it if it's not present. If force is true, adds token (same as add()). If force is false, removes token (same as remove()).
+     * 
+     * Returns true if token is now present, and false otherwise.
+     * 
+     * Throws a "SyntaxError" DOMException if token is empty.
+     * 
+     * Throws an "InvalidCharacterError" DOMException if token contains any spaces.
+     */
     toggle(token: string, force?: boolean): boolean;
     forEach(callbackfn: (value: string, key: number, parent: DOMTokenList) => void, thisArg?: any): void;
     [index: number]: string;
@@ -3960,7 +4039,21 @@ declare var DataCue: {
 
 /** Used to hold the data that is being dragged during a drag and drop operation. It may hold one or more data items, each of one or more data types. For more information about drag and drop, see HTML Drag and Drop API. */
 interface DataTransfer {
+    /**
+     * Returns the kind of operation that is currently selected. If the kind of operation isn't one of those that is allowed by the effectAllowed attribute, then the operation will fail.
+     * 
+     * Can be set, to change the selected operation.
+     * 
+     * The possible values are "none", "copy", "link", and "move".
+     */
     dropEffect: string;
+    /**
+     * Returns the kinds of operations that are to be allowed.
+     * 
+     * Can be set (during the dragstart event), to change the allowed operations.
+     * 
+     * The possible values are "none", "copy", "copyLink", "copyMove", "link", "linkMove", "move", "all", and "uninitialized",
+     */
     effectAllowed: string;
     /**
      * Returns a FileList of the files being dragged, if any.
@@ -3971,8 +4064,7 @@ interface DataTransfer {
      */
     readonly items: DataTransferItemList;
     /**
-     * Returns a frozen array listing the formats that were set in the dragstart event. In addition, if any files are being
-     * dragged, then one of the types will be the string "Files".
+     * Returns a frozen array listing the formats that were set in the dragstart event. In addition, if any files are being dragged, then one of the types will be the string "Files".
      */
     readonly types: ReadonlyArray<string>;
     /**
@@ -3988,8 +4080,7 @@ interface DataTransfer {
      */
     setData(format: string, data: string): void;
     /**
-     * Uses the given element to update the drag feedback, replacing any previously specified
-     * feedback.
+     * Uses the given element to update the drag feedback, replacing any previously specified feedback.
      */
     setDragImage(image: Element, x: number, y: number): void;
 }
@@ -4002,8 +4093,7 @@ declare var DataTransfer: {
 /** One drag data item. During a drag operation, each drag event has a dataTransfer property which contains a list of drag data items. Each item in the list is a DataTransferItem object. */
 interface DataTransferItem {
     /**
-     * Returns the drag data item kind, one of: "string",
-     * "file".
+     * Returns the drag data item kind, one of: "string", "file".
      */
     readonly kind: string;
     /**
@@ -4015,8 +4105,7 @@ interface DataTransferItem {
      */
     getAsFile(): File | null;
     /**
-     * Invokes the callback with the string data as the argument, if the drag data item
-     * kind is Plain Unicode string.
+     * Invokes the callback with the string data as the argument, if the drag data item kind is Plain Unicode string.
      */
     getAsString(callback: FunctionStringCallback | null): void;
     webkitGetAsEntry(): any;
@@ -4034,9 +4123,7 @@ interface DataTransferItemList {
      */
     readonly length: number;
     /**
-     * Adds a new entry for the given data to the drag data store. If the data is plain
-     * text  then a type string has to be provided
-     * also.
+     * Adds a new entry for the given data to the drag data store. If the data is plain text then a type string has to be provided also.
      */
     add(data: string, type: string): DataTransferItem | null;
     add(data: File): DataTransferItem | null;
@@ -4218,7 +4305,7 @@ interface Document extends Node, NonElementParentNode, DocumentOrShadowRoot, Par
     /**
      * Specifies the beginning and end of the document body.
      */
-    body: HTMLBodyElement | HTMLFrameSetElement;
+    body: HTMLElement;
     /**
      * Returns document's encoding.
      */
@@ -4236,24 +4323,17 @@ interface Document extends Node, NonElementParentNode, DocumentOrShadowRoot, Par
      */
     readonly contentType: string;
     /**
-     * Returns the HTTP cookies that apply to the Document. If there are no cookies or
-     * cookies can't be applied to this resource, the empty string will be returned.
+     * Returns the HTTP cookies that apply to the Document. If there are no cookies or cookies can't be applied to this resource, the empty string will be returned.
+     * 
      * Can be set, to add a new cookie to the element's set of HTTP cookies.
-     * If the contents are sandboxed into a
-     * unique origin (e.g. in an iframe with the sandbox attribute), a
-     * "SecurityError" DOMException will be thrown on getting
-     * and setting.
+     * 
+     * If the contents are sandboxed into a unique origin (e.g. in an iframe with the sandbox attribute), a "SecurityError" DOMException will be thrown on getting and setting.
      */
     cookie: string;
     /**
-     * Returns the script element, or the SVG script element,
-     * that is currently executing, as long as the element represents a classic script.
-     * In the case of reentrant script execution, returns the one that most recently started executing
-     * amongst those that have not yet finished executing.
-     * Returns null if the Document is not currently executing a script
-     * or SVG script element (e.g., because the running script is an event
-     * handler, or a timeout), or if the currently executing script or SVG
-     * script element represents a module script.
+     * Returns the script element, or the SVG script element, that is currently executing, as long as the element represents a classic script. In the case of reentrant script execution, returns the one that most recently started executing amongst those that have not yet finished executing.
+     * 
+     * Returns null if the Document is not currently executing a script or SVG script element (e.g., because the running script is an event handler, or a timeout), or if the currently executing script or SVG script element represents a module script.
      */
     readonly currentScript: HTMLOrSVGScriptElement | null;
     readonly defaultView: WindowProxy | null;
@@ -4297,8 +4377,7 @@ interface Document extends Node, NonElementParentNode, DocumentOrShadowRoot, Par
     /** @deprecated */
     readonly fullscreen: boolean;
     /**
-     * Returns true if document has the ability to display elements fullscreen
-     * and fullscreen is supported, or false otherwise.
+     * Returns true if document has the ability to display elements fullscreen and fullscreen is supported, or false otherwise.
      */
     readonly fullscreenEnabled: boolean;
     /**
@@ -4379,8 +4458,8 @@ interface Document extends Node, NonElementParentNode, DocumentOrShadowRoot, Par
     vlinkColor: string;
     /**
      * Moves node from another document and returns it.
-     * If node is a document, throws a "NotSupportedError" DOMException or, if node is a shadow root, throws a
-     * "HierarchyRequestError" DOMException.
+     * 
+     * If node is a document, throws a "NotSupportedError" DOMException or, if node is a shadow root, throws a "HierarchyRequestError" DOMException.
      */
     adoptNode<T extends Node>(source: T): T;
     /** @deprecated */
@@ -4422,17 +4501,18 @@ interface Document extends Node, NonElementParentNode, DocumentOrShadowRoot, Par
     createElement<K extends keyof HTMLElementDeprecatedTagNameMap>(tagName: K, options?: ElementCreationOptions): HTMLElementDeprecatedTagNameMap[K];
     createElement(tagName: string, options?: ElementCreationOptions): HTMLElement;
     /**
-     * Returns an element with namespace namespace. Its namespace prefix will be everything before ":" (U+003E) in qualifiedName or null. Its local name will be everything after
-     * ":" (U+003E) in qualifiedName or qualifiedName.
-     * If localName does not match the Name production an
-     * "InvalidCharacterError" DOMException will be thrown.
+     * Returns an element with namespace namespace. Its namespace prefix will be everything before ":" (U+003E) in qualifiedName or null. Its local name will be everything after ":" (U+003E) in qualifiedName or qualifiedName.
+     * 
+     * If localName does not match the Name production an "InvalidCharacterError" DOMException will be thrown.
+     * 
      * If one of the following conditions is true a "NamespaceError" DOMException will be thrown:
+     * 
      * localName does not match the QName production.
      * Namespace prefix is not null and namespace is the empty string.
      * Namespace prefix is "xml" and namespace is not the XML namespace.
      * qualifiedName or namespace prefix is "xmlns" and namespace is not the XMLNS namespace.
-     * namespace is the XMLNS namespace and
-     * neither qualifiedName nor namespace prefix is "xmlns".
+     * namespace is the XMLNS namespace and neither qualifiedName nor namespace prefix is "xmlns".
+     * 
      * When supplied, options's is can be used to create a customized built-in element.
      */
     createElementNS(namespaceURI: "http://www.w3.org/1999/xhtml", qualifiedName: string): HTMLElement;
@@ -4527,11 +4607,7 @@ interface Document extends Node, NonElementParentNode, DocumentOrShadowRoot, Par
      */
     createNodeIterator(root: Node, whatToShow?: number, filter?: NodeFilter | null): NodeIterator;
     /**
-     * Returns a ProcessingInstruction node whose target is target and data is data.
-     * If target does not match the Name production an
-     * "InvalidCharacterError" DOMException will be thrown.
-     * If data contains "?>" an
-     * "InvalidCharacterError" DOMException will be thrown.
+     * Returns a ProcessingInstruction node whose target is target and data is data. If target does not match the Name production an "InvalidCharacterError" DOMException will be thrown. If data contains "?>" an "InvalidCharacterError" DOMException will be thrown.
      */
     createProcessingInstruction(target: string, data: string): ProcessingInstruction;
     /**
@@ -4570,8 +4646,7 @@ interface Document extends Node, NonElementParentNode, DocumentOrShadowRoot, Par
      */
     execCommand(commandId: string, showUI?: boolean, value?: string): boolean;
     /**
-     * Stops document's fullscreen element from being displayed fullscreen and
-     * resolves promise when done.
+     * Stops document's fullscreen element from being displayed fullscreen and resolves promise when done.
      */
     exitFullscreen(): Promise<void>;
     exitPointerLock(): void;
@@ -4582,7 +4657,7 @@ interface Document extends Node, NonElementParentNode, DocumentOrShadowRoot, Par
      */
     getElementById(elementId: string): HTMLElement | null;
     /**
-     * collection = element . getElementsByClassName(classNames)
+     * Returns a HTMLCollection of the elements in the object on which the method was invoked (a document or an element) that have all the classes given by classNames. The classNames argument is interpreted as a space-separated list of classes.
      */
     getElementsByClassName(classNames: string): HTMLCollectionOf<Element>;
     /**
@@ -4598,10 +4673,12 @@ interface Document extends Node, NonElementParentNode, DocumentOrShadowRoot, Par
     getElementsByTagName<K extends keyof SVGElementTagNameMap>(qualifiedName: K): HTMLCollectionOf<SVGElementTagNameMap[K]>;
     getElementsByTagName(qualifiedName: string): HTMLCollectionOf<Element>;
     /**
-     * If namespace and localName are
-     * "*" returns a HTMLCollection of all descendant elements.
+     * If namespace and localName are "*" returns a HTMLCollection of all descendant elements.
+     * 
      * If only namespace is "*" returns a HTMLCollection of all descendant elements whose local name is localName.
+     * 
      * If only localName is "*" returns a HTMLCollection of all descendant elements whose namespace is namespace.
+     * 
      * Otherwise, returns a HTMLCollection of all descendant elements whose namespace is namespace and local name is localName.
      */
     getElementsByTagNameNS(namespaceURI: "http://www.w3.org/1999/xhtml", localName: string): HTMLCollectionOf<HTMLElement>;
@@ -4617,8 +4694,8 @@ interface Document extends Node, NonElementParentNode, DocumentOrShadowRoot, Par
     hasFocus(): boolean;
     /**
      * Returns a copy of node. If deep is true, the copy also includes the node's descendants.
-     * If node is a document or a shadow root, throws a
-     * "NotSupportedError" DOMException.
+     * 
+     * If node is a document or a shadow root, throws a "NotSupportedError" DOMException.
      */
     importNode<T extends Node>(importedNode: T, deep: boolean): T;
     /**
@@ -4786,6 +4863,9 @@ declare var DocumentFragment: {
 
 interface DocumentOrShadowRoot {
     readonly activeElement: Element | null;
+    /**
+     * Returns document's fullscreen element.
+     */
     readonly fullscreenElement: Element | null;
     readonly pointerLockElement: Element | null;
     /**
@@ -4883,13 +4963,11 @@ interface Element extends Node, ParentNode, NonDocumentTypeChildNode, ChildNode,
     readonly assignedSlot: HTMLSlotElement | null;
     readonly attributes: NamedNodeMap;
     /**
-     * Allows for manipulation of element's class content attribute as a
-     * set of whitespace-separated tokens through a DOMTokenList object.
+     * Allows for manipulation of element's class content attribute as a set of whitespace-separated tokens through a DOMTokenList object.
      */
     readonly classList: DOMTokenList;
     /**
-     * Returns the value of element's class content attribute. Can be set
-     * to change it.
+     * Returns the value of element's class content attribute. Can be set to change it.
      */
     className: string;
     readonly clientHeight: number;
@@ -4897,8 +4975,7 @@ interface Element extends Node, ParentNode, NonDocumentTypeChildNode, ChildNode,
     readonly clientTop: number;
     readonly clientWidth: number;
     /**
-     * Returns the value of element's id content attribute. Can be set to
-     * change it.
+     * Returns the value of element's id content attribute. Can be set to change it.
      */
     id: string;
     /**
@@ -4925,8 +5002,7 @@ interface Element extends Node, ParentNode, NonDocumentTypeChildNode, ChildNode,
      */
     readonly shadowRoot: ShadowRoot | null;
     /**
-     * Returns the value of element's slot content attribute. Can be set to
-     * change it.
+     * Returns the value of element's slot content attribute. Can be set to change it.
      */
     slot: string;
     /**
@@ -4948,19 +5024,20 @@ interface Element extends Node, ParentNode, NonDocumentTypeChildNode, ChildNode,
      */
     getAttribute(qualifiedName: string): string | null;
     /**
-     * Returns element's attribute whose namespace is namespace and local name is localName, and null if there is
-     * no such attribute otherwise.
+     * Returns element's attribute whose namespace is namespace and local name is localName, and null if there is no such attribute otherwise.
      */
     getAttributeNS(namespace: string | null, localName: string): string | null;
     /**
-     * Returns the qualified names of all element's attributes.
-     * Can contain duplicates.
+     * Returns the qualified names of all element's attributes. Can contain duplicates.
      */
     getAttributeNames(): string[];
     getAttributeNode(name: string): Attr | null;
     getAttributeNodeNS(namespaceURI: string, localName: string): Attr | null;
     getBoundingClientRect(): ClientRect | DOMRect;
     getClientRects(): ClientRectList | DOMRectList;
+    /**
+     * Returns a HTMLCollection of the elements in the object on which the method was invoked (a document or an element) that have all the classes given by classNames. The classNames argument is interpreted as a space-separated list of classes.
+     */
     getElementsByClassName(classNames: string): HTMLCollectionOf<Element>;
     getElementsByTagName<K extends keyof HTMLElementTagNameMap>(qualifiedName: K): HTMLCollectionOf<HTMLElementTagNameMap[K]>;
     getElementsByTagName<K extends keyof SVGElementTagNameMap>(qualifiedName: K): HTMLCollectionOf<SVGElementTagNameMap[K]>;
@@ -5001,11 +5078,8 @@ interface Element extends Node, ParentNode, NonDocumentTypeChildNode, ChildNode,
     removeAttributeNode(attr: Attr): Attr;
     /**
      * Displays element fullscreen and resolves promise when done.
-     * When supplied, options's navigationUI member indicates whether showing
-     * navigation UI while in fullscreen is preferred or not. If set to "show", navigation
-     * simplicity is preferred over screen space, and if set to "hide", more screen space
-     * is preferred. User agents are always free to honor user preference over the application's. The
-     * default value "auto" indicates no application preference.
+     * 
+     * When supplied, options's navigationUI member indicates whether showing navigation UI while in fullscreen is preferred or not. If set to "show", navigation simplicity is preferred over screen space, and if set to "hide", more screen space is preferred. User agents are always free to honor user preference over the application's. The default value "auto" indicates no application preference.
      */
     requestFullscreen(options?: FullscreenOptions): Promise<void>;
     requestPointerLock(): void;
@@ -5028,8 +5102,8 @@ interface Element extends Node, ParentNode, NonDocumentTypeChildNode, ChildNode,
     setAttributeNodeNS(attr: Attr): Attr | null;
     setPointerCapture(pointerId: number): void;
     /**
-     * If force is not given, "toggles" qualifiedName, removing it if it is
-     * present and adding it if it is not present. If force is true, adds qualifiedName. If force is false, removes qualifiedName.
+     * If force is not given, "toggles" qualifiedName, removing it if it is present and adding it if it is not present. If force is true, adds qualifiedName. If force is false, removes qualifiedName.
+     * 
      * Returns true if qualifiedName is now present, and false otherwise.
      */
     toggleAttribute(qualifiedName: string, force?: boolean): boolean;
@@ -5076,21 +5150,28 @@ interface Event {
      */
     readonly bubbles: boolean;
     cancelBubble: boolean;
+    /**
+     * Returns true or false depending on how event was initialized. Its return value does not always carry meaning, but true can indicate that part of the operation during which event was dispatched, can be canceled by invoking the preventDefault() method.
+     */
     readonly cancelable: boolean;
     /**
      * Returns true or false depending on how event was initialized. True if event invokes listeners past a ShadowRoot node that is the root of its target, and false otherwise.
      */
     readonly composed: boolean;
     /**
-     * Returns the object whose event listener's callback is currently being
-     * invoked.
+     * Returns the object whose event listener's callback is currently being invoked.
      */
     readonly currentTarget: EventTarget | null;
+    /**
+     * Returns true if preventDefault() was invoked successfully to indicate cancelation, and false otherwise.
+     */
     readonly defaultPrevented: boolean;
+    /**
+     * Returns the event's phase, which is one of NONE, CAPTURING_PHASE, AT_TARGET, and BUBBLING_PHASE.
+     */
     readonly eventPhase: number;
     /**
-     * Returns true if event was dispatched by the user agent, and
-     * false otherwise.
+     * Returns true if event was dispatched by the user agent, and false otherwise.
      */
     readonly isTrusted: boolean;
     returnValue: boolean;
@@ -5101,23 +5182,24 @@ interface Event {
      */
     readonly target: EventTarget | null;
     /**
-     * Returns the event's timestamp as the number of milliseconds measured relative to
-     * the time origin.
+     * Returns the event's timestamp as the number of milliseconds measured relative to the time origin.
      */
     readonly timeStamp: number;
     /**
-     * Returns the type of event, e.g.
-     * "click", "hashchange", or
-     * "submit".
+     * Returns the type of event, e.g. "click", "hashchange", or "submit".
      */
     readonly type: string;
+    /**
+     * Returns the item objects of event's path (objects on which listeners will be invoked), except for any nodes in shadow trees of which the shadow root's mode is "closed" that are not reachable from event's currentTarget.
+     */
     composedPath(): EventTarget[];
     initEvent(type: string, bubbles?: boolean, cancelable?: boolean): void;
+    /**
+     * If invoked when the cancelable attribute value is true, and while executing a listener for the event with passive set to false, signals to the operation that caused event to be dispatched that it needs to be canceled.
+     */
     preventDefault(): void;
     /**
-     * Invoking this method prevents event from reaching
-     * any registered event listeners after the current one finishes running and, when dispatched in a tree, also prevents event from reaching any
-     * other objects.
+     * Invoking this method prevents event from reaching any registered event listeners after the current one finishes running and, when dispatched in a tree, also prevents event from reaching any other objects.
      */
     stopImmediatePropagation(): void;
     /**
@@ -5154,8 +5236,7 @@ interface EventSource extends EventTarget {
     onmessage: ((this: EventSource, ev: MessageEvent) => any) | null;
     onopen: ((this: EventSource, ev: Event) => any) | null;
     /**
-     * Returns the state of this EventSource object's connection. It can have the
-     * values described below.
+     * Returns the state of this EventSource object's connection. It can have the values described below.
      */
     readonly readyState: number;
     /**
@@ -5163,11 +5244,12 @@ interface EventSource extends EventTarget {
      */
     readonly url: string;
     /**
-     * Returns true if the credentials mode
-     * for connection requests to the URL providing the
-     * event stream is set to "include", and false otherwise.
+     * Returns true if the credentials mode for connection requests to the URL providing the event stream is set to "include", and false otherwise.
      */
     readonly withCredentials: boolean;
+    /**
+     * Aborts any instances of the fetch algorithm started for this EventSource object, and sets the readyState attribute to CLOSED.
+     */
     close(): void;
     readonly CLOSED: number;
     readonly CONNECTING: number;
@@ -5190,18 +5272,20 @@ declare var EventSource: {
 interface EventTarget {
     /**
      * Appends an event listener for events whose type attribute value is type. The callback argument sets the callback that will be invoked when the event is dispatched.
-     * The options argument sets listener-specific options. For compatibility this can be a
-     * boolean, in which case the method behaves exactly as if the value was specified as options's capture.
+     * 
+     * The options argument sets listener-specific options. For compatibility this can be a boolean, in which case the method behaves exactly as if the value was specified as options's capture.
+     * 
      * When set to true, options's capture prevents callback from being invoked when the event's eventPhase attribute value is BUBBLING_PHASE. When false (or not present), callback will not be invoked when event's eventPhase attribute value is CAPTURING_PHASE. Either way, callback will be invoked if event's eventPhase attribute value is AT_TARGET.
+     * 
      * When set to true, options's passive indicates that the callback will not cancel the event by invoking preventDefault(). This is used to enable performance optimizations described in §2.8 Observing event listeners.
-     * When set to true, options's once indicates that the callback will only be invoked once after which the event listener will
-     * be removed.
+     * 
+     * When set to true, options's once indicates that the callback will only be invoked once after which the event listener will be removed.
+     * 
      * The event listener is appended to target's event listener list and is not appended if it has the same type, callback, and capture.
      */
     addEventListener(type: string, listener: EventListenerOrEventListenerObject | null, options?: boolean | AddEventListenerOptions): void;
     /**
-     * Dispatches a synthetic event event to target and returns true
-     * if either event's cancelable attribute value is false or its preventDefault() method was not invoked, and false otherwise.
+     * Dispatches a synthetic event event to target and returns true if either event's cancelable attribute value is false or its preventDefault() method was not invoked, and false otherwise.
      */
     dispatchEvent(event: Event): boolean;
     /**
@@ -5425,13 +5509,23 @@ declare var GamepadPose: {
 };
 
 interface GenericTransformStream {
+    /**
+     * Returns a readable stream whose chunks are strings resulting from running encoding's decoder on the chunks written to writable.
+     */
     readonly readable: ReadableStream;
     /**
-     * Returns a writable stream which accepts string chunks and runs them through UTF-8's encoder before making them available to readable.
+     * Returns a writable stream which accepts BufferSource chunks and runs them through encoding's decoder before making them available to readable.
+     * 
      * Typically this will be used via the pipeThrough() method on a ReadableStream source.
-     * textReadable
-     * .pipeThrough(new TextEncoderStream())
-     * .pipeTo(byteWritable);
+     * 
+     * ```
+     * var decoder = new TextDecoderStream(encoding);
+     * byteReadable
+     *   .pipeThrough(decoder)
+     *   .pipeTo(textWritable);
+     * ```
+     * 
+     * If the error mode is "fatal" and encoding's decoder returns error, both readable and writable will be errored with a TypeError.
      */
     readonly writable: WritableStream;
 }
@@ -5815,11 +5909,15 @@ interface HTMLAllCollection {
      */
     readonly length: number;
     /**
-     * element = collection(index)
+     * Returns the item with index index from the collection (determined by tree order).
      */
     item(nameOrIndex?: string): HTMLCollection | Element | null;
     /**
-     * element = collection(name)
+     * Returns the item with ID or name name from the collection.
+     * 
+     * If there are multiple matching items, then an HTMLCollection object containing all those elements is returned.
+     * 
+     * Only button, form, iframe, input, map, meta, object, select, and textarea elements can have a name for the purpose of this method; their name is given by the value of their name attribute.
      */
     namedItem(name: string): HTMLCollection | Element | null;
     [index: number]: Element;
@@ -6483,7 +6581,9 @@ declare var HTMLFontElement: {
 /** A collection of HTML form control elements.  */
 interface HTMLFormControlsCollection extends HTMLCollectionBase {
     /**
-     * element = collection[name]
+     * Returns the item with ID or name name from the collection.
+     * 
+     * If there are multiple matching items, then a RadioNodeList object containing all those elements is returned.
      */
     namedItem(name: string): RadioNodeList | Element | null;
 }
@@ -7790,23 +7890,26 @@ declare var HTMLOptionElement: {
 interface HTMLOptionsCollection extends HTMLCollectionOf<HTMLOptionElement> {
     /**
      * Returns the number of elements in the collection.
+     * 
      * When set to a smaller number, truncates the number of option elements in the corresponding container.
+     * 
      * When set to a greater number, adds new blank option elements to that container.
      */
     length: number;
     /**
-     * Returns the index of the first selected item, if any, or −1 if there is no selected
-     * item.
+     * Returns the index of the first selected item, if any, or −1 if there is no selected item.
+     * 
      * Can be set, to change the selection.
      */
     selectedIndex: number;
     /**
      * Inserts element before the node given by before.
-     * The before argument can be a number, in which case element is inserted before the item with that number, or an element from the
-     * collection, in which case element is inserted before that element.
+     * 
+     * The before argument can be a number, in which case element is inserted before the item with that number, or an element from the collection, in which case element is inserted before that element.
+     * 
      * If before is omitted, null, or a number out of range, then element will be added at the end of the list.
-     * This method will throw a "HierarchyRequestError" DOMException if
-     * element is an ancestor of the element into which it is to be inserted.
+     * 
+     * This method will throw a "HierarchyRequestError" DOMException if element is an ancestor of the element into which it is to be inserted.
      */
     add(element: HTMLOptionElement | HTMLOptGroupElement, before?: HTMLElement | number | null): void;
     /**
@@ -8883,18 +8986,15 @@ interface IDBArrayKey extends Array<IDBValidKey> {
 /** This IndexedDB API interface represents a cursor for traversing or iterating over multiple records in a database. */
 interface IDBCursor {
     /**
-     * Returns the direction ("next", "nextunique", "prev" or "prevunique")
-     * of the cursor.
+     * Returns the direction ("next", "nextunique", "prev" or "prevunique") of the cursor.
      */
     readonly direction: IDBCursorDirection;
     /**
-     * Returns the key of the cursor.
-     * Throws a "InvalidStateError" DOMException if the cursor is advancing or is finished.
+     * Returns the key of the cursor. Throws a "InvalidStateError" DOMException if the cursor is advancing or is finished.
      */
     readonly key: IDBValidKey;
     /**
-     * Returns the effective key of the cursor.
-     * Throws a "InvalidStateError" DOMException if the cursor is advancing or is finished.
+     * Returns the effective key of the cursor. Throws a "InvalidStateError" DOMException if the cursor is advancing or is finished.
      */
     readonly primaryKey: IDBValidKey;
     /**
@@ -8902,28 +9002,28 @@ interface IDBCursor {
      */
     readonly source: IDBObjectStore | IDBIndex;
     /**
-     * Advances the cursor through the next count records in
-     * range.
+     * Advances the cursor through the next count records in range.
      */
     advance(count: number): void;
     /**
-     * Advances the cursor to the next record in range matching or
-     * after key.
+     * Advances the cursor to the next record in range.
      */
     continue(key?: IDBValidKey): void;
     /**
-     * Advances the cursor to the next record in range matching
-     * or after key and primaryKey. Throws an "InvalidAccessError" DOMException if the source is not an index.
+     * Advances the cursor to the next record in range matching or after key and primaryKey. Throws an "InvalidAccessError" DOMException if the source is not an index.
      */
     continuePrimaryKey(key: IDBValidKey, primaryKey: IDBValidKey): void;
     /**
      * Delete the record pointed at by the cursor with a new value.
+     * 
      * If successful, request's result will be undefined.
      */
     delete(): IDBRequest<undefined>;
     /**
      * Updated the record pointed at by the cursor with a new value.
+     * 
      * Throws a "DataError" DOMException if the effective object store uses in-line keys and the key would have changed.
+     * 
      * If successful, request's result will be the record's key.
      */
     update(value: any): IDBRequest<IDBValidKey>;
@@ -8978,17 +9078,18 @@ interface IDBDatabase extends EventTarget {
     close(): void;
     /**
      * Creates a new object store with the given name and options and returns a new IDBObjectStore.
+     * 
      * Throws a "InvalidStateError" DOMException if not called within an upgrade transaction.
      */
     createObjectStore(name: string, optionalParameters?: IDBObjectStoreParameters): IDBObjectStore;
     /**
      * Deletes the object store with the given name.
+     * 
      * Throws a "InvalidStateError" DOMException if not called within an upgrade transaction.
      */
     deleteObjectStore(name: string): void;
     /**
-     * Returns a new transaction with the given mode ("readonly" or "readwrite")
-     * and scope which can be a single object store name or an array of names.
+     * Returns a new transaction with the given mode ("readonly" or "readwrite") and scope which can be a single object store name or an array of names.
      */
     transaction(storeNames: string | string[], mode?: IDBTransactionMode): IDBTransaction;
     addEventListener<K extends keyof IDBDatabaseEventMap>(type: K, listener: (this: IDBDatabase, ev: IDBDatabaseEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
@@ -9009,24 +9110,17 @@ interface IDBEnvironment {
 /** In the following code snippet, we make a request to open a database, and include handlers for the success and error cases. For a full working example, see our To-do Notifications app (view example live.) */
 interface IDBFactory {
     /**
-     * Compares two values as keys. Returns -1 if key1 precedes key2, 1 if key2 precedes key1, and 0 if
-     * the keys are equal.
+     * Compares two values as keys. Returns -1 if key1 precedes key2, 1 if key2 precedes key1, and 0 if the keys are equal.
+     * 
      * Throws a "DataError" DOMException if either input is not a valid key.
      */
     cmp(first: any, second: any): number;
     /**
-     * Attempts to delete the named database. If the
-     * database already exists and there are open connections that don't close in response to a versionchange event, the request will be blocked until all they close. If the request
-     * is successful request's result will be null.
+     * Attempts to delete the named database. If the database already exists and there are open connections that don't close in response to a versionchange event, the request will be blocked until all they close. If the request is successful request's result will be null.
      */
     deleteDatabase(name: string): IDBOpenDBRequest;
     /**
-     * Attempts to open a connection to the named database with the specified version. If the database already exists
-     * with a lower version and there are open connections that don't close in response to a versionchange event, the request will be blocked until all they close, then an upgrade
-     * will occur. If the database already exists with a higher
-     * version the request will fail. If the request is
-     * successful request's result will
-     * be the connection.
+     * Attempts to open a connection to the named database with the current version, or 1 if it does not already exist. If the request is successful request's result will be the connection.
      */
     open(name: string, version?: number): IDBOpenDBRequest;
 }
@@ -9041,9 +9135,7 @@ interface IDBIndex {
     readonly keyPath: string | string[];
     readonly multiEntry: boolean;
     /**
-     * Updates the name of the store to newName.
-     * Throws an "InvalidStateError" DOMException if not called within an upgrade
-     * transaction.
+     * Returns the name of the index.
      */
     name: string;
     /**
@@ -9053,40 +9145,43 @@ interface IDBIndex {
     readonly unique: boolean;
     /**
      * Retrieves the number of records matching the given key or key range in query.
-     * If successful, request's result will be the
-     * count.
+     * 
+     * If successful, request's result will be the count.
      */
     count(key?: IDBValidKey | IDBKeyRange): IDBRequest<number>;
     /**
-     * Retrieves the value of the first record matching the
-     * given key or key range in query.
+     * Retrieves the value of the first record matching the given key or key range in query.
+     * 
      * If successful, request's result will be the value, or undefined if there was no matching record.
      */
     get(key: IDBValidKey | IDBKeyRange): IDBRequest<any | undefined>;
     /**
      * Retrieves the values of the records matching the given key or key range in query (up to count if given).
+     * 
      * If successful, request's result will be an Array of the values.
      */
     getAll(query?: IDBValidKey | IDBKeyRange, count?: number): IDBRequest<any[]>;
     /**
      * Retrieves the keys of records matching the given key or key range in query (up to count if given).
+     * 
      * If successful, request's result will be an Array of the keys.
      */
     getAllKeys(query?: IDBValidKey | IDBKeyRange, count?: number): IDBRequest<IDBValidKey[]>;
     /**
-     * Retrieves the key of the first record matching the
-     * given key or key range in query.
+     * Retrieves the key of the first record matching the given key or key range in query.
+     * 
      * If successful, request's result will be the key, or undefined if there was no matching record.
      */
     getKey(key: IDBValidKey | IDBKeyRange): IDBRequest<IDBValidKey | undefined>;
     /**
-     * Opens a cursor over the records matching query,
-     * ordered by direction. If query is null, all records in index are matched.
+     * Opens a cursor over the records matching query, ordered by direction. If query is null, all records in index are matched.
+     * 
      * If successful, request's result will be an IDBCursorWithValue, or null if there were no matching records.
      */
     openCursor(range?: IDBValidKey | IDBKeyRange, direction?: IDBCursorDirection): IDBRequest<IDBCursorWithValue | null>;
     /**
      * Opens a cursor with key only flag set over the records matching query, ordered by direction. If query is null, all records in index are matched.
+     * 
      * If successful, request's result will be an IDBCursor, or null if there were no matching records.
      */
     openKeyCursor(range?: IDBValidKey | IDBKeyRange, direction?: IDBCursorDirection): IDBRequest<IDBCursor | null>;
@@ -9125,15 +9220,11 @@ declare var IDBKeyRange: {
     prototype: IDBKeyRange;
     new(): IDBKeyRange;
     /**
-     * Returns a new IDBKeyRange spanning from lower to upper.
-     * If lowerOpen is true, lower is not included in the range.
-     * If upperOpen is true, upper is not included in the range.
+     * Returns a new IDBKeyRange spanning from lower to upper. If lowerOpen is true, lower is not included in the range. If upperOpen is true, upper is not included in the range.
      */
     bound(lower: any, upper: any, lowerOpen?: boolean, upperOpen?: boolean): IDBKeyRange;
     /**
-     * Returns a new IDBKeyRange starting at key with no
-     * upper bound. If open is true, key is not included in the
-     * range.
+     * Returns a new IDBKeyRange starting at key with no upper bound. If open is true, key is not included in the range.
      */
     lowerBound(lower: any, open?: boolean): IDBKeyRange;
     /**
@@ -9161,88 +9252,99 @@ interface IDBObjectStore {
      */
     readonly keyPath: string | string[];
     /**
-     * Updates the name of the store to newName.
-     * Throws "InvalidStateError" DOMException if not called within an upgrade
-     * transaction.
+     * Returns the name of the store.
      */
     name: string;
     /**
      * Returns the associated transaction.
      */
     readonly transaction: IDBTransaction;
+    /**
+     * Adds or updates a record in store with the given value and key.
+     * 
+     * If the store uses in-line keys and key is specified a "DataError" DOMException will be thrown.
+     * 
+     * If put() is used, any existing record with the key will be replaced. If add() is used, and if a record with the key already exists the request will fail, with request's error set to a "ConstraintError" DOMException.
+     * 
+     * If successful, request's result will be the record's key.
+     */
     add(value: any, key?: IDBValidKey): IDBRequest<IDBValidKey>;
     /**
      * Deletes all records in store.
-     * If successful, request's result will
-     * be undefined.
+     * 
+     * If successful, request's result will be undefined.
      */
     clear(): IDBRequest<undefined>;
     /**
-     * Retrieves the number of records matching the
-     * given key or key range in query.
+     * Retrieves the number of records matching the given key or key range in query.
+     * 
      * If successful, request's result will be the count.
      */
     count(key?: IDBValidKey | IDBKeyRange): IDBRequest<number>;
     /**
-     * Creates a new index in store with the given name, keyPath and options and returns a new IDBIndex. If the keyPath and options define constraints that cannot be
-     * satisfied with the data already in store the upgrade
-     * transaction will abort with
-     * a "ConstraintError" DOMException.
-     * Throws an "InvalidStateError" DOMException if not called within an upgrade
-     * transaction.
+     * Creates a new index in store with the given name, keyPath and options and returns a new IDBIndex. If the keyPath and options define constraints that cannot be satisfied with the data already in store the upgrade transaction will abort with a "ConstraintError" DOMException.
+     * 
+     * Throws an "InvalidStateError" DOMException if not called within an upgrade transaction.
      */
     createIndex(name: string, keyPath: string | string[], options?: IDBIndexParameters): IDBIndex;
     /**
      * Deletes records in store with the given key or in the given key range in query.
-     * If successful, request's result will
-     * be undefined.
+     * 
+     * If successful, request's result will be undefined.
      */
     delete(key: IDBValidKey | IDBKeyRange): IDBRequest<undefined>;
     /**
      * Deletes the index in store with the given name.
-     * Throws an "InvalidStateError" DOMException if not called within an upgrade
-     * transaction.
+     * 
+     * Throws an "InvalidStateError" DOMException if not called within an upgrade transaction.
      */
     deleteIndex(name: string): void;
     /**
-     * Retrieves the value of the first record matching the
-     * given key or key range in query.
+     * Retrieves the value of the first record matching the given key or key range in query.
+     * 
      * If successful, request's result will be the value, or undefined if there was no matching record.
      */
     get(query: IDBValidKey | IDBKeyRange): IDBRequest<any | undefined>;
     /**
-     * Retrieves the values of the records matching the
-     * given key or key range in query (up to count if given).
-     * If successful, request's result will
-     * be an Array of the values.
+     * Retrieves the values of the records matching the given key or key range in query (up to count if given).
+     * 
+     * If successful, request's result will be an Array of the values.
      */
     getAll(query?: IDBValidKey | IDBKeyRange, count?: number): IDBRequest<any[]>;
     /**
-     * Retrieves the keys of records matching the
-     * given key or key range in query (up to count if given).
-     * If successful, request's result will
-     * be an Array of the keys.
+     * Retrieves the keys of records matching the given key or key range in query (up to count if given).
+     * 
+     * If successful, request's result will be an Array of the keys.
      */
     getAllKeys(query?: IDBValidKey | IDBKeyRange, count?: number): IDBRequest<IDBValidKey[]>;
     /**
-     * Retrieves the key of the first record matching the
-     * given key or key range in query.
+     * Retrieves the key of the first record matching the given key or key range in query.
+     * 
      * If successful, request's result will be the key, or undefined if there was no matching record.
      */
     getKey(query: IDBValidKey | IDBKeyRange): IDBRequest<IDBValidKey | undefined>;
     index(name: string): IDBIndex;
     /**
-     * Opens a cursor over the records matching query,
-     * ordered by direction. If query is null, all records in store are matched.
+     * Opens a cursor over the records matching query, ordered by direction. If query is null, all records in store are matched.
+     * 
      * If successful, request's result will be an IDBCursorWithValue pointing at the first matching record, or null if there were no matching records.
      */
     openCursor(range?: IDBValidKey | IDBKeyRange, direction?: IDBCursorDirection): IDBRequest<IDBCursorWithValue | null>;
     /**
      * Opens a cursor with key only flag set over the records matching query, ordered by direction. If query is null, all records in store are matched.
-     * If successful, request's result will be an IDBCursor pointing at the first matching record, or
-     * null if there were no matching records.
+     * 
+     * If successful, request's result will be an IDBCursor pointing at the first matching record, or null if there were no matching records.
      */
     openKeyCursor(query?: IDBValidKey | IDBKeyRange, direction?: IDBCursorDirection): IDBRequest<IDBCursor | null>;
+    /**
+     * Adds or updates a record in store with the given value and key.
+     * 
+     * If the store uses in-line keys and key is specified a "DataError" DOMException will be thrown.
+     * 
+     * If put() is used, any existing record with the key will be replaced. If add() is used, and if a record with the key already exists the request will fail, with request's error set to a "ConstraintError" DOMException.
+     * 
+     * If successful, request's result will be the record's key.
+     */
     put(value: any, key?: IDBValidKey): IDBRequest<IDBValidKey>;
 }
 
@@ -9279,31 +9381,25 @@ interface IDBRequestEventMap {
 /** The request object does not initially contain any information about the result of the operation, but once information becomes available, an event is fired on the request, and the information becomes available through the properties of the IDBRequest instance. */
 interface IDBRequest<T = any> extends EventTarget {
     /**
-     * When a request is completed, returns the error (a DOMException), or null if the request succeeded. Throws
-     * a "InvalidStateError" DOMException if the request is still pending.
+     * When a request is completed, returns the error (a DOMException), or null if the request succeeded. Throws a "InvalidStateError" DOMException if the request is still pending.
      */
     readonly error: DOMException | null;
     onerror: ((this: IDBRequest<T>, ev: Event) => any) | null;
     onsuccess: ((this: IDBRequest<T>, ev: Event) => any) | null;
     /**
-     * Returns "pending" until a request is complete,
-     * then returns "done".
+     * Returns "pending" until a request is complete, then returns "done".
      */
     readonly readyState: IDBRequestReadyState;
     /**
-     * When a request is completed, returns the result,
-     * or undefined if the request failed. Throws a
-     * "InvalidStateError" DOMException if the request is still pending.
+     * When a request is completed, returns the result, or undefined if the request failed. Throws a "InvalidStateError" DOMException if the request is still pending.
      */
     readonly result: T;
     /**
-     * Returns the IDBObjectStore, IDBIndex, or IDBCursor the request was made against, or null if is was an open
-     * request.
+     * Returns the IDBObjectStore, IDBIndex, or IDBCursor the request was made against, or null if is was an open request.
      */
     readonly source: IDBObjectStore | IDBIndex | IDBCursor;
     /**
-     * Returns the IDBTransaction the request was made within.
-     * If this as an open request, then it returns an upgrade transaction while it is running, or null otherwise.
+     * Returns the IDBTransaction the request was made within. If this as an open request, then it returns an upgrade transaction while it is running, or null otherwise.
      */
     readonly transaction: IDBTransaction | null;
     addEventListener<K extends keyof IDBRequestEventMap>(type: K, listener: (this: IDBRequest<T>, ev: IDBRequestEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
@@ -9329,28 +9425,22 @@ interface IDBTransaction extends EventTarget {
      */
     readonly db: IDBDatabase;
     /**
-     * If the transaction was aborted, returns the
-     * error (a DOMException) providing the reason.
+     * If the transaction was aborted, returns the error (a DOMException) providing the reason.
      */
     readonly error: DOMException;
     /**
-     * Returns the mode the transaction was created with
-     * ("readonly" or "readwrite"), or "versionchange" for
-     * an upgrade transaction.
+     * Returns the mode the transaction was created with ("readonly" or "readwrite"), or "versionchange" for an upgrade transaction.
      */
     readonly mode: IDBTransactionMode;
     /**
-     * Returns a list of the names of object stores in the
-     * transaction's scope. For an upgrade transaction this is all object stores in the database.
+     * Returns a list of the names of object stores in the transaction's scope. For an upgrade transaction this is all object stores in the database.
      */
     readonly objectStoreNames: DOMStringList;
     onabort: ((this: IDBTransaction, ev: Event) => any) | null;
     oncomplete: ((this: IDBTransaction, ev: Event) => any) | null;
     onerror: ((this: IDBTransaction, ev: Event) => any) | null;
     /**
-     * Aborts the transaction. All pending requests will fail with
-     * a "AbortError" DOMException and all changes made to the database will be
-     * reverted.
+     * Aborts the transaction. All pending requests will fail with a "AbortError" DOMException and all changes made to the database will be reverted.
      */
     abort(): void;
     /**
@@ -9391,13 +9481,11 @@ declare var IIRFilterNode: {
 
 interface ImageBitmap {
     /**
-     * Returns the intrinsic height of the image, in CSS
-     * pixels.
+     * Returns the intrinsic height of the image, in CSS pixels.
      */
     readonly height: number;
     /**
-     * Returns the intrinsic width of the image, in CSS
-     * pixels.
+     * Returns the intrinsic width of the image, in CSS pixels.
      */
     readonly width: number;
     /**
@@ -9426,9 +9514,7 @@ interface ImageBitmapRenderingContext {
      */
     readonly canvas: HTMLCanvasElement;
     /**
-     * Replaces contents of the canvas element to which context
-     * is bound with a transparent black bitmap whose size corresponds to the width and height
-     * content attributes of the canvas element.
+     * Transfers the underlying bitmap data from imageBitmap to context, and the bitmap becomes the contents of the canvas element to which context is bound.
      */
     transferFromImageBitmap(bitmap: ImageBitmap | null): void;
 }
@@ -9441,15 +9527,16 @@ declare var ImageBitmapRenderingContext: {
 /** The underlying pixel data of an area of a <canvas> element. It is created using the ImageData() constructor or creator methods on the CanvasRenderingContext2D object associated with a canvas: createImageData() and getImageData(). It can also be used to set a part of the canvas by using putImageData(). */
 interface ImageData {
     /**
-     * Returns the one-dimensional array containing the data in RGBA order, as integers in the
-     * range 0 to 255.
+     * Returns the one-dimensional array containing the data in RGBA order, as integers in the range 0 to 255.
      */
     readonly data: Uint8ClampedArray;
     /**
-     * Returns the actual dimensions of the data in the ImageData object, in
-     * pixels.
+     * Returns the actual dimensions of the data in the ImageData object, in pixels.
      */
     readonly height: number;
+    /**
+     * Returns the actual dimensions of the data in the ImageData object, in pixels.
+     */
     readonly width: number;
 }
 
@@ -9575,28 +9662,30 @@ declare var ListeningStateChangedEvent: {
 /** The location (URL) of the object it is linked to. Changes done on it are reflected on the object it relates to. Both the Document and Window interface have such a linked Location, accessible via Document.location and Window.location respectively. */
 interface Location {
     /**
-     * Returns a DOMStringList object listing the origins of the ancestor browsing contexts, from the parent browsing
-     * context to the top-level browsing context.
+     * Returns a DOMStringList object listing the origins of the ancestor browsing contexts, from the parent browsing context to the top-level browsing context.
      */
     readonly ancestorOrigins: DOMStringList;
     /**
      * Returns the Location object's URL's fragment (includes leading "#" if non-empty).
+     * 
      * Can be set, to navigate to the same URL with a changed fragment (ignores leading "#").
      */
     hash: string;
     /**
-     * Returns the Location object's URL's host and port (if different from the default
-     * port for the scheme).
+     * Returns the Location object's URL's host and port (if different from the default port for the scheme).
+     * 
      * Can be set, to navigate to the same URL with a changed host and port.
      */
     host: string;
     /**
      * Returns the Location object's URL's host.
+     * 
      * Can be set, to navigate to the same URL with a changed host.
      */
     hostname: string;
     /**
      * Returns the Location object's URL.
+     * 
      * Can be set, to navigate to the given URL.
      */
     href: string;
@@ -9606,21 +9695,25 @@ interface Location {
     readonly origin: string;
     /**
      * Returns the Location object's URL's path.
+     * 
      * Can be set, to navigate to the same URL with a changed path.
      */
     pathname: string;
     /**
      * Returns the Location object's URL's port.
+     * 
      * Can be set, to navigate to the same URL with a changed port.
      */
     port: string;
     /**
      * Returns the Location object's URL's scheme.
+     * 
      * Can be set, to navigate to the same URL with a changed scheme.
      */
     protocol: string;
     /**
      * Returns the Location object's URL's query (includes leading "?" if non-empty).
+     * 
      * Can be set, to navigate to the same URL with a changed query (ignores leading "?").
      */
     search: string;
@@ -10271,7 +10364,13 @@ declare var MediaStreamTrackEvent: {
 
 /** This Channel Messaging API interface allows us to create a new message channel and send data through it via its two MessagePort properties. */
 interface MessageChannel {
+    /**
+     * Returns the first MessagePort object.
+     */
     readonly port1: MessagePort;
+    /**
+     * Returns the second MessagePort object.
+     */
     readonly port2: MessagePort;
 }
 
@@ -10287,24 +10386,19 @@ interface MessageEvent extends Event {
      */
     readonly data: any;
     /**
-     * Returns the last event ID string, for
-     * server-sent events.
+     * Returns the last event ID string, for server-sent events.
      */
     readonly lastEventId: string;
     /**
-     * Returns the origin of the message, for server-sent events and
-     * cross-document messaging.
+     * Returns the origin of the message, for server-sent events and cross-document messaging.
      */
     readonly origin: string;
     /**
-     * Returns the MessagePort array sent with the message, for cross-document
-     * messaging and channel messaging.
+     * Returns the MessagePort array sent with the message, for cross-document messaging and channel messaging.
      */
     readonly ports: ReadonlyArray<MessagePort>;
     /**
-     * Returns the WindowProxy of the source window, for cross-document
-     * messaging, and the MessagePort being attached, in the connect event fired at
-     * SharedWorkerGlobalScope objects.
+     * Returns the WindowProxy of the source window, for cross-document messaging, and the MessagePort being attached, in the connect event fired at SharedWorkerGlobalScope objects.
      */
     readonly source: MessageEventSource | null;
 }
@@ -10327,6 +10421,11 @@ interface MessagePort extends EventTarget {
      * Disconnects the port, so that it is no longer active.
      */
     close(): void;
+    /**
+     * Posts a message through the channel. Objects listed in transfer are transferred, not just cloned, meaning that they are no longer usable on the sending side.
+     * 
+     * Throws a "DataCloneError" DOMException if transfer contains duplicate objects or port, or if message could not be cloned.
+     */
     postMessage(message: any, transfer: Transferable[]): void;
     postMessage(message: any, options?: PostMessageOptions): void;
     /**
@@ -10431,40 +10530,18 @@ declare var MutationEvent: {
 
 /** Provides the ability to watch for changes being made to the DOM tree. It is designed as a replacement for the older Mutation Events feature which was part of the DOM3 Events specification. */
 interface MutationObserver {
+    /**
+     * Stops observer from observing any mutations. Until the observe() method is used again, observer's callback will not be invoked.
+     */
     disconnect(): void;
     /**
-     * Instructs the user agent to observe a given target (a node) and report any mutations based on
-     * the criteria given by options (an object).
-     * The options argument allows for setting mutation
-     * observation options via object members. These are the object members that
-     * can be used:
-     * childList
-     * Set to true if mutations to target's children are to be observed.
-     * attributes
-     * Set to true if mutations to target's attributes are to be observed. Can be omitted if attributeOldValue or attributeFilter is
-     * specified.
-     * characterData
-     * Set to true if mutations to target's data are to be observed. Can be omitted if characterDataOldValue is specified.
-     * subtree
-     * Set to true if mutations to not just target, but
-     * also target's descendants are to be
-     * observed.
-     * attributeOldValue
-     * Set to true if attributes is true or omitted
-     * and target's attribute value before the mutation
-     * needs to be recorded.
-     * characterDataOldValue
-     * Set to true if characterData is set to true or omitted and target's data before the mutation
-     * needs to be recorded.
-     * attributeFilter
-     * Set to a list of attribute local names (without namespace) if not all attribute mutations need to be
-     * observed and attributes is true
-     * or omitted.
+     * Instructs the user agent to observe a given target (a node) and report any mutations based on the criteria given by options (an object).
+     * 
+     * The options argument allows for setting mutation observation options via object members.
      */
     observe(target: Node, options?: MutationObserverInit): void;
     /**
-     * Empties the record queue and
-     * returns what was in there.
+     * Empties the record queue and returns what was in there.
      */
     takeRecords(): MutationRecord[];
 }
@@ -10476,41 +10553,40 @@ declare var MutationObserver: {
 
 /** A MutationRecord represents an individual DOM mutation. It is the object that is passed to MutationObserver's callback. */
 interface MutationRecord {
+    /**
+     * Return the nodes added and removed respectively.
+     */
     readonly addedNodes: NodeList;
     /**
-     * Returns the local name of the
-     * changed attribute, and null otherwise.
+     * Returns the local name of the changed attribute, and null otherwise.
      */
     readonly attributeName: string | null;
     /**
-     * Returns the namespace of the
-     * changed attribute, and null otherwise.
+     * Returns the namespace of the changed attribute, and null otherwise.
      */
     readonly attributeNamespace: string | null;
     /**
-     * Return the previous and next sibling respectively
-     * of the added or removed nodes, and null otherwise.
+     * Return the previous and next sibling respectively of the added or removed nodes, and null otherwise.
      */
     readonly nextSibling: Node | null;
     /**
-     * The return value depends on type. For
-     * "attributes", it is the value of the
-     * changed attribute before the change.
-     * For "characterData", it is the data of the changed node before the change. For
-     * "childList", it is null.
+     * The return value depends on type. For "attributes", it is the value of the changed attribute before the change. For "characterData", it is the data of the changed node before the change. For "childList", it is null.
      */
     readonly oldValue: string | null;
+    /**
+     * Return the previous and next sibling respectively of the added or removed nodes, and null otherwise.
+     */
     readonly previousSibling: Node | null;
     /**
-     * Return the nodes added and removed
-     * respectively.
+     * Return the nodes added and removed respectively.
      */
     readonly removedNodes: NodeList;
+    /**
+     * Returns the node the mutation affected, depending on the type. For "attributes", it is the element whose attribute changed. For "characterData", it is the CharacterData node. For "childList", it is the node whose children changed.
+     */
     readonly target: Node;
     /**
-     * Returns "attributes" if it was an attribute mutation.
-     * "characterData" if it was a mutation to a CharacterData node. And
-     * "childList" if it was a mutation to the tree of nodes.
+     * Returns "attributes" if it was an attribute mutation. "characterData" if it was a mutation to a CharacterData node. And "childList" if it was a mutation to the tree of nodes.
      */
     readonly type: MutationRecordType;
 }
@@ -10662,33 +10738,16 @@ interface Node extends EventTarget {
      */
     readonly nextSibling: ChildNode | null;
     /**
-     * Returns a string appropriate for the type of node, as
-     * follows:
-     * Element
-     * Its HTML-uppercased qualified name.
-     * Attr
-     * Its qualified name.
-     * Text
-     * "#text".
-     * CDATASection
-     * "#cdata-section".
-     * ProcessingInstruction
-     * Its target.
-     * Comment
-     * "#comment".
-     * Document
-     * "#document".
-     * DocumentType
-     * Its name.
-     * DocumentFragment
-     * "#document-fragment".
+     * Returns a string appropriate for the type of node.
      */
     readonly nodeName: string;
+    /**
+     * Returns the type of node.
+     */
     readonly nodeType: number;
     nodeValue: string | null;
     /**
-     * Returns the node document.
-     * Returns null for documents.
+     * Returns the node document. Returns null for documents.
      */
     readonly ownerDocument: Document | null;
     /**
@@ -10709,13 +10768,16 @@ interface Node extends EventTarget {
      * Returns a copy of node. If deep is true, the copy also includes the node's descendants.
      */
     cloneNode(deep?: boolean): Node;
+    /**
+     * Returns a bitmask indicating the position of other relative to node.
+     */
     compareDocumentPosition(other: Node): number;
     /**
      * Returns true if other is an inclusive descendant of node, and false otherwise.
      */
     contains(other: Node | null): boolean;
     /**
-     * Returns node's shadow-including root.
+     * Returns node's root.
      */
     getRootNode(options?: GetRootNodeOptions): Node;
     /**
@@ -10738,22 +10800,61 @@ interface Node extends EventTarget {
     removeChild<T extends Node>(oldChild: T): T;
     replaceChild<T extends Node>(newChild: Node, oldChild: T): T;
     readonly ATTRIBUTE_NODE: number;
+    /**
+     * node is a CDATASection node.
+     */
     readonly CDATA_SECTION_NODE: number;
+    /**
+     * node is a Comment node.
+     */
     readonly COMMENT_NODE: number;
+    /**
+     * node is a DocumentFragment node.
+     */
     readonly DOCUMENT_FRAGMENT_NODE: number;
+    /**
+     * node is a document.
+     */
     readonly DOCUMENT_NODE: number;
+    /**
+     * Set when other is a descendant of node.
+     */
     readonly DOCUMENT_POSITION_CONTAINED_BY: number;
+    /**
+     * Set when other is an ancestor of node.
+     */
     readonly DOCUMENT_POSITION_CONTAINS: number;
+    /**
+     * Set when node and other are not in the same tree.
+     */
     readonly DOCUMENT_POSITION_DISCONNECTED: number;
+    /**
+     * Set when other is following node.
+     */
     readonly DOCUMENT_POSITION_FOLLOWING: number;
     readonly DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: number;
+    /**
+     * Set when other is preceding node.
+     */
     readonly DOCUMENT_POSITION_PRECEDING: number;
+    /**
+     * node is a doctype.
+     */
     readonly DOCUMENT_TYPE_NODE: number;
+    /**
+     * node is an element.
+     */
     readonly ELEMENT_NODE: number;
     readonly ENTITY_NODE: number;
     readonly ENTITY_REFERENCE_NODE: number;
     readonly NOTATION_NODE: number;
+    /**
+     * node is a ProcessingInstruction node.
+     */
     readonly PROCESSING_INSTRUCTION_NODE: number;
+    /**
+     * node is a Text node.
+     */
     readonly TEXT_NODE: number;
 }
 
@@ -10761,22 +10862,61 @@ declare var Node: {
     prototype: Node;
     new(): Node;
     readonly ATTRIBUTE_NODE: number;
+    /**
+     * node is a CDATASection node.
+     */
     readonly CDATA_SECTION_NODE: number;
+    /**
+     * node is a Comment node.
+     */
     readonly COMMENT_NODE: number;
+    /**
+     * node is a DocumentFragment node.
+     */
     readonly DOCUMENT_FRAGMENT_NODE: number;
+    /**
+     * node is a document.
+     */
     readonly DOCUMENT_NODE: number;
+    /**
+     * Set when other is a descendant of node.
+     */
     readonly DOCUMENT_POSITION_CONTAINED_BY: number;
+    /**
+     * Set when other is an ancestor of node.
+     */
     readonly DOCUMENT_POSITION_CONTAINS: number;
+    /**
+     * Set when node and other are not in the same tree.
+     */
     readonly DOCUMENT_POSITION_DISCONNECTED: number;
+    /**
+     * Set when other is following node.
+     */
     readonly DOCUMENT_POSITION_FOLLOWING: number;
     readonly DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: number;
+    /**
+     * Set when other is preceding node.
+     */
     readonly DOCUMENT_POSITION_PRECEDING: number;
+    /**
+     * node is a doctype.
+     */
     readonly DOCUMENT_TYPE_NODE: number;
+    /**
+     * node is an element.
+     */
     readonly ELEMENT_NODE: number;
     readonly ENTITY_NODE: number;
     readonly ENTITY_REFERENCE_NODE: number;
     readonly NOTATION_NODE: number;
+    /**
+     * node is a ProcessingInstruction node.
+     */
     readonly PROCESSING_INSTRUCTION_NODE: number;
+    /**
+     * node is a Text node.
+     */
     readonly TEXT_NODE: number;
 };
 
@@ -10828,7 +10968,7 @@ interface NodeList {
      */
     readonly length: number;
     /**
-     * element = collection[index]
+     * Returns the node with index index from the collection. The nodes are sorted in tree order.
      */
     item(index: number): Node | null;
     /**
@@ -10859,13 +10999,11 @@ interface NodeListOf<TNode extends Node> extends NodeList {
 
 interface NonDocumentTypeChildNode {
     /**
-     * Returns the first following sibling that
-     * is an element, and null otherwise.
+     * Returns the first following sibling that is an element, and null otherwise.
      */
     readonly nextElementSibling: Element | null;
     /**
-     * Returns the first preceding sibling that
-     * is an element, and null otherwise.
+     * Returns the first preceding sibling that is an element, and null otherwise.
      */
     readonly previousElementSibling: Element | null;
 }
@@ -10990,40 +11128,32 @@ declare var OfflineAudioContext: {
 interface OffscreenCanvas extends EventTarget {
     /**
      * These attributes return the dimensions of the OffscreenCanvas object's bitmap.
-     * They can be set, to replace the bitmap with a
-     * new, transparent black bitmap of the specified dimensions (effectively resizing
-     * it).
+     * 
+     * They can be set, to replace the bitmap with a new, transparent black bitmap of the specified dimensions (effectively resizing it).
      */
     height: number;
+    /**
+     * These attributes return the dimensions of the OffscreenCanvas object's bitmap.
+     * 
+     * They can be set, to replace the bitmap with a new, transparent black bitmap of the specified dimensions (effectively resizing it).
+     */
     width: number;
     /**
-     * Returns a promise that will fulfill with a new Blob object representing a file
-     * containing the image in the OffscreenCanvas object.
-     * The argument, if provided, is a dictionary that controls the encoding options of the image
-     * file to be created. The type
-     * field specifies the file format and has a default value of "image/png"; that type
-     * is also used if the requested type isn't supported. If the image format supports variable
-     * quality (such as "image/jpeg"), then the quality field is a number in the range 0.0
-     * to 1.0 inclusive indicating the desired quality level for the resulting image.
+     * Returns a promise that will fulfill with a new Blob object representing a file containing the image in the OffscreenCanvas object.
+     * 
+     * The argument, if provided, is a dictionary that controls the encoding options of the image file to be created. The type field specifies the file format and has a default value of "image/png"; that type is also used if the requested type isn't supported. If the image format supports variable quality (such as "image/jpeg"), then the quality field is a number in the range 0.0 to 1.0 inclusive indicating the desired quality level for the resulting image.
      */
     convertToBlob(options?: ImageEncodeOptions): Promise<Blob>;
     /**
-     * Returns an object that exposes an API for drawing on the OffscreenCanvas
-     * object. contextId specifies the desired API: "2d" or "webgl". options is handled by that
-     * API.
-     * This specification defines the "2d" context below,
-     * which is similar but distinct from the "2d"
-     * context that is created from a canvas element. There is also a specification that
-     * defines a "webgl" context. [WEBGL]
-     * Returns null if the canvas has already been initialized with another context type (e.g.,
-     * trying to get a "2d" context after getting a
-     * "webgl" context).
+     * Returns an object that exposes an API for drawing on the OffscreenCanvas object. contextId specifies the desired API: "2d", "webgl", or "webgl2". options is handled by that API.
+     * 
+     * This specification defines the "2d" context below, which is similar but distinct from the "2d" context that is created from a canvas element. The WebGL specifications define the "webgl" and "webgl2" contexts. [WEBGL]
+     * 
+     * Returns null if the canvas has already been initialized with another context type (e.g., trying to get a "2d" context after getting a "webgl" context).
      */
     getContext(contextId: OffscreenRenderingContextId, options?: any): OffscreenRenderingContext | null;
     /**
-     * Returns a newly created ImageBitmap object with the image in the
-     * OffscreenCanvas object. The image in the OffscreenCanvas object is
-     * replaced with a new blank image.
+     * Returns a newly created ImageBitmap object with the image in the OffscreenCanvas object. The image in the OffscreenCanvas object is replaced with a new blank image.
      */
     transferToImageBitmap(): ImageBitmap;
 }
@@ -11138,37 +11268,36 @@ interface ParentNode {
      */
     readonly lastElementChild: Element | null;
     /**
-     * Inserts nodes after the last child of node, while replacing
-     * strings in nodes with equivalent Text nodes.
-     * Throws a "HierarchyRequestError" DOMException if the constraints of
-     * the node tree are violated.
+     * Inserts nodes after the last child of node, while replacing strings in nodes with equivalent Text nodes.
+     * 
+     * Throws a "HierarchyRequestError" DOMException if the constraints of the node tree are violated.
      */
     append(...nodes: (Node | string)[]): void;
     /**
-     * Inserts nodes before the first child of node, while
-     * replacing strings in nodes with equivalent Text nodes.
-     * Throws a "HierarchyRequestError" DOMException if the constraints of
-     * the node tree are violated.
+     * Inserts nodes before the first child of node, while replacing strings in nodes with equivalent Text nodes.
+     * 
+     * Throws a "HierarchyRequestError" DOMException if the constraints of the node tree are violated.
      */
     prepend(...nodes: (Node | string)[]): void;
     /**
-     * Returns the first element that is a descendant of node that
-     * matches selectors.
+     * Returns the first element that is a descendant of node that matches selectors.
      */
     querySelector<K extends keyof HTMLElementTagNameMap>(selectors: K): HTMLElementTagNameMap[K] | null;
     querySelector<K extends keyof SVGElementTagNameMap>(selectors: K): SVGElementTagNameMap[K] | null;
     querySelector<E extends Element = Element>(selectors: string): E | null;
     /**
-     * Returns all element descendants of node that
-     * match selectors.
+     * Returns all element descendants of node that match selectors.
      */
     querySelectorAll<K extends keyof HTMLElementTagNameMap>(selectors: K): NodeListOf<HTMLElementTagNameMap[K]>;
     querySelectorAll<K extends keyof SVGElementTagNameMap>(selectors: K): NodeListOf<SVGElementTagNameMap[K]>;
     querySelectorAll<E extends Element = Element>(selectors: string): NodeListOf<E>;
 }
 
-/** Of the Canvas 2D API is used to declare a path that can then be used on a CanvasRenderingContext2D object. The path methods of the CanvasRenderingContext2D interface are also present on this interface, which gives you the convenience of being able to retain and replay your path whenever desired. */
+/** This Canvas 2D API interface is used to declare a path that can then be used on a CanvasRenderingContext2D object. The path methods of the CanvasRenderingContext2D interface are also present on this interface, which gives you the convenience of being able to retain and replay your path whenever desired. */
 interface Path2D extends CanvasPath {
+    /**
+     * Adds to the path the path given by the argument.
+     */
     addPath(path: Path2D, transform?: DOMMatrix2DInit): void;
 }
 
@@ -12224,8 +12353,7 @@ declare var RandomSource: {
 /** A fragment of a document that can contain nodes and parts of text nodes. */
 interface Range extends AbstractRange {
     /**
-     * Returns the node, furthest away from
-     * the document, that is an ancestor of both range's start node and end node.
+     * Returns the node, furthest away from the document, that is an ancestor of both range's start node and end node.
      */
     readonly commonAncestorContainer: Node;
     cloneContents(): DocumentFragment;
@@ -12233,8 +12361,7 @@ interface Range extends AbstractRange {
     collapse(toStart?: boolean): void;
     compareBoundaryPoints(how: number, sourceRange: Range): number;
     /**
-     * Returns −1 if the point is before the range, 0 if the point is
-     * in the range, and 1 if the point is after the range.
+     * Returns −1 if the point is before the range, 0 if the point is in the range, and 1 if the point is after the range.
      */
     comparePoint(node: Node, offset: number): number;
     createContextualFragment(fragment: string): DocumentFragment;
@@ -12344,35 +12471,27 @@ declare var ReadableStreamReader: {
 /** This Fetch API interface represents a resource request. */
 interface Request extends Body {
     /**
-     * Returns the cache mode associated with request, which is a string indicating
-     * how the request will interact with the browser's cache when fetching.
+     * Returns the cache mode associated with request, which is a string indicating how the request will interact with the browser's cache when fetching.
      */
     readonly cache: RequestCache;
     /**
-     * Returns the credentials mode associated with request, which is a string
-     * indicating whether credentials will be sent with the request always, never, or only when sent to a
-     * same-origin URL.
+     * Returns the credentials mode associated with request, which is a string indicating whether credentials will be sent with the request always, never, or only when sent to a same-origin URL.
      */
     readonly credentials: RequestCredentials;
     /**
-     * Returns the kind of resource requested by request, e.g., "document" or
-     * "script".
+     * Returns the kind of resource requested by request, e.g., "document" or "script".
      */
     readonly destination: RequestDestination;
     /**
-     * Returns a Headers object consisting of the headers associated with request.
-     * Note that headers added in the network layer by the user agent will not be accounted for in this
-     * object, e.g., the "Host" header.
+     * Returns a Headers object consisting of the headers associated with request. Note that headers added in the network layer by the user agent will not be accounted for in this object, e.g., the "Host" header.
      */
     readonly headers: Headers;
     /**
-     * Returns request's subresource integrity metadata, which is a cryptographic hash of
-     * the resource being fetched. Its value consists of multiple hashes separated by whitespace. [SRI]
+     * Returns request's subresource integrity metadata, which is a cryptographic hash of the resource being fetched. Its value consists of multiple hashes separated by whitespace. [SRI]
      */
     readonly integrity: string;
     /**
-     * Returns a boolean indicating whether or not request is for a history
-     * navigation (a.k.a. back-foward navigation).
+     * Returns a boolean indicating whether or not request is for a history navigation (a.k.a. back-foward navigation).
      */
     readonly isHistoryNavigation: boolean;
     /**
@@ -12380,8 +12499,7 @@ interface Request extends Body {
      */
     readonly isReloadNavigation: boolean;
     /**
-     * Returns a boolean indicating whether or not request can outlive the global in which
-     * it was created.
+     * Returns a boolean indicating whether or not request can outlive the global in which it was created.
      */
     readonly keepalive: boolean;
     /**
@@ -12389,30 +12507,23 @@ interface Request extends Body {
      */
     readonly method: string;
     /**
-     * Returns the mode associated with request, which is a string indicating
-     * whether the request will use CORS, or will be restricted to same-origin URLs.
+     * Returns the mode associated with request, which is a string indicating whether the request will use CORS, or will be restricted to same-origin URLs.
      */
     readonly mode: RequestMode;
     /**
-     * Returns the redirect mode associated with request, which is a string
-     * indicating how redirects for the request will be handled during fetching. A request will follow redirects by default.
+     * Returns the redirect mode associated with request, which is a string indicating how redirects for the request will be handled during fetching. A request will follow redirects by default.
      */
     readonly redirect: RequestRedirect;
     /**
-     * Returns the referrer of request. Its value can be a same-origin URL if
-     * explicitly set in init, the empty string to indicate no referrer, and
-     * "about:client" when defaulting to the global's default. This is used during
-     * fetching to determine the value of the `Referer` header of the request being made.
+     * Returns the referrer of request. Its value can be a same-origin URL if explicitly set in init, the empty string to indicate no referrer, and "about:client" when defaulting to the global's default. This is used during fetching to determine the value of the `Referer` header of the request being made.
      */
     readonly referrer: string;
     /**
-     * Returns the referrer policy associated with request. This is used during
-     * fetching to compute the value of the request's referrer.
+     * Returns the referrer policy associated with request. This is used during fetching to compute the value of the request's referrer.
      */
     readonly referrerPolicy: ReferrerPolicy;
     /**
-     * Returns the signal associated with request, which is an AbortSignal object indicating whether or not request has been aborted, and its abort
-     * event handler.
+     * Returns the signal associated with request, which is an AbortSignal object indicating whether or not request has been aborted, and its abort event handler.
      */
     readonly signal: AbortSignal;
     /**
@@ -15093,8 +15204,7 @@ declare var StereoPannerNode: {
 /** This Web Storage API interface provides access to a particular domain's session or local storage. It allows, for example, the addition, modification, or deletion of stored data items. */
 interface Storage {
     /**
-     * Returns the number of key/value pairs currently present in the list associated with the
-     * object.
+     * Returns the number of key/value pairs currently present in the list associated with the object.
      */
     readonly length: number;
     /**
@@ -15102,20 +15212,21 @@ interface Storage {
      */
     clear(): void;
     /**
-     * value = storage[key]
+     * Returns the current value associated with the given key, or null if the given key does not exist in the list associated with the object.
      */
     getItem(key: string): string | null;
     /**
-     * Returns the name of the nth key in the list, or null if n is greater
-     * than or equal to the number of key/value pairs in the object.
+     * Returns the name of the nth key in the list, or null if n is greater than or equal to the number of key/value pairs in the object.
      */
     key(index: number): string | null;
     /**
-     * delete storage[key]
+     * Removes the key/value pair with the given key from the list associated with the object, if a key/value pair with the given key exists.
      */
     removeItem(key: string): void;
     /**
-     * storage[key] = value
+     * Sets the value of the pair identified by key to value, creating a new key/value pair if none existed for key previously.
+     * 
+     * Throws a "QuotaExceededError" DOMException exception if the new value couldn't be set. (Setting could fail if, e.g., the user has disabled storage for the site, or if the quota has been exceeded.)
      */
     setItem(key: string, value: string): void;
     [name: string]: any;
@@ -15263,16 +15374,16 @@ declare var Text: {
 /** A decoder for a specific method, that is a specific character encoding, like utf-8, iso-8859-2, koi8, cp1261, gbk, etc. A decoder takes a stream of bytes as input and emits a stream of code points. For a more scalable, non-native library, see StringView – a C-like representation of strings based on typed arrays. */
 interface TextDecoder extends TextDecoderCommon {
     /**
-     * Returns the result of running encoding's decoder.
-     * The method can be invoked zero or more times with options's stream set to
-     * true, and then once without options's stream (or set to false), to process
-     * a fragmented stream. If the invocation without options's stream (or set to
-     * false) has no input, it's clearest to omit both arguments.
+     * Returns the result of running encoding's decoder. The method can be invoked zero or more times with options's stream set to true, and then once without options's stream (or set to false), to process a fragmented stream. If the invocation without options's stream (or set to false) has no input, it's clearest to omit both arguments.
+     * 
+     * ```
      * var string = "", decoder = new TextDecoder(encoding), buffer;
      * while(buffer = next_chunk()) {
-     * string += decoder.decode(buffer, {stream:true});
+     *   string += decoder.decode(buffer, {stream:true});
      * }
      * string += decoder.decode(); // end-of-stream
+     * ```
+     * 
      * If the error mode is "fatal" and encoding's decoder returns error, throws a TypeError.
      */
     decode(input?: BufferSource, options?: TextDecodeOptions): string;
@@ -15284,8 +15395,17 @@ declare var TextDecoder: {
 };
 
 interface TextDecoderCommon {
+    /**
+     * Returns encoding's name, lowercased.
+     */
     readonly encoding: string;
+    /**
+     * Returns true if error mode is "fatal", and false otherwise.
+     */
     readonly fatal: boolean;
+    /**
+     * Returns true if ignore BOM flag is set, and false otherwise.
+     */
     readonly ignoreBOM: boolean;
 }
 
@@ -15315,6 +15435,9 @@ declare var TextEncoder: {
 };
 
 interface TextEncoderCommon {
+    /**
+     * Returns "utf-8".
+     */
     readonly encoding: string;
 }
 
@@ -15358,20 +15481,53 @@ declare var TextEvent: {
 
 /** The dimensions of a piece of text in the canvas, as created by the CanvasRenderingContext2D.measureText() method. */
 interface TextMetrics {
+    /**
+     * Returns the measurement described below.
+     */
     readonly actualBoundingBoxAscent: number;
+    /**
+     * Returns the measurement described below.
+     */
     readonly actualBoundingBoxDescent: number;
+    /**
+     * Returns the measurement described below.
+     */
     readonly actualBoundingBoxLeft: number;
+    /**
+     * Returns the measurement described below.
+     */
     readonly actualBoundingBoxRight: number;
+    /**
+     * Returns the measurement described below.
+     */
     readonly alphabeticBaseline: number;
+    /**
+     * Returns the measurement described below.
+     */
     readonly emHeightAscent: number;
+    /**
+     * Returns the measurement described below.
+     */
     readonly emHeightDescent: number;
+    /**
+     * Returns the measurement described below.
+     */
     readonly fontBoundingBoxAscent: number;
+    /**
+     * Returns the measurement described below.
+     */
     readonly fontBoundingBoxDescent: number;
+    /**
+     * Returns the measurement described below.
+     */
     readonly hangingBaseline: number;
     /**
      * Returns the measurement described below.
      */
     readonly ideographicBaseline: number;
+    /**
+     * Returns the measurement described below.
+     */
     readonly width: number;
 }
 
@@ -17408,47 +17564,44 @@ interface XMLHttpRequest extends XMLHttpRequestEventTarget {
     readonly response: any;
     /**
      * Returns the text response.
+     * 
      * Throws an "InvalidStateError" DOMException if responseType is not the empty string or "text".
      */
     readonly responseText: string;
     /**
      * Returns the response type.
-     * Can be set to change the response type. Values are:
-     * the empty string (default),
-     * "arraybuffer",
-     * "blob",
-     * "document",
-     * "json", and
-     * "text".
+     * 
+     * Can be set to change the response type. Values are: the empty string (default), "arraybuffer", "blob", "document", "json", and "text".
+     * 
      * When set: setting to "document" is ignored if current global object is not a Window object.
+     * 
      * When set: throws an "InvalidStateError" DOMException if state is loading or done.
+     * 
      * When set: throws an "InvalidAccessError" DOMException if the synchronous flag is set and current global object is a Window object.
      */
     responseType: XMLHttpRequestResponseType;
     readonly responseURL: string;
     /**
      * Returns the document response.
+     * 
      * Throws an "InvalidStateError" DOMException if responseType is not the empty string or "document".
      */
     readonly responseXML: Document | null;
     readonly status: number;
     readonly statusText: string;
     /**
-     * Can be set to a time in milliseconds. When set to a non-zero value will cause fetching to terminate after the given time has passed. When the time has passed, the
-     * request has not yet completed, and the synchronous flag is unset, a timeout event will then be dispatched, or a
-     * "TimeoutError" DOMException will be thrown otherwise (for the send() method).
+     * Can be set to a time in milliseconds. When set to a non-zero value will cause fetching to terminate after the given time has passed. When the time has passed, the request has not yet completed, and the synchronous flag is unset, a timeout event will then be dispatched, or a "TimeoutError" DOMException will be thrown otherwise (for the send() method).
+     * 
      * When set: throws an "InvalidAccessError" DOMException if the synchronous flag is set and current global object is a Window object.
      */
     timeout: number;
     /**
-     * Returns the associated XMLHttpRequestUpload object. It can be used to gather transmission information when data is
-     * transferred to a server.
+     * Returns the associated XMLHttpRequestUpload object. It can be used to gather transmission information when data is transferred to a server.
      */
     readonly upload: XMLHttpRequestUpload;
     /**
-     * True when credentials are to be included in a cross-origin request. False when they are
-     * to be excluded in a cross-origin request and when cookies are to be ignored in its response.
-     * Initially false.
+     * True when credentials are to be included in a cross-origin request. False when they are to be excluded in a cross-origin request and when cookies are to be ignored in its response. Initially false.
+     * 
      * When set: throws an "InvalidStateError" DOMException if state is not unsent or opened, or if the send() flag is set.
      */
     withCredentials: boolean;
@@ -17460,31 +17613,33 @@ interface XMLHttpRequest extends XMLHttpRequestEventTarget {
     getResponseHeader(name: string): string | null;
     /**
      * Sets the request method, request URL, and synchronous flag.
-     * Throws a "SyntaxError" DOMException if either method is not a
-     * valid HTTP method or url cannot be parsed.
-     * Throws a "SecurityError" DOMException if method is a
-     * case-insensitive match for `CONNECT`, `TRACE`, or `TRACK`.
+     * 
+     * Throws a "SyntaxError" DOMException if either method is not a valid HTTP method or url cannot be parsed.
+     * 
+     * Throws a "SecurityError" DOMException if method is a case-insensitive match for `CONNECT`, `TRACE`, or `TRACK`.
+     * 
      * Throws an "InvalidAccessError" DOMException if async is false, current global object is a Window object, and the timeout attribute is not zero or the responseType attribute is not the empty string.
      */
     open(method: string, url: string): void;
     open(method: string, url: string, async: boolean, username?: string | null, password?: string | null): void;
     /**
-     * Acts as if the `Content-Type` header value for response is mime.
-     * (It does not actually change the header though.)
+     * Acts as if the `Content-Type` header value for response is mime. (It does not actually change the header though.)
+     * 
      * Throws an "InvalidStateError" DOMException if state is loading or done.
      */
     overrideMimeType(mime: string): void;
     /**
-     * Initiates the request. The body argument provides the request body, if any,
-     * and is ignored if the request method is GET or HEAD.
+     * Initiates the request. The body argument provides the request body, if any, and is ignored if the request method is GET or HEAD.
+     * 
      * Throws an "InvalidStateError" DOMException if either state is not opened or the send() flag is set.
      */
     send(body?: Document | BodyInit | null): void;
     /**
      * Combines a header in author request headers.
+     * 
      * Throws an "InvalidStateError" DOMException if either state is not opened or the send() flag is set.
-     * Throws a "SyntaxError" DOMException if name is not a header name
-     * or if value is not a header value.
+     * 
+     * Throws a "SyntaxError" DOMException if name is not a header name or if value is not a header value.
      */
     setRequestHeader(name: string, value: string): void;
     readonly DONE: number;
@@ -18227,8 +18382,7 @@ declare function webkitConvertPointFromPageToNode(node: Node, pt: WebKitPoint): 
 declare function webkitRequestAnimationFrame(callback: FrameRequestCallback): number;
 declare function toString(): string;
 /**
- * Dispatches a synthetic event event to target and returns true
- * if either event's cancelable attribute value is false or its preventDefault() method was not invoked, and false otherwise.
+ * Dispatches a synthetic event event to target and returns true if either event's cancelable attribute value is false or its preventDefault() method was not invoked, and false otherwise.
  */
 declare function dispatchEvent(event: Event): boolean;
 declare var sessionStorage: Storage;
