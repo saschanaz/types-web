@@ -1753,16 +1753,8 @@ declare var AbstractRange: {
     new(): AbstractRange;
 };
 
-interface AbstractWorkerEventMap {
-    "error": ErrorEvent;
-}
-
 interface AbstractWorker {
     onerror: ((this: AbstractWorker, ev: ErrorEvent) => any) | null;
-    addEventListener<K extends keyof AbstractWorkerEventMap>(type: K, listener: (this: AbstractWorker, ev: AbstractWorkerEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
-    removeEventListener<K extends keyof AbstractWorkerEventMap>(type: K, listener: (this: AbstractWorker, ev: AbstractWorkerEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
 }
 
 interface AesCfbParams extends Algorithm {
@@ -1973,10 +1965,6 @@ interface AudioBufferSourceNode extends AudioScheduledSourceNode {
     loopStart: number;
     readonly playbackRate: AudioParam;
     start(when?: number, offset?: number, duration?: number): void;
-    addEventListener<K extends keyof AudioScheduledSourceNodeEventMap>(type: K, listener: (this: AudioBufferSourceNode, ev: AudioScheduledSourceNodeEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
-    removeEventListener<K extends keyof AudioScheduledSourceNodeEventMap>(type: K, listener: (this: AudioBufferSourceNode, ev: AudioScheduledSourceNodeEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
 }
 
 declare var AudioBufferSourceNode: {
@@ -1996,10 +1984,6 @@ interface AudioContext extends BaseAudioContext {
     getOutputTimestamp(): AudioTimestamp;
     resume(): Promise<void>;
     suspend(): Promise<void>;
-    addEventListener<K extends keyof BaseAudioContextEventMap>(type: K, listener: (this: AudioContext, ev: BaseAudioContextEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
-    removeEventListener<K extends keyof BaseAudioContextEventMap>(type: K, listener: (this: AudioContext, ev: BaseAudioContextEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
 }
 
 declare var AudioContext: {
@@ -2105,18 +2089,10 @@ declare var AudioProcessingEvent: {
     new(type: string, eventInitDict: AudioProcessingEventInit): AudioProcessingEvent;
 };
 
-interface AudioScheduledSourceNodeEventMap {
-    "ended": Event;
-}
-
 interface AudioScheduledSourceNode extends AudioNode {
     onended: ((this: AudioScheduledSourceNode, ev: Event) => any) | null;
     start(when?: number): void;
     stop(when?: number): void;
-    addEventListener<K extends keyof AudioScheduledSourceNodeEventMap>(type: K, listener: (this: AudioScheduledSourceNode, ev: AudioScheduledSourceNodeEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
-    removeEventListener<K extends keyof AudioScheduledSourceNodeEventMap>(type: K, listener: (this: AudioScheduledSourceNode, ev: AudioScheduledSourceNodeEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
 }
 
 declare var AudioScheduledSourceNode: {
@@ -2173,18 +2149,10 @@ declare var AudioWorklet: {
     new(): AudioWorklet;
 };
 
-interface AudioWorkletNodeEventMap {
-    "processorerror": Event;
-}
-
 interface AudioWorkletNode extends AudioNode {
     onprocessorerror: ((this: AudioWorkletNode, ev: Event) => any) | null;
     readonly parameters: AudioParamMap;
     readonly port: MessagePort;
-    addEventListener<K extends keyof AudioWorkletNodeEventMap>(type: K, listener: (this: AudioWorkletNode, ev: AudioWorkletNodeEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
-    removeEventListener<K extends keyof AudioWorkletNodeEventMap>(type: K, listener: (this: AudioWorkletNode, ev: AudioWorkletNodeEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
 }
 
 declare var AudioWorkletNode: {
@@ -2200,10 +2168,6 @@ declare var BarProp: {
     prototype: BarProp;
     new(): BarProp;
 };
-
-interface BaseAudioContextEventMap {
-    "statechange": Event;
-}
 
 interface BaseAudioContext extends EventTarget {
     readonly audioWorklet: AudioWorklet;
@@ -2232,10 +2196,6 @@ interface BaseAudioContext extends EventTarget {
     createStereoPanner(): StereoPannerNode;
     createWaveShaper(): WaveShaperNode;
     decodeAudioData(audioData: ArrayBuffer, successCallback?: DecodeSuccessCallback | null, errorCallback?: DecodeErrorCallback | null): Promise<AudioBuffer>;
-    addEventListener<K extends keyof BaseAudioContextEventMap>(type: K, listener: (this: BaseAudioContext, ev: BaseAudioContextEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
-    removeEventListener<K extends keyof BaseAudioContextEventMap>(type: K, listener: (this: BaseAudioContext, ev: BaseAudioContextEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
 }
 
 declare var BaseAudioContext: {
@@ -2312,11 +2272,6 @@ interface Body {
     text(): Promise<string>;
 }
 
-interface BroadcastChannelEventMap {
-    "message": MessageEvent;
-    "messageerror": MessageEvent;
-}
-
 interface BroadcastChannel extends EventTarget {
     /**
      * Returns the channel name (as passed to the constructor).
@@ -2332,10 +2287,6 @@ interface BroadcastChannel extends EventTarget {
      * Sends the given message to other BroadcastChannel objects set up for this channel. Messages can be structured objects, e.g. nested objects and arrays.
      */
     postMessage(message: any): void;
-    addEventListener<K extends keyof BroadcastChannelEventMap>(type: K, listener: (this: BroadcastChannel, ev: BroadcastChannelEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
-    removeEventListener<K extends keyof BroadcastChannelEventMap>(type: K, listener: (this: BroadcastChannel, ev: BroadcastChannelEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
 }
 
 declare var BroadcastChannel: {
@@ -3441,10 +3392,6 @@ declare var Console: {
 
 interface ConstantSourceNode extends AudioScheduledSourceNode {
     readonly offset: AudioParam;
-    addEventListener<K extends keyof AudioScheduledSourceNodeEventMap>(type: K, listener: (this: ConstantSourceNode, ev: AudioScheduledSourceNodeEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
-    removeEventListener<K extends keyof AudioScheduledSourceNodeEventMap>(type: K, listener: (this: ConstantSourceNode, ev: AudioScheduledSourceNodeEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
 }
 
 declare var ConstantSourceNode: {
@@ -4172,11 +4119,6 @@ interface DhKeyGenParams extends Algorithm {
 }
 
 interface DocumentEventMap extends GlobalEventHandlersEventMap, DocumentAndElementEventHandlersEventMap {
-    "fullscreenchange": Event;
-    "fullscreenerror": Event;
-    "pointerlockchange": Event;
-    "pointerlockerror": Event;
-    "readystatechange": ProgressEvent;
     "visibilitychange": Event;
 }
 
@@ -4874,8 +4816,10 @@ interface EXT_texture_filter_anisotropic {
 }
 
 interface ElementEventMap {
-    "fullscreenchange": Event;
-    "fullscreenerror": Event;
+    "touchcancel": TouchEvent;
+    "touchend": TouchEvent;
+    "touchmove": TouchEvent;
+    "touchstart": TouchEvent;
 }
 
 /** Element is the most general base class from which all objects in a Document inherit. It only has methods and properties common to all kinds of elements. More specific classes inherit from Element. */
@@ -5145,8 +5089,6 @@ interface EventListenerObject {
 
 interface EventSourceEventMap {
     "error": Event;
-    "message": MessageEvent;
-    "open": Event;
 }
 
 interface EventSource extends EventTarget {
@@ -5444,46 +5386,25 @@ interface Geolocation {
 }
 
 interface GlobalEventHandlersEventMap {
-    "abort": UIEvent;
     "animationcancel": AnimationEvent;
     "animationend": AnimationEvent;
     "animationiteration": AnimationEvent;
     "animationstart": AnimationEvent;
     "auxclick": MouseEvent;
-    "blur": FocusEvent;
     "cancel": Event;
-    "canplay": Event;
-    "canplaythrough": Event;
-    "change": Event;
-    "click": MouseEvent;
-    "close": Event;
     "contextmenu": MouseEvent;
-    "cuechange": Event;
     "dblclick": MouseEvent;
     "drag": DragEvent;
     "dragend": DragEvent;
     "dragenter": DragEvent;
-    "dragexit": Event;
     "dragleave": DragEvent;
     "dragover": DragEvent;
     "dragstart": DragEvent;
     "drop": DragEvent;
-    "durationchange": Event;
-    "emptied": Event;
-    "ended": Event;
-    "error": ErrorEvent;
-    "focus": FocusEvent;
     "gotpointercapture": PointerEvent;
-    "input": Event;
-    "invalid": Event;
     "keydown": KeyboardEvent;
     "keypress": KeyboardEvent;
     "keyup": KeyboardEvent;
-    "load": Event;
-    "loadeddata": Event;
-    "loadedmetadata": Event;
-    "loadend": ProgressEvent;
-    "loadstart": Event;
     "lostpointercapture": PointerEvent;
     "mousedown": MouseEvent;
     "mouseenter": MouseEvent;
@@ -5492,9 +5413,6 @@ interface GlobalEventHandlersEventMap {
     "mouseout": MouseEvent;
     "mouseover": MouseEvent;
     "mouseup": MouseEvent;
-    "pause": Event;
-    "play": Event;
-    "playing": Event;
     "pointercancel": PointerEvent;
     "pointerdown": PointerEvent;
     "pointerenter": PointerEvent;
@@ -5503,22 +5421,9 @@ interface GlobalEventHandlersEventMap {
     "pointerout": PointerEvent;
     "pointerover": PointerEvent;
     "pointerup": PointerEvent;
-    "progress": ProgressEvent;
-    "ratechange": Event;
-    "reset": Event;
-    "resize": UIEvent;
     "scroll": Event;
     "securitypolicyviolation": SecurityPolicyViolationEvent;
-    "seeked": Event;
-    "seeking": Event;
     "select": Event;
-    "selectionchange": Event;
-    "selectstart": Event;
-    "stalled": Event;
-    "submit": Event;
-    "suspend": Event;
-    "timeupdate": Event;
-    "toggle": Event;
     "touchcancel": TouchEvent;
     "touchend": TouchEvent;
     "touchmove": TouchEvent;
@@ -5527,8 +5432,6 @@ interface GlobalEventHandlersEventMap {
     "transitionend": TransitionEvent;
     "transitionrun": TransitionEvent;
     "transitionstart": TransitionEvent;
-    "volumechange": Event;
-    "waiting": Event;
     "wheel": WheelEvent;
 }
 
@@ -6054,7 +5957,8 @@ declare var HTMLBaseFontElement: {
 };
 
 interface HTMLBodyElementEventMap extends HTMLElementEventMap, WindowEventHandlersEventMap {
-    "orientationchange": Event;
+    "offline": Event;
+    "online": Event;
 }
 
 /** Provides special properties (beyond those inherited from the regular HTMLElement interface) for manipulating <body> elements. */
@@ -7313,8 +7217,29 @@ declare var HTMLMarqueeElement: {
 };
 
 interface HTMLMediaElementEventMap extends HTMLElementEventMap {
+    "abort": Event;
+    "canplay": Event;
+    "canplaythrough": Event;
+    "durationchange": Event;
+    "emptied": Event;
     "encrypted": MediaEncryptedEvent;
-    "msneedkey": Event;
+    "ended": Event;
+    "error": Event;
+    "loadeddata": Event;
+    "loadedmetadata": Event;
+    "loadstart": Event;
+    "pause": Event;
+    "play": Event;
+    "playing": Event;
+    "progress": Event;
+    "ratechange": Event;
+    "seeked": Event;
+    "seeking": Event;
+    "stalled": Event;
+    "suspend": Event;
+    "timeupdate": Event;
+    "volumechange": Event;
+    "waiting": Event;
     "waitingforkey": Event;
 }
 
@@ -8712,6 +8637,10 @@ declare var HTMLTitleElement: {
     new(): HTMLTitleElement;
 };
 
+interface HTMLTrackElementEventMap extends HTMLElementEventMap {
+    "cuechange": Event;
+}
+
 /** The HTMLTrackElement */
 interface HTMLTrackElement extends HTMLElement {
     default: boolean;
@@ -8725,9 +8654,9 @@ interface HTMLTrackElement extends HTMLElement {
     readonly LOADED: number;
     readonly LOADING: number;
     readonly NONE: number;
-    addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLTrackElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+    addEventListener<K extends keyof HTMLTrackElementEventMap>(type: K, listener: (this: HTMLTrackElement, ev: HTMLTrackElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
-    removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLTrackElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener<K extends keyof HTMLTrackElementEventMap>(type: K, listener: (this: HTMLTrackElement, ev: HTMLTrackElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
     removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
 }
 
@@ -8771,9 +8700,7 @@ declare var HTMLUnknownElement: {
 };
 
 interface HTMLVideoElementEventMap extends HTMLMediaElementEventMap {
-    "MSVideoFormatChanged": Event;
-    "MSVideoFrameStepCompleted": Event;
-    "MSVideoOptimalLayoutChanged": Event;
+    "resize": Event;
 }
 
 /** Provides special properties and methods for manipulating video objects. It also inherits properties and methods of HTMLMediaElement and HTMLElement. */
@@ -9252,7 +9179,7 @@ declare var IDBObjectStore: {
 };
 
 interface IDBOpenDBRequestEventMap extends IDBRequestEventMap {
-    "blocked": Event;
+    "block": Event;
     "upgradeneeded": IDBVersionChangeEvent;
 }
 
@@ -9761,12 +9688,6 @@ declare var MSGraphicsTrust: {
     new(): MSGraphicsTrust;
 };
 
-interface MSInputMethodContextEventMap {
-    "MSCandidateWindowHide": Event;
-    "MSCandidateWindowShow": Event;
-    "MSCandidateWindowUpdate": Event;
-}
-
 interface MSInputMethodContext extends EventTarget {
     readonly compositionEndOffset: number;
     readonly compositionStartOffset: number;
@@ -9778,10 +9699,6 @@ interface MSInputMethodContext extends EventTarget {
     getCompositionAlternatives(): string[];
     hasComposition(): boolean;
     isCandidateWindowVisible(): boolean;
-    addEventListener<K extends keyof MSInputMethodContextEventMap>(type: K, listener: (this: MSInputMethodContext, ev: MSInputMethodContextEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
-    removeEventListener<K extends keyof MSInputMethodContextEventMap>(type: K, listener: (this: MSInputMethodContext, ev: MSInputMethodContextEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
 }
 
 declare var MSInputMethodContext: {
@@ -9912,20 +9829,12 @@ declare var MediaDeviceInfo: {
     new(): MediaDeviceInfo;
 };
 
-interface MediaDevicesEventMap {
-    "devicechange": Event;
-}
-
 /** Provides access to connected media input devices like cameras and microphones, as well as screen sharing. In essence, it lets you obtain access to any hardware source of media data. */
 interface MediaDevices extends EventTarget {
     ondevicechange: ((this: MediaDevices, ev: Event) => any) | null;
     enumerateDevices(): Promise<MediaDeviceInfo[]>;
     getSupportedConstraints(): MediaTrackSupportedConstraints;
     getUserMedia(constraints?: MediaStreamConstraints): Promise<MediaStream>;
-    addEventListener<K extends keyof MediaDevicesEventMap>(type: K, listener: (this: MediaDevices, ev: MediaDevicesEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
-    removeEventListener<K extends keyof MediaDevicesEventMap>(type: K, listener: (this: MediaDevices, ev: MediaDevicesEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
 }
 
 declare var MediaDevices: {
@@ -9986,11 +9895,6 @@ declare var MediaKeyMessageEvent: {
     new(type: string, eventInitDict: MediaKeyMessageEventInit): MediaKeyMessageEvent;
 };
 
-interface MediaKeySessionEventMap {
-    "keystatuseschange": Event;
-    "message": MessageEvent;
-}
-
 /** An interface of the EncryptedMediaExtensions API represents a context for message exchange with a content decryption module (CDM). */
 interface MediaKeySession extends EventTarget {
     readonly closed: Promise<void>;
@@ -10004,10 +9908,6 @@ interface MediaKeySession extends EventTarget {
     load(sessionId: string): Promise<boolean>;
     remove(): Promise<void>;
     update(response: BufferSource): Promise<void>;
-    addEventListener<K extends keyof MediaKeySessionEventMap>(type: K, listener: (this: MediaKeySession, ev: MediaKeySessionEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
-    removeEventListener<K extends keyof MediaKeySessionEventMap>(type: K, listener: (this: MediaKeySession, ev: MediaKeySessionEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
 }
 
 declare var MediaKeySession: {
@@ -10100,12 +10000,6 @@ declare var MediaQueryListEvent: {
     new(type: string, eventInitDict?: MediaQueryListEventInit): MediaQueryListEvent;
 };
 
-interface MediaSourceEventMap {
-    "sourceclose": Event;
-    "sourceended": Event;
-    "sourceopen": Event;
-}
-
 /** An interface of the Media Source Extensions API represents a source of media data for an HTMLMediaElement object. A MediaSource object can be attached to a HTMLMediaElement to be played in the user agent. */
 interface MediaSource extends EventTarget {
     readonly activeSourceBuffers: SourceBufferList;
@@ -10120,10 +10014,6 @@ interface MediaSource extends EventTarget {
     endOfStream(error?: EndOfStreamError): void;
     removeSourceBuffer(sourceBuffer: SourceBuffer): void;
     setLiveSeekableRange(start: number, end: number): void;
-    addEventListener<K extends keyof MediaSourceEventMap>(type: K, listener: (this: MediaSource, ev: MediaSourceEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
-    removeEventListener<K extends keyof MediaSourceEventMap>(type: K, listener: (this: MediaSource, ev: MediaSourceEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
 }
 
 declare var MediaSource: {
@@ -10213,11 +10103,7 @@ declare var MediaStreamEvent: {
 };
 
 interface MediaStreamTrackEventMap {
-    "ended": Event;
-    "isolationchange": Event;
-    "mute": Event;
     "overconstrained": MediaStreamErrorEvent;
-    "unmute": Event;
 }
 
 /** A single media track within a stream; typically, these are audio or video tracks, but other track types may exist as well. */
@@ -10314,11 +10200,6 @@ declare var MessageEvent: {
     new(type: string, eventInitDict?: MessageEventInit): MessageEvent;
 };
 
-interface MessagePortEventMap {
-    "message": MessageEvent;
-    "messageerror": MessageEvent;
-}
-
 /** An interface of the Channel Messaging API represents one of the two ports of a MessageChannel, allowing messages to be sent from one port and listening out for them arriving at the other. */
 interface MessagePort extends EventTarget {
     onmessage: ((this: MessagePort, ev: MessageEvent) => any) | null;
@@ -10333,10 +10214,6 @@ interface MessagePort extends EventTarget {
      * Begins dispatching messages received on the port.
      */
     start(): void;
-    addEventListener<K extends keyof MessagePortEventMap>(type: K, listener: (this: MessagePort, ev: MessagePortEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
-    removeEventListener<K extends keyof MessagePortEventMap>(type: K, listener: (this: MessagePort, ev: MessagePortEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
 }
 
 declare var MessagePort: {
@@ -10964,7 +10841,7 @@ declare var OfflineAudioCompletionEvent: {
     new(type: string, eventInitDict: OfflineAudioCompletionEventInit): OfflineAudioCompletionEvent;
 };
 
-interface OfflineAudioContextEventMap extends BaseAudioContextEventMap {
+interface OfflineAudioContextEventMap {
     "complete": OfflineAudioCompletionEvent;
 }
 
@@ -11049,10 +10926,6 @@ interface OscillatorNode extends AudioScheduledSourceNode {
     readonly frequency: AudioParam;
     type: OscillatorType;
     setPeriodicWave(periodicWave: PeriodicWave): void;
-    addEventListener<K extends keyof AudioScheduledSourceNodeEventMap>(type: K, listener: (this: OscillatorNode, ev: AudioScheduledSourceNodeEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
-    removeEventListener<K extends keyof AudioScheduledSourceNodeEventMap>(type: K, listener: (this: OscillatorNode, ev: AudioScheduledSourceNodeEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
 }
 
 declare var OscillatorNode: {
@@ -11283,10 +11156,6 @@ declare var PerfWidgetExternal: {
     new(): PerfWidgetExternal;
 };
 
-interface PerformanceEventMap {
-    "resourcetimingbufferfull": Event;
-}
-
 /** Provides access to performance-related information for the current page. It's part of the High Resolution Time API, but is enhanced by the Performance Timeline API, the Navigation Timing API, the User Timing API, and the Resource Timing API. */
 interface Performance extends EventTarget {
     /** @deprecated */
@@ -11306,10 +11175,6 @@ interface Performance extends EventTarget {
     now(): number;
     setResourceTimingBufferSize(maxSize: number): void;
     toJSON(): any;
-    addEventListener<K extends keyof PerformanceEventMap>(type: K, listener: (this: Performance, ev: PerformanceEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
-    removeEventListener<K extends keyof PerformanceEventMap>(type: K, listener: (this: Performance, ev: PerformanceEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
 }
 
 declare var Performance: {
@@ -11498,17 +11363,9 @@ declare var PermissionRequestedEvent: {
     new(): PermissionRequestedEvent;
 };
 
-interface PermissionStatusEventMap {
-    "change": Event;
-}
-
 interface PermissionStatus extends EventTarget {
     onchange: ((this: PermissionStatus, ev: Event) => any) | null;
     readonly state: PermissionState;
-    addEventListener<K extends keyof PermissionStatusEventMap>(type: K, listener: (this: PermissionStatus, ev: PermissionStatusEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
-    removeEventListener<K extends keyof PermissionStatusEventMap>(type: K, listener: (this: PermissionStatus, ev: PermissionStatusEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
 }
 
 declare var PermissionStatus: {
@@ -11681,19 +11538,11 @@ declare var RTCCertificate: {
     getSupportedAlgorithms(): AlgorithmIdentifier[];
 };
 
-interface RTCDTMFSenderEventMap {
-    "tonechange": RTCDTMFToneChangeEvent;
-}
-
 interface RTCDTMFSender extends EventTarget {
     readonly canInsertDTMF: boolean;
     ontonechange: ((this: RTCDTMFSender, ev: RTCDTMFToneChangeEvent) => any) | null;
     readonly toneBuffer: string;
     insertDTMF(tones: string, duration?: number, interToneGap?: number): void;
-    addEventListener<K extends keyof RTCDTMFSenderEventMap>(type: K, listener: (this: RTCDTMFSender, ev: RTCDTMFSenderEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
-    removeEventListener<K extends keyof RTCDTMFSenderEventMap>(type: K, listener: (this: RTCDTMFSender, ev: RTCDTMFSenderEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
 }
 
 declare var RTCDTMFSender: {
@@ -11906,12 +11755,6 @@ declare var RTCIceGathererEvent: {
     new(): RTCIceGathererEvent;
 };
 
-interface RTCIceTransportEventMap {
-    "gatheringstatechange": Event;
-    "selectedcandidatepairchange": Event;
-    "statechange": Event;
-}
-
 /** Provides access to information about the ICE transport layer over which the data is being sent and received. */
 interface RTCIceTransport extends EventTarget {
     readonly component: RTCIceComponent;
@@ -11926,10 +11769,6 @@ interface RTCIceTransport extends EventTarget {
     getRemoteCandidates(): RTCIceCandidate[];
     getRemoteParameters(): RTCIceParameters | null;
     getSelectedCandidatePair(): RTCIceCandidatePair | null;
-    addEventListener<K extends keyof RTCIceTransportEventMap>(type: K, listener: (this: RTCIceTransport, ev: RTCIceTransportEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
-    removeEventListener<K extends keyof RTCIceTransportEventMap>(type: K, listener: (this: RTCIceTransport, ev: RTCIceTransportEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
 }
 
 declare var RTCIceTransport: {
@@ -11963,6 +11802,7 @@ interface RTCPeerConnectionEventMap {
     "icecandidateerror": RTCPeerConnectionIceErrorEvent;
     "iceconnectionstatechange": Event;
     "icegatheringstatechange": Event;
+    "isolationchange": Event;
     "negotiationneeded": Event;
     "signalingstatechange": Event;
     "statsended": RTCStatsEvent;
@@ -12102,20 +11942,12 @@ declare var RTCRtpTransceiver: {
     new(): RTCRtpTransceiver;
 };
 
-interface RTCSctpTransportEventMap {
-    "statechange": Event;
-}
-
 interface RTCSctpTransport {
     readonly maxChannels: number | null;
     readonly maxMessageSize: number;
     onstatechange: ((this: RTCSctpTransport, ev: Event) => any) | null;
     readonly state: RTCSctpTransportState;
     readonly transport: RTCDtlsTransport;
-    addEventListener<K extends keyof RTCSctpTransportEventMap>(type: K, listener: (this: RTCSctpTransport, ev: RTCSctpTransportEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
-    removeEventListener<K extends keyof RTCSctpTransportEventMap>(type: K, listener: (this: RTCSctpTransport, ev: RTCSctpTransportEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
 }
 
 declare var RTCSctpTransport: {
@@ -13461,6 +13293,11 @@ declare var SVGGraphicsElement: {
     new(): SVGGraphicsElement;
 };
 
+interface SVGImageElementEventMap extends SVGElementEventMap {
+    "SVGAbort": Event;
+    "SVGError": Event;
+}
+
 /** Corresponds to the <image> element. */
 interface SVGImageElement extends SVGGraphicsElement, SVGURIReference {
     readonly height: SVGAnimatedLength;
@@ -13468,9 +13305,9 @@ interface SVGImageElement extends SVGGraphicsElement, SVGURIReference {
     readonly width: SVGAnimatedLength;
     readonly x: SVGAnimatedLength;
     readonly y: SVGAnimatedLength;
-    addEventListener<K extends keyof SVGElementEventMap>(type: K, listener: (this: SVGImageElement, ev: SVGElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+    addEventListener<K extends keyof SVGImageElementEventMap>(type: K, listener: (this: SVGImageElement, ev: SVGImageElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
-    removeEventListener<K extends keyof SVGElementEventMap>(type: K, listener: (this: SVGImageElement, ev: SVGElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener<K extends keyof SVGImageElementEventMap>(type: K, listener: (this: SVGImageElement, ev: SVGImageElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
     removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
 }
 
@@ -14137,7 +13974,7 @@ declare var SVGRectElement: {
 };
 
 interface SVGSVGElementEventMap extends SVGElementEventMap {
-    "SVGUnload": Event;
+    "SVGScroll": Event;
     "SVGZoom": SVGZoomEvent;
 }
 
@@ -14584,20 +14421,12 @@ declare var Screen: {
     new(): Screen;
 };
 
-interface ScreenOrientationEventMap {
-    "change": Event;
-}
-
 interface ScreenOrientation extends EventTarget {
     readonly angle: number;
     onchange: ((this: ScreenOrientation, ev: Event) => any) | null;
     readonly type: OrientationType;
     lock(orientation: OrientationLockType): Promise<void>;
     unlock(): void;
-    addEventListener<K extends keyof ScreenOrientationEventMap>(type: K, listener: (this: ScreenOrientation, ev: ScreenOrientationEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
-    removeEventListener<K extends keyof ScreenOrientationEventMap>(type: K, listener: (this: ScreenOrientation, ev: ScreenOrientationEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
 }
 
 declare var ScreenOrientation: {
@@ -14681,10 +14510,6 @@ interface ServiceUIFrameContext {
 }
 declare var ServiceUIFrameContext: ServiceUIFrameContext;
 
-interface ServiceWorkerEventMap extends AbstractWorkerEventMap {
-    "statechange": Event;
-}
-
 /** An interface of the ServiceWorker API provides a reference to a service worker. Multiple browsing contexts (e.g. pages, workers, etc.) can be associated with the same service worker, each through a unique ServiceWorker object. */
 interface ServiceWorker extends EventTarget, AbstractWorker {
     onstatechange: ((this: ServiceWorker, ev: Event) => any) | null;
@@ -14692,10 +14517,6 @@ interface ServiceWorker extends EventTarget, AbstractWorker {
     readonly state: ServiceWorkerState;
     postMessage(message: any, transfer: Transferable[]): void;
     postMessage(message: any, options?: PostMessageOptions): void;
-    addEventListener<K extends keyof ServiceWorkerEventMap>(type: K, listener: (this: ServiceWorker, ev: ServiceWorkerEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
-    removeEventListener<K extends keyof ServiceWorkerEventMap>(type: K, listener: (this: ServiceWorker, ev: ServiceWorkerEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
 }
 
 declare var ServiceWorker: {
@@ -14745,10 +14566,6 @@ declare var ServiceWorkerMessageEvent: {
     new(type: string, eventInitDict?: ServiceWorkerMessageEventInit): ServiceWorkerMessageEvent;
 };
 
-interface ServiceWorkerRegistrationEventMap {
-    "updatefound": Event;
-}
-
 /** An interface of the ServiceWorker API represents the service worker registration. You register a service worker to control one or more pages that share the same origin. */
 interface ServiceWorkerRegistration extends EventTarget {
     readonly active: ServiceWorker | null;
@@ -14764,10 +14581,6 @@ interface ServiceWorkerRegistration extends EventTarget {
     showNotification(title: string, options?: NotificationOptions): Promise<void>;
     unregister(): Promise<boolean>;
     update(): Promise<void>;
-    addEventListener<K extends keyof ServiceWorkerRegistrationEventMap>(type: K, listener: (this: ServiceWorkerRegistration, ev: ServiceWorkerRegistrationEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
-    removeEventListener<K extends keyof ServiceWorkerRegistrationEventMap>(type: K, listener: (this: ServiceWorkerRegistration, ev: ServiceWorkerRegistrationEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
 }
 
 declare var ServiceWorkerRegistration: {
@@ -14792,9 +14605,6 @@ interface Slotable {
 interface SourceBufferEventMap {
     "abort": Event;
     "error": Event;
-    "update": Event;
-    "updateend": Event;
-    "updatestart": Event;
 }
 
 /** A chunk of media to be passed into an HTMLMediaElement and played, via a MediaSource object. This can be made up of one or several media segments. */
@@ -14827,20 +14637,11 @@ declare var SourceBuffer: {
     new(): SourceBuffer;
 };
 
-interface SourceBufferListEventMap {
-    "addsourcebuffer": Event;
-    "removesourcebuffer": Event;
-}
-
 /** A simple container list for multiple SourceBuffer objects. */
 interface SourceBufferList extends EventTarget {
     readonly length: number;
     onaddsourcebuffer: ((this: SourceBufferList, ev: Event) => any) | null;
     onremovesourcebuffer: ((this: SourceBufferList, ev: Event) => any) | null;
-    addEventListener<K extends keyof SourceBufferListEventMap>(type: K, listener: (this: SourceBufferList, ev: SourceBufferListEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
-    removeEventListener<K extends keyof SourceBufferListEventMap>(type: K, listener: (this: SourceBufferList, ev: SourceBufferListEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     [index: number]: SourceBuffer;
 }
 
@@ -14873,17 +14674,10 @@ declare var SpeechGrammarList: {
 };
 
 interface SpeechRecognitionEventMap {
-    "audioend": Event;
-    "audiostart": Event;
     "end": Event;
     "error": SpeechRecognitionError;
     "nomatch": SpeechRecognitionEvent;
     "result": SpeechRecognitionEvent;
-    "soundend": Event;
-    "soundstart": Event;
-    "speechend": Event;
-    "speechstart": Event;
-    "start": Event;
 }
 
 interface SpeechRecognition extends EventTarget {
@@ -14973,10 +14767,6 @@ declare var SpeechRecognitionResultList: {
     new(): SpeechRecognitionResultList;
 };
 
-interface SpeechSynthesisEventMap {
-    "voiceschanged": Event;
-}
-
 /** An interface of the Web Speech API is the controller interface for the speech service; this can be used to retrieve information about the synthesis voices available on the device, start and pause speech, and other commands besides. */
 interface SpeechSynthesis extends EventTarget {
     onvoiceschanged: ((this: SpeechSynthesis, ev: Event) => any) | null;
@@ -14988,10 +14778,6 @@ interface SpeechSynthesis extends EventTarget {
     pause(): void;
     resume(): void;
     speak(utterance: SpeechSynthesisUtterance): void;
-    addEventListener<K extends keyof SpeechSynthesisEventMap>(type: K, listener: (this: SpeechSynthesis, ev: SpeechSynthesisEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
-    removeEventListener<K extends keyof SpeechSynthesisEventMap>(type: K, listener: (this: SpeechSynthesis, ev: SpeechSynthesisEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
 }
 
 declare var SpeechSynthesis: {
@@ -15468,6 +15254,7 @@ declare var TextTrackCueList: {
 
 interface TextTrackListEventMap {
     "addtrack": TrackEvent;
+    "removetrack": TrackEvent;
 }
 
 interface TextTrackList extends EventTarget {
@@ -17000,103 +16787,35 @@ declare var WheelEvent: {
 };
 
 interface WindowEventMap extends GlobalEventHandlersEventMap, WindowEventHandlersEventMap {
-    "abort": UIEvent;
+    "SVGResize": Event;
+    "SVGUnload": Event;
     "afterprint": Event;
     "beforeprint": Event;
     "beforeunload": BeforeUnloadEvent;
     "blur": FocusEvent;
-    "canplay": Event;
-    "canplaythrough": Event;
-    "change": Event;
-    "click": MouseEvent;
     "compassneedscalibration": Event;
-    "contextmenu": MouseEvent;
-    "dblclick": MouseEvent;
     "devicelight": DeviceLightEvent;
     "devicemotion": DeviceMotionEvent;
     "deviceorientation": DeviceOrientationEvent;
     "deviceorientationabsolute": DeviceOrientationEvent;
-    "drag": DragEvent;
-    "dragend": DragEvent;
-    "dragenter": DragEvent;
-    "dragleave": DragEvent;
-    "dragover": DragEvent;
-    "dragstart": DragEvent;
-    "drop": DragEvent;
-    "durationchange": Event;
-    "emptied": Event;
-    "ended": Event;
     "error": ErrorEvent;
     "focus": FocusEvent;
+    "gamepadconnected": GamepadEvent;
+    "gamepaddisconnected": GamepadEvent;
     "hashchange": HashChangeEvent;
-    "input": Event;
-    "invalid": Event;
-    "keydown": KeyboardEvent;
-    "keypress": KeyboardEvent;
-    "keyup": KeyboardEvent;
     "load": Event;
-    "loadeddata": Event;
-    "loadedmetadata": Event;
-    "loadstart": Event;
     "message": MessageEvent;
-    "mousedown": MouseEvent;
-    "mouseenter": MouseEvent;
-    "mouseleave": MouseEvent;
-    "mousemove": MouseEvent;
-    "mouseout": MouseEvent;
-    "mouseover": MouseEvent;
-    "mouseup": MouseEvent;
-    "mousewheel": Event;
-    "MSGestureChange": Event;
-    "MSGestureDoubleTap": Event;
-    "MSGestureEnd": Event;
-    "MSGestureHold": Event;
-    "MSGestureStart": Event;
-    "MSGestureTap": Event;
-    "MSInertiaStart": Event;
-    "MSPointerCancel": Event;
-    "MSPointerDown": Event;
-    "MSPointerEnter": Event;
-    "MSPointerLeave": Event;
-    "MSPointerMove": Event;
-    "MSPointerOut": Event;
-    "MSPointerOver": Event;
-    "MSPointerUp": Event;
-    "offline": Event;
-    "online": Event;
+    "navigatingfocus": FocusNavigationEvent;
+    "onvrdisplayconnected": VRDisplayEvent ;
+    "onvrdisplaydisconnected": VRDisplayEvent ;
+    "onvrdisplaypresentchange": VRDisplayEvent ;
     "orientationchange": Event;
     "pagehide": PageTransitionEvent;
     "pageshow": PageTransitionEvent;
-    "pause": Event;
-    "play": Event;
-    "playing": Event;
     "popstate": PopStateEvent;
-    "progress": ProgressEvent;
-    "ratechange": Event;
-    "readystatechange": ProgressEvent;
-    "reset": Event;
     "resize": UIEvent;
-    "scroll": Event;
-    "seeked": Event;
-    "seeking": Event;
-    "select": Event;
-    "stalled": Event;
     "storage": StorageEvent;
-    "submit": Event;
-    "suspend": Event;
-    "timeupdate": Event;
     "unload": Event;
-    "volumechange": Event;
-    "vrdisplayactivate": Event;
-    "vrdisplayblur": Event;
-    "vrdisplayconnect": Event;
-    "vrdisplaydeactivate": Event;
-    "vrdisplaydisconnect": Event;
-    "vrdisplayfocus": Event;
-    "vrdisplaypointerrestricted": Event;
-    "vrdisplaypointerunrestricted": Event;
-    "vrdisplaypresentchange": Event;
-    "waiting": Event;
 }
 
 /** A window containing a DOM document; the document property points to the DOM document loaded in that window. */
@@ -17134,11 +16853,52 @@ interface Window extends EventTarget, WindowTimers, WindowSessionStorage, Window
     name: string;
     readonly navigator: Navigator;
     offscreenBuffering: string | boolean;
+    onabort: ((this: Window, ev: UIEvent) => any) | null;
+    onafterprint: ((this: Window, ev: Event) => any) | null;
+    onbeforeprint: ((this: Window, ev: Event) => any) | null;
+    onbeforeunload: ((this: Window, ev: BeforeUnloadEvent) => any) | null;
+    onblur: ((this: Window, ev: FocusEvent) => any) | null;
+    oncanplay: ((this: Window, ev: Event) => any) | null;
+    oncanplaythrough: ((this: Window, ev: Event) => any) | null;
+    onchange: ((this: Window, ev: Event) => any) | null;
+    onclick: ((this: Window, ev: MouseEvent) => any) | null;
     oncompassneedscalibration: ((this: Window, ev: Event) => any) | null;
+    oncontextmenu: ((this: Window, ev: MouseEvent) => any) | null;
+    ondblclick: ((this: Window, ev: MouseEvent) => any) | null;
     ondevicelight: ((this: Window, ev: DeviceLightEvent) => any) | null;
     ondevicemotion: ((this: Window, ev: DeviceMotionEvent) => any) | null;
     ondeviceorientation: ((this: Window, ev: DeviceOrientationEvent) => any) | null;
     ondeviceorientationabsolute: ((this: Window, ev: DeviceOrientationEvent) => any) | null;
+    ondrag: ((this: Window, ev: DragEvent) => any) | null;
+    ondragend: ((this: Window, ev: DragEvent) => any) | null;
+    ondragenter: ((this: Window, ev: DragEvent) => any) | null;
+    ondragleave: ((this: Window, ev: DragEvent) => any) | null;
+    ondragover: ((this: Window, ev: DragEvent) => any) | null;
+    ondragstart: ((this: Window, ev: DragEvent) => any) | null;
+    ondrop: ((this: Window, ev: DragEvent) => any) | null;
+    ondurationchange: ((this: Window, ev: Event) => any) | null;
+    onemptied: ((this: Window, ev: Event) => any) | null;
+    onended: ((this: Window, ev: Event) => any) | null;
+    onerror: ((this: Window, ev: ErrorEvent) => any) | null;
+    onfocus: ((this: Window, ev: FocusEvent) => any) | null;
+    onhashchange: ((this: Window, ev: HashChangeEvent) => any) | null;
+    oninput: ((this: Window, ev: Event) => any) | null;
+    oninvalid: ((this: Window, ev: Event) => any) | null;
+    onkeydown: ((this: Window, ev: KeyboardEvent) => any) | null;
+    onkeypress: ((this: Window, ev: KeyboardEvent) => any) | null;
+    onkeyup: ((this: Window, ev: KeyboardEvent) => any) | null;
+    onload: ((this: Window, ev: Event) => any) | null;
+    onloadeddata: ((this: Window, ev: Event) => any) | null;
+    onloadedmetadata: ((this: Window, ev: Event) => any) | null;
+    onloadstart: ((this: Window, ev: Event) => any) | null;
+    onmessage: ((this: Window, ev: MessageEvent) => any) | null;
+    onmousedown: ((this: Window, ev: MouseEvent) => any) | null;
+    onmouseenter: ((this: Window, ev: MouseEvent) => any) | null;
+    onmouseleave: ((this: Window, ev: MouseEvent) => any) | null;
+    onmousemove: ((this: Window, ev: MouseEvent) => any) | null;
+    onmouseout: ((this: Window, ev: MouseEvent) => any) | null;
+    onmouseover: ((this: Window, ev: MouseEvent) => any) | null;
+    onmouseup: ((this: Window, ev: MouseEvent) => any) | null;
     onmousewheel: ((this: Window, ev: Event) => any) | null;
     onmsgesturechange: ((this: Window, ev: Event) => any) | null;
     onmsgesturedoubletap: ((this: Window, ev: Event) => any) | null;
@@ -17155,9 +16915,32 @@ interface Window extends EventTarget, WindowTimers, WindowSessionStorage, Window
     onmspointerout: ((this: Window, ev: Event) => any) | null;
     onmspointerover: ((this: Window, ev: Event) => any) | null;
     onmspointerup: ((this: Window, ev: Event) => any) | null;
+    onoffline: ((this: Window, ev: Event) => any) | null;
+    ononline: ((this: Window, ev: Event) => any) | null;
     /** @deprecated */
     onorientationchange: ((this: Window, ev: Event) => any) | null;
+    onpagehide: ((this: Window, ev: PageTransitionEvent) => any) | null;
+    onpageshow: ((this: Window, ev: PageTransitionEvent) => any) | null;
+    onpause: ((this: Window, ev: Event) => any) | null;
+    onplay: ((this: Window, ev: Event) => any) | null;
+    onplaying: ((this: Window, ev: Event) => any) | null;
+    onpopstate: ((this: Window, ev: PopStateEvent) => any) | null;
+    onprogress: ((this: Window, ev: ProgressEvent) => any) | null;
+    onratechange: ((this: Window, ev: Event) => any) | null;
     onreadystatechange: ((this: Window, ev: ProgressEvent) => any) | null;
+    onreset: ((this: Window, ev: Event) => any) | null;
+    onresize: ((this: Window, ev: UIEvent) => any) | null;
+    onscroll: ((this: Window, ev: Event) => any) | null;
+    onseeked: ((this: Window, ev: Event) => any) | null;
+    onseeking: ((this: Window, ev: Event) => any) | null;
+    onselect: ((this: Window, ev: Event) => any) | null;
+    onstalled: ((this: Window, ev: Event) => any) | null;
+    onstorage: ((this: Window, ev: StorageEvent) => any) | null;
+    onsubmit: ((this: Window, ev: Event) => any) | null;
+    onsuspend: ((this: Window, ev: Event) => any) | null;
+    ontimeupdate: ((this: Window, ev: Event) => any) | null;
+    onunload: ((this: Window, ev: Event) => any) | null;
+    onvolumechange: ((this: Window, ev: Event) => any) | null;
     onvrdisplayactivate: ((this: Window, ev: Event) => any) | null;
     onvrdisplayblur: ((this: Window, ev: Event) => any) | null;
     onvrdisplayconnect: ((this: Window, ev: Event) => any) | null;
@@ -17167,6 +16950,7 @@ interface Window extends EventTarget, WindowTimers, WindowSessionStorage, Window
     onvrdisplaypointerrestricted: ((this: Window, ev: Event) => any) | null;
     onvrdisplaypointerunrestricted: ((this: Window, ev: Event) => any) | null;
     onvrdisplaypresentchange: ((this: Window, ev: Event) => any) | null;
+    onwaiting: ((this: Window, ev: Event) => any) | null;
     opener: any;
     /** @deprecated */
     readonly orientation: string | number;
@@ -17251,22 +17035,7 @@ interface WindowConsole {
 }
 
 interface WindowEventHandlersEventMap {
-    "afterprint": Event;
-    "beforeprint": Event;
-    "beforeunload": BeforeUnloadEvent;
-    "hashchange": HashChangeEvent;
-    "languagechange": Event;
-    "message": MessageEvent;
-    "messageerror": MessageEvent;
-    "offline": Event;
-    "online": Event;
-    "pagehide": PageTransitionEvent;
-    "pageshow": PageTransitionEvent;
-    "popstate": PopStateEvent;
-    "rejectionhandled": Event;
-    "storage": StorageEvent;
     "unhandledrejection": PromiseRejectionEvent;
-    "unload": Event;
 }
 
 interface WindowEventHandlers {
@@ -17321,7 +17090,8 @@ interface WindowSessionStorage {
 interface WindowTimers {
 }
 
-interface WorkerEventMap extends AbstractWorkerEventMap {
+interface WorkerEventMap {
+    "error": ErrorEvent;
     "message": MessageEvent;
 }
 
@@ -18130,11 +17900,52 @@ declare var msContentScript: ExtensionScriptApis;
 declare const name: never;
 declare var navigator: Navigator;
 declare var offscreenBuffering: string | boolean;
+declare var onabort: ((this: Window, ev: UIEvent) => any) | null;
+declare var onafterprint: ((this: Window, ev: Event) => any) | null;
+declare var onbeforeprint: ((this: Window, ev: Event) => any) | null;
+declare var onbeforeunload: ((this: Window, ev: BeforeUnloadEvent) => any) | null;
+declare var onblur: ((this: Window, ev: FocusEvent) => any) | null;
+declare var oncanplay: ((this: Window, ev: Event) => any) | null;
+declare var oncanplaythrough: ((this: Window, ev: Event) => any) | null;
+declare var onchange: ((this: Window, ev: Event) => any) | null;
+declare var onclick: ((this: Window, ev: MouseEvent) => any) | null;
 declare var oncompassneedscalibration: ((this: Window, ev: Event) => any) | null;
+declare var oncontextmenu: ((this: Window, ev: MouseEvent) => any) | null;
+declare var ondblclick: ((this: Window, ev: MouseEvent) => any) | null;
 declare var ondevicelight: ((this: Window, ev: DeviceLightEvent) => any) | null;
 declare var ondevicemotion: ((this: Window, ev: DeviceMotionEvent) => any) | null;
 declare var ondeviceorientation: ((this: Window, ev: DeviceOrientationEvent) => any) | null;
 declare var ondeviceorientationabsolute: ((this: Window, ev: DeviceOrientationEvent) => any) | null;
+declare var ondrag: ((this: Window, ev: DragEvent) => any) | null;
+declare var ondragend: ((this: Window, ev: DragEvent) => any) | null;
+declare var ondragenter: ((this: Window, ev: DragEvent) => any) | null;
+declare var ondragleave: ((this: Window, ev: DragEvent) => any) | null;
+declare var ondragover: ((this: Window, ev: DragEvent) => any) | null;
+declare var ondragstart: ((this: Window, ev: DragEvent) => any) | null;
+declare var ondrop: ((this: Window, ev: DragEvent) => any) | null;
+declare var ondurationchange: ((this: Window, ev: Event) => any) | null;
+declare var onemptied: ((this: Window, ev: Event) => any) | null;
+declare var onended: ((this: Window, ev: Event) => any) | null;
+declare var onerror: ((this: Window, ev: ErrorEvent) => any) | null;
+declare var onfocus: ((this: Window, ev: FocusEvent) => any) | null;
+declare var onhashchange: ((this: Window, ev: HashChangeEvent) => any) | null;
+declare var oninput: ((this: Window, ev: Event) => any) | null;
+declare var oninvalid: ((this: Window, ev: Event) => any) | null;
+declare var onkeydown: ((this: Window, ev: KeyboardEvent) => any) | null;
+declare var onkeypress: ((this: Window, ev: KeyboardEvent) => any) | null;
+declare var onkeyup: ((this: Window, ev: KeyboardEvent) => any) | null;
+declare var onload: ((this: Window, ev: Event) => any) | null;
+declare var onloadeddata: ((this: Window, ev: Event) => any) | null;
+declare var onloadedmetadata: ((this: Window, ev: Event) => any) | null;
+declare var onloadstart: ((this: Window, ev: Event) => any) | null;
+declare var onmessage: ((this: Window, ev: MessageEvent) => any) | null;
+declare var onmousedown: ((this: Window, ev: MouseEvent) => any) | null;
+declare var onmouseenter: ((this: Window, ev: MouseEvent) => any) | null;
+declare var onmouseleave: ((this: Window, ev: MouseEvent) => any) | null;
+declare var onmousemove: ((this: Window, ev: MouseEvent) => any) | null;
+declare var onmouseout: ((this: Window, ev: MouseEvent) => any) | null;
+declare var onmouseover: ((this: Window, ev: MouseEvent) => any) | null;
+declare var onmouseup: ((this: Window, ev: MouseEvent) => any) | null;
 declare var onmousewheel: ((this: Window, ev: Event) => any) | null;
 declare var onmsgesturechange: ((this: Window, ev: Event) => any) | null;
 declare var onmsgesturedoubletap: ((this: Window, ev: Event) => any) | null;
@@ -18151,9 +17962,32 @@ declare var onmspointermove: ((this: Window, ev: Event) => any) | null;
 declare var onmspointerout: ((this: Window, ev: Event) => any) | null;
 declare var onmspointerover: ((this: Window, ev: Event) => any) | null;
 declare var onmspointerup: ((this: Window, ev: Event) => any) | null;
+declare var onoffline: ((this: Window, ev: Event) => any) | null;
+declare var ononline: ((this: Window, ev: Event) => any) | null;
 /** @deprecated */
 declare var onorientationchange: ((this: Window, ev: Event) => any) | null;
+declare var onpagehide: ((this: Window, ev: PageTransitionEvent) => any) | null;
+declare var onpageshow: ((this: Window, ev: PageTransitionEvent) => any) | null;
+declare var onpause: ((this: Window, ev: Event) => any) | null;
+declare var onplay: ((this: Window, ev: Event) => any) | null;
+declare var onplaying: ((this: Window, ev: Event) => any) | null;
+declare var onpopstate: ((this: Window, ev: PopStateEvent) => any) | null;
+declare var onprogress: ((this: Window, ev: ProgressEvent) => any) | null;
+declare var onratechange: ((this: Window, ev: Event) => any) | null;
 declare var onreadystatechange: ((this: Window, ev: ProgressEvent) => any) | null;
+declare var onreset: ((this: Window, ev: Event) => any) | null;
+declare var onresize: ((this: Window, ev: UIEvent) => any) | null;
+declare var onscroll: ((this: Window, ev: Event) => any) | null;
+declare var onseeked: ((this: Window, ev: Event) => any) | null;
+declare var onseeking: ((this: Window, ev: Event) => any) | null;
+declare var onselect: ((this: Window, ev: Event) => any) | null;
+declare var onstalled: ((this: Window, ev: Event) => any) | null;
+declare var onstorage: ((this: Window, ev: StorageEvent) => any) | null;
+declare var onsubmit: ((this: Window, ev: Event) => any) | null;
+declare var onsuspend: ((this: Window, ev: Event) => any) | null;
+declare var ontimeupdate: ((this: Window, ev: Event) => any) | null;
+declare var onunload: ((this: Window, ev: Event) => any) | null;
+declare var onvolumechange: ((this: Window, ev: Event) => any) | null;
 declare var onvrdisplayactivate: ((this: Window, ev: Event) => any) | null;
 declare var onvrdisplayblur: ((this: Window, ev: Event) => any) | null;
 declare var onvrdisplayconnect: ((this: Window, ev: Event) => any) | null;
@@ -18163,6 +17997,7 @@ declare var onvrdisplayfocus: ((this: Window, ev: Event) => any) | null;
 declare var onvrdisplaypointerrestricted: ((this: Window, ev: Event) => any) | null;
 declare var onvrdisplaypointerunrestricted: ((this: Window, ev: Event) => any) | null;
 declare var onvrdisplaypresentchange: ((this: Window, ev: Event) => any) | null;
+declare var onwaiting: ((this: Window, ev: Event) => any) | null;
 declare var opener: any;
 /** @deprecated */
 declare var orientation: string | number;
