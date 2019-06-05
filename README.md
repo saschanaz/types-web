@@ -53,19 +53,8 @@ The common steps to send a pull request are:
 
 ### When should a DOM API be included here?
 
-If a DOM API is still a draft, it belongs on [DefinitelyTyped](https://github.com/DefinitelyTyped/DefinitelyTyped#readme).
-When it graduates past draft stage, it can be added here and removed from DefinitelyTyped.
-A feature is considered a draft if:
-
-#### W3C
-
-A Working Draft should go on DefinitelyTyped.
-A feature that is a Candidate Recommendation (or has passed that stage) should be added here.
-
-#### WhatWG
-
-A "Working Draft" ([example](https://whatwg.org/specs/web-controls/current-work/)) should go on DefinitelyTyped.
-A "Living Standard" ([example](https://xhr.spec.whatwg.org/)) should be added here.
+A feature is considered highly experimental if a DOM API lacks mulitple implementations or a formal specification from W3C or WHATWG. Such feature belongs on [DefinitelyTyped](https://github.com/DefinitelyTyped/DefinitelyTyped#readme).
+When it gets multiple implementations and a proper specification, it can be added here and removed from DefinitelyTyped.
 
 
 ## Code Structure
