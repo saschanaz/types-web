@@ -432,7 +432,6 @@ interface EventModifierInit extends UIEventInit {
     modifierFnLock?: boolean;
     modifierHyper?: boolean;
     modifierNumLock?: boolean;
-    modifierOS?: boolean;
     modifierScrollLock?: boolean;
     modifierSuper?: boolean;
     modifierSymbol?: boolean;
@@ -546,6 +545,12 @@ interface ImageEncodeOptions {
     type?: string;
 }
 
+interface InputEventInit extends UIEventInit {
+    data?: string | null;
+    inputType?: string;
+    isComposing?: boolean;
+}
+
 interface IntersectionObserverEntryInit {
     boundingClientRect: DOMRectInit;
     intersectionRatio: number;
@@ -589,6 +594,7 @@ interface KeyAlgorithm {
 
 interface KeyboardEventInit extends EventModifierInit {
     code?: string;
+    isComposing?: boolean;
     key?: string;
     location?: number;
     repeat?: boolean;
@@ -3480,13 +3486,11 @@ declare var Comment: {
 /** The DOM CompositionEvent represents events that occur due to the user indirectly entering text. */
 interface CompositionEvent extends UIEvent {
     readonly data: string;
-    readonly locale: string;
-    initCompositionEvent(typeArg: string, canBubbleArg: boolean, cancelableArg: boolean, viewArg: Window, dataArg: string, locale: string): void;
 }
 
 declare var CompositionEvent: {
     prototype: CompositionEvent;
-    new(typeArg: string, eventInitDict?: CompositionEventInit): CompositionEvent;
+    new(type: string, eventInitDict?: CompositionEventInit): CompositionEvent;
 };
 
 interface ConcatParams extends Algorithm {
@@ -4564,6 +4568,7 @@ interface Document extends Node, NonElementParentNode, DocumentOrShadowRoot, Par
     createEvent(eventInterface: "GamepadEvent"): GamepadEvent;
     createEvent(eventInterface: "HashChangeEvent"): HashChangeEvent;
     createEvent(eventInterface: "IDBVersionChangeEvent"): IDBVersionChangeEvent;
+    createEvent(eventInterface: "InputEvent"): InputEvent;
     createEvent(eventInterface: "KeyboardEvent"): KeyboardEvent;
     createEvent(eventInterface: "ListeningStateChangedEvent"): ListeningStateChangedEvent;
     createEvent(eventInterface: "MSGestureEvent"): MSGestureEvent;
@@ -4814,6 +4819,7 @@ interface DocumentEvent {
     createEvent(eventInterface: "GamepadEvent"): GamepadEvent;
     createEvent(eventInterface: "HashChangeEvent"): HashChangeEvent;
     createEvent(eventInterface: "IDBVersionChangeEvent"): IDBVersionChangeEvent;
+    createEvent(eventInterface: "InputEvent"): InputEvent;
     createEvent(eventInterface: "KeyboardEvent"): KeyboardEvent;
     createEvent(eventInterface: "ListeningStateChangedEvent"): ListeningStateChangedEvent;
     createEvent(eventInterface: "MSGestureEvent"): MSGestureEvent;
@@ -5417,13 +5423,12 @@ interface FileReaderProgressEvent extends ProgressEvent {
 
 /** Focus-related events like focus, blur, focusin, or focusout. */
 interface FocusEvent extends UIEvent {
-    readonly relatedTarget: EventTarget;
-    initFocusEvent(typeArg: string, canBubbleArg: boolean, cancelableArg: boolean, viewArg: Window, detailArg: number, relatedTargetArg: EventTarget): void;
+    readonly relatedTarget: EventTarget | null;
 }
 
 declare var FocusEvent: {
     prototype: FocusEvent;
-    new(typeArg: string, eventInitDict?: FocusEventInit): FocusEvent;
+    new(type: string, eventInitDict?: FocusEventInit): FocusEvent;
 };
 
 interface FocusNavigationEvent extends Event {
@@ -9584,6 +9589,17 @@ declare var InputDeviceInfo: {
     new(): InputDeviceInfo;
 };
 
+interface InputEvent extends UIEvent {
+    readonly data: string | null;
+    readonly inputType: string;
+    readonly isComposing: boolean;
+}
+
+declare var InputEvent: {
+    prototype: InputEvent;
+    new(type: string, eventInitDict?: InputEventInit): InputEvent;
+};
+
 /** provides a way to asynchronously observe changes in the intersection of a target element with an ancestor element or with a top-level document's viewport. */
 interface IntersectionObserver {
     readonly root: Element | null;
@@ -9625,6 +9641,7 @@ interface KeyboardEvent extends UIEvent {
     readonly charCode: number;
     readonly code: string;
     readonly ctrlKey: boolean;
+    readonly isComposing: boolean;
     readonly key: string;
     /** @deprecated */
     readonly keyCode: number;
@@ -9632,14 +9649,8 @@ interface KeyboardEvent extends UIEvent {
     readonly metaKey: boolean;
     readonly repeat: boolean;
     readonly shiftKey: boolean;
-    /** @deprecated */
-    readonly which: number;
     getModifierState(keyArg: string): boolean;
-    /** @deprecated */
-    initKeyboardEvent(typeArg: string, canBubbleArg: boolean, cancelableArg: boolean, viewArg: Window, keyArg: string, locationArg: number, modifiersListArg: string, repeat: boolean, locale: string): void;
-    readonly DOM_KEY_LOCATION_JOYSTICK: number;
     readonly DOM_KEY_LOCATION_LEFT: number;
-    readonly DOM_KEY_LOCATION_MOBILE: number;
     readonly DOM_KEY_LOCATION_NUMPAD: number;
     readonly DOM_KEY_LOCATION_RIGHT: number;
     readonly DOM_KEY_LOCATION_STANDARD: number;
@@ -9647,10 +9658,8 @@ interface KeyboardEvent extends UIEvent {
 
 declare var KeyboardEvent: {
     prototype: KeyboardEvent;
-    new(typeArg: string, eventInitDict?: KeyboardEventInit): KeyboardEvent;
-    readonly DOM_KEY_LOCATION_JOYSTICK: number;
+    new(type: string, eventInitDict?: KeyboardEventInit): KeyboardEvent;
     readonly DOM_KEY_LOCATION_LEFT: number;
-    readonly DOM_KEY_LOCATION_MOBILE: number;
     readonly DOM_KEY_LOCATION_NUMPAD: number;
     readonly DOM_KEY_LOCATION_RIGHT: number;
     readonly DOM_KEY_LOCATION_STANDARD: number;
@@ -10502,10 +10511,6 @@ interface MouseEvent extends UIEvent {
     readonly clientX: number;
     readonly clientY: number;
     readonly ctrlKey: boolean;
-    /** @deprecated */
-    readonly fromElement: Element;
-    readonly layerX: number;
-    readonly layerY: number;
     readonly metaKey: boolean;
     readonly movementX: number;
     readonly movementY: number;
@@ -10513,14 +10518,10 @@ interface MouseEvent extends UIEvent {
     readonly offsetY: number;
     readonly pageX: number;
     readonly pageY: number;
-    readonly relatedTarget: EventTarget;
+    readonly relatedTarget: EventTarget | null;
     readonly screenX: number;
     readonly screenY: number;
     readonly shiftKey: boolean;
-    /** @deprecated */
-    readonly toElement: Element;
-    /** @deprecated */
-    readonly which: number;
     readonly x: number;
     readonly y: number;
     getModifierState(keyArg: string): boolean;
@@ -10529,7 +10530,7 @@ interface MouseEvent extends UIEvent {
 
 declare var MouseEvent: {
     prototype: MouseEvent;
-    new(typeArg: string, eventInitDict?: MouseEventInit): MouseEvent;
+    new(type: string, eventInitDict?: MouseEventInit): MouseEvent;
 };
 
 /** Provides event properties that are specific to modifications to the Document Object Model (DOM) hierarchy and nodes. */
@@ -15787,13 +15788,14 @@ declare var TreeWalker: {
 /** Simple user interface events. */
 interface UIEvent extends Event {
     readonly detail: number;
-    readonly view: Window;
-    initUIEvent(typeArg: string, canBubbleArg: boolean, cancelableArg: boolean, viewArg: Window, detailArg: number): void;
+    readonly view: Window | null;
+    /** @deprecated */
+    readonly which: number;
 }
 
 declare var UIEvent: {
     prototype: UIEvent;
-    new(typeArg: string, eventInitDict?: UIEventInit): UIEvent;
+    new(type: string, eventInitDict?: UIEventInit): UIEvent;
 };
 
 /** The URL interface represents an object providing static methods used for creating object URLs. */
@@ -17159,8 +17161,6 @@ interface WheelEvent extends MouseEvent {
     readonly deltaX: number;
     readonly deltaY: number;
     readonly deltaZ: number;
-    getCurrentPoint(element: Element): void;
-    initWheelEvent(typeArg: string, canBubbleArg: boolean, cancelableArg: boolean, viewArg: Window, detailArg: number, screenXArg: number, screenYArg: number, clientXArg: number, clientYArg: number, buttonArg: number, relatedTargetArg: EventTarget, modifiersListArg: string, deltaXArg: number, deltaYArg: number, deltaZArg: number, deltaMode: number): void;
     readonly DOM_DELTA_LINE: number;
     readonly DOM_DELTA_PAGE: number;
     readonly DOM_DELTA_PIXEL: number;
@@ -17168,7 +17168,7 @@ interface WheelEvent extends MouseEvent {
 
 declare var WheelEvent: {
     prototype: WheelEvent;
-    new(typeArg: string, eventInitDict?: WheelEventInit): WheelEvent;
+    new(type: string, eventInitDict?: WheelEventInit): WheelEvent;
     readonly DOM_DELTA_LINE: number;
     readonly DOM_DELTA_PAGE: number;
     readonly DOM_DELTA_PIXEL: number;

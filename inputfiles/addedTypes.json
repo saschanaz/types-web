@@ -1097,13 +1097,22 @@
                 }
             },
             "KeyboardEvent": {
-                "name": "KeyboardEvent",
                 "properties": {
                     "property": {
-                        "code": {
-                            "name": "code",
-                            "read-only": 1,
-                            "override-type": "string"
+                        "charCode": {
+                            "deprecated": 1
+                        },
+                        "keyCode": {
+                            "deprecated": 1
+                        }
+                    }
+                }
+            },
+            "UIEvent": {
+                "properties": {
+                    "property": {
+                        "which": {
+                            "deprecated": 1
                         }
                     }
                 }
@@ -2201,18 +2210,6 @@
                         "failIfMajorPerformanceCaveat": {
                             "name": "failIfMajorPerformanceCaveat",
                             "override-type": "boolean",
-                            "required": 0
-                        }
-                    }
-                }
-            },
-            "KeyboardEventInit": {
-                "name": "KeyboardEventInit",
-                "members": {
-                    "member": {
-                        "code": {
-                            "name": "code",
-                            "override-type": "string",
                             "required": 0
                         }
                     }
