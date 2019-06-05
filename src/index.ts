@@ -18,8 +18,8 @@ function mergeNamesakes(filtered: Browser.WebIdl) {
         }
         const { property } = i.properties!;
         for (const [prop] of Object.values(i.properties.namesakes)) {
-            if (prop) {
-                property[prop.name] = merge(property[prop.name] || {}, prop);
+            if (prop && !(prop.name in property)) {
+                property[prop.name] = prop;
             }
         }
     }
