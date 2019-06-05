@@ -153,7 +153,7 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor) {
     /// Interface name to its related eventhandler name list map
     /// Note:
     /// In the xml file, each event handler has
-    /// 1. eventhanlder name: "onready", "onabort" etc.
+    /// 1. eventhandler name: "onready", "onabort" etc.
     /// 2. the event name that it handles: "ready", "SVGAbort" etc.
     /// And they don't just differ by an "on" prefix!
     const iNameToEhList = arrayToMap(allInterfaces, i => i.name, i =>
@@ -163,6 +163,11 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor) {
             const eType = eNameToEType[eventName] || defaultEventType;
             const eventType = eType === "Event" || dependsOn(eType, "Event") ? eType : defaultEventType;
             return { name: p.name, eventName, eventType };
+        }));
+
+    const iNameToAttributelessEhList = arrayToMap(allInterfaces, i => i.name, i =>
+        !i["attributeless-events"] ? [] : i["attributeless-events"].event.map(e => {
+            return { name: "on" + e.name, eventName: e.name, eventType: e.type };
         }));
 
     const iNameToConstList = arrayToMap(allInterfaces, i => i.name, i =>
@@ -242,6 +247,12 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor) {
     function getEventTypeInInterface(eName: string, i: Browser.Interface) {
         if (i.events) {
             const event = i.events.event.find(e => e.name === eName);
+            if (event && event.type) {
+                return event.type;
+            }
+        }
+        if (i["attributeless-events"]) {
+            const event = i["attributeless-events"].event.find(e => e.name === eName);
             if (event && event.type) {
                 return event.type;
             }
@@ -356,6 +367,7 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor) {
     }
 
     function emitConstant(c: Browser.Constant) {
+        emitComments(c, printer.printLine);
         printer.printLine(`readonly ${c.name}: ${convertDomTypeToTsType(c)};`);
     }
 
@@ -688,7 +700,7 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor) {
 
     /// Emit the properties and methods of a given interface
     function emitMembers(prefix: string, emitScope: EmitScope, i: Browser.Interface) {
-        const conflictedMembers = extendConflictsBaseTypes[i.name] ? extendConflictsBaseTypes[i.name].memberNames : new Set();
+        const conflictedMembers = extendConflictsBaseTypes[i.name] ? extendConflictsBaseTypes[i.name].memberNames : new Set<string>();
         emitProperties(prefix, emitScope, i);
         const methodPrefix = prefix.startsWith("declare var") ? "declare function " : "";
         emitMethods(methodPrefix, emitScope, i, conflictedMembers);
@@ -884,9 +896,10 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor) {
         }
 
         const hasEventHandlers = iNameToEhList[i.name] && iNameToEhList[i.name].length;
+        const hasAttributelessEventHandlers = iNameToAttributelessEhList[i.name] && iNameToAttributelessEhList[i.name].length;
         const ehParentCount = iNameToEhParents[i.name] && iNameToEhParents[i.name].length;
 
-        if (hasEventHandlers || ehParentCount > 1) {
+        if (hasEventHandlers || hasAttributelessEventHandlers || ehParentCount > 1) {
             printer.print(`interface ${i.name}EventMap`);
             if (ehParentCount) {
                 const extend = iNameToEhParents[i.name].map(i => i.name + "EventMap");
@@ -896,6 +909,7 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor) {
             printer.endLine();
             printer.increaseIndent();
             iNameToEhList[i.name]
+                .concat(iNameToAttributelessEhList[i.name])
                 .sort(compareName)
                 .forEach(emitInterfaceEventMapEntry);
             printer.decreaseIndent();
@@ -1004,7 +1018,7 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor) {
     function emitNamespace(namespace: Browser.Interface) {
         printer.printLine(`declare namespace ${namespace.name} {`);
         printer.increaseIndent();
-        
+
         if (namespace.nested) {
             namespace.nested.interfaces
                 .sort(compareName)
@@ -1039,7 +1053,10 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor) {
         if (dict.members) {
             mapToArray(dict.members.member)
                 .sort(compareName)
-                .forEach(m => printer.printLine(`${m.name}${m.required === 1 ? "" : "?"}: ${convertDomTypeToTsType(m)};`));
+                .forEach(m => {
+                    emitComments(m, printer.printLine);
+                    printer.printLine(`${m.name}${m.required === 1 ? "" : "?"}: ${convertDomTypeToTsType(m)};`)
+                });
         }
         if (dict["override-index-signatures"]) {
             dict["override-index-signatures"]!.forEach(s => printer.printLine(`${s};`));
