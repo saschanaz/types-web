@@ -53,7 +53,7 @@ The common steps to send a pull request are:
 
 ### When should a DOM API be included here?
 
-A feature is considered highly experimental if a DOM API lacks mulitple implementations or a formal specification from W3C or WHATWG. Such feature belongs on [DefinitelyTyped](https://github.com/DefinitelyTyped/DefinitelyTyped#readme).
+A feature is considered highly experimental if a DOM API lacks multiple implementations or a formal specification from W3C or WHATWG. Such a feature belongs on [DefinitelyTyped](https://github.com/DefinitelyTyped/DefinitelyTyped#readme).
 When it gets multiple implementations and a proper specification, it can be added here and removed from DefinitelyTyped.
 
 
