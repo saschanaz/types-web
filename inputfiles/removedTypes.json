@@ -42,6 +42,13 @@
     },
     "interfaces": {
         "interface": {
+            "CanvasRenderingContext2D": {
+                "methods": {
+                    "method": {
+                        "getContextAttributes": null
+                    }
+                }
+            },
             "Clipboard": {
                 "methods": {
                     "method": {
