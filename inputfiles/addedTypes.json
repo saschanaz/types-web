@@ -2148,16 +2148,6 @@
                     ]
                 }
             },
-            "MediaStreamTrack": {
-                "events": {
-                    "event": [
-                        {
-                            "name": "overconstrained",
-                            "type": "MediaStreamErrorEvent"
-                        }
-                    ]
-                }
-            },
             "OverconstrainedError": {
                 "name": "OverconstrainedError",
                 "extends": "Error",
@@ -2190,30 +2180,6 @@
     },
     "dictionaries": {
         "dictionary": {
-            "WebGLContextAttributes": {
-                "name": "WebGLContextAttributes",
-                "members": {
-                    "member": {
-                        "failIfMajorPerformanceCaveat": {
-                            "name": "failIfMajorPerformanceCaveat",
-                            "override-type": "boolean",
-                            "required": 0
-                        }
-                    }
-                }
-            },
-            "EventInit": {
-                "name": "EventInit",
-                "members": {
-                    "member": {
-                        "composed": {
-                            "name": "composed",
-                            "override-type": "boolean",
-                            "required": 0
-                        }
-                    }
-                }
-            },
             "ShadowRootInit": {
                 "members": {
                     "member": {
