@@ -197,12 +197,11 @@ function emitDom() {
 
         function filterByNull(obj: any, template: any) {
             if (!template) return obj;
-            const filtered: any = {};
-            for (const k in obj) {
-                if (!template.hasOwnProperty(k)) {
-                    filtered[k] = obj[k];
-                }
-                else if (Array.isArray(template[k])) {
+            const filtered = { ...obj };
+            for (const k in template) {
+                if (!obj[k]) {
+                    console.warn(`removedTypes.json has a redundant field ${k} in ${JSON.stringify(template)}`);
+                } else if (Array.isArray(template[k])) {
                     if (!Array.isArray(obj[k])) {
                         throw new Error(`Removal template ${k} is an array but the original field is not`);
                     }
@@ -211,9 +210,14 @@ function emitDom() {
                         const name = typeof item === "string" ? item : (item.name || item["new-type"]);
                         return !template[k].includes(name);
                     });
+                    if (filtered[k].length === obj[k].length) {
+                        console.warn(`removedTypes.json has a redundant array item in ${JSON.stringify(template[k])}`);
+                    }
                 }
                 else if (template[k] !== null) {
                     filtered[k] = filterByNull(obj[k], template[k]);
+                } else {
+                    delete filtered[k];
                 }
             }
             return filtered;

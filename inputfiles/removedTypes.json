@@ -87,13 +87,6 @@
                     }
                 }
             },
-            "Document": {
-                "methods": {
-                    "method": {
-                        "evaluate": null
-                    }
-                }
-            },
             "FederatedCredential": null,
             "HTMLAreasCollection": null,
             "HTMLBodyElement": {
@@ -108,27 +101,6 @@
                     }
                 }
             },
-            "HTMLElement": {
-                "methods": {
-                    "method": {
-                        "scrollIntoView": null,
-                        "insertAdjacentElement": null,
-                        "insertAdjacentHTML": null,
-                        "insertAdjacentText": null
-                    }
-                }
-            },
-            "HTMLHRElement": {
-                "implements": null
-            },
-            "HTMLIFrameElement": {
-                "properties": {
-                    "property": {
-                        "onload": null
-                    }
-                }
-            },
-            "MediaQueryListListener": null,
             "MessageEvent": {
                 "methods": {
                     "method": {
@@ -139,18 +111,8 @@
             "MSCredentials": null,
             "MSDCCEvent": null,
             "MSDSHEvent": null,
-            "MSPortRange": null,
             "MSStreamReader": null,
-            "OverconstrainedErrorEvent": null,
             "PasswordCredential": null,
-            "Screen": {
-                "methods": {
-                    "method": {
-                        "msLockOrientation": null,
-                        "msUnlockOrientation": null
-                    }
-                }
-            },
             "StorageEvent": {
                 "methods": {
                     "method": {
@@ -197,11 +159,6 @@
                     }
                 }
             },
-            "SVGFilterElement": {
-                "implements": [
-                    "SVGUnitTypes"
-                ]
-            },
             "SVGGradientElement": {
                 "implements": [
                     "SVGUnitTypes"
@@ -221,9 +178,6 @@
             "SVGPoint": null,
             "SVGRect": null,
             "SVGSVGElement": {
-                "implements": [
-                    "SVGUnitTypes"
-                ],
                 "properties": {
                     "property": {
                         "onabort": null,
@@ -232,11 +186,6 @@
                         "onscroll": null
                     }
                 }
-            },
-            "SVGViewElement": {
-                "implements": [
-                    "SVGUnitTypes"
-                ]
             },
             "WebKitCSSMatrix": null,
             "WebKitDirectoryEntry": null,
@@ -265,26 +214,10 @@
                     "GlobalFetch"
                 ]
             },
-            "WheelEvent": {
-                "properties": {
-                    "property": {
-                        "wheelDelta": null,
-                        "wheelDeltaX": null,
-                        "wheelDeltaY": null
-                    }
-                }
-            },
             "WorkerGlobalScope": {
                 "implements": [
                     "GlobalFetch"
                 ]
-            },
-            "XPathEvaluator": {
-                "methods": {
-                    "method": {
-                        "evaluate": null
-                    }
-                }
             },
             "XPathNSResolver": null
         }
@@ -312,20 +245,6 @@
                 "members": {
                     "member": {
                         "portRange": null
-                    }
-                }
-            },
-            "RTCRtpContributingSource": {
-                "members": {
-                    "member": {
-                        "csrc": null
-                    }
-                }
-            },
-            "MediaTrackConstraintSet": {
-                "members": {
-                    "member": {
-                        "echoCancelation": null
                     }
                 }
             }
