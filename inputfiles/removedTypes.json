@@ -136,11 +136,6 @@
                     }
                 }
             },
-            "SVGClipPathElement": {
-                "implements": [
-                    "SVGUnitTypes"
-                ]
-            },
             "SVGElementInstance": {
                 "properties": {
                     "property": {
@@ -176,11 +171,6 @@
                 }
             },
             "SVGGradientElement": {
-                "implements": [
-                    "SVGUnitTypes"
-                ]
-            },
-            "SVGMaskElement": {
                 "implements": [
                     "SVGUnitTypes"
                 ]
