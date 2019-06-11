@@ -2857,11 +2857,11 @@ interface CSSStyleDeclaration {
     outlineOffset: string;
     outlineStyle: string;
     outlineWidth: string;
-    overflow: string | null;
+    overflow: string;
     overflowAnchor: string;
     overflowWrap: string;
-    overflowX: string | null;
-    overflowY: string | null;
+    overflowX: string;
+    overflowY: string;
     padding: string | null;
     paddingBottom: string | null;
     paddingLeft: string | null;
@@ -3027,6 +3027,7 @@ interface CSSStyleDeclaration {
     webkitFlexWrap: string;
     /** @deprecated */
     webkitJustifyContent: string;
+    webkitLineClamp: string;
     /** @deprecated */
     webkitMask: string;
     /** @deprecated */
