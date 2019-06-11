@@ -49,6 +49,11 @@ interface CacheQueryOptions {
     ignoreVary?: boolean;
 }
 
+interface CanvasRenderingContext2DSettings {
+    alpha?: boolean;
+    desynchronized?: boolean;
+}
+
 interface ClientQueryOptions {
     includeUncontrolled?: boolean;
     type?: ClientTypes;
@@ -212,6 +217,10 @@ interface IDBObjectStoreParameters {
 interface IDBVersionChangeEventInit extends EventInit {
     newVersion?: number | null;
     oldVersion?: number;
+}
+
+interface ImageBitmapRenderingContextSettings {
+    alpha?: boolean;
 }
 
 interface ImageEncodeOptions {
@@ -1359,7 +1368,7 @@ interface Event {
      */
     readonly type: string;
     /**
-     * Returns the item objects of event's path (objects on which listeners will be invoked), except for any nodes in shadow trees of which the shadow root's mode is "closed" that are not reachable from event's currentTarget.
+     * Returns the invocation target objects of event's path (objects on which listeners will be invoked), except for any nodes in shadow trees of which the shadow root's mode is "closed" that are not reachable from event's currentTarget.
      */
     composedPath(): EventTarget[];
     initEvent(type: string, bubbles?: boolean, cancelable?: boolean): void;
@@ -2162,6 +2171,22 @@ interface ImageBitmapOptions {
     resizeWidth?: number;
 }
 
+interface ImageBitmapRenderingContext {
+    /**
+     * Returns the canvas element that the context is bound to.
+     */
+    readonly canvas: OffscreenCanvas;
+    /**
+     * Transfers the underlying bitmap data from imageBitmap to context, and the bitmap becomes the contents of the canvas element to which context is bound.
+     */
+    transferFromImageBitmap(bitmap: ImageBitmap | null): void;
+}
+
+declare var ImageBitmapRenderingContext: {
+    prototype: ImageBitmapRenderingContext;
+    new(): ImageBitmapRenderingContext;
+};
+
 /** The underlying pixel data of an area of a <canvas> element. It is created using the ImageData() constructor or creator methods on the CanvasRenderingContext2D object associated with a canvas: createImageData() and getImageData(). It can also be used to set a part of the canvas by using putImageData(). */
 interface ImageData {
     /**
@@ -2412,12 +2437,16 @@ interface OffscreenCanvas extends EventTarget {
      */
     convertToBlob(options?: ImageEncodeOptions): Promise<Blob>;
     /**
-     * Returns an object that exposes an API for drawing on the OffscreenCanvas object. contextId specifies the desired API: "2d", "webgl", or "webgl2". options is handled by that API.
+     * Returns an object that exposes an API for drawing on the OffscreenCanvas object. contextId specifies the desired API: "2d", "bitmaprenderer", "webgl", or "webgl2". options is handled by that API.
      * 
      * This specification defines the "2d" context below, which is similar but distinct from the "2d" context that is created from a canvas element. The WebGL specifications define the "webgl" and "webgl2" contexts. [WEBGL]
      * 
      * Returns null if the canvas has already been initialized with another context type (e.g., trying to get a "2d" context after getting a "webgl" context).
      */
+    getContext(contextId: "2d", options?: CanvasRenderingContext2DSettings): OffscreenCanvasRenderingContext2D | null;
+    getContext(contextId: "bitmaprenderer", options?: ImageBitmapRenderingContextSettings): ImageBitmapRenderingContext | null;
+    getContext(contextId: "webgl", options?: WebGLContextAttributes): WebGLRenderingContext | null;
+    getContext(contextId: "webgl2", options?: WebGLContextAttributes): WebGL2RenderingContext | null;
     getContext(contextId: OffscreenRenderingContextId, options?: any): OffscreenRenderingContext | null;
     /**
      * Returns a newly created ImageBitmap object with the image in the OffscreenCanvas object. The image in the OffscreenCanvas object is replaced with a new blank image.
@@ -5767,7 +5796,7 @@ type RequestInfo = Request | string;
 type BlobPart = BufferSource | Blob | string;
 type DOMHighResTimeStamp = number;
 type CanvasImageSource = ImageBitmap | OffscreenCanvas;
-type OffscreenRenderingContext = OffscreenCanvasRenderingContext2D | WebGLRenderingContext | WebGL2RenderingContext;
+type OffscreenRenderingContext = OffscreenCanvasRenderingContext2D | ImageBitmapRenderingContext | WebGLRenderingContext | WebGL2RenderingContext;
 type MessageEventSource = MessagePort | ServiceWorker;
 type ImageBitmapSource = CanvasImageSource | Blob | ImageData;
 type TimerHandler = string | Function;
@@ -5818,7 +5847,7 @@ type KeyType = "public" | "private" | "secret";
 type KeyUsage = "encrypt" | "decrypt" | "sign" | "verify" | "deriveKey" | "deriveBits" | "wrapKey" | "unwrapKey";
 type NotificationDirection = "auto" | "ltr" | "rtl";
 type NotificationPermission = "default" | "denied" | "granted";
-type OffscreenRenderingContextId = "2d" | "webgl" | "webgl2";
+type OffscreenRenderingContextId = "2d" | "bitmaprenderer" | "webgl" | "webgl2";
 type PermissionName = "geolocation" | "notifications" | "push" | "midi" | "camera" | "microphone" | "speaker" | "device-info" | "background-sync" | "bluetooth" | "persistent-storage" | "ambient-light-sensor" | "accelerometer" | "gyroscope" | "magnetometer" | "clipboard";
 type PermissionState = "granted" | "denied" | "prompt";
 type PushEncryptionKeyName = "p256dh" | "auth";

@@ -133,6 +133,34 @@ interface AudioWorkletNodeOptions extends AudioNodeOptions {
     processorOptions?: any;
 }
 
+interface AuthenticationExtensionsClientInputs {
+    appid?: string;
+    authnSel?: AuthenticatorSelectionList;
+    exts?: boolean;
+    loc?: boolean;
+    txAuthGeneric?: txAuthGenericArg;
+    txAuthSimple?: string;
+    uvi?: boolean;
+    uvm?: boolean;
+}
+
+interface AuthenticationExtensionsClientOutputs {
+    appid?: boolean;
+    authnSel?: boolean;
+    exts?: AuthenticationExtensionsSupported;
+    loc?: Coordinates;
+    txAuthGeneric?: ArrayBuffer;
+    txAuthSimple?: string;
+    uvi?: ArrayBuffer;
+    uvm?: UvmEntries;
+}
+
+interface AuthenticatorSelectionCriteria {
+    authenticatorAttachment?: AuthenticatorAttachment;
+    requireResidentKey?: boolean;
+    userVerification?: UserVerificationRequirement;
+}
+
 interface BiquadFilterOptions extends AudioNodeOptions {
     Q?: number;
     detune?: number;
@@ -252,11 +280,13 @@ interface ConvolverOptions extends AudioNodeOptions {
 }
 
 interface CredentialCreationOptions {
+    publicKey?: PublicKeyCredentialCreationOptions;
     signal?: AbortSignal;
 }
 
 interface CredentialRequestOptions {
     mediation?: CredentialMediationRequirement;
+    publicKey?: PublicKeyCredentialRequestOptions;
     signal?: AbortSignal;
 }
 
@@ -550,6 +580,10 @@ interface IIRFilterOptions extends AudioNodeOptions {
     feedforward: number[];
 }
 
+interface ImageBitmapRenderingContextSettings {
+    alpha?: boolean;
+}
+
 interface ImageEncodeOptions {
     quality?: number;
     type?: string;
@@ -701,7 +735,6 @@ interface MediaTrackCapabilities {
     resizeMode?: string[];
     sampleRate?: ULongRange;
     sampleSize?: ULongRange;
-    volume?: DoubleRange;
     width?: ULongRange;
 }
 
@@ -720,7 +753,6 @@ interface MediaTrackConstraintSet {
     resizeMode?: ConstrainDOMString;
     sampleRate?: ConstrainULong;
     sampleSize?: ConstrainULong;
-    volume?: ConstrainDouble;
     width?: ConstrainULong;
 }
 
@@ -743,7 +775,6 @@ interface MediaTrackSettings {
     resizeMode?: string;
     sampleRate?: number;
     sampleSize?: number;
-    volume?: number;
     width?: number;
 }
 
@@ -762,7 +793,6 @@ interface MediaTrackSupportedConstraints {
     resizeMode?: boolean;
     sampleRate?: boolean;
     sampleSize?: boolean;
-    volume?: boolean;
     width?: boolean;
 }
 
@@ -1032,6 +1062,52 @@ interface PropertyIndexedKeyframes {
     easing?: string | string[];
     offset?: number | (number | null)[];
     [property: string]: string | string[] | number | null | (number | null)[] | undefined;
+}
+
+interface PublicKeyCredentialCreationOptions {
+    attestation?: AttestationConveyancePreference;
+    authenticatorSelection?: AuthenticatorSelectionCriteria;
+    challenge: BufferSource;
+    excludeCredentials?: PublicKeyCredentialDescriptor[];
+    extensions?: AuthenticationExtensionsClientInputs;
+    pubKeyCredParams: PublicKeyCredentialParameters[];
+    rp: PublicKeyCredentialRpEntity;
+    timeout?: number;
+    user: PublicKeyCredentialUserEntity;
+}
+
+interface PublicKeyCredentialDescriptor {
+    id: BufferSource;
+    transports?: AuthenticatorTransport[];
+    type: PublicKeyCredentialType;
+}
+
+interface PublicKeyCredentialEntity {
+    icon?: string;
+    name: string;
+}
+
+interface PublicKeyCredentialParameters {
+    alg: COSEAlgorithmIdentifier;
+    type: PublicKeyCredentialType;
+}
+
+interface PublicKeyCredentialRequestOptions {
+    allowCredentials?: PublicKeyCredentialDescriptor[];
+    challenge: BufferSource;
+    extensions?: AuthenticationExtensionsClientInputs;
+    rpId?: string;
+    timeout?: number;
+    userVerification?: UserVerificationRequirement;
+}
+
+interface PublicKeyCredentialRpEntity extends PublicKeyCredentialEntity {
+    id?: string;
+}
+
+interface PublicKeyCredentialUserEntity extends PublicKeyCredentialEntity {
+    displayName: string;
+    id: BufferSource;
 }
 
 interface PushPermissionDescriptor extends PermissionDescriptor {
@@ -1762,6 +1838,11 @@ interface WorkletOptions {
     credentials?: RequestCredentials;
 }
 
+interface txAuthGenericArg {
+    content: ArrayBuffer;
+    contentType: string;
+}
+
 interface EventListener {
     (evt: Event): void;
 }
@@ -2287,6 +2368,35 @@ declare var AudioWorkletNode: {
     new(context: BaseAudioContext, name: string, options?: AudioWorkletNodeOptions): AudioWorkletNode;
 };
 
+interface AuthenticatorAssertionResponse extends AuthenticatorResponse {
+    readonly authenticatorData: ArrayBuffer;
+    readonly signature: ArrayBuffer;
+    readonly userHandle: ArrayBuffer | null;
+}
+
+declare var AuthenticatorAssertionResponse: {
+    prototype: AuthenticatorAssertionResponse;
+    new(): AuthenticatorAssertionResponse;
+};
+
+interface AuthenticatorAttestationResponse extends AuthenticatorResponse {
+    readonly attestationObject: ArrayBuffer;
+}
+
+declare var AuthenticatorAttestationResponse: {
+    prototype: AuthenticatorAttestationResponse;
+    new(): AuthenticatorAttestationResponse;
+};
+
+interface AuthenticatorResponse {
+    readonly clientDataJSON: ArrayBuffer;
+}
+
+declare var AuthenticatorResponse: {
+    prototype: AuthenticatorResponse;
+    new(): AuthenticatorResponse;
+};
+
 interface BarProp {
     readonly visible: boolean;
 }
@@ -2685,9 +2795,9 @@ interface CSSStyleDeclaration {
     captionSide: string | null;
     caretColor: string;
     clear: string | null;
-    clip: string | null;
-    clipPath: string | null;
-    clipRule: string | null;
+    clip: string;
+    clipPath: string;
+    clipRule: string;
     color: string | null;
     colorInterpolationFilters: string;
     columnCount: string;
@@ -2794,8 +2904,13 @@ interface CSSStyleDeclaration {
     markerEnd: string | null;
     markerMid: string | null;
     markerStart: string | null;
-    mask: string | null;
-    maskImage: string | null;
+    mask: string;
+    maskComposite: string;
+    maskImage: string;
+    maskPosition: string;
+    maskRepeat: string;
+    maskSize: string;
+    maskType: string;
     maxHeight: string | null;
     maxWidth: string | null;
     minHeight: string | null;
@@ -3312,7 +3427,6 @@ interface CanvasRect {
 /** The CanvasRenderingContext2D interface, part of the Canvas API, provides the 2D rendering context for the drawing surface of a <canvas> element. It is used for drawing shapes, text, images, and other objects. */
 interface CanvasRenderingContext2D extends CanvasState, CanvasTransform, CanvasCompositing, CanvasImageSmoothing, CanvasFillStrokeStyles, CanvasShadowStyles, CanvasFilters, CanvasRect, CanvasDrawPath, CanvasUserInterface, CanvasText, CanvasDrawImage, CanvasImageData, CanvasPathDrawingStyles, CanvasTextDrawingStyles, CanvasPath {
     readonly canvas: HTMLCanvasElement;
-    getContextAttributes(): CanvasRenderingContext2DSettings;
 }
 
 declare var CanvasRenderingContext2D: {
@@ -5259,7 +5373,7 @@ interface Event {
      */
     readonly type: string;
     /**
-     * Returns the item objects of event's path (objects on which listeners will be invoked), except for any nodes in shadow trees of which the shadow root's mode is "closed" that are not reachable from event's currentTarget.
+     * Returns the invocation target objects of event's path (objects on which listeners will be invoked), except for any nodes in shadow trees of which the shadow root's mode is "closed" that are not reachable from event's currentTarget.
      */
     composedPath(): EventTarget[];
     initEvent(type: string, bubbles?: boolean, cancelable?: boolean): void;
@@ -6351,9 +6465,11 @@ interface HTMLCanvasElement extends HTMLElement {
      * Returns an object that provides methods and properties for drawing and manipulating images and graphics on a canvas element in a document. A context object includes information about colors, line widths, fonts, and other graphic parameters that can be drawn on a canvas.
      * @param contextId The identifier (ID) of the type of canvas to create. Internet Explorer 9 and Internet Explorer 10 support only a 2-D context using canvas.getContext("2d"); IE11 Preview also supports 3-D or WebGL context using canvas.getContext("experimental-webgl");
      */
-    getContext(contextId: "2d", contextAttributes?: CanvasRenderingContext2DSettings): CanvasRenderingContext2D | null;
-    getContext(contextId: "webgl" | "experimental-webgl", contextAttributes?: WebGLContextAttributes): WebGLRenderingContext | null;
-    getContext(contextId: string, contextAttributes?: {}): CanvasRenderingContext2D | WebGLRenderingContext | null;
+    getContext(contextId: "2d", options?: CanvasRenderingContext2DSettings): CanvasRenderingContext2D | null;
+    getContext(contextId: "bitmaprenderer", options?: ImageBitmapRenderingContextSettings): ImageBitmapRenderingContext | null;
+    getContext(contextId: "webgl", options?: WebGLContextAttributes): WebGLRenderingContext | null;
+    getContext(contextId: "webgl2", options?: WebGLContextAttributes): WebGL2RenderingContext | null;
+    getContext(contextId: string, options?: any): RenderingContext | null;
     toBlob(callback: BlobCallback, type?: string, quality?: any): void;
     /**
      * Returns the content of the current canvas as an image that you can use as a source for another canvas or an HTML element.
@@ -7852,7 +7968,6 @@ interface HTMLObjectElement extends HTMLElement {
      * Sets or retrieves the MIME type of the object.
      */
     type: string;
-    typeMustMatch: boolean;
     /**
      * Sets or retrieves the URL, often with a bookmark extension (#name), to use as a client-side image map.
      */
@@ -9587,7 +9702,7 @@ interface ImageBitmapRenderingContext {
     /**
      * Returns the canvas element that the context is bound to.
      */
-    readonly canvas: HTMLCanvasElement;
+    readonly canvas: HTMLCanvasElement | OffscreenCanvas;
     /**
      * Transfers the underlying bitmap data from imageBitmap to context, and the bitmap becomes the contents of the canvas element to which context is bound.
      */
@@ -10388,7 +10503,6 @@ interface MediaStreamTrackEventMap {
     "ended": Event;
     "isolationchange": Event;
     "mute": Event;
-    "overconstrained": MediaStreamErrorEvent;
     "unmute": Event;
 }
 
@@ -10403,7 +10517,6 @@ interface MediaStreamTrack extends EventTarget {
     onended: ((this: MediaStreamTrack, ev: Event) => any) | null;
     onisolationchange: ((this: MediaStreamTrack, ev: Event) => any) | null;
     onmute: ((this: MediaStreamTrack, ev: Event) => any) | null;
-    onoverconstrained: ((this: MediaStreamTrack, ev: MediaStreamErrorEvent) => any) | null;
     onunmute: ((this: MediaStreamTrack, ev: Event) => any) | null;
     readonly readyState: MediaStreamTrackState;
     applyConstraints(constraints?: MediaTrackConstraints): Promise<void>;
@@ -11217,12 +11330,16 @@ interface OffscreenCanvas extends EventTarget {
      */
     convertToBlob(options?: ImageEncodeOptions): Promise<Blob>;
     /**
-     * Returns an object that exposes an API for drawing on the OffscreenCanvas object. contextId specifies the desired API: "2d", "webgl", or "webgl2". options is handled by that API.
+     * Returns an object that exposes an API for drawing on the OffscreenCanvas object. contextId specifies the desired API: "2d", "bitmaprenderer", "webgl", or "webgl2". options is handled by that API.
      * 
      * This specification defines the "2d" context below, which is similar but distinct from the "2d" context that is created from a canvas element. The WebGL specifications define the "webgl" and "webgl2" contexts. [WEBGL]
      * 
      * Returns null if the canvas has already been initialized with another context type (e.g., trying to get a "2d" context after getting a "webgl" context).
      */
+    getContext(contextId: "2d", options?: CanvasRenderingContext2DSettings): OffscreenCanvasRenderingContext2D | null;
+    getContext(contextId: "bitmaprenderer", options?: ImageBitmapRenderingContextSettings): ImageBitmapRenderingContext | null;
+    getContext(contextId: "webgl", options?: WebGLContextAttributes): WebGLRenderingContext | null;
+    getContext(contextId: "webgl2", options?: WebGLContextAttributes): WebGL2RenderingContext | null;
     getContext(contextId: OffscreenRenderingContextId, options?: any): OffscreenRenderingContext | null;
     /**
      * Returns a newly created ImageBitmap object with the image in the OffscreenCanvas object. The image in the OffscreenCanvas object is replaced with a new blank image.
@@ -11831,6 +11948,18 @@ interface PromiseRejectionEvent extends Event {
 declare var PromiseRejectionEvent: {
     prototype: PromiseRejectionEvent;
     new(type: string, eventInitDict: PromiseRejectionEventInit): PromiseRejectionEvent;
+};
+
+interface PublicKeyCredential extends Credential {
+    readonly rawId: ArrayBuffer;
+    readonly response: AuthenticatorResponse;
+    getClientExtensionResults(): AuthenticationExtensionsClientOutputs;
+}
+
+declare var PublicKeyCredential: {
+    prototype: PublicKeyCredential;
+    new(): PublicKeyCredential;
+    isUserVerifyingPlatformAuthenticatorAvailable(): Promise<boolean>;
 };
 
 /** This Push API interface provides a way to receive notifications from third-party servers as well as request URLs for push notifications. */
@@ -12875,8 +13004,9 @@ declare var SVGCircleElement: {
 };
 
 /** Provides access to the properties of <clipPath> elements, as well as methods to manipulate them. */
-interface SVGClipPathElement extends SVGGraphicsElement {
+interface SVGClipPathElement extends SVGElement {
     readonly clipPathUnits: SVGAnimatedEnumeration;
+    readonly transform: SVGAnimatedTransformList;
     addEventListener<K extends keyof SVGElementEventMap>(type: K, listener: (this: SVGClipPathElement, ev: SVGElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
     removeEventListener<K extends keyof SVGElementEventMap>(type: K, listener: (this: SVGClipPathElement, ev: SVGElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
@@ -13780,7 +13910,7 @@ declare var SVGMarkerElement: {
 };
 
 /** Provides access to the properties of <mask> elements, as well as methods to manipulate them. */
-interface SVGMaskElement extends SVGElement, SVGTests {
+interface SVGMaskElement extends SVGElement {
     readonly height: SVGAnimatedLength;
     readonly maskContentUnits: SVGAnimatedEnumeration;
     readonly maskUnits: SVGAnimatedEnumeration;
@@ -19773,7 +19903,7 @@ type DOMHighResTimeStamp = number;
 type RenderingContext = CanvasRenderingContext2D | ImageBitmapRenderingContext | WebGLRenderingContext | WebGL2RenderingContext;
 type HTMLOrSVGImageElement = HTMLImageElement | SVGImageElement;
 type CanvasImageSource = HTMLOrSVGImageElement | HTMLVideoElement | HTMLCanvasElement | ImageBitmap | OffscreenCanvas;
-type OffscreenRenderingContext = OffscreenCanvasRenderingContext2D | WebGLRenderingContext | WebGL2RenderingContext;
+type OffscreenRenderingContext = OffscreenCanvasRenderingContext2D | ImageBitmapRenderingContext | WebGLRenderingContext | WebGL2RenderingContext;
 type MessageEventSource = WindowProxy | MessagePort | ServiceWorker;
 type HTMLOrSVGScriptElement = HTMLScriptElement | SVGScriptElement;
 type ImageBitmapSource = CanvasImageSource | Blob | ImageData;
@@ -19786,6 +19916,12 @@ type ConstrainBoolean = boolean | ConstrainBooleanParameters;
 type ConstrainDOMString = string | string[] | ConstrainDOMStringParameters;
 type PerformanceEntryList = PerformanceEntry[];
 type VibratePattern = number | number[];
+type COSEAlgorithmIdentifier = number;
+type AuthenticatorSelectionList = AAGUID[];
+type AAGUID = BufferSource;
+type AuthenticationExtensionsSupported = string[];
+type UvmEntry = number[];
+type UvmEntries = UvmEntry[];
 type AlgorithmIdentifier = string | Algorithm;
 type HashAlgorithmIdentifier = AlgorithmIdentifier;
 type BigInteger = Uint8Array;
@@ -19823,8 +19959,11 @@ type WindowProxy = Window;
 type AlignSetting = "start" | "center" | "end" | "left" | "right";
 type AnimationPlayState = "idle" | "running" | "paused" | "finished";
 type AppendMode = "segments" | "sequence";
+type AttestationConveyancePreference = "none" | "indirect" | "direct";
 type AudioContextLatencyCategory = "balanced" | "interactive" | "playback";
 type AudioContextState = "suspended" | "running" | "closed";
+type AuthenticatorAttachment = "platform" | "cross-platform";
+type AuthenticatorTransport = "usb" | "nfc" | "ble" | "internal";
 type AutoKeyword = "auto";
 type AutomationRate = "a-rate" | "k-rate";
 type BinaryType = "blob" | "arraybuffer";
@@ -19878,7 +20017,7 @@ type NavigationReason = "up" | "down" | "left" | "right";
 type NavigationType = "navigate" | "reload" | "back_forward" | "prerender";
 type NotificationDirection = "auto" | "ltr" | "rtl";
 type NotificationPermission = "default" | "denied" | "granted";
-type OffscreenRenderingContextId = "2d" | "webgl" | "webgl2";
+type OffscreenRenderingContextId = "2d" | "bitmaprenderer" | "webgl" | "webgl2";
 type OrientationLockType = "any" | "natural" | "landscape" | "portrait" | "portrait-primary" | "portrait-secondary" | "landscape-primary" | "landscape-secondary";
 type OrientationType = "portrait-primary" | "portrait-secondary" | "landscape-primary" | "landscape-secondary";
 type OscillatorType = "sine" | "square" | "sawtooth" | "triangle" | "custom";
@@ -19890,6 +20029,7 @@ type PermissionName = "geolocation" | "notifications" | "push" | "midi" | "camer
 type PermissionState = "granted" | "denied" | "prompt";
 type PlaybackDirection = "normal" | "reverse" | "alternate" | "alternate-reverse";
 type PositionAlignSetting = "line-left" | "center" | "line-right" | "auto";
+type PublicKeyCredentialType = "public-key";
 type PushEncryptionKeyName = "p256dh" | "auth";
 type PushPermissionState = "denied" | "granted" | "prompt";
 type RTCBundlePolicy = "balanced" | "max-compat" | "max-bundle";
@@ -19945,6 +20085,7 @@ type TextTrackKind = "subtitles" | "captions" | "descriptions" | "chapters" | "m
 type TextTrackMode = "disabled" | "hidden" | "showing";
 type TouchType = "direct" | "stylus";
 type Transport = "usb" | "nfc" | "ble";
+type UserVerificationRequirement = "required" | "preferred" | "discouraged";
 type VRDisplayEventReason = "mounted" | "navigation" | "requested" | "unmounted";
 type VideoFacingModeEnum = "user" | "environment" | "left" | "right";
 type VisibilityState = "hidden" | "visible" | "prerender";

@@ -872,15 +872,28 @@
                 }
             },
             "HTMLCanvasElement": {
-                "name": "HTMLCanvasElement",
                 "methods": {
                     "method": {
                         "getContext": {
-                            "name": "getContext",
-                            "override-signatures": [
-                                "getContext(contextId: \"2d\", contextAttributes?: CanvasRenderingContext2DSettings): CanvasRenderingContext2D | null",
-                                "getContext(contextId: \"webgl\" | \"experimental-webgl\", contextAttributes?: WebGLContextAttributes): WebGLRenderingContext | null",
-                                "getContext(contextId: string, contextAttributes?: {}): CanvasRenderingContext2D | WebGLRenderingContext | null"
+                            "additional-signatures": [
+                                "getContext(contextId: \"2d\", options?: CanvasRenderingContext2DSettings): CanvasRenderingContext2D | null",
+                                "getContext(contextId: \"bitmaprenderer\", options?: ImageBitmapRenderingContextSettings): ImageBitmapRenderingContext | null",
+                                "getContext(contextId: \"webgl\", options?: WebGLContextAttributes): WebGLRenderingContext | null",
+                                "getContext(contextId: \"webgl2\", options?: WebGLContextAttributes): WebGL2RenderingContext | null"
+                            ]
+                        }
+                    }
+                }
+            },
+            "OffscreenCanvas": {
+                "methods": {
+                    "method": {
+                        "getContext": {
+                            "additional-signatures": [
+                                "getContext(contextId: \"2d\", options?: CanvasRenderingContext2DSettings): OffscreenCanvasRenderingContext2D | null",
+                                "getContext(contextId: \"bitmaprenderer\", options?: ImageBitmapRenderingContextSettings): ImageBitmapRenderingContext | null",
+                                "getContext(contextId: \"webgl\", options?: WebGLContextAttributes): WebGLRenderingContext | null",
+                                "getContext(contextId: \"webgl2\", options?: WebGLContextAttributes): WebGL2RenderingContext | null"
                             ]
                         }
                     }

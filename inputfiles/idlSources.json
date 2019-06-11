@@ -33,6 +33,10 @@
         "title": "CSS Images"
     },
     {
+        "url": "https://drafts.fxtf.org/css-masking-1/",
+        "title": "CSS Masking"
+    },
+    {
         "url": "https://www.w3.org/TR/css-multicol-1/",
         "title": "CSS Multi-column Layout"
     },
@@ -370,6 +374,10 @@
     {
         "url": "https://webaudio.github.io/web-audio-api/",
         "title": "Web Audio"
+    },
+    {
+        "url": "https://www.w3.org/TR/2019/REC-webauthn-1-20190304/",
+        "title": "Web Authentication"
     },
     {
         "url": "https://wicg.github.io/BackgroundSync/spec/",

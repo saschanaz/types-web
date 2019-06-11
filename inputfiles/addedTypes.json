@@ -1902,6 +1902,14 @@
                     }
                 ]
             },
+            "SVGClipPathElement": {
+                "element": [
+                    {
+                        "namespace": "SVG",
+                        "name": "clipPath"
+                    }
+                ]
+            },
             "SVGEllipseElement": {
                 "element": [
                     {
@@ -2118,6 +2126,14 @@
                     }
                 ]
             },
+            "SVGMaskElement": {
+                "element": [
+                    {
+                        "namespace": "SVG",
+                        "name": "mask"
+                    }
+                ]
+            },
             "SVGPolygonElement": {
                 "element": [
                     {
@@ -2144,16 +2160,6 @@
                         {
                             "name": "removetrack",
                             "type": "MediaStreamTrackEvent"
-                        }
-                    ]
-                }
-            },
-            "MediaStreamTrack": {
-                "events": {
-                    "event": [
-                        {
-                            "name": "overconstrained",
-                            "type": "MediaStreamErrorEvent"
                         }
                     ]
                 }
@@ -2190,30 +2196,6 @@
     },
     "dictionaries": {
         "dictionary": {
-            "WebGLContextAttributes": {
-                "name": "WebGLContextAttributes",
-                "members": {
-                    "member": {
-                        "failIfMajorPerformanceCaveat": {
-                            "name": "failIfMajorPerformanceCaveat",
-                            "override-type": "boolean",
-                            "required": 0
-                        }
-                    }
-                }
-            },
-            "EventInit": {
-                "name": "EventInit",
-                "members": {
-                    "member": {
-                        "composed": {
-                            "name": "composed",
-                            "override-type": "boolean",
-                            "required": 0
-                        }
-                    }
-                }
-            },
             "ShadowRootInit": {
                 "members": {
                     "member": {
