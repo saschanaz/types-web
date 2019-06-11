@@ -62,6 +62,16 @@
                 "properties": {
                     "property": {
                         "hangingPunctuation": null,
+                        "maskBorder": null,
+                        "maskBorderMode": null,
+                        "maskBorderOutset": null,
+                        "maskBorderRepeat": null,
+                        "maskBorderSlice": null,
+                        "maskBorderSource": null,
+                        "maskBorderWidth": null,
+                        "maskClip": null,
+                        "maskMode": null,
+                        "maskOrigin": null,
                         "textAlignAll": null
                     }
                 }

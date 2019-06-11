@@ -1902,6 +1902,14 @@
                     }
                 ]
             },
+            "SVGClipPathElement": {
+                "element": [
+                    {
+                        "namespace": "SVG",
+                        "name": "clipPath"
+                    }
+                ]
+            },
             "SVGEllipseElement": {
                 "element": [
                     {
@@ -2115,6 +2123,14 @@
                     {
                         "namespace": "SVG",
                         "name": "line"
+                    }
+                ]
+            },
+            "SVGMaskElement": {
+                "element": [
+                    {
+                        "namespace": "SVG",
+                        "name": "mask"
                     }
                 ]
             },

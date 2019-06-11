@@ -2685,9 +2685,9 @@ interface CSSStyleDeclaration {
     captionSide: string | null;
     caretColor: string;
     clear: string | null;
-    clip: string | null;
-    clipPath: string | null;
-    clipRule: string | null;
+    clip: string;
+    clipPath: string;
+    clipRule: string;
     color: string | null;
     colorInterpolationFilters: string;
     columnCount: string;
@@ -2794,8 +2794,13 @@ interface CSSStyleDeclaration {
     markerEnd: string | null;
     markerMid: string | null;
     markerStart: string | null;
-    mask: string | null;
-    maskImage: string | null;
+    mask: string;
+    maskComposite: string;
+    maskImage: string;
+    maskPosition: string;
+    maskRepeat: string;
+    maskSize: string;
+    maskType: string;
     maxHeight: string | null;
     maxWidth: string | null;
     minHeight: string | null;
@@ -12874,8 +12879,9 @@ declare var SVGCircleElement: {
 };
 
 /** Provides access to the properties of <clipPath> elements, as well as methods to manipulate them. */
-interface SVGClipPathElement extends SVGGraphicsElement {
+interface SVGClipPathElement extends SVGElement {
     readonly clipPathUnits: SVGAnimatedEnumeration;
+    readonly transform: SVGAnimatedTransformList;
     addEventListener<K extends keyof SVGElementEventMap>(type: K, listener: (this: SVGClipPathElement, ev: SVGElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
     removeEventListener<K extends keyof SVGElementEventMap>(type: K, listener: (this: SVGClipPathElement, ev: SVGElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
@@ -13779,7 +13785,7 @@ declare var SVGMarkerElement: {
 };
 
 /** Provides access to the properties of <mask> elements, as well as methods to manipulate them. */
-interface SVGMaskElement extends SVGElement, SVGTests {
+interface SVGMaskElement extends SVGElement {
     readonly height: SVGAnimatedLength;
     readonly maskContentUnits: SVGAnimatedEnumeration;
     readonly maskUnits: SVGAnimatedEnumeration;
