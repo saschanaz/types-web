@@ -80,6 +80,7 @@
                         "corners": null,
                         "hangingPunctuation": null,
                         "blockOverflow": null,
+                        "colorRendering": null,
                         "continue": null,
                         "lineClamp": null,
                         "maskBorder": null,
@@ -186,6 +187,13 @@
                 ]
             },
             "SVGMatrix": null,
+            "SVGMarkerElement": {
+                "properties": {
+                    "property": {
+                        "orient": null
+                    }
+                }
+            },
             "SVGPatternElement": {
                 "implements": [
                     "SVGUnitTypes"

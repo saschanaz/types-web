@@ -2113,6 +2113,14 @@
                     }
                 ]
             },
+            "SVGMarkerElement": {
+                "element": [
+                    {
+                        "namespace": "SVG",
+                        "name": "marker"
+                    }
+                ]
+            },
             "SVGMaskElement": {
                 "element": [
                     {
