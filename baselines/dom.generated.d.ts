@@ -2730,7 +2730,7 @@ interface CSSStyleDeclaration {
     alignContent: string;
     alignItems: string;
     alignSelf: string;
-    alignmentBaseline: string | null;
+    alignmentBaseline: string;
     animation: string;
     animationDelay: string;
     animationDirection: string;
@@ -2752,7 +2752,7 @@ interface CSSStyleDeclaration {
     backgroundPositionY: string;
     backgroundRepeat: string;
     backgroundSize: string;
-    baselineShift: string | null;
+    baselineShift: string;
     border: string;
     borderBottom: string;
     borderBottomColor: string;
@@ -2818,7 +2818,7 @@ interface CSSStyleDeclaration {
     cursor: string;
     direction: string;
     display: string | null;
-    dominantBaseline: string | null;
+    dominantBaseline: string;
     emptyCells: string | null;
     enableBackground: string | null;
     fill: string | null;
@@ -3051,7 +3051,7 @@ interface CSSStyleDeclaration {
     translate: string | null;
     unicodeBidi: string;
     userSelect: string;
-    verticalAlign: string | null;
+    verticalAlign: string;
     visibility: string | null;
     /** @deprecated */
     webkitAlignContent: string;
