@@ -2789,9 +2789,9 @@ interface CSSStyleDeclaration {
     bottom: string | null;
     boxShadow: string;
     boxSizing: string;
-    breakAfter: string | null;
-    breakBefore: string | null;
-    breakInside: string | null;
+    breakAfter: string;
+    breakBefore: string;
+    breakInside: string;
     captionSide: string | null;
     caretColor: string;
     clear: string | null;
@@ -2966,7 +2966,7 @@ interface CSSStyleDeclaration {
     objectPosition: string;
     opacity: string | null;
     order: string;
-    orphans: string | null;
+    orphans: string;
     outline: string;
     outlineColor: string;
     outlineOffset: string;
@@ -3208,7 +3208,7 @@ interface CSSStyleDeclaration {
     webkitUserSelect: string | null;
     webkitWritingMode: string | null;
     whiteSpace: string;
-    widows: string | null;
+    widows: string;
     width: string | null;
     willChange: string;
     wordBreak: string;
