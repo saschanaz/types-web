@@ -93,6 +93,38 @@
         "title": "CSS Writing Modes"
     },
     {
+        "url": "https://www.w3.org/TR/CSS22/box.html",
+        "title": "CSS2 Box"
+    },
+    {
+        "url": "https://www.w3.org/TR/CSS22/generate.html",
+        "title": "CSS2 Generated content"
+    },
+    {
+        "url": "https://www.w3.org/TR/CSS22/page.html",
+        "title": "CSS2 Paged media"
+    },
+    {
+        "url": "https://www.w3.org/TR/CSS22/tables.html",
+        "title": "CSS2 Tables"
+    },
+    {
+        "url": "https://www.w3.org/TR/CSS22/text.html",
+        "title": "CSS2 Text"
+    },
+    {
+        "url": "https://www.w3.org/TR/CSS22/visufx.html",
+        "title": "CSS2 Visual effect"
+    },
+    {
+        "url": "https://www.w3.org/TR/CSS22/visuren.html",
+        "title": "CSS2 Visual formatting"
+    },
+    {
+        "url": "https://www.w3.org/TR/CSS22/visudet.html",
+        "title": "CSS2 Visual formatting details"
+    },
+    {
         "url": "https://w3c.github.io/deviceorientation/",
         "title": "DeviceOrientation Event"
     },
