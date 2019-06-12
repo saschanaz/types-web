@@ -33,6 +33,10 @@
         "title": "CSS Box Alignment"
     },
     {
+        "url": "https://www.w3.org/TR/fill-stroke-3/",
+        "title": "CSS Fill and Stroke"
+    },
+    {
         "url": "https://www.w3.org/TR/css-flexbox-1/",
         "title": "CSS Flexible Box Layout"
     },
