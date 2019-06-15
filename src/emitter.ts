@@ -847,7 +847,7 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor) {
 
         printer.print(`interface ${getNameWithTypeParameter(i, processedIName)}`);
 
-        const finalExtends = distinct([i.extends || "Object"].concat(i.implements || [])
+        const finalExtends = distinct([i.extends || "Object"].concat((i.implements || []).sort())
             .filter(i => i !== "Object")
             .map(processIName));
 
