@@ -2730,7 +2730,7 @@ interface CSSStyleDeclaration {
     alignContent: string;
     alignItems: string;
     alignSelf: string;
-    alignmentBaseline: string | null;
+    alignmentBaseline: string;
     animation: string;
     animationDelay: string;
     animationDirection: string;
@@ -2752,7 +2752,7 @@ interface CSSStyleDeclaration {
     backgroundPositionY: string;
     backgroundRepeat: string;
     backgroundSize: string;
-    baselineShift: string | null;
+    baselineShift: string;
     blockSize: string;
     border: string;
     borderBlockEnd: string;
@@ -2835,12 +2835,12 @@ interface CSSStyleDeclaration {
     cursor: string;
     direction: string;
     display: string | null;
-    dominantBaseline: string | null;
+    dominantBaseline: string;
     emptyCells: string | null;
     enableBackground: string | null;
-    fill: string | null;
-    fillOpacity: string | null;
-    fillRule: string | null;
+    fill: string;
+    fillOpacity: string;
+    fillRule: string;
     filter: string;
     flex: string;
     flexBasis: string;
@@ -3036,14 +3036,14 @@ interface CSSStyleDeclaration {
     scrollBehavior: string;
     stopColor: string | null;
     stopOpacity: string | null;
-    stroke: string | null;
-    strokeDasharray: string | null;
-    strokeDashoffset: string | null;
-    strokeLinecap: string | null;
-    strokeLinejoin: string | null;
-    strokeMiterlimit: string | null;
-    strokeOpacity: string | null;
-    strokeWidth: string | null;
+    stroke: string;
+    strokeDasharray: string;
+    strokeDashoffset: string;
+    strokeLinecap: string;
+    strokeLinejoin: string;
+    strokeMiterlimit: string;
+    strokeOpacity: string;
+    strokeWidth: string;
     tabSize: string;
     tableLayout: string | null;
     textAlign: string;
@@ -3081,7 +3081,7 @@ interface CSSStyleDeclaration {
     translate: string | null;
     unicodeBidi: string;
     userSelect: string;
-    verticalAlign: string | null;
+    verticalAlign: string;
     visibility: string | null;
     /** @deprecated */
     webkitAlignContent: string;
