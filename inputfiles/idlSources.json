@@ -33,6 +33,10 @@
         "title": "CSS Box Alignment"
     },
     {
+        "url": "https://www.w3.org/TR/fill-stroke-3/",
+        "title": "CSS Fill and Stroke"
+    },
+    {
         "url": "https://www.w3.org/TR/css-flexbox-1/",
         "title": "CSS Flexible Box Layout"
     },
@@ -41,12 +45,24 @@
         "title": "CSS Fonts"
     },
     {
+        "url": "https://www.w3.org/TR/css-break-3/",
+        "title": "CSS Fragmentation"
+    },
+    {
         "url": "https://www.w3.org/TR/css-grid-1/",
         "title": "CSS Grid Layout"
     },
     {
         "url": "https://drafts.csswg.org/css-images-3/",
         "title": "CSS Images"
+    },
+    {
+        "url": "https://www.w3.org/TR/css-inline-3/",
+        "title": "CSS Inline Layout"
+    },
+    {
+        "url": "https://www.w3.org/TR/css-logical-1/",
+        "title": "CSS Logical Properties and Values"
     },
     {
         "url": "https://drafts.fxtf.org/css-masking-1/",
@@ -85,12 +101,48 @@
         "title": "CSS Transforms"
     },
     {
+        "url": "https://drafts.csswg.org/css-transforms-2/",
+        "title": "CSS Transforms Level 2"
+    },
+    {
         "url": "https://www.w3.org/TR/css-will-change/",
         "title": "CSS Will Change"
     },
     {
         "url": "https://www.w3.org/TR/css-writing-modes-3/",
         "title": "CSS Writing Modes"
+    },
+    {
+        "url": "https://www.w3.org/TR/CSS22/box.html",
+        "title": "CSS2 Box"
+    },
+    {
+        "url": "https://www.w3.org/TR/CSS22/generate.html",
+        "title": "CSS2 Generated content"
+    },
+    {
+        "url": "https://www.w3.org/TR/CSS22/page.html",
+        "title": "CSS2 Paged media"
+    },
+    {
+        "url": "https://www.w3.org/TR/CSS22/tables.html",
+        "title": "CSS2 Tables"
+    },
+    {
+        "url": "https://www.w3.org/TR/CSS22/text.html",
+        "title": "CSS2 Text"
+    },
+    {
+        "url": "https://www.w3.org/TR/CSS22/visufx.html",
+        "title": "CSS2 Visual effect"
+    },
+    {
+        "url": "https://www.w3.org/TR/CSS22/visuren.html",
+        "title": "CSS2 Visual formatting"
+    },
+    {
+        "url": "https://www.w3.org/TR/CSS22/visudet.html",
+        "title": "CSS2 Visual formatting details"
     },
     {
         "url": "https://w3c.github.io/deviceorientation/",
