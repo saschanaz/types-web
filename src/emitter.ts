@@ -562,7 +562,8 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor) {
     }
 
     function emitEnum(e: Browser.Enum) {
-        printer.printLine(`type ${e.name} = ${e.value.map(v => `"${v}"`).join(" | ")};`);
+        const values = e.value.slice().sort();
+        printer.printLine(`type ${e.name} = ${values.map(v => `"${v}"`).join(" | ")};`);
     }
 
     function emitEnums() {
