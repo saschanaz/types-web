@@ -2815,7 +2815,7 @@ interface CSSStyleDeclaration {
     clip: string;
     clipPath: string;
     clipRule: string;
-    color: string | null;
+    color: string;
     colorInterpolation: string;
     colorInterpolationFilters: string;
     columnCount: string;
@@ -2992,7 +2992,7 @@ interface CSSStyleDeclaration {
     msWrapThrough: string;
     objectFit: string;
     objectPosition: string;
-    opacity: string | null;
+    opacity: string;
     order: string;
     orphans: string;
     outline: string;
