@@ -12217,7 +12217,7 @@ declare var RTCDtmfSender: {
     new(sender: RTCRtpSender): RTCDtmfSender;
 };
 
-interface RTCError extends Error {
+interface RTCError extends DOMException {
     errorDetail: string;
     httpRequestStatusCode: number;
     message: string;

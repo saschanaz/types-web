@@ -461,7 +461,7 @@
                     "method": {}
                 },
                 "exposed": "Window",
-                "extends": "Error"
+                "extends": "DOMException"
             },
             "HTMLImageElement": {
                 "name": "HTMLImageElement",
