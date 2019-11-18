@@ -204,7 +204,7 @@ partial dictionary AuthenticationExtensionsClientInputs {
 };
 
 partial dictionary AuthenticationExtensionsClientOutputs {
-  Coordinates loc;
+  GeolocationCoordinates loc;
 };
 
 partial dictionary AuthenticationExtensionsClientInputs {

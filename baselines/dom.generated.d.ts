@@ -148,7 +148,7 @@ interface AuthenticationExtensionsClientOutputs {
     appid?: boolean;
     authnSel?: boolean;
     exts?: AuthenticationExtensionsSupported;
-    loc?: Coordinates;
+    loc?: GeolocationCoordinates;
     txAuthGeneric?: ArrayBuffer;
     txAuthSimple?: string;
     uvi?: ArrayBuffer;
@@ -3737,17 +3737,6 @@ declare var ConvolverNode: {
     new(context: BaseAudioContext, options?: ConvolverOptions): ConvolverNode;
 };
 
-/** The position and altitude of the device on Earth, as well as the accuracy with which these properties are calculated. */
-interface Coordinates {
-    readonly accuracy: number;
-    readonly altitude: number | null;
-    readonly altitudeAccuracy: number | null;
-    readonly heading: number | null;
-    readonly latitude: number;
-    readonly longitude: number;
-    readonly speed: number | null;
-}
-
 /** This Streams API interface provides a built-in byte length queuing strategy that can be used when constructing streams. */
 interface CountQueuingStrategy extends QueuingStrategy {
     highWaterMark: number;
@@ -5771,6 +5760,52 @@ interface Geolocation {
     getCurrentPosition(successCallback: PositionCallback, errorCallback?: PositionErrorCallback, options?: PositionOptions): void;
     watchPosition(successCallback: PositionCallback, errorCallback?: PositionErrorCallback, options?: PositionOptions): number;
 }
+
+declare var Geolocation: {
+    prototype: Geolocation;
+    new(): Geolocation;
+};
+
+interface GeolocationCoordinates {
+    readonly accuracy: number;
+    readonly altitude: number | null;
+    readonly altitudeAccuracy: number | null;
+    readonly heading: number | null;
+    readonly latitude: number;
+    readonly longitude: number;
+    readonly speed: number | null;
+}
+
+declare var GeolocationCoordinates: {
+    prototype: GeolocationCoordinates;
+    new(): GeolocationCoordinates;
+};
+
+interface GeolocationPosition {
+    readonly coords: GeolocationCoordinates;
+    readonly timestamp: number;
+}
+
+declare var GeolocationPosition: {
+    prototype: GeolocationPosition;
+    new(): GeolocationPosition;
+};
+
+interface GeolocationPositionError {
+    readonly code: number;
+    readonly message: string;
+    readonly PERMISSION_DENIED: number;
+    readonly POSITION_UNAVAILABLE: number;
+    readonly TIMEOUT: number;
+}
+
+declare var GeolocationPositionError: {
+    prototype: GeolocationPositionError;
+    new(): GeolocationPositionError;
+    readonly PERMISSION_DENIED: number;
+    readonly POSITION_UNAVAILABLE: number;
+    readonly TIMEOUT: number;
+};
 
 interface GlobalEventHandlersEventMap {
     "abort": UIEvent;
@@ -11972,21 +12007,6 @@ declare var PopStateEvent: {
     prototype: PopStateEvent;
     new(type: string, eventInitDict?: PopStateEventInit): PopStateEvent;
 };
-
-/** The position of the concerned device at a given time. The position, represented by a Coordinates object, comprehends the 2D position of the device, on a spheroid representing the Earth, but also its altitude and its speed. */
-interface Position {
-    readonly coords: Coordinates;
-    readonly timestamp: number;
-}
-
-/** The reason of an error occurring when using the geolocating device. */
-interface PositionError {
-    readonly code: number;
-    readonly message: string;
-    readonly PERMISSION_DENIED: number;
-    readonly POSITION_UNAVAILABLE: number;
-    readonly TIMEOUT: number;
-}
 
 /** A processing instruction embeds application-specific instructions in XML which can be ignored by other applications that don't recognize them. */
 interface ProcessingInstruction extends CharacterData {
@@ -19272,11 +19292,11 @@ interface PerformanceObserverCallback {
 }
 
 interface PositionCallback {
-    (position: Position): void;
+    (position: GeolocationPosition): void;
 }
 
 interface PositionErrorCallback {
-    (positionError: PositionError): void;
+    (positionError: GeolocationPositionError): void;
 }
 
 interface QueuingStrategySizeCallback<T = any> {

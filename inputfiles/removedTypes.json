@@ -65,6 +65,7 @@
                     }
                 }
             },
+            "Coordinates": null,
             "CSSStyleDeclaration": {
                 "properties": {
                     "property": {
@@ -177,6 +178,8 @@
             "MSDSHEvent": null,
             "MSStreamReader": null,
             "PasswordCredential": null,
+            "Position": null,
+            "PositionError": null,
             "StorageEvent": {
                 "methods": {
                     "method": {
