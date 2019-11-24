@@ -912,6 +912,10 @@ interface OscillatorOptions extends AudioNodeOptions {
     type?: OscillatorType;
 }
 
+interface PageTransitionEventInit extends EventInit {
+    persisted?: boolean;
+}
+
 interface PannerOptions extends AudioNodeOptions {
     coneInnerAngle?: number;
     coneOuterAngle?: number;
@@ -9168,7 +9172,13 @@ declare var HTMLVideoElement: {
 
 /** Events that fire when the fragment identifier of the URL has changed. */
 interface HashChangeEvent extends Event {
+    /**
+     * Returns the URL of the session history entry that is now current.
+     */
     readonly newURL: string;
+    /**
+     * Returns the URL of the session history entry that was previously current.
+     */
     readonly oldURL: string;
 }
 
@@ -11463,12 +11473,25 @@ declare var OverflowEvent: {
 
 /** The PageTransitionEvent is fired when a document is being loaded or unloaded. */
 interface PageTransitionEvent extends Event {
+    /**
+     * For the pageshow event, returns false if the page is newly being loaded (and the load event will fire). Otherwise, returns true.
+     * 
+     * For the pagehide event, returns false if the page is going away for the last time. Otherwise, returns true, meaning that (if nothing conspires to make the page unsalvageable) the page might be reused if the user navigates back to this page.
+     * 
+     * Things that can cause the page to be unsalvageable include:
+     * 
+     * Listening for beforeunload events
+     * Listening for unload events
+     * Having iframes that are not salvageable
+     * Active WebSocket objects
+     * Aborting a Document
+     */
     readonly persisted: boolean;
 }
 
 declare var PageTransitionEvent: {
     prototype: PageTransitionEvent;
-    new(): PageTransitionEvent;
+    new(type: string, eventInitDict?: PageTransitionEventInit): PageTransitionEvent;
 };
 
 /** A PannerNode always has exactly one input and one output: the input can be mono or stereo but the output is always stereo (2 channels); you can't have panning effects without at least two audio channels! */
@@ -11965,6 +11988,9 @@ declare var PointerEvent: {
 
 /** PopStateEvent is an event handler for the popstate event on the window. */
 interface PopStateEvent extends Event {
+    /**
+     * Returns a copy of the information that was provided to pushState() or replaceState().
+     */
     readonly state: any;
 }
 

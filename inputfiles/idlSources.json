@@ -213,6 +213,10 @@
         "title": "High Resolution Time"
     },
     {
+        "url": "https://html.spec.whatwg.org/multipage/browsing-the-web.html",
+        "title": "HTML - Browsing the Web"
+    },
+    {
         "url": "https://html.spec.whatwg.org/multipage/canvas.html",
         "title": "HTML - Canvas"
     },
