@@ -153,18 +153,6 @@
             },
             "FederatedCredential": null,
             "HTMLAreasCollection": null,
-            "HTMLBodyElement": {
-                "properties": {
-                    "property": {
-                        "onblur": null,
-                        "onerror": null,
-                        "onfocus": null,
-                        "onload": null,
-                        "onresize": null,
-                        "onscroll": null
-                    }
-                }
-            },
             "MessageEvent": {
                 "methods": {
                     "method": {

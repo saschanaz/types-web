@@ -291,6 +291,10 @@
         "title": "HTML - Scripting"
     },
     {
+        "url": "https://html.spec.whatwg.org/multipage/sections.html",
+        "title": "HTML - Sections"
+    },
+    {
         "url": "https://html.spec.whatwg.org/multipage/semantics.html",
         "title": "HTML - Semantics"
     },
