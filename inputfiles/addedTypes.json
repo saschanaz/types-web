@@ -229,13 +229,6 @@
                     "sharedworker",
                     "all"
                 ]
-            },
-            "WorkerType": {
-                "name": "WorkerType",
-                "value": [
-                    "classic",
-                    "module"
-                ]
             }
         }
     },
@@ -2251,6 +2244,16 @@
                     }
                 }
             },
+            "SharedWorker": {
+                "events": {
+                    "event": [
+                        {
+                            "name": "connect",
+                            "type": "MessageEvent"
+                        }
+                    ]
+                }
+            },
             "TextDecoderStream": {
                 "properties": {
                     "property": {
@@ -2282,6 +2285,23 @@
                         }
                     }
                 }
+            },
+            "WorkerGlobalScope": {
+                "events": {
+                    "event": [
+                        {
+                            "name": "rejectionhandled",
+                            "type": "PromiseRejectionEvent"
+                        },
+                        {
+                            "name": "unhandledrejection",
+                            "type": "PromiseRejectionEvent"
+                        }
+                    ]
+                },
+                "implements": [
+                    "WindowConsole"
+                ]
             }
         }
     },

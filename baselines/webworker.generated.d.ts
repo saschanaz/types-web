@@ -1254,12 +1254,24 @@ declare var DOMStringList: {
 
 interface DedicatedWorkerGlobalScopeEventMap extends WorkerGlobalScopeEventMap {
     "message": MessageEvent;
+    "messageerror": MessageEvent;
 }
 
 /** (the Worker global scope) is accessible through the self keyword. Some additional global functions, namespaces objects, and constructors, not typically associated with the worker global scope, but available on it, are listed in the JavaScript Reference. See also: Functions available to workers. */
 interface DedicatedWorkerGlobalScope extends WorkerGlobalScope, AnimationFrameProvider {
+    /**
+     * Returns dedicatedWorkerGlobal's name, i.e. the value given to the Worker constructor. Primarily useful for debugging.
+     */
+    readonly name: string;
     onmessage: ((this: DedicatedWorkerGlobalScope, ev: MessageEvent) => any) | null;
+    onmessageerror: ((this: DedicatedWorkerGlobalScope, ev: MessageEvent) => any) | null;
+    /**
+     * Aborts dedicatedWorkerGlobal.
+     */
     close(): void;
+    /**
+     * Clones message and transmits it to the Worker object associated with dedicatedWorkerGlobal. transfer can be passed as a list of objects that are to be transferred rather than cloned.
+     */
     postMessage(message: any, transfer: Transferable[]): void;
     postMessage(message: any, options?: PostMessageOptions): void;
     addEventListener<K extends keyof DedicatedWorkerGlobalScopeEventMap>(type: K, listener: (this: DedicatedWorkerGlobalScope, ev: DedicatedWorkerGlobalScopeEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
@@ -2308,10 +2320,6 @@ declare var NavigationPreloadManager: {
     new(): NavigationPreloadManager;
 };
 
-interface NavigatorBeacon {
-    sendBeacon(url: string, data?: Blob | Int8Array | Int16Array | Int32Array | Uint8Array | Uint16Array | Uint32Array | Uint8ClampedArray | Float32Array | Float64Array | DataView | ArrayBuffer | FormData | string | null): boolean;
-}
-
 interface NavigatorConcurrentHardware {
     readonly hardwareConcurrency: number;
 }
@@ -2323,6 +2331,11 @@ interface NavigatorID {
     readonly platform: string;
     readonly product: string;
     readonly userAgent: string;
+}
+
+interface NavigatorLanguage {
+    readonly language: string;
+    readonly languages: ReadonlyArray<string>;
 }
 
 interface NavigatorOnLine {
@@ -2988,6 +3001,47 @@ interface ServiceWorkerRegistration extends EventTarget {
 declare var ServiceWorkerRegistration: {
     prototype: ServiceWorkerRegistration;
     new(): ServiceWorkerRegistration;
+};
+
+interface SharedWorker extends EventTarget, AbstractWorker {
+    /**
+     * Returns sharedWorker's MessagePort object which can be used to communicate with the global environment.
+     */
+    readonly port: MessagePort;
+    addEventListener<K extends keyof AbstractWorkerEventMap>(type: K, listener: (this: SharedWorker, ev: AbstractWorkerEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener<K extends keyof AbstractWorkerEventMap>(type: K, listener: (this: SharedWorker, ev: AbstractWorkerEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+}
+
+declare var SharedWorker: {
+    prototype: SharedWorker;
+    new(scriptURL: string, options?: string | WorkerOptions): SharedWorker;
+};
+
+interface SharedWorkerGlobalScopeEventMap extends WorkerGlobalScopeEventMap {
+    "connect": MessageEvent;
+}
+
+interface SharedWorkerGlobalScope extends WorkerGlobalScope {
+    /**
+     * Returns sharedWorkerGlobal's name, i.e. the value given to the SharedWorker constructor. Multiple SharedWorker objects can correspond to the same shared worker (and SharedWorkerGlobalScope), by reusing the same name.
+     */
+    readonly name: string;
+    onconnect: ((this: SharedWorkerGlobalScope, ev: MessageEvent) => any) | null;
+    /**
+     * Aborts sharedWorkerGlobal.
+     */
+    close(): void;
+    addEventListener<K extends keyof SharedWorkerGlobalScopeEventMap>(type: K, listener: (this: SharedWorkerGlobalScope, ev: SharedWorkerGlobalScopeEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener<K extends keyof SharedWorkerGlobalScopeEventMap>(type: K, listener: (this: SharedWorkerGlobalScope, ev: SharedWorkerGlobalScopeEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+}
+
+declare var SharedWorkerGlobalScope: {
+    prototype: SharedWorkerGlobalScope;
+    new(): SharedWorkerGlobalScope;
 };
 
 interface StorageManager {
@@ -5300,11 +5354,6 @@ declare var WebSocket: {
     readonly OPEN: number;
 };
 
-interface WindowBase64 {
-    atob(encodedString: string): string;
-    btoa(rawString: string): string;
-}
-
 /** This ServiceWorker API interface represents the scope of a service worker client that is a document in a browser context, controlled by an active worker. The service worker client independently selects and uses a service worker for its own loading and sub-resources. */
 interface WindowClient extends Client {
     readonly ancestorOrigins: ReadonlyArray<string>;
@@ -5327,6 +5376,7 @@ interface WindowOrWorkerGlobalScope {
     readonly caches: CacheStorage;
     readonly crypto: Crypto;
     readonly indexedDB: IDBFactory;
+    readonly isSecureContext: boolean;
     readonly origin: string;
     readonly performance: Performance;
     atob(data: string): string;
@@ -5343,13 +5393,21 @@ interface WindowOrWorkerGlobalScope {
 
 interface WorkerEventMap extends AbstractWorkerEventMap {
     "message": MessageEvent;
+    "messageerror": MessageEvent;
 }
 
 /** This Web Workers API interface represents a background task that can be easily created and can send messages back to its creator. Creating a worker is as simple as calling the Worker() constructor and specifying a script to be run in the worker thread. */
 interface Worker extends EventTarget, AbstractWorker {
     onmessage: ((this: Worker, ev: MessageEvent) => any) | null;
+    onmessageerror: ((this: Worker, ev: MessageEvent) => any) | null;
+    /**
+     * Clones message and transmits it to worker's global environment. transfer can be passed as a list of objects that are to be transferred rather than cloned.
+     */
     postMessage(message: any, transfer: Transferable[]): void;
     postMessage(message: any, options?: PostMessageOptions): void;
+    /**
+     * Aborts worker's associated global environment.
+     */
     terminate(): void;
     addEventListener<K extends keyof WorkerEventMap>(type: K, listener: (this: Worker, ev: WorkerEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
@@ -5364,17 +5422,34 @@ declare var Worker: {
 
 interface WorkerGlobalScopeEventMap {
     "error": ErrorEvent;
+    "languagechange": Event;
+    "offline": Event;
+    "online": Event;
+    "rejectionhandled": PromiseRejectionEvent;
+    "unhandledrejection": PromiseRejectionEvent;
 }
 
 /** This Web Workers API interface is an interface representing the scope of any worker. Workers have no browsing context; this scope contains the information usually conveyed by Window objects — in this case event handlers, the console or the associated WorkerNavigator object. Each WorkerGlobalScope has its own event loop. */
-interface WorkerGlobalScope extends EventTarget, WindowConsole, WindowOrWorkerGlobalScope, WorkerUtils {
-    readonly caches: CacheStorage;
-    readonly isSecureContext: boolean;
+interface WorkerGlobalScope extends EventTarget, WindowConsole, WindowOrWorkerGlobalScope {
+    /**
+     * Returns workerGlobal's WorkerLocation object.
+     */
     readonly location: WorkerLocation;
+    readonly navigator: WorkerNavigator;
     onerror: ((this: WorkerGlobalScope, ev: ErrorEvent) => any) | null;
-    readonly performance: Performance;
+    onlanguagechange: ((this: WorkerGlobalScope, ev: Event) => any) | null;
+    onoffline: ((this: WorkerGlobalScope, ev: Event) => any) | null;
+    ononline: ((this: WorkerGlobalScope, ev: Event) => any) | null;
+    onrejectionhandled: ((this: WorkerGlobalScope, ev: PromiseRejectionEvent) => any) | null;
+    onunhandledrejection: ((this: WorkerGlobalScope, ev: PromiseRejectionEvent) => any) | null;
+    /**
+     * Returns workerGlobal.
+     */
     readonly self: WorkerGlobalScope & typeof globalThis;
-    msWriteProfilerMark(profilerMarkName: string): void;
+    /**
+     * Fetches each URL in urls, executes them one-by-one in the order they are passed, and then returns (or throws if something went amiss).
+     */
+    importScripts(...urls: string[]): void;
     addEventListener<K extends keyof WorkerGlobalScopeEventMap>(type: K, listener: (this: WorkerGlobalScope, ev: WorkerGlobalScopeEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
     removeEventListener<K extends keyof WorkerGlobalScopeEventMap>(type: K, listener: (this: WorkerGlobalScope, ev: WorkerGlobalScopeEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
@@ -5406,7 +5481,7 @@ declare var WorkerLocation: {
 };
 
 /** A subset of the Navigator interface allowed to be accessed from a Worker. Such an object is initialized for each worker and is available via the WorkerGlobalScope.navigator property obtained by calling window.self.navigator. */
-interface WorkerNavigator extends NavigatorBeacon, NavigatorConcurrentHardware, NavigatorID, NavigatorOnLine, NavigatorStorage {
+interface WorkerNavigator extends NavigatorConcurrentHardware, NavigatorID, NavigatorLanguage, NavigatorOnLine, NavigatorStorage {
     readonly permissions: Permissions;
     readonly serviceWorker: ServiceWorkerContainer;
 }
@@ -5415,13 +5490,6 @@ declare var WorkerNavigator: {
     prototype: WorkerNavigator;
     new(): WorkerNavigator;
 };
-
-interface WorkerUtils extends WindowBase64 {
-    readonly indexedDB: IDBFactory;
-    readonly msIndexedDB: IDBFactory;
-    readonly navigator: WorkerNavigator;
-    importScripts(...urls: string[]): void;
-}
 
 /** This Streams API interface provides a standard abstraction for writing streaming data to a destination, known as a sink. This object comes with built-in backpressure and queuing. */
 interface WritableStream<W = any> {
@@ -5713,6 +5781,10 @@ interface FrameRequestCallback {
     (time: number): void;
 }
 
+interface OnErrorEventHandlerNonNull {
+    (event: Event | string, source?: string, lineno?: number, colno?: number, error?: Error): any;
+}
+
 interface PerformanceObserverCallback {
     (entries: PerformanceObserverEntryList, observer: PerformanceObserver): void;
 }
@@ -5757,35 +5829,52 @@ interface WritableStreamErrorCallback {
     (reason: any): void | PromiseLike<void>;
 }
 
+/**
+ * Returns dedicatedWorkerGlobal's name, i.e. the value given to the Worker constructor. Primarily useful for debugging.
+ */
+declare var name: string;
 declare var onmessage: ((this: DedicatedWorkerGlobalScope, ev: MessageEvent) => any) | null;
+declare var onmessageerror: ((this: DedicatedWorkerGlobalScope, ev: MessageEvent) => any) | null;
+/**
+ * Aborts dedicatedWorkerGlobal.
+ */
 declare function close(): void;
+/**
+ * Clones message and transmits it to the Worker object associated with dedicatedWorkerGlobal. transfer can be passed as a list of objects that are to be transferred rather than cloned.
+ */
 declare function postMessage(message: any, transfer: Transferable[]): void;
 declare function postMessage(message: any, options?: PostMessageOptions): void;
 /**
  * Dispatches a synthetic event event to target and returns true if either event's cancelable attribute value is false or its preventDefault() method was not invoked, and false otherwise.
  */
 declare function dispatchEvent(event: Event): boolean;
-declare var caches: CacheStorage;
-declare var isSecureContext: boolean;
+/**
+ * Returns workerGlobal's WorkerLocation object.
+ */
 declare var location: WorkerLocation;
+declare var navigator: WorkerNavigator;
 declare var onerror: ((this: DedicatedWorkerGlobalScope, ev: ErrorEvent) => any) | null;
-declare var performance: Performance;
+declare var onlanguagechange: ((this: DedicatedWorkerGlobalScope, ev: Event) => any) | null;
+declare var onoffline: ((this: DedicatedWorkerGlobalScope, ev: Event) => any) | null;
+declare var ononline: ((this: DedicatedWorkerGlobalScope, ev: Event) => any) | null;
+declare var onrejectionhandled: ((this: DedicatedWorkerGlobalScope, ev: PromiseRejectionEvent) => any) | null;
+declare var onunhandledrejection: ((this: DedicatedWorkerGlobalScope, ev: PromiseRejectionEvent) => any) | null;
+/**
+ * Returns workerGlobal.
+ */
 declare var self: WorkerGlobalScope & typeof globalThis;
-declare function msWriteProfilerMark(profilerMarkName: string): void;
+/**
+ * Fetches each URL in urls, executes them one-by-one in the order they are passed, and then returns (or throws if something went amiss).
+ */
+declare function importScripts(...urls: string[]): void;
 /**
  * Dispatches a synthetic event event to target and returns true if either event's cancelable attribute value is false or its preventDefault() method was not invoked, and false otherwise.
  */
 declare function dispatchEvent(event: Event): boolean;
-declare var indexedDB: IDBFactory;
-declare var msIndexedDB: IDBFactory;
-declare var navigator: WorkerNavigator;
-declare function importScripts(...urls: string[]): void;
-declare function atob(encodedString: string): string;
-declare function btoa(rawString: string): string;
-declare var console: Console;
 declare var caches: CacheStorage;
 declare var crypto: Crypto;
 declare var indexedDB: IDBFactory;
+declare var isSecureContext: boolean;
 declare var origin: string;
 declare var performance: Performance;
 declare function atob(data: string): string;
@@ -5798,6 +5887,7 @@ declare function fetch(input: RequestInfo, init?: RequestInit): Promise<Response
 declare function queueMicrotask(callback: Function): void;
 declare function setInterval(handler: TimerHandler, timeout?: number, ...arguments: any[]): number;
 declare function setTimeout(handler: TimerHandler, timeout?: number, ...arguments: any[]): number;
+declare var console: Console;
 declare function cancelAnimationFrame(handle: number): void;
 declare function requestAnimationFrame(callback: FrameRequestCallback): number;
 declare function addEventListener<K extends keyof DedicatedWorkerGlobalScopeEventMap>(type: K, listener: (this: DedicatedWorkerGlobalScope, ev: DedicatedWorkerGlobalScopeEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
@@ -5813,6 +5903,7 @@ type CanvasImageSource = ImageBitmap | OffscreenCanvas;
 type OffscreenRenderingContext = OffscreenCanvasRenderingContext2D | ImageBitmapRenderingContext | WebGLRenderingContext | WebGL2RenderingContext;
 type MessageEventSource = MessagePort | ServiceWorker;
 type ImageBitmapSource = CanvasImageSource | Blob | ImageData;
+type OnErrorEventHandler = OnErrorEventHandlerNonNull | null;
 type TimerHandler = string | Function;
 type PerformanceEntryList = PerformanceEntry[];
 type PushMessageDataInit = BufferSource | string;

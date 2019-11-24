@@ -331,6 +331,10 @@
         "title": "HTML - Web storage"
     },
     {
+        "url": "https://html.spec.whatwg.org/multipage/workers.html",
+        "title": "HTML - Web workers"
+    },
+    {
         "url": "https://html.spec.whatwg.org/multipage/interaction.html",
         "title": "HTML - User interaction"
     },
@@ -397,6 +401,10 @@
     {
         "url": "https://www.w3.org/TR/screen-orientation/",
         "title": "Screen Orientation"
+    },
+    {
+        "url": "https://www.w3.org/TR/secure-contexts/",
+        "title": "Secure Contexts"
     },
     {
         "url": "https://www.w3.org/TR/selection-api/",

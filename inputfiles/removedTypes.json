@@ -248,6 +248,7 @@
                 "properties": {
                     "property": {
                         "browser": null,
+                        "isSecureContext": null,
                         "msCredentials": null,
                         "ontouchcancel": null,
                         "ontouchend": null,
@@ -261,11 +262,6 @@
                         "requestAnimationFrame": null
                     }
                 },
-                "implements": [
-                    "GlobalFetch"
-                ]
-            },
-            "WorkerGlobalScope": {
                 "implements": [
                     "GlobalFetch"
                 ]

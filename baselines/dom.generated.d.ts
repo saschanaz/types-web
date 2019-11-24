@@ -15163,6 +15163,22 @@ declare var ShadowRoot: {
     new(): ShadowRoot;
 };
 
+interface SharedWorker extends EventTarget, AbstractWorker {
+    /**
+     * Returns sharedWorker's MessagePort object which can be used to communicate with the global environment.
+     */
+    readonly port: MessagePort;
+    addEventListener<K extends keyof AbstractWorkerEventMap>(type: K, listener: (this: SharedWorker, ev: AbstractWorkerEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener<K extends keyof AbstractWorkerEventMap>(type: K, listener: (this: SharedWorker, ev: AbstractWorkerEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+}
+
+declare var SharedWorker: {
+    prototype: SharedWorker;
+    new(scriptURL: string, options?: string | WorkerOptions): SharedWorker;
+};
+
 interface Slotable {
     readonly assignedSlot: HTMLSlotElement | null;
 }
@@ -18556,7 +18572,6 @@ interface Window extends EventTarget, AnimationFrameProvider, GlobalEventHandler
     readonly history: History;
     readonly innerHeight: number;
     readonly innerWidth: number;
-    readonly isSecureContext: boolean;
     readonly length: number;
     location: Location;
     readonly locationbar: BarProp;
@@ -18729,6 +18744,7 @@ interface WindowOrWorkerGlobalScope {
     readonly caches: CacheStorage;
     readonly crypto: Crypto;
     readonly indexedDB: IDBFactory;
+    readonly isSecureContext: boolean;
     readonly origin: string;
     readonly performance: Performance;
     atob(data: string): string;
@@ -18752,13 +18768,21 @@ interface WindowTimers {
 
 interface WorkerEventMap extends AbstractWorkerEventMap {
     "message": MessageEvent;
+    "messageerror": MessageEvent;
 }
 
 /** This Web Workers API interface represents a background task that can be easily created and can send messages back to its creator. Creating a worker is as simple as calling the Worker() constructor and specifying a script to be run in the worker thread. */
 interface Worker extends EventTarget, AbstractWorker {
     onmessage: ((this: Worker, ev: MessageEvent) => any) | null;
+    onmessageerror: ((this: Worker, ev: MessageEvent) => any) | null;
+    /**
+     * Clones message and transmits it to worker's global environment. transfer can be passed as a list of objects that are to be transferred rather than cloned.
+     */
     postMessage(message: any, transfer: Transferable[]): void;
     postMessage(message: any, options?: PostMessageOptions): void;
+    /**
+     * Aborts worker's associated global environment.
+     */
     terminate(): void;
     addEventListener<K extends keyof WorkerEventMap>(type: K, listener: (this: Worker, ev: WorkerEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
@@ -19553,7 +19577,6 @@ declare var frames: Window;
 declare var history: History;
 declare var innerHeight: number;
 declare var innerWidth: number;
-declare var isSecureContext: boolean;
 declare var length: number;
 declare var location: Location;
 declare var locationbar: BarProp;
@@ -19937,6 +19960,7 @@ declare function requestAnimationFrame(callback: FrameRequestCallback): number;
 declare var caches: CacheStorage;
 declare var crypto: Crypto;
 declare var indexedDB: IDBFactory;
+declare var isSecureContext: boolean;
 declare var origin: string;
 declare var performance: Performance;
 declare function atob(data: string): string;
