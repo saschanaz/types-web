@@ -24,10 +24,10 @@ const extendConflictsBaseTypes: Record<
   string,
   { extendType: string[]; memberNames: Set<string> }
 > = {
-  HTMLCollection: {
-    extendType: ["HTMLFormControlsCollection"],
-    memberNames: new Set(["namedItem"]),
-  },
+  // HTMLCollection: {
+  //   extendType: ["HTMLFormControlsCollection"],
+  //   memberNames: new Set(["namedItem"]),
+  // },
 };
 
 // Namespaces that have been in form of interfaces for years

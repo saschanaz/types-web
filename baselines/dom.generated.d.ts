@@ -6020,29 +6020,20 @@ declare var HTMLCanvasElement: {
 };
 
 /** A generic collection (array-like object similar to arguments) of elements (in document order) and offers methods and properties for selecting from the list. */
-interface HTMLCollectionBase {
+interface HTMLCollection<E extends Element = Element, N = never> {
     /** Sets or retrieves the number of objects in a collection. */
     readonly length: number;
     /** Retrieves an object from various collections. */
-    item(index: number): Element | null;
-    [index: number]: Element;
-}
-
-interface HTMLCollection extends HTMLCollectionBase {
+    item(index: number): E | null;
     /** Retrieves a select object or an object from an options collection. */
-    namedItem(name: string): Element | null;
+    namedItem(name: string): E | N | null;
+    [index: number]: E;
 }
 
 declare var HTMLCollection: {
     prototype: HTMLCollection;
     new(): HTMLCollection;
 };
-
-interface HTMLCollectionOf<T extends Element> extends HTMLCollectionBase {
-    item(index: number): T | null;
-    namedItem(name: string): T | null;
-    [index: number]: T;
-}
 
 /** Provides special properties (beyond those of the regular HTMLElement interface it also has available to it by inheritance) for manipulating definition list (<dl>) elements. */
 interface HTMLDListElement extends HTMLElement {
@@ -6282,7 +6273,7 @@ declare var HTMLFontElement: {
 };
 
 /** A collection of HTML form control elements.  */
-interface HTMLFormControlsCollection extends HTMLCollectionBase {
+interface HTMLFormControlsCollection extends HTMLCollection<Element, RadioNodeList> {
     /**
      * Returns the item with ID or name name from the collection.
      *
@@ -7331,7 +7322,7 @@ declare var HTMLOptionElement: {
 };
 
 /** HTMLOptionsCollection is an interface representing a collection of HTML option elements (in document order) and offers methods and properties for traversing the list as well as optionally altering its items. This type is returned solely by the "options" property of select. */
-interface HTMLOptionsCollection extends HTMLCollectionOf<HTMLOptionElement> {
+interface HTMLOptionsCollection extends HTMLCollection<HTMLOptionElement> {
     /**
      * Returns the number of elements in the collection.
      *
