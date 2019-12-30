@@ -1,18 +1,21 @@
 {
     "callback-functions": {
         "callback-function": {
-            "CustomElementConstructor": null,
             "ErrorEventHandler": null,
             "Function": null
         }
     },
     "mixins": {
         "mixin": {
-            "XMLHttpRequestEventTarget": null,
-            "WindowTimers": {
-                "methods": null,
-                "implements": null
+            "GlobalEventHandlers": {
+                "properties": {
+                    "property": {
+                        "onformdata": null,
+                        "onslotchange": null
+                    }
+                }
             },
+            "XMLHttpRequestEventTarget": null,
             "WorkerUtils": {
                 "methods": {
                     "method": {
@@ -131,6 +134,10 @@
                         "overflowInline": null,
                         "paddingBlock": null,
                         "paddingInline": null,
+                        "rubyMerge": null,
+                        "shapeInside": null,
+                        "shapeMargin": null,
+                        "shapeSubtract": null,
                         "strokeAlign": null,
                         "strokeBreak": null,
                         "strokeColor": null,
@@ -141,25 +148,14 @@
                         "strokePosition": null,
                         "strokeRepeat": null,
                         "strokeSize": null,
-                        "textAlignAll": null
-                    }
-                }
-            },
-            "DeviceMotionEvent": {
-                "methods": {
-                    "method": {
-                        "requestPermission": null
-                    }
-                }
-            },
-            "DeviceOrientationEvent": {
-                "methods": {
-                    "method": {
-                        "requestPermission": null
+                        "textAlignAll": null,
+                        "textDecorationFill": null,
+                        "textDecorationStroke": null
                     }
                 }
             },
             "FederatedCredential": null,
+            "FormDataEvent": null,
             "HTMLAreasCollection": null,
             "HTMLBodyElement": {
                 "properties": {
@@ -170,6 +166,13 @@
                         "onload": null,
                         "onresize": null,
                         "onscroll": null
+                    }
+                }
+            },
+            "HTMLElement": {
+                "methods": {
+                    "method": {
+                        "attachInternals": null
                     }
                 }
             },
@@ -185,6 +188,13 @@
             "MSDSHEvent": null,
             "MSStreamReader": null,
             "PasswordCredential": null,
+            "ShadowRoot": {
+                "properties": {
+                    "property": {
+                        "onslotchange": null
+                    }
+                }
+            },
             "StorageEvent": {
                 "methods": {
                     "method": {
@@ -226,11 +236,6 @@
                     }
                 }
             },
-            "SVGGradientElement": {
-                "implements": [
-                    "SVGUnitTypes"
-                ]
-            },
             "SVGMatrix": null,
             "SVGMarkerElement": {
                 "properties": {
@@ -238,11 +243,6 @@
                         "orient": null
                     }
                 }
-            },
-            "SVGPatternElement": {
-                "implements": [
-                    "SVGUnitTypes"
-                ]
             },
             "SVGPoint": null,
             "SVGRect": null,
@@ -280,7 +280,8 @@
                     }
                 },
                 "implements": [
-                    "GlobalFetch"
+                    "GlobalFetch",
+                    "WindowTimers"
                 ]
             },
             "WorkerGlobalScope": {
