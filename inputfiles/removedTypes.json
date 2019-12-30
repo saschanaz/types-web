@@ -11,7 +11,7 @@
                 "properties": {
                     "property": {
                         "onformdata": null,
-                        "onslowchange": null
+                        "onslotchange": null
                     }
                 }
             },            },
