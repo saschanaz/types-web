@@ -350,7 +350,7 @@ interface PushPermissionDescriptor extends PermissionDescriptor {
     userVisibleOnly?: boolean;
 }
 
-interface PushSubscriptionChangeInit extends ExtendableEventInit {
+interface PushSubscriptionChangeEventInit extends ExtendableEventInit {
     newSubscription?: PushSubscription;
     oldSubscription?: PushSubscription;
 }
@@ -632,7 +632,10 @@ interface AnimationFrameProvider {
 interface Blob {
     readonly size: number;
     readonly type: string;
+    arrayBuffer(): Promise<ArrayBuffer>;
     slice(start?: number, end?: number, contentType?: string): Blob;
+    stream(): ReadableStream;
+    text(): Promise<string>;
 }
 
 declare var Blob: {
@@ -651,7 +654,7 @@ interface Body {
 }
 
 interface BroadcastChannelEventMap {
-    "message": MessageEvent;
+    "message": ExtendableMessageEvent;
     "messageerror": MessageEvent;
 }
 
@@ -660,7 +663,7 @@ interface BroadcastChannel extends EventTarget {
      * Returns the channel name (as passed to the constructor).
      */
     readonly name: string;
-    onmessage: ((this: BroadcastChannel, ev: MessageEvent) => any) | null;
+    onmessage: ((this: BroadcastChannel, ev: ExtendableMessageEvent) => any) | null;
     onmessageerror: ((this: BroadcastChannel, ev: MessageEvent) => any) | null;
     /**
      * Closes the BroadcastChannel object, opening it up to garbage collection.
@@ -893,11 +896,18 @@ declare var Clients: {
 
 /** A CloseEvent is sent to clients using WebSockets when the connection is closed. This is delivered to the listener indicated by the WebSocket object's onclose attribute. */
 interface CloseEvent extends Event {
+    /**
+     * Returns the WebSocket connection close code provided by the server.
+     */
     readonly code: number;
+    /**
+     * Returns the WebSocket connection close reason provided by the server.
+     */
     readonly reason: string;
+    /**
+     * Returns true if the connection closed cleanly; false otherwise.
+     */
     readonly wasClean: boolean;
-    /** @deprecated */
-    initCloseEvent(typeArg: string, canBubbleArg: boolean, cancelableArg: boolean, wasCleanArg: boolean, codeArg: number, reasonArg: string): void;
 }
 
 declare var CloseEvent: {
@@ -1253,7 +1263,7 @@ declare var DOMStringList: {
 };
 
 interface DedicatedWorkerGlobalScopeEventMap extends WorkerGlobalScopeEventMap {
-    "message": MessageEvent;
+    "message": ExtendableMessageEvent;
     "messageerror": MessageEvent;
 }
 
@@ -1263,7 +1273,7 @@ interface DedicatedWorkerGlobalScope extends WorkerGlobalScope, AnimationFramePr
      * Returns dedicatedWorkerGlobal's name, i.e. the value given to the Worker constructor. Primarily useful for debugging.
      */
     readonly name: string;
-    onmessage: ((this: DedicatedWorkerGlobalScope, ev: MessageEvent) => any) | null;
+    onmessage: ((this: DedicatedWorkerGlobalScope, ev: ExtendableMessageEvent) => any) | null;
     onmessageerror: ((this: DedicatedWorkerGlobalScope, ev: MessageEvent) => any) | null;
     /**
      * Aborts dedicatedWorkerGlobal.
@@ -1427,13 +1437,13 @@ interface EventListenerObject {
 
 interface EventSourceEventMap {
     "error": Event;
-    "message": MessageEvent;
+    "message": ExtendableMessageEvent;
     "open": Event;
 }
 
 interface EventSource extends EventTarget {
     onerror: ((this: EventSource, ev: Event) => any) | null;
-    onmessage: ((this: EventSource, ev: MessageEvent) => any) | null;
+    onmessage: ((this: EventSource, ev: ExtendableMessageEvent) => any) | null;
     onopen: ((this: EventSource, ev: Event) => any) | null;
     /**
      * Returns the state of this EventSource object's connection. It can have the values described below.
@@ -1477,7 +1487,7 @@ interface EventTarget {
      * 
      * When set to true, options's capture prevents callback from being invoked when the event's eventPhase attribute value is BUBBLING_PHASE. When false (or not present), callback will not be invoked when event's eventPhase attribute value is CAPTURING_PHASE. Either way, callback will be invoked if event's eventPhase attribute value is AT_TARGET.
      * 
-     * When set to true, options's passive indicates that the callback will not cancel the event by invoking preventDefault(). This is used to enable performance optimizations described in §2.8 Observing event listeners.
+     * When set to true, options's passive indicates that the callback will not cancel the event by invoking preventDefault(). This is used to enable performance optimizations described in § 2.8 Observing event listeners.
      * 
      * When set to true, options's once indicates that the callback will only be invoked once after which the event listener will be removed.
      * 
@@ -1638,7 +1648,7 @@ interface GenericTransformStream {
      */
     readonly readable: ReadableStream;
     /**
-     * Returns a writable stream which accepts BufferSource chunks and runs them through encoding's decoder before making them available to readable.
+     * Returns a writable stream which accepts [AllowShared] BufferSource chunks and runs them through encoding's decoder before making them available to readable.
      * 
      * Typically this will be used via the pipeThrough() method on a ReadableStream source.
      * 
@@ -2274,13 +2284,13 @@ declare var MessageEvent: {
 };
 
 interface MessagePortEventMap {
-    "message": MessageEvent;
+    "message": ExtendableMessageEvent;
     "messageerror": MessageEvent;
 }
 
 /** This Channel Messaging API interface represents one of the two ports of a MessageChannel, allowing messages to be sent from one port and listening out for them arriving at the other. */
 interface MessagePort extends EventTarget {
-    onmessage: ((this: MessagePort, ev: MessageEvent) => any) | null;
+    onmessage: ((this: MessagePort, ev: ExtendableMessageEvent) => any) | null;
     onmessageerror: ((this: MessagePort, ev: MessageEvent) => any) | null;
     /**
      * Disconnects the port, so that it is no longer active.
@@ -2718,7 +2728,7 @@ interface PushSubscriptionChangeEvent extends ExtendableEvent {
 
 declare var PushSubscriptionChangeEvent: {
     prototype: PushSubscriptionChangeEvent;
-    new(type: string, eventInitDict?: PushSubscriptionChangeInit): PushSubscriptionChangeEvent;
+    new(type: string, eventInitDict?: PushSubscriptionChangeEventInit): PushSubscriptionChangeEvent;
 };
 
 interface PushSubscriptionOptions {
@@ -2961,6 +2971,7 @@ interface ServiceWorkerGlobalScope extends WorkerGlobalScope {
     onpushsubscriptionchange: ((this: ServiceWorkerGlobalScope, ev: PushSubscriptionChangeEvent) => any) | null;
     onsync: ((this: ServiceWorkerGlobalScope, ev: SyncEvent) => any) | null;
     readonly registration: ServiceWorkerRegistration;
+    readonly serviceWorker: ServiceWorker;
     skipWaiting(): Promise<void>;
     addEventListener<K extends keyof ServiceWorkerGlobalScopeEventMap>(type: K, listener: (this: ServiceWorkerGlobalScope, ev: ServiceWorkerGlobalScopeEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
@@ -3310,6 +3321,9 @@ interface URLSearchParams {
      */
     set(name: string, value: string): void;
     sort(): void;
+    /**
+     * Returns a string containing a query string suitable for use in a URL. Does not include the question mark.
+     */
     toString(): string;
     forEach(callbackfn: (value: string, key: string, parent: URLSearchParams) => void, thisArg?: any): void;
 }
@@ -5317,23 +5331,51 @@ interface WebGLVertexArrayObjectOES extends WebGLObject {
 interface WebSocketEventMap {
     "close": CloseEvent;
     "error": Event;
-    "message": MessageEvent;
+    "message": ExtendableMessageEvent;
     "open": Event;
 }
 
 /** Provides the API for creating and managing a WebSocket connection to a server, as well as for sending and receiving data on the connection. */
 interface WebSocket extends EventTarget {
+    /**
+     * Returns a string that indicates how binary data from the WebSocket object is exposed to scripts:
+     * 
+     * Can be set, to change how binary data is returned. The default is "blob".
+     */
     binaryType: BinaryType;
+    /**
+     * Returns the number of bytes of application data (UTF-8 text and binary data) that have been queued using send() but not yet been transmitted to the network.
+     * 
+     * If the WebSocket connection is closed, this attribute's value will only increase with each call to the send() method. (The number does not reset to zero once the connection closes.)
+     */
     readonly bufferedAmount: number;
+    /**
+     * Returns the extensions selected by the server, if any.
+     */
     readonly extensions: string;
     onclose: ((this: WebSocket, ev: CloseEvent) => any) | null;
     onerror: ((this: WebSocket, ev: Event) => any) | null;
-    onmessage: ((this: WebSocket, ev: MessageEvent) => any) | null;
+    onmessage: ((this: WebSocket, ev: ExtendableMessageEvent) => any) | null;
     onopen: ((this: WebSocket, ev: Event) => any) | null;
+    /**
+     * Returns the subprotocol selected by the server, if any. It can be used in conjunction with the array form of the constructor's second argument to perform subprotocol negotiation.
+     */
     readonly protocol: string;
+    /**
+     * Returns the state of the WebSocket object's connection. It can have the values described below.
+     */
     readonly readyState: number;
+    /**
+     * Returns the URL that was used to establish the WebSocket connection.
+     */
     readonly url: string;
+    /**
+     * Closes the WebSocket connection, optionally using code as the the WebSocket connection close code and reason as the the WebSocket connection close reason.
+     */
     close(code?: number, reason?: string): void;
+    /**
+     * Transmits data using the WebSocket connection. data can be a string, a Blob, an ArrayBuffer, or an ArrayBufferView.
+     */
     send(data: string | ArrayBufferLike | Blob | ArrayBufferView): void;
     readonly CLOSED: number;
     readonly CLOSING: number;
@@ -5386,19 +5428,19 @@ interface WindowOrWorkerGlobalScope {
     createImageBitmap(image: ImageBitmapSource): Promise<ImageBitmap>;
     createImageBitmap(image: ImageBitmapSource, sx: number, sy: number, sw: number, sh: number): Promise<ImageBitmap>;
     fetch(input: RequestInfo, init?: RequestInit): Promise<Response>;
-    queueMicrotask(callback: Function): void;
+    queueMicrotask(callback: VoidFunction): void;
     setInterval(handler: TimerHandler, timeout?: number, ...arguments: any[]): number;
     setTimeout(handler: TimerHandler, timeout?: number, ...arguments: any[]): number;
 }
 
 interface WorkerEventMap extends AbstractWorkerEventMap {
-    "message": MessageEvent;
+    "message": ExtendableMessageEvent;
     "messageerror": MessageEvent;
 }
 
 /** This Web Workers API interface represents a background task that can be easily created and can send messages back to its creator. Creating a worker is as simple as calling the Worker() constructor and specifying a script to be run in the worker thread. */
 interface Worker extends EventTarget, AbstractWorker {
-    onmessage: ((this: Worker, ev: MessageEvent) => any) | null;
+    onmessage: ((this: Worker, ev: ExtendableMessageEvent) => any) | null;
     onmessageerror: ((this: Worker, ev: MessageEvent) => any) | null;
     /**
      * Clones message and transmits it to worker's global environment. transfer can be passed as a list of objects that are to be transferred rather than cloned.
@@ -5757,9 +5799,9 @@ declare namespace WebAssembly {
         module: Module;
     }
     
-    type ImportExportKind = "function" | "table" | "memory" | "global";
+    type ImportExportKind = "function" | "global" | "memory" | "table";
     type TableKind = "anyfunc";
-    type ValueType = "i32" | "i64" | "f32" | "f64";
+    type ValueType = "f32" | "f64" | "i32" | "i64";
     type ExportValue = Function | Global | Memory | Table;
     type Exports = Record<string, ExportValue>;
     type ImportValue = ExportValue | number;
@@ -5771,10 +5813,6 @@ declare namespace WebAssembly {
     function instantiate(moduleObject: Module, importObject?: Imports): Promise<Instance>;
     function instantiateStreaming(response: Response | PromiseLike<Response>, importObject?: Imports): Promise<WebAssemblyInstantiatedSource>;
     function validate(bytes: BufferSource): boolean;
-}
-
-interface EventHandlerNonNull {
-    (event: Event): any;
 }
 
 interface FrameRequestCallback {
@@ -5813,6 +5851,10 @@ interface TransformStreamDefaultControllerTransformCallback<I, O> {
     (chunk: I, controller: TransformStreamDefaultController<O>): void | PromiseLike<void>;
 }
 
+interface VoidFunction {
+    (): void;
+}
+
 interface WritableStreamDefaultControllerCloseCallback {
     (): void | PromiseLike<void>;
 }
@@ -5833,7 +5875,7 @@ interface WritableStreamErrorCallback {
  * Returns dedicatedWorkerGlobal's name, i.e. the value given to the Worker constructor. Primarily useful for debugging.
  */
 declare var name: string;
-declare var onmessage: ((this: DedicatedWorkerGlobalScope, ev: MessageEvent) => any) | null;
+declare var onmessage: ((this: DedicatedWorkerGlobalScope, ev: ExtendableMessageEvent) => any) | null;
 declare var onmessageerror: ((this: DedicatedWorkerGlobalScope, ev: MessageEvent) => any) | null;
 /**
  * Aborts dedicatedWorkerGlobal.
@@ -5884,7 +5926,7 @@ declare function clearTimeout(handle?: number): void;
 declare function createImageBitmap(image: ImageBitmapSource): Promise<ImageBitmap>;
 declare function createImageBitmap(image: ImageBitmapSource, sx: number, sy: number, sw: number, sh: number): Promise<ImageBitmap>;
 declare function fetch(input: RequestInfo, init?: RequestInit): Promise<Response>;
-declare function queueMicrotask(callback: Function): void;
+declare function queueMicrotask(callback: VoidFunction): void;
 declare function setInterval(handler: TimerHandler, timeout?: number, ...arguments: any[]): number;
 declare function setTimeout(handler: TimerHandler, timeout?: number, ...arguments: any[]): number;
 declare var console: Console;
@@ -5933,41 +5975,41 @@ type BufferSource = ArrayBufferView | ArrayBuffer;
 type DOMTimeStamp = number;
 type FormDataEntryValue = File | string;
 type IDBValidKey = number | string | Date | BufferSource | IDBArrayKey;
-type Transferable = ArrayBuffer | MessagePort | ImageBitmap;
-type BinaryType = "blob" | "arraybuffer";
-type CanvasDirection = "ltr" | "rtl" | "inherit";
-type CanvasFillRule = "nonzero" | "evenodd";
+type Transferable = ArrayBuffer | MessagePort | ImageBitmap | OffscreenCanvas;
+type BinaryType = "arraybuffer" | "blob";
+type CanvasDirection = "inherit" | "ltr" | "rtl";
+type CanvasFillRule = "evenodd" | "nonzero";
 type CanvasLineCap = "butt" | "round" | "square";
-type CanvasLineJoin = "round" | "bevel" | "miter";
-type CanvasTextAlign = "start" | "end" | "left" | "right" | "center";
-type CanvasTextBaseline = "top" | "hanging" | "middle" | "alphabetic" | "ideographic" | "bottom";
-type ClientTypes = "window" | "worker" | "sharedworker" | "all";
-type EndingType = "transparent" | "native";
-type FrameType = "auxiliary" | "top-level" | "nested" | "none";
+type CanvasLineJoin = "bevel" | "miter" | "round";
+type CanvasTextAlign = "center" | "end" | "left" | "right" | "start";
+type CanvasTextBaseline = "alphabetic" | "bottom" | "hanging" | "ideographic" | "middle" | "top";
+type ClientTypes = "all" | "sharedworker" | "window" | "worker";
+type EndingType = "native" | "transparent";
+type FrameType = "auxiliary" | "nested" | "none" | "top-level";
 type IDBCursorDirection = "next" | "nextunique" | "prev" | "prevunique";
-type IDBRequestReadyState = "pending" | "done";
+type IDBRequestReadyState = "done" | "pending";
 type IDBTransactionMode = "readonly" | "readwrite" | "versionchange";
-type ImageSmoothingQuality = "low" | "medium" | "high";
-type KeyFormat = "raw" | "spki" | "pkcs8" | "jwk";
-type KeyType = "public" | "private" | "secret";
-type KeyUsage = "encrypt" | "decrypt" | "sign" | "verify" | "deriveKey" | "deriveBits" | "wrapKey" | "unwrapKey";
+type ImageSmoothingQuality = "high" | "low" | "medium";
+type KeyFormat = "jwk" | "pkcs8" | "raw" | "spki";
+type KeyType = "private" | "public" | "secret";
+type KeyUsage = "decrypt" | "deriveBits" | "deriveKey" | "encrypt" | "sign" | "unwrapKey" | "verify" | "wrapKey";
 type NotificationDirection = "auto" | "ltr" | "rtl";
 type NotificationPermission = "default" | "denied" | "granted";
 type OffscreenRenderingContextId = "2d" | "bitmaprenderer" | "webgl" | "webgl2";
-type PermissionName = "geolocation" | "notifications" | "push" | "midi" | "camera" | "microphone" | "speaker" | "device-info" | "background-sync" | "bluetooth" | "persistent-storage" | "ambient-light-sensor" | "accelerometer" | "gyroscope" | "magnetometer" | "clipboard";
-type PermissionState = "granted" | "denied" | "prompt";
-type PushEncryptionKeyName = "p256dh" | "auth";
+type PermissionName = "accelerometer" | "ambient-light-sensor" | "background-sync" | "bluetooth" | "camera" | "clipboard" | "device-info" | "geolocation" | "gyroscope" | "magnetometer" | "microphone" | "midi" | "notifications" | "persistent-storage" | "push" | "speaker";
+type PermissionState = "denied" | "granted" | "prompt";
+type PushEncryptionKeyName = "auth" | "p256dh";
 type PushPermissionState = "denied" | "granted" | "prompt";
-type ReferrerPolicy = "" | "no-referrer" | "no-referrer-when-downgrade" | "same-origin" | "origin" | "strict-origin" | "origin-when-cross-origin" | "strict-origin-when-cross-origin" | "unsafe-url";
-type RequestCache = "default" | "no-store" | "reload" | "no-cache" | "force-cache" | "only-if-cached";
-type RequestCredentials = "omit" | "same-origin" | "include";
+type ReferrerPolicy = "" | "no-referrer" | "no-referrer-when-downgrade" | "origin" | "origin-when-cross-origin" | "same-origin" | "strict-origin" | "strict-origin-when-cross-origin" | "unsafe-url";
+type RequestCache = "default" | "force-cache" | "no-cache" | "no-store" | "only-if-cached" | "reload";
+type RequestCredentials = "include" | "omit" | "same-origin";
 type RequestDestination = "" | "audio" | "audioworklet" | "document" | "embed" | "font" | "image" | "manifest" | "object" | "paintworklet" | "report" | "script" | "sharedworker" | "style" | "track" | "video" | "worker" | "xslt";
-type RequestMode = "navigate" | "same-origin" | "no-cors" | "cors";
-type RequestRedirect = "follow" | "error" | "manual";
+type RequestMode = "cors" | "navigate" | "no-cors" | "same-origin";
+type RequestRedirect = "error" | "follow" | "manual";
 type ResponseType = "basic" | "cors" | "default" | "error" | "opaque" | "opaqueredirect";
-type ServiceWorkerState = "installing" | "installed" | "activating" | "activated" | "redundant";
-type ServiceWorkerUpdateViaCache = "imports" | "all" | "none";
+type ServiceWorkerState = "activated" | "activating" | "installed" | "installing" | "parsed" | "redundant";
+type ServiceWorkerUpdateViaCache = "all" | "imports" | "none";
 type VisibilityState = "hidden" | "visible";
-type WebGLPowerPreference = "default" | "low-power" | "high-performance";
+type WebGLPowerPreference = "default" | "high-performance" | "low-power";
 type WorkerType = "classic" | "module";
 type XMLHttpRequestResponseType = "" | "arraybuffer" | "blob" | "document" | "json" | "text";
