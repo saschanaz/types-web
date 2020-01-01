@@ -654,7 +654,7 @@ interface Body {
 }
 
 interface BroadcastChannelEventMap {
-    "message": ExtendableMessageEvent;
+    "message": MessageEvent;
     "messageerror": MessageEvent;
 }
 
@@ -663,7 +663,7 @@ interface BroadcastChannel extends EventTarget {
      * Returns the channel name (as passed to the constructor).
      */
     readonly name: string;
-    onmessage: ((this: BroadcastChannel, ev: ExtendableMessageEvent) => any) | null;
+    onmessage: ((this: BroadcastChannel, ev: MessageEvent) => any) | null;
     onmessageerror: ((this: BroadcastChannel, ev: MessageEvent) => any) | null;
     /**
      * Closes the BroadcastChannel object, opening it up to garbage collection.
@@ -1263,7 +1263,7 @@ declare var DOMStringList: {
 };
 
 interface DedicatedWorkerGlobalScopeEventMap extends WorkerGlobalScopeEventMap {
-    "message": ExtendableMessageEvent;
+    "message": MessageEvent;
     "messageerror": MessageEvent;
 }
 
@@ -1273,7 +1273,7 @@ interface DedicatedWorkerGlobalScope extends WorkerGlobalScope, AnimationFramePr
      * Returns dedicatedWorkerGlobal's name, i.e. the value given to the Worker constructor. Primarily useful for debugging.
      */
     readonly name: string;
-    onmessage: ((this: DedicatedWorkerGlobalScope, ev: ExtendableMessageEvent) => any) | null;
+    onmessage: ((this: DedicatedWorkerGlobalScope, ev: MessageEvent) => any) | null;
     onmessageerror: ((this: DedicatedWorkerGlobalScope, ev: MessageEvent) => any) | null;
     /**
      * Aborts dedicatedWorkerGlobal.
@@ -1437,13 +1437,13 @@ interface EventListenerObject {
 
 interface EventSourceEventMap {
     "error": Event;
-    "message": ExtendableMessageEvent;
+    "message": MessageEvent;
     "open": Event;
 }
 
 interface EventSource extends EventTarget {
     onerror: ((this: EventSource, ev: Event) => any) | null;
-    onmessage: ((this: EventSource, ev: ExtendableMessageEvent) => any) | null;
+    onmessage: ((this: EventSource, ev: MessageEvent) => any) | null;
     onopen: ((this: EventSource, ev: Event) => any) | null;
     /**
      * Returns the state of this EventSource object's connection. It can have the values described below.
@@ -2284,13 +2284,13 @@ declare var MessageEvent: {
 };
 
 interface MessagePortEventMap {
-    "message": ExtendableMessageEvent;
+    "message": MessageEvent;
     "messageerror": MessageEvent;
 }
 
 /** This Channel Messaging API interface represents one of the two ports of a MessageChannel, allowing messages to be sent from one port and listening out for them arriving at the other. */
 interface MessagePort extends EventTarget {
-    onmessage: ((this: MessagePort, ev: ExtendableMessageEvent) => any) | null;
+    onmessage: ((this: MessagePort, ev: MessageEvent) => any) | null;
     onmessageerror: ((this: MessagePort, ev: MessageEvent) => any) | null;
     /**
      * Disconnects the port, so that it is no longer active.
@@ -5331,7 +5331,7 @@ interface WebGLVertexArrayObjectOES extends WebGLObject {
 interface WebSocketEventMap {
     "close": CloseEvent;
     "error": Event;
-    "message": ExtendableMessageEvent;
+    "message": MessageEvent;
     "open": Event;
 }
 
@@ -5355,7 +5355,7 @@ interface WebSocket extends EventTarget {
     readonly extensions: string;
     onclose: ((this: WebSocket, ev: CloseEvent) => any) | null;
     onerror: ((this: WebSocket, ev: Event) => any) | null;
-    onmessage: ((this: WebSocket, ev: ExtendableMessageEvent) => any) | null;
+    onmessage: ((this: WebSocket, ev: MessageEvent) => any) | null;
     onopen: ((this: WebSocket, ev: Event) => any) | null;
     /**
      * Returns the subprotocol selected by the server, if any. It can be used in conjunction with the array form of the constructor's second argument to perform subprotocol negotiation.
@@ -5434,13 +5434,13 @@ interface WindowOrWorkerGlobalScope {
 }
 
 interface WorkerEventMap extends AbstractWorkerEventMap {
-    "message": ExtendableMessageEvent;
+    "message": MessageEvent;
     "messageerror": MessageEvent;
 }
 
 /** This Web Workers API interface represents a background task that can be easily created and can send messages back to its creator. Creating a worker is as simple as calling the Worker() constructor and specifying a script to be run in the worker thread. */
 interface Worker extends EventTarget, AbstractWorker {
-    onmessage: ((this: Worker, ev: ExtendableMessageEvent) => any) | null;
+    onmessage: ((this: Worker, ev: MessageEvent) => any) | null;
     onmessageerror: ((this: Worker, ev: MessageEvent) => any) | null;
     /**
      * Clones message and transmits it to worker's global environment. transfer can be passed as a list of objects that are to be transferred rather than cloned.
@@ -5875,7 +5875,7 @@ interface WritableStreamErrorCallback {
  * Returns dedicatedWorkerGlobal's name, i.e. the value given to the Worker constructor. Primarily useful for debugging.
  */
 declare var name: string;
-declare var onmessage: ((this: DedicatedWorkerGlobalScope, ev: ExtendableMessageEvent) => any) | null;
+declare var onmessage: ((this: DedicatedWorkerGlobalScope, ev: MessageEvent) => any) | null;
 declare var onmessageerror: ((this: DedicatedWorkerGlobalScope, ev: MessageEvent) => any) | null;
 /**
  * Aborts dedicatedWorkerGlobal.

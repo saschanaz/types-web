@@ -339,6 +339,20 @@
                     ]
                 }
             },
+            "BroadcastChannel": {
+                "events": {
+                    "event": [
+                        {
+                            "name": "message",
+                            "type": "MessageEvent"
+                        },
+                        {
+                            "name": "messageerror",
+                            "type": "MessageEvent"
+                        }
+                    ]
+                }
+            },
             "DeviceMotionEventAcceleration": {
                 "no-interface-object": 1
             },
