@@ -1221,6 +1221,17 @@
             {
                 "name": "EventListenerOrEventListenerObject",
                 "overrideType": "EventListener | EventListenerObject"
+            },
+            {
+                "deprecated": 1,
+                "name": "HTMLCollectionOf",
+                "typeParameters": [
+                    {
+                        "name": "T",
+                        "extends": "Element"
+                    }
+                ],
+                "overrideType": "HTMLCollection<T>"
             }
         ]
     }
