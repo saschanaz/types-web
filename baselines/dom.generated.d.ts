@@ -10898,6 +10898,7 @@ interface Navigator extends MSFileSaver, MSNavigatorDoNotTrack, NavigatorAutomat
     getVRDisplays(): Promise<VRDisplay[]>;
     msLaunchUri(uri: string, successCallback?: MSLaunchUriCallback, noHandlerCallback?: MSLaunchUriCallback): void;
     requestMediaKeySystemAccess(keySystem: string, supportedConfigurations: MediaKeySystemConfiguration[]): Promise<MediaKeySystemAccess>;
+    sendBeacon(url: string, data?: BodyInit | null): boolean;
     vibrate(pattern: number | number[]): boolean;
 }
 

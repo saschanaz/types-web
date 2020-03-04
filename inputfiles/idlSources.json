@@ -1,5 +1,9 @@
 [
     {
+        "url": "https://www.w3.org/TR/beacon/",
+        "title": "Beacon"
+    },
+    {
         "url": "https://www.w3.org/TR/clipboard-apis/",
         "title": "Clipboard"
     },
