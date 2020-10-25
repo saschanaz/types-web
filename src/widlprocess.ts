@@ -103,9 +103,9 @@ function addComments(obj: any, commentMap: Record<string, string>, container: st
     const key = container.toLowerCase() + (member ? "-" + member.toLowerCase() : "");
     if (commentMap[key]) {
         const comments = commentMap[key].split("\n");
-        obj["comment"] = "/**\n * ";
-        obj["comment"] += comments.join("\n * ");
-        obj["comment"] += "\n */";
+        obj["comment"] = "/**\n";
+        obj["comment"] += comments.map(c => ` * ${c}`.trimRight() + "\n").join("");
+        obj["comment"] += " */";
     }
 }
 
