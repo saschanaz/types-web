@@ -68,7 +68,7 @@ function createTextWriter(newLine: string) {
     }
 
     function write(s: string) {
-        if (lineStart) {
+        if (s && lineStart) {
             output += getIndentString(indent);
             lineStart = false;
         }
