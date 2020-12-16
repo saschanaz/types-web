@@ -5360,7 +5360,6 @@ declare var XMLHttpRequestUpload: {
 declare type EventListenerOrEventListenerObject = EventListener | EventListenerObject;
 
 interface Console {
-    memory: any;
     assert(condition?: boolean, ...data: any[]): void;
     clear(): void;
     count(label?: string): void;
@@ -5369,7 +5368,6 @@ interface Console {
     dir(item?: any, options?: any): void;
     dirxml(...data: any[]): void;
     error(...data: any[]): void;
-    exception(message?: string, ...optionalParams: any[]): void;
     group(...data: any[]): void;
     groupCollapsed(...data: any[]): void;
     groupEnd(): void;

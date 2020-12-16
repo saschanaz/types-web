@@ -2971,25 +2971,11 @@
             "name": "console",
             "methods": {
                 "method": {
-                    "exception": {
-                        "name": "exception",
-                        "override-signatures": [
-                            "exception(message?: string, ...optionalParams: any[]): void"
-                        ]
-                    },
                     "timeStamp": {
                         "name": "timeStamp",
                         "override-signatures": [
                             "timeStamp(label?: string): void"
                         ]
-                    }
-                }
-            },
-            "properties": {
-                "property": {
-                    "memory": {
-                        "name": "memory",
-                        "type": "any"
                     }
                 }
             }

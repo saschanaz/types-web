@@ -12,7 +12,7 @@ export function getExposedTypes(webidl: Browser.WebIdl, target: string, forceKno
         }
     }
     if (webidl.namespaces) {
-        filtered.namespaces = webidl.namespaces.filter(o => exposesTo(o, target));
+        filtered.namespaces = filter(webidl.namespaces, o => exposesTo(o, target));
     }
 
     const knownIDLTypes = new Set([
@@ -109,7 +109,7 @@ function deepFilterUnexposedTypes(webidl: Browser.WebIdl, unexposedTypes: Set<st
                 param.push({ ...p, type: flattenType(filtered) });
             }
             else if (!p.optional) {
-                throw new Error("A non-optional parameter has unknown type");
+                throw new Error(`A non-optional parameter has unknown type: ${p.type}`);
             }
             else {
                 // safe to skip

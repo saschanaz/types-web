@@ -226,7 +226,8 @@ function emitDom() {
                         return !template[k].includes(name);
                     });
                     if (filtered[k].length === obj[k].length) {
-                        console.warn(`removedTypes.json has a redundant array item in ${JSON.stringify(template[k])}`);
+                        const differences = template[k].filter((t: any) => !obj[k].includes(t));
+                        console.warn(`removedTypes.json has a redundant array items: ${differences}`);
                     }
                 }
                 else if (template[k] !== null) {

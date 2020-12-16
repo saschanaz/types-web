@@ -9077,7 +9077,6 @@ declare var KeyframeEffect: {
 };
 
 interface LinkStyle {
-    readonly sheet: CSSStyleSheet | null;
 }
 
 /** The location (URL) of the object it is linked to. Changes done on it are reflected on the object it relates to. Both the Document and Window interface have such a linked Location, accessible via Document.location and Window.location respectively. */
@@ -11667,8 +11666,6 @@ declare var SVGElement: {
 };
 
 interface SVGElementInstance extends EventTarget {
-    readonly correspondingElement: SVGElement;
-    readonly correspondingUseElement: SVGUseElement;
 }
 
 declare var SVGElementInstance: {
@@ -16759,7 +16756,6 @@ declare var XSLTProcessor: {
 declare type EventListenerOrEventListenerObject = EventListener | EventListenerObject;
 
 interface Console {
-    memory: any;
     assert(condition?: boolean, ...data: any[]): void;
     clear(): void;
     count(label?: string): void;
@@ -16768,7 +16764,6 @@ interface Console {
     dir(item?: any, options?: any): void;
     dirxml(...data: any[]): void;
     error(...data: any[]): void;
-    exception(message?: string, ...optionalParams: any[]): void;
     group(...data: any[]): void;
     groupCollapsed(...data: any[]): void;
     groupEnd(): void;
