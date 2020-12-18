@@ -9,6 +9,7 @@ import { getExposedTypes } from "./expose.js";
 import { getDeprecationData, getRemovalData } from "./bcd.js";
 import { createTryRequire } from "./utils/require.js";
 import { getIdl } from "./webref.js";
+import { getLatestSpecNames } from "./browser-specs.js";
 
 const require = createRequire(import.meta.url);
 const tryRequire = createTryRequire(import.meta.url);
@@ -76,13 +77,23 @@ async function emitDom() {
     const deprecatedInfo = require(fileURLToPath(new URL("deprecatedMessage.json", inputFolder)));
     const documentationFromMDN = require(fileURLToPath(new URL('mdn/apiDescriptions.json', inputFolder)));
     const removedItems = require(fileURLToPath(new URL("removedTypes.json", inputFolder)));
-    const idlSources: any[] = require(fileURLToPath(new URL("idlSources.json", inputFolder)));
-    const widlStandardTypes = await Promise.all(idlSources.map(convertWidl));
+    const widlStandardTypes = (await Promise.all(getLatestSpecNames().map(convertWidl))).filter(i => i) as ReturnType<typeof convert>[];
 
-    async function convertWidl({ shortName, local }: { shortName: string, local?: boolean }) {
-        const idl = local ?
+    async function convertWidl(shortName: string) {
+        // Specs that clashes with other specs
+        const skip = ["portals", "svg-paths", "trusted-types"];
+        if (skip.includes(shortName)) {
+            return;
+        }
+
+        // Specs that need to fix their syntax
+        const local = ["css-typed-om", "permissions"];
+        const idl = local.includes(shortName) ?
             await fs.readFile(new URL(`idl/${shortName}.webidl`, inputFolder), { encoding: "utf-8" }) :
             await getIdl(shortName);
+        if (!idl.trim().length) {
+            return;
+        }
         const commentsMapFilePath = new URL(`idl/${shortName}.commentmap.json`, inputFolder);
         const commentsMap: Record<string, string> = await tryRequire(fileURLToPath(commentsMapFilePath)) ?? {};
         commentCleanup(commentsMap);

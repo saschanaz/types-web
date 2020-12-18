@@ -25,6 +25,13 @@
                     }
                 }
             },
+            "ElementCSSInlineStyle": {
+                "properties": {
+                    "property": {
+                        "attributeStyleMap": null
+                    }
+                }
+            },
             "GlobalEventHandlers": {
                 "properties": {
                     "property": {
@@ -156,7 +163,13 @@
             },
             "MediaStreamError": null,
             "Navigator": {
-                "implements": ["NavigatorBadge", "NavigatorDeviceMemory"]
+                "implements": [
+                    "NavigatorBadge",
+                    "NavigatorDeviceMemory",
+                    "NavigatorFonts",
+                    "NavigatorLocks",
+                    "NavigatorUA"
+                ]
             },
             "NetworkInformation": {
                 "properties": {
@@ -219,8 +232,20 @@
                     }
                 }
             },
+            "SVGLineElement": {
+                "implements": ["SVGMarkableElement"]
+            },
             "SVGMatrix": null,
+            "SVGPathElement": {
+                "implements": ["SVGMarkableElement"]
+            },
             "SVGPoint": null,
+            "SVGPolygonElement": {
+                "implements": ["SVGMarkableElement"]
+            },
+            "SVGPolylineElement": {
+                "implements": ["SVGMarkableElement"]
+            },
             "SVGRect": null,
             "Text": {
                 "implements": ["GeometryUtils"]
@@ -263,7 +288,13 @@
             },
             "WebKitCSSMatrix": null,
             "WorkerNavigator": {
-                "implements": ["NavigatorBadge", "NavigatorDeviceMemory"]
+                "implements": [
+                    "NavigatorBadge",
+                    "NavigatorDeviceMemory",
+                    "NavigatorFonts",
+                    "NavigatorLocks",
+                    "NavigatorUA"
+                ]
             },
             "XPathNSResolver": null
         }
@@ -516,13 +547,6 @@
                     }
                 }
             },
-            "RTCIceGatherOptions": {
-                "members": {
-                    "member": {
-                        "portRange": null
-                    }
-                }
-            },
             "RTCRtpCodecCapability": {
                 "members": {
                     "member": {
@@ -548,6 +572,13 @@
                         "iceState": null,
                         "tlsGroup": null,
                         "selectedCandidatePairChanges": null
+                    }
+                }
+            },
+            "UIEventInit": {
+                "members": {
+                    "member": {
+                        "sourceCapabilities": null
                     }
                 }
             },
