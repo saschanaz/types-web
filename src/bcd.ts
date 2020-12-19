@@ -4,6 +4,7 @@ import { CompatStatement, SimpleSupportStatement, SupportBlock } from "@mdn/brow
 import { camelToHyphenCase } from "./utils/css.js";
 import { filterMapRecord, isEmptyRecord } from "./utils/record.js";
 import { mapDefined } from "./helpers.js";
+import resolveMixinSupportData from "./bcd/resolve-mixin.js";
 
 const forceKeepAlive: Record<string, string[]> = {
   // Things that are incorrectly reported as unsupported.
@@ -527,30 +528,39 @@ function hasMultipleImplementations(support: SupportBlock, prefix?: string) {
   return count >= 2;
 }
 
+function forceAlive(key: string, parentKey?: string) {
+  return parentKey ? forceKeepAlive[parentKey]?.includes(key) : !!forceKeepAlive[key];
+}
+
+function redundantForceAliveWarn(key: string, parentKey?: string) {
+  if (parentKey) {
+    console.warn(`Redundant forceKeepAlive item: ${parentKey}#${key}`)
+  } else if (!forceKeepAlive[key].length) {
+    console.warn(`Redundant forceKeepAlive item: ${key}`)
+  }
+}
+
 function isSuitable(key: string, compat?: CompatStatement, parentKey?: string, prefix?: string) {
-  const forceAlive = parentKey ? forceKeepAlive[parentKey]?.includes(key) : !!forceKeepAlive[key];
+  const forcedAlive = parentKey ? forceKeepAlive[parentKey]?.includes(key) : !!forceKeepAlive[key];
   if (compat && hasMultipleImplementations(compat.support, prefix)) {
-    if (forceAlive) {
-      if (parentKey) {
-        console.warn(`Redundant forceKeepAlive item: ${parentKey}#${key}`)
-      } else if (!forceKeepAlive[key].length) {
-        console.warn(`Redundant forceKeepAlive item: ${key}`)
-      }
+    if (forcedAlive) {
+      redundantForceAliveWarn(key, parentKey);
     }
     return true;
   }
-  return forceAlive;
+  return forcedAlive;
 }
 
 export function getRemovalData(webidl: Browser.WebIdl) {
-  return mapToBcdCompat(webidl, ({ key, parentKey, compat, mixin }) => {
-    // Allow:
-    // * all mixins, for now
-    // * mixin members that has no compat data
-    if (mixin && (!compat || !parentKey)) {
+  return mapToBcdCompat(webidl, ({ key, parentKey, compats }) => {
+    const forcedAlive = forceAlive(key, parentKey);
+    if (compats.some(compat => isSuitable(key, compat, parentKey))) {
+      if (forcedAlive) {
+        redundantForceAliveWarn(key, parentKey);
+      }
       return;
     }
-    if (isSuitable(key, compat, parentKey)) {
+    if (forcedAlive) {
       return;
     }
 
@@ -576,11 +586,26 @@ export function getRemovalData(webidl: Browser.WebIdl) {
   }) as Browser.WebIdl;
 }
 
-function mapToBcdCompat(webidl: Browser.WebIdl, mapper: ({ key, compat, webkit }: { key: string, compat?: CompatStatement, webkit?: boolean, mixin: boolean, parentKey?: string }) => any): Browser.WebIdl | undefined {
+function singleItemToArray<T>(item: T | undefined) {
+  if (item) {
+    return [item];
+  }
+  return [];
+}
+
+function mapToBcdCompat(webidl: Browser.WebIdl, mapper: ({}: { key: string, compats: CompatStatement[], webkit?: boolean, parentKey?: string }) => any): Browser.WebIdl | undefined {
   function mapInterfaceLike(name: string, i: Browser.Interface) {
+    function getMemberCompat(memberName: string) {
+      if (!i.mixin) {
+        return singleItemToArray(bcd.api[name]?.[memberName]?.__compat);
+      }
+      const mixinDataMap = mixinSupportData.get(i.name);
+      return mixinDataMap?.get(memberName) ?? singleItemToArray(bcd.api[name]?.[memberName]?.__compat);
+    }
+
     const intCompat = bcd.api[name]?.__compat;
-    const mapped = mapper({ key: name, compat: intCompat, mixin: !!i.mixin });
-    if (!intCompat) {
+    const mapped = !i.mixin && mapper({ key: name, compats: singleItemToArray(intCompat) });
+    if (!i.mixin && !intCompat) {
       if (mapped) {
         return { name: i.name, ... mapped };
       }
@@ -589,8 +614,8 @@ function mapToBcdCompat(webidl: Browser.WebIdl, mapper: ({ key, compat, webkit }
     const result = { ...mapped };
 
     const recordMapper = (key: string) => {
-      const compat = bcd.api[name][key]?.__compat;
-      return mapper({ key, parentKey: name, webkit: key.startsWith("webkit"), compat, mixin: !!i.mixin });
+      const compats = getMemberCompat(key);
+      return mapper({ key, parentKey: name, webkit: key.startsWith("webkit"), compats });
     };
     const methods = filterMapRecord(i.methods.method, recordMapper);
     const properties = filterMapRecord(i.properties?.property, recordMapper);
@@ -604,6 +629,9 @@ function mapToBcdCompat(webidl: Browser.WebIdl, mapper: ({ key, compat, webkit }
       return { name: i.name, ...result };
     }
   }
+
+  const mixinSupportData = resolveMixinSupportData(webidl);
+
   const interfaces = filterMapRecord(webidl.interfaces?.interface, mapInterfaceLike);
   const mixins = filterMapRecord(webidl.mixins?.mixin, mapInterfaceLike);
   const namespaces = mapDefined(webidl.namespaces, n => mapInterfaceLike(n.name, n));
@@ -618,8 +646,11 @@ function mapToBcdCompat(webidl: Browser.WebIdl, mapper: ({ key, compat, webkit }
 
 export function getDeprecationData(webidl: Browser.WebIdl) {
   const webkitExceptions = ["webkitLineClamp"];
-  return mapToBcdCompat(webidl, ({ key, compat, webkit }) => {
-    if (compat?.status?.deprecated || (!compat && webkit && !webkitExceptions.includes(key))) {
+  return mapToBcdCompat(webidl, ({ key, compats, webkit }) => {
+    if (compats.length && compats.every(compat => compat.status?.deprecated)) {
+      return { deprecated: 1 };
+    }
+    if (!compats.length && webkit && !webkitExceptions.includes(key)) {
       return { deprecated: 1 };
     }
   }) as Browser.WebIdl;
