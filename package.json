@@ -10,6 +10,16 @@
     "baseline-accept": "cpx \"generated\\*\" baselines\\",
     "test": "tsc -p ./tsconfig.json && node ./lib/index.js && node ./lib/test.js && node ./unittests/index.js"
   },
+  "author": {
+    "name": "Kagami Sascha Rosylight",
+    "email": "saschanaz@outlook.com",
+    "url": "https://github.com/saschanaz"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/saschanaz/types-web/"
+  },
+  "license": "Apache-2.0",
   "type": "module",
   "devDependencies": {
     "@mdn/browser-compat-data": "3.0.1",
