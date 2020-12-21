@@ -23,7 +23,7 @@
     "node-fetch": "^2.6.1",
     "print-diff": "^1.0.0",
     "styleless-innertext": "^1.1.2",
-    "typescript": "^4.2.0-dev.20201211",
+    "typescript": "^4.2.0-dev.20201221",
     "webidl2": "^23.13.0",
     "webref": "github:w3c/webref#ae50d8f3cc75f0d247cbb34454751024410777f4"
   },
