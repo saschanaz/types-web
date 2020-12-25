@@ -1,16 +1,12 @@
 import * as Browser from "./types.js";
-import { mapToArray, distinct, mapValues, toNameMap, mapDefined, arrayToMap, integerTypes, baseTypeConversionMap } from "./helpers.js";
+import { mapToArray, distinct, mapValues, toNameMap, arrayToMap, integerTypes, baseTypeConversionMap } from "./helpers.js";
 import { collectLegacyNamespaceTypes } from "./legacy-namespace.js";
+import { getINameToEventMap } from "./webref.js";
 
 export const enum Flavor {
     Window,
     Worker
 }
-
-// Note:
-// Eventhandler's name and the eventName are not just off by "on".
-// For example, handlers named "onabort" may handle "SVGAbort" event in the XML file
-type EventHandler = { name: string; eventName: string };
 
 /// Decide which members of a function to emit
 enum EmitScope {
@@ -143,12 +139,13 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor, iterator: boo
     /// 1. eventhandler name: "onready", "onabort" etc.
     /// 2. the event name that it handles: "ready", "SVGAbort" etc.
     /// And they don't just differ by an "on" prefix!
-    const iNameToEhList = arrayToMap(allInterfaces, i => i.name, i =>
-        !i.properties ? [] : mapDefined<Browser.Property, EventHandler>(mapToArray(i.properties.property), p => {
-            const eventName = p.eventHandler!;
-            if (eventName === undefined) return undefined;
-            return { name: p.name, eventName };
-        }));
+    // const iNameToEhList = arrayToMap(allInterfaces, i => i.name, i =>
+    //     !i.properties ? [] : mapDefined<Browser.Property, EventHandler>(mapToArray(i.properties.property), p => {
+    //         const eventName = p.eventHandler!;
+    //         if (eventName === undefined) return undefined;
+    //         return { name: p.name, eventName };
+    //     }));
+    const iNameToEhList = getINameToEventMap();
 
     const iNameToAttributelessEhList = arrayToMap(allInterfaces, i => i.name, i =>
         !i.attributelessEvents ? [] : i.attributelessEvents.event.map(e => {
@@ -200,7 +197,7 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor, iterator: boo
 
     function getParentsWithEventHandler(i: Browser.Interface) {
         function getParentEventHandler(i: Browser.Interface): Browser.Interface[] {
-            const hasEventListener = iNameToEhList[i.name] && iNameToEhList[i.name].length;
+            const hasEventListener = iNameToEhList.has(i.name);
             if (hasEventListener) {
                 return [i];
             }
@@ -782,7 +779,7 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor, iterator: boo
         }
 
         function tryEmitTypedEventHandlerForInterface(addOrRemove: string, optionsType: string) {
-            const hasEventListener = iNameToEhList[i.name] && iNameToEhList[i.name].length;
+            const hasEventListener = iNameToEhList.has(i.name);
             const ehParentCount = iNameToEhParents[i.name] && iNameToEhParents[i.name].length;
 
             if (hasEventListener || ehParentCount > 1) {
@@ -932,11 +929,11 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor, iterator: boo
     }
 
     function emitInterfaceEventMap(i: Browser.Interface) {
-        function emitInterfaceEventMapEntry(eHandler: EventHandler) {
-            printer.printLine(`"${eHandler.eventName}": ${getEventTypeInInterface(eHandler.eventName, i)};`);
+        function emitInterfaceEventMapEntry(eventName: string) {
+            printer.printLine(`"${eventName}": ${getEventTypeInInterface(eventName, i)};`);
         }
 
-        const hasEventHandlers = iNameToEhList[i.name] && iNameToEhList[i.name].length;
+        const hasEventHandlers = iNameToEhList.has(i.name);
         const hasAttributelessEventHandlers = iNameToAttributelessEhList[i.name] && iNameToAttributelessEhList[i.name].length;
         const ehParentCount = iNameToEhParents[i.name] && iNameToEhParents[i.name].length;
 
@@ -949,9 +946,9 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor, iterator: boo
             printer.print(" {");
             printer.endLine();
             printer.increaseIndent();
-            iNameToEhList[i.name]
-                .concat(iNameToAttributelessEhList[i.name])
-                .sort(compareName)
+            (iNameToEhList.get(i.name) ?? [])
+                .slice()
+                .sort()
                 .forEach(emitInterfaceEventMapEntry);
             printer.decreaseIndent();
             printer.printLine("}");
