@@ -48,7 +48,7 @@
     "styleless-innertext": "^1.1.2",
     "typescript": "^4.2.0-dev.20201221",
     "webidl2": "^23.13.0",
-    "webref": "github:w3c/webref#ba8af28077ce82b51d2214301249e5a89d21686b"
+    "webref": "github:w3c/webref#0485151fd9e7add24f1bfce066019654978f17da"
   },
   "files": [
     "baselines/*"
