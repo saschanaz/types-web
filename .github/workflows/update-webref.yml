@@ -22,9 +22,11 @@ jobs:
         continue-on-error: true
       - run: npm run build && npm run baseline-accept
         if: ${{ steps.run-update-webref.outcome == 'success' }}
-      - run: git diff --quiet HEAD baselines
+      - id: git-diff
+        run: git diff --quiet HEAD baselines
+        continue-on-error: true
       - uses: peter-evans/create-pull-request@v3
-        if: ${{ failure() }}
+        if: ${{ steps.git-diff.outcome == 'failure' }}
         with:
           commit-message: "chore(package): update webref"
           title: "chore(package): update webref"
