@@ -2515,7 +2515,10 @@ declare var Permissions: {
 
 /** Events measuring progress of an underlying process, like an HTTP request (for an XMLHttpRequest, or the loading of the underlying resource of an <img>, <audio>, <video>, <style> or <link>). */
 interface ProgressEvent<T extends EventTarget = EventTarget> extends Event {
+    readonly lengthComputable: boolean;
+    readonly loaded: number;
     readonly target: T | null;
+    readonly total: number;
 }
 
 declare var ProgressEvent: {
