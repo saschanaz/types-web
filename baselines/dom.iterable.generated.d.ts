@@ -141,7 +141,7 @@ interface MessageEvent<T = any> {
 }
 
 interface MimeTypeArray {
-    [Symbol.iterator](): IterableIterator<MimeType>;
+    [Symbol.iterator](): IterableIterator<any>;
 }
 
 interface NamedNodeMap {
@@ -185,12 +185,8 @@ interface NodeListOf<TNode extends Node> {
     values(): IterableIterator<TNode>;
 }
 
-interface Plugin {
-    [Symbol.iterator](): IterableIterator<MimeType>;
-}
-
 interface PluginArray {
-    [Symbol.iterator](): IterableIterator<Plugin>;
+    [Symbol.iterator](): IterableIterator<any>;
 }
 
 interface RTCStatsReport extends ReadonlyMap<string, any> {

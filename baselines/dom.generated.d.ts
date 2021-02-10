@@ -10015,19 +10015,19 @@ interface MimeType {
     /**
      * Returns the MIME type's description.
      */
-    readonly description: string;
+    readonly description: undefined;
     /**
      * Returns the Plugin object that implements this MIME type.
      */
-    readonly enabledPlugin: Plugin;
+    readonly enabledPlugin: undefined;
     /**
      * Returns the MIME type's typical file extensions, in a comma-separated list.
      */
-    readonly suffixes: string;
+    readonly suffixes: undefined;
     /**
      * Returns the MIME type.
      */
-    readonly type: string;
+    readonly type: undefined;
 }
 
 declare var MimeType: {
@@ -10038,9 +10038,9 @@ declare var MimeType: {
 /** Returns an array of MimeType instances, each of which contains information about a supported browser plugins. This object is returned by NavigatorPlugins.mimeTypes. */
 interface MimeTypeArray {
     readonly length: number;
-    item(index: number): MimeType | null;
-    namedItem(name: string): MimeType | null;
-    [index: number]: MimeType;
+    item(index: number): any;
+    namedItem(name: string): any;
+    [index: number]: any;
 }
 
 declare var MimeTypeArray: {
@@ -11187,25 +11187,25 @@ interface Plugin {
     /**
      * Returns the plugin's description.
      */
-    readonly description: string;
+    readonly description: undefined;
     /**
      * Returns the plugin library's filename, if applicable on the current platform.
      */
-    readonly filename: string;
+    readonly filename: undefined;
     /**
      * Returns the number of MIME types, represented by MimeType objects, supported by the plugin.
      */
-    readonly length: number;
+    readonly length: undefined;
     /**
      * Returns the plugin's name.
      */
-    readonly name: string;
+    readonly name: undefined;
     /**
      * Returns the specified MimeType object.
      */
-    item(index: number): MimeType | null;
-    namedItem(name: string): MimeType | null;
-    [index: number]: MimeType;
+    item(index: number): void;
+    namedItem(name: string): void;
+    [index: number]: undefined;
 }
 
 declare var Plugin: {
@@ -11216,10 +11216,10 @@ declare var Plugin: {
 /** Used to store a list of Plugin objects describing the available plugins; it's returned by the window.navigator.plugins property. The PluginArray is not a JavaScript array, but has the length property and supports accessing individual items using bracket notation (plugins[2]), as well as via item(index) and namedItem("name") methods. */
 interface PluginArray {
     readonly length: number;
-    item(index: number): Plugin | null;
-    namedItem(name: string): Plugin | null;
-    refresh(reload?: boolean): void;
-    [index: number]: Plugin;
+    item(index: number): any;
+    namedItem(name: string): any;
+    refresh(): void;
+    [index: number]: any;
 }
 
 declare var PluginArray: {
