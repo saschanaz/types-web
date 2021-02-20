@@ -601,6 +601,7 @@ interface VideoConfiguration {
     framerate: number;
     hdrMetadataType?: HdrMetadataType;
     height: number;
+    scalabilityMode?: string;
     transferFunction?: TransferFunction;
     width: number;
 }
@@ -5680,8 +5681,8 @@ type ImageOrientation = "flipY" | "none";
 type KeyFormat = "jwk" | "pkcs8" | "raw" | "spki";
 type KeyType = "private" | "public" | "secret";
 type KeyUsage = "decrypt" | "deriveBits" | "deriveKey" | "encrypt" | "sign" | "unwrapKey" | "verify" | "wrapKey";
-type MediaDecodingType = "file" | "media-source";
-type MediaEncodingType = "record" | "transmission";
+type MediaDecodingType = "file" | "media-source" | "webrtc";
+type MediaEncodingType = "record" | "webrtc";
 type NotificationDirection = "auto" | "ltr" | "rtl";
 type NotificationPermission = "default" | "denied" | "granted";
 type PermissionName = "geolocation" | "notifications" | "persistent-storage" | "push";

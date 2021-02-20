@@ -1767,6 +1767,7 @@ interface VideoConfiguration {
     framerate: number;
     hdrMetadataType?: HdrMetadataType;
     height: number;
+    scalabilityMode?: string;
     transferFunction?: TransferFunction;
     width: number;
 }
@@ -18492,9 +18493,9 @@ type ImageSmoothingQuality = "high" | "low" | "medium";
 type KeyFormat = "jwk" | "pkcs8" | "raw" | "spki";
 type KeyType = "private" | "public" | "secret";
 type KeyUsage = "decrypt" | "deriveBits" | "deriveKey" | "encrypt" | "sign" | "unwrapKey" | "verify" | "wrapKey";
-type MediaDecodingType = "file" | "media-source";
+type MediaDecodingType = "file" | "media-source" | "webrtc";
 type MediaDeviceKind = "audioinput" | "audiooutput" | "videoinput";
-type MediaEncodingType = "record" | "transmission";
+type MediaEncodingType = "record" | "webrtc";
 type MediaKeyMessageType = "individualization-request" | "license-release" | "license-renewal" | "license-request";
 type MediaKeySessionType = "persistent-license" | "persistent-usage-record" | "temporary";
 type MediaKeyStatus = "expired" | "internal-error" | "output-downscaled" | "output-restricted" | "released" | "status-pending" | "usable" | "usable-in-future";
