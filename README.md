@@ -25,6 +25,14 @@ To test:
 npm run test
 ```
 
+To deploy:
+
+```sh
+npm run migrate
+```
+
+The script will look in for a clone of the TypeScript repo in "../TypeScript", or "./TypeScript" to move the generated files in. 
+
 ## Contribution Guidelines
 
 The `dom.generated.d.ts`, `webworker.generated.d.ts` and `dom.iterable.generated.d.ts` files from the TypeScript repo are used as baselines.
@@ -53,9 +61,9 @@ The common steps to send a pull request are:
 
 ### What are the TypeScript team's heuristics for PRs to the DOM APIs
 
-Changes to this repo can have pretty drastic ecosystem effects, because these types are included by default in TypeScript. 
+Changes to this repo can have pretty drastic ecosystem effects, because these types are included by default in TypeScript.
 Due to this, we tend to be quite conservative with our approach to introducing changes.
-To give you a sense of whether we will accept changes, you can use these heuristics to know up-front if we'll be open to merging. 
+To give you a sense of whether we will accept changes, you can use these heuristics to know up-front if we'll be open to merging.
 
 #### Fixes
 
@@ -71,9 +79,9 @@ To give you a sense of whether we will accept changes, you can use these heurist
 > For example, adding a new spec or subsection via a new or updated IDL file
 
 - Does the new objects or fields show up in [mdn/browser-compat-data](https://github.com/mdn/browser-compat-data)? If not, it's likely too soon.
-- Is the IDL source from WHATWG? 
-    - Are the additions available in at least two of Firefox, Safari and Chromium?
-- Is the IDL source from W3C? 
+- Is the IDL source from WHATWG?
+    - Are the additions available in at least two of [Firefox](https://searchfox.org/mozilla-central/search?q=&path=), [Safari](https://webkit-search.igalia.com/webkit/search?q=&path=) and Chromium?
+- Is the IDL source from W3C?
     - What stage of the [W3C process](https://en.wikipedia.org/wiki/World_Wide_Web_Consortium#Specification_maturation) is the proposal for these changes: We aim for Proposed recommendation, but can accept Candidate recommendation for stable looking proposals.
     - If it's at Working draft the additions available in all three of Firefox, Safari and Chromium
 - Could any types added at the global scope have naming conflicts?
@@ -103,3 +111,4 @@ To give you a sense of whether we will accept changes, you can use these heurist
 - `overridingTypes.json`: types that are defined in the spec file but has a better or more up-to-date definitions in the json files.
 - `removedTypes.json`: types that are defined in the spec file but should be removed.
 - `comments.json`: comment strings to be embedded in the generated .js files.
+- `deprecatedMessage.json`: the reason why one type is deprecated. The reason why it is a separate file rather than merge in comment.json is mdn/apiDescriptions.json would also possibly be deprecated.

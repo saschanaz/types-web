@@ -423,7 +423,7 @@
         "title": "Permissions"
     },
     {
-        "url": "https://www.w3.org/TR/pointerevents2/",
+        "url": "https://www.w3.org/TR/pointerevents3/",
         "title": "Pointer Events"
     },
     {
@@ -437,6 +437,10 @@
     {
         "url": "https://www.w3.org/TR/referrer-policy/",
         "title": "Referrer Policy"
+    },
+    {
+        "url": "https://drafts.csswg.org/resize-observer/",
+        "title": "Resize Observer"
     },
     {
         "url": "https://w3c.github.io/resource-timing/",
@@ -495,7 +499,7 @@
         "title": "Touch Events"
     },
     {
-        "url": "https://www.w3.org/TR/uievents/",
+        "url": "https://w3c.github.io/uievents/",
         "title": "UI Events"
     },
     {
@@ -645,6 +649,10 @@
     {
         "url": "https://w3c.github.io/webrtc-pc/",
         "title": "WebRTC"
+    },
+    {
+        "url": "https://www.w3.org/TR/webrtc-stats",
+        "title": "WebRTC Stats"
     },
     {
         "url": "https://www.w3.org/TR/web-share/",

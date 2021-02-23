@@ -281,6 +281,8 @@ __pycache__/
 generated/
 lib/
 inputfiles/browser.webidl.json
-.vscode
+.vscode/*
+!.vscode/launch.template.json
 package-lock.json
 yarn.lock
+TypeScript
