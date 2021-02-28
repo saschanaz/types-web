@@ -1,5 +1,5 @@
 /////////////////////////////
-/// DOM Iterable APIs
+/// Window Iterable APIs
 /////////////////////////////
 
 interface AudioParam {
@@ -118,7 +118,7 @@ interface IDBDatabase {
 interface IDBObjectStore {
     /**
      * Creates a new index in store with the given name, keyPath and options and returns a new IDBIndex. If the keyPath and options define constraints that cannot be satisfied with the data already in store the upgrade transaction will abort with a "ConstraintError" DOMException.
-     * 
+     *
      * Throws an "InvalidStateError" DOMException if not called within an upgrade transaction.
      */
     createIndex(name: string, keyPath: string | Iterable<string>, options?: IDBIndexParameters): IDBIndex;
@@ -141,7 +141,7 @@ interface MessageEvent<T = any> {
 }
 
 interface MimeTypeArray {
-    [Symbol.iterator](): IterableIterator<MimeType>;
+    [Symbol.iterator](): IterableIterator<any>;
 }
 
 interface NamedNodeMap {
@@ -186,11 +186,11 @@ interface NodeListOf<TNode extends Node> {
 }
 
 interface Plugin {
-    [Symbol.iterator](): IterableIterator<MimeType>;
+    [Symbol.iterator](): IterableIterator<undefined>;
 }
 
 interface PluginArray {
-    [Symbol.iterator](): IterableIterator<Plugin>;
+    [Symbol.iterator](): IterableIterator<any>;
 }
 
 interface RTCStatsReport extends ReadonlyMap<string, any> {

@@ -24,7 +24,6 @@
         "HmacImportParams",
         "HmacKeyAlgorithm",
         "HmacKeyGenParams",
-        "IDBKeyPath",
         "ImageBitmapRenderingContextSettings",
         "ImportMeta",
         "Keyframe",
@@ -81,6 +80,9 @@
         "RsaKeyGenParams",
         "RsaPssParams",
         "RsaOaepParams",
+        "Transferable"
+    ],
+    "Worklet": [
         "Transferable"
     ]
 }

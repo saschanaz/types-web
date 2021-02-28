@@ -30,11 +30,27 @@
                 }
             },
             "GlobalEventHandlers": {
-                "attributelessEvents": {
+                "events": {
                     "event": [
+                        {
+                            "name": "abort",
+                            "type": "UIEvent"
+                        },
+                        {
+                            "name": "auxclick",
+                            "type": "MouseEvent"
+                        },
                         {
                             "name": "beforeinput",
                             "type": "InputEvent"
+                        },
+                        {
+                            "name": "blur",
+                            "type": "FocusEvent"
+                        },
+                        {
+                            "name": "click",
+                            "type": "MouseEvent"
                         },
                         {
                             "name": "compositionstart",
@@ -47,34 +63,6 @@
                         {
                             "name": "compositionend",
                             "type": "CompositionEvent"
-                        },
-                        {
-                            "name": "focusin",
-                            "type": "FocusEvent"
-                        },
-                        {
-                            "name": "focusout",
-                            "type": "FocusEvent"
-                        }
-                    ]
-                },
-                "events": {
-                    "event": [
-                        {
-                            "name": "abort",
-                            "type": "UIEvent"
-                        },
-                        {
-                            "name": "auxclick",
-                            "type": "MouseEvent"
-                        },
-                        {
-                            "name": "blur",
-                            "type": "FocusEvent"
-                        },
-                        {
-                            "name": "click",
-                            "type": "MouseEvent"
                         },
                         {
                             "name": "drag",
@@ -110,6 +98,14 @@
                         },
                         {
                             "name": "focus",
+                            "type": "FocusEvent"
+                        },
+                        {
+                            "name": "focusin",
+                            "type": "FocusEvent"
+                        },
+                        {
+                            "name": "focusout",
                             "type": "FocusEvent"
                         },
                         {
@@ -272,6 +268,11 @@
                     ]
                 }
             },
+            "CompileError": {
+                "name": "CompileError",
+                "extends": "Error",
+                "legacyNamespace": "WebAssembly"
+            },
             "DeviceMotionEventAcceleration": {
                 "noInterfaceObject": true
             },
@@ -310,6 +311,9 @@
                     "property": {
                         "imageOrientation": {
                             "deprecated": true
+                        },
+                        "wordWrap": {
+                            "deprecated": true
                         }
                     }
                 }
@@ -334,24 +338,8 @@
                 "overrideIndexSignatures": [
                     "[index: number]: Window"
                 ],
-                "attributelessEvents": {
-                    "event": [
-                        {
-                            "name": "gamepadconnected",
-                            "type": "GamepadEvent"
-                        },
-                        {
-                            "name": "gamepaddisconnected",
-                            "type": "GamepadEvent"
-                        }
-                    ]
-                },
                 "events": {
                     "event": [
-                        {
-                            "name": "beforeunload",
-                            "type": "BeforeUnloadEvent"
-                        },
                         {
                             "name": "devicemotion",
                             "type": "DeviceMotionEvent"
@@ -361,20 +349,12 @@
                             "type": "DeviceOrientationEvent"
                         },
                         {
-                            "name": "pagehide",
-                            "type": "PageTransitionEvent"
+                            "name": "gamepadconnected",
+                            "type": "GamepadEvent"
                         },
                         {
-                            "name": "pageshow",
-                            "type": "PageTransitionEvent"
-                        },
-                        {
-                            "name": "popstate",
-                            "type": "PopStateEvent"
-                        },
-                        {
-                            "name": "storage",
-                            "type": "StorageEvent"
+                            "name": "gamepaddisconnected",
+                            "type": "GamepadEvent"
                         }
                     ]
                 }
@@ -480,42 +460,6 @@
                 "noInterfaceObject": true
             },
             "Element": {
-                "events": {
-                    "event": [
-                        {
-                            "dispatch": "sync",
-                            "specs": "dom4",
-                            "name": "touchstart",
-                            "type": "TouchEvent",
-                            "cancelable": 1,
-                            "bubbles": 1
-                        },
-                        {
-                            "dispatch": "sync",
-                            "specs": "dom4",
-                            "name": "touchmove",
-                            "type": "TouchEvent",
-                            "cancelable": 1,
-                            "bubbles": 1
-                        },
-                        {
-                            "dispatch": "sync",
-                            "specs": "dom4",
-                            "name": "touchcancel",
-                            "type": "TouchEvent",
-                            "cancelable": 1,
-                            "bubbles": 1
-                        },
-                        {
-                            "dispatch": "sync",
-                            "specs": "dom4",
-                            "name": "touchend",
-                            "type": "TouchEvent",
-                            "cancelable": 1,
-                            "bubbles": 1
-                        }
-                    ]
-                },
                 "name": "Element",
                 "methods": {
                     "method": {
@@ -634,11 +578,6 @@
                         }
                     }
                 }
-            },
-            "IDBArrayKey": {
-                "name": "IDBArrayKey",
-                "extends": "Array<IDBValidKey>",
-                "noInterfaceObject": true
             },
             "HTMLIFrameElement": {
                 "name": "HTMLIFrameElement",
@@ -1432,6 +1371,11 @@
                     ]
                 }
             },
+            "RuntimeError": {
+                "name": "RuntimeError",
+                "extends": "Error",
+                "legacyNamespace": "WebAssembly"
+            },
             "SVGAElement": {
                 "element": [
                     {
@@ -1907,6 +1851,11 @@
                     }
                 ]
             },
+            "LinkError": {
+                "name": "LinkError",
+                "extends": "Error",
+                "legacyNamespace": "WebAssembly"
+            },
             "MediaRecorder": {
                 "events": {
                     "event": [
@@ -1954,7 +1903,7 @@
                     }
                 }
             },
-            "SharedWorker": {
+            "SharedWorkerGlobalScope": {
                 "events": {
                     "event": [
                         {
@@ -2046,7 +1995,8 @@
                     "member": {
                         "url": {
                             "name": "url",
-                            "type": "DOMString"
+                            "type": "DOMString",
+                            "required": true
                         }
                     }
                 }
@@ -2114,7 +2064,7 @@
                 "name": "HeadersInit"
             },
             {
-                "overrideType": "number | string | Date | BufferSource | IDBArrayKey",
+                "overrideType": "number | string | Date | BufferSource | IDBValidKey[]",
                 "name": "IDBValidKey"
             },
             {
@@ -2130,12 +2080,12 @@
                 "overrideType": "\"attributes\" | \"characterData\" | \"childList\""
             },
             {
-                "name": "IDBKeyPath",
-                "type": "DOMString"
-            },
-            {
                 "name": "Transferable",
-                "overrideType": "ArrayBuffer | MessagePort | ImageBitmap"
+                "type": [
+                    { "type": "ArrayBuffer" },
+                    { "type": "MessagePort" },
+                    { "type": "ImageBitmap" }
+                ]
             },
             {
                 "name": "WindowProxy",

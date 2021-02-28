@@ -1,5 +1,5 @@
 /////////////////////////////
-/// Worker APIs
+/// ServiceWorker APIs
 /////////////////////////////
 
 interface AddEventListenerOptions extends EventListenerOptions {
@@ -656,12 +656,6 @@ interface WebGLContextEventInit extends EventInit {
     statusMessage?: string;
 }
 
-interface WorkerOptions {
-    credentials?: RequestCredentials;
-    name?: string;
-    type?: WorkerType;
-}
-
 type EventListener = ((event: Event) => void) | { handleEvent(event: Event): void; };
 
 /** The ANGLE_instanced_arrays extension is part of the WebGL API and allows to draw the same object, or groups of similar objects multiple times, if they share the same vertex data, primitive count and type. */
@@ -721,11 +715,6 @@ interface AbstractWorker {
     addEventListener(type: string, listener: EventListener, options?: boolean | AddEventListenerOptions): void;
     removeEventListener<K extends keyof AbstractWorkerEventMap>(type: K, listener: (this: AbstractWorker, ev: AbstractWorkerEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
     removeEventListener(type: string, listener: EventListener, options?: boolean | EventListenerOptions): void;
-}
-
-interface AnimationFrameProvider {
-    cancelAnimationFrame(handle: number): void;
-    requestAnimationFrame(callback: FrameRequestCallback): number;
 }
 
 /** A file-like object of immutable, raw data. Blobs represent data that isn't necessarily in a JavaScript-native format. The File interface is based on Blob, inheriting blob functionality and expanding it to support files on the user's system. */
@@ -1189,39 +1178,6 @@ declare var DOMStringList: {
     new(): DOMStringList;
 };
 
-interface DedicatedWorkerGlobalScopeEventMap extends WorkerGlobalScopeEventMap {
-    "message": MessageEvent;
-    "messageerror": MessageEvent;
-}
-
-/** (the Worker global scope) is accessible through the self keyword. Some additional global functions, namespaces objects, and constructors, not typically associated with the worker global scope, but available on it, are listed in the JavaScript Reference. See also: Functions available to workers. */
-interface DedicatedWorkerGlobalScope extends WorkerGlobalScope, AnimationFrameProvider {
-    /**
-     * Returns dedicatedWorkerGlobal's name, i.e. the value given to the Worker constructor. Primarily useful for debugging.
-     */
-    readonly name: string;
-    onmessage: ((this: DedicatedWorkerGlobalScope, ev: MessageEvent) => any) | null;
-    onmessageerror: ((this: DedicatedWorkerGlobalScope, ev: MessageEvent) => any) | null;
-    /**
-     * Aborts dedicatedWorkerGlobal.
-     */
-    close(): void;
-    /**
-     * Clones message and transmits it to the Worker object associated with dedicatedWorkerGlobal. transfer can be passed as a list of objects that are to be transferred rather than cloned.
-     */
-    postMessage(message: any, transfer: Transferable[]): void;
-    postMessage(message: any, options?: PostMessageOptions): void;
-    addEventListener<K extends keyof DedicatedWorkerGlobalScopeEventMap>(type: K, listener: (this: DedicatedWorkerGlobalScope, ev: DedicatedWorkerGlobalScopeEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-    addEventListener(type: string, listener: EventListener, options?: boolean | AddEventListenerOptions): void;
-    removeEventListener<K extends keyof DedicatedWorkerGlobalScopeEventMap>(type: K, listener: (this: DedicatedWorkerGlobalScope, ev: DedicatedWorkerGlobalScopeEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-    removeEventListener(type: string, listener: EventListener, options?: boolean | EventListenerOptions): void;
-}
-
-declare var DedicatedWorkerGlobalScope: {
-    readonly prototype: DedicatedWorkerGlobalScope;
-    new(): DedicatedWorkerGlobalScope;
-};
-
 interface EXT_blend_minmax {
     readonly MAX_EXT: GLenum;
     readonly MIN_EXT: GLenum;
@@ -1531,19 +1487,6 @@ declare var FileReader: {
     readonly DONE: number;
     readonly EMPTY: number;
     readonly LOADING: number;
-};
-
-/** Allows to read File or Blob objects in a synchronous way. */
-interface FileReaderSync {
-    readAsArrayBuffer(blob: Blob): ArrayBuffer;
-    readAsBinaryString(blob: Blob): string;
-    readAsDataURL(blob: Blob): string;
-    readAsText(blob: Blob, encoding?: string): string;
-}
-
-declare var FileReaderSync: {
-    readonly prototype: FileReaderSync;
-    new(): FileReaderSync;
 };
 
 interface FontFace {
@@ -2847,31 +2790,6 @@ declare var ServiceWorkerRegistration: {
     new(): ServiceWorkerRegistration;
 };
 
-interface SharedWorkerGlobalScopeEventMap extends WorkerGlobalScopeEventMap {
-    "connect": MessageEvent;
-}
-
-interface SharedWorkerGlobalScope extends WorkerGlobalScope {
-    /**
-     * Returns sharedWorkerGlobal's name, i.e. the value given to the SharedWorker constructor. Multiple SharedWorker objects can correspond to the same shared worker (and SharedWorkerGlobalScope), by reusing the same name.
-     */
-    readonly name: string;
-    onconnect: ((this: SharedWorkerGlobalScope, ev: MessageEvent) => any) | null;
-    /**
-     * Aborts sharedWorkerGlobal.
-     */
-    close(): void;
-    addEventListener<K extends keyof SharedWorkerGlobalScopeEventMap>(type: K, listener: (this: SharedWorkerGlobalScope, ev: SharedWorkerGlobalScopeEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-    addEventListener(type: string, listener: EventListener, options?: boolean | AddEventListenerOptions): void;
-    removeEventListener<K extends keyof SharedWorkerGlobalScopeEventMap>(type: K, listener: (this: SharedWorkerGlobalScope, ev: SharedWorkerGlobalScopeEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-    removeEventListener(type: string, listener: EventListener, options?: boolean | EventListenerOptions): void;
-}
-
-declare var SharedWorkerGlobalScope: {
-    readonly prototype: SharedWorkerGlobalScope;
-    new(): SharedWorkerGlobalScope;
-};
-
 interface StorageManager {
     estimate(): Promise<StorageEstimate>;
     persisted(): Promise<boolean>;
@@ -3070,7 +2988,6 @@ declare var URL: {
     readonly prototype: URL;
     new(url: string | URL, base?: string | URL): URL;
     createObjectURL(object: any): string;
-    revokeObjectURL(url: string): void;
 };
 
 interface URLSearchParams {
@@ -5230,36 +5147,6 @@ interface WindowOrWorkerGlobalScope {
     setTimeout(handler: TimerHandler, timeout?: number, ...arguments: any[]): number;
 }
 
-interface WorkerEventMap extends AbstractWorkerEventMap {
-    "error": Event;
-    "message": MessageEvent;
-    "messageerror": MessageEvent;
-}
-
-/** This Web Workers API interface represents a background task that can be easily created and can send messages back to its creator. Creating a worker is as simple as calling the Worker() constructor and specifying a script to be run in the worker thread. */
-interface Worker extends EventTarget, AbstractWorker {
-    onmessage: ((this: Worker, ev: MessageEvent) => any) | null;
-    onmessageerror: ((this: Worker, ev: MessageEvent) => any) | null;
-    /**
-     * Clones message and transmits it to worker's global environment. transfer can be passed as a list of objects that are to be transferred rather than cloned.
-     */
-    postMessage(message: any, transfer: Transferable[]): void;
-    postMessage(message: any, options?: PostMessageOptions): void;
-    /**
-     * Aborts worker's associated global environment.
-     */
-    terminate(): void;
-    addEventListener<K extends keyof WorkerEventMap>(type: K, listener: (this: Worker, ev: WorkerEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-    addEventListener(type: string, listener: EventListener, options?: boolean | AddEventListenerOptions): void;
-    removeEventListener<K extends keyof WorkerEventMap>(type: K, listener: (this: Worker, ev: WorkerEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-    removeEventListener(type: string, listener: EventListener, options?: boolean | EventListenerOptions): void;
-}
-
-declare var Worker: {
-    readonly prototype: Worker;
-    new(scriptURL: string | URL, options?: WorkerOptions): Worker;
-};
-
 interface WorkerGlobalScopeEventMap {
     "error": ErrorEvent;
     "languagechange": Event;
@@ -5359,146 +5246,6 @@ interface WritableStreamDefaultWriter<W = any> {
 declare var WritableStreamDefaultWriter: {
     readonly prototype: WritableStreamDefaultWriter;
     new<W = any>(stream: WritableStream<W>): WritableStreamDefaultWriter<W>;
-};
-
-interface XMLHttpRequestEventMap {
-    "abort": Event;
-    "error": Event;
-    "load": Event;
-    "loadend": Event;
-    "loadstart": Event;
-    "progress": Event;
-    "readystatechange": Event;
-    "timeout": Event;
-}
-
-/** Use XMLHttpRequest (XHR) objects to interact with servers. You can retrieve data from a URL without having to do a full page refresh. This enables a Web page to update just part of a page without disrupting what the user is doing. */
-interface XMLHttpRequest extends XMLHttpRequestEventTarget {
-    onreadystatechange: ((this: XMLHttpRequest, ev: Event) => any) | null;
-    /**
-     * Returns client's state.
-     */
-    readonly readyState: number;
-    /**
-     * Returns the response body.
-     */
-    readonly response: any;
-    /**
-     * Returns response as text.
-     *
-     * Throws an "InvalidStateError" DOMException if responseType is not the empty string or "text".
-     */
-    readonly responseText: string;
-    /**
-     * Returns the response type.
-     *
-     * Can be set to change the response type. Values are: the empty string (default), "arraybuffer", "blob", "document", "json", and "text".
-     *
-     * When set: setting to "document" is ignored if current global object is not a Window object.
-     *
-     * When set: throws an "InvalidStateError" DOMException if state is loading or done.
-     *
-     * When set: throws an "InvalidAccessError" DOMException if the synchronous flag is set and current global object is a Window object.
-     */
-    responseType: XMLHttpRequestResponseType;
-    readonly responseURL: string;
-    readonly status: number;
-    readonly statusText: string;
-    /**
-     * Can be set to a time in milliseconds. When set to a non-zero value will cause fetching to terminate after the given time has passed. When the time has passed, the request has not yet completed, and this's synchronous flag is unset, a timeout event will then be dispatched, or a "TimeoutError" DOMException will be thrown otherwise (for the send() method).
-     *
-     * When set: throws an "InvalidAccessError" DOMException if the synchronous flag is set and current global object is a Window object.
-     */
-    timeout: number;
-    /**
-     * Returns the associated XMLHttpRequestUpload object. It can be used to gather transmission information when data is transferred to a server.
-     */
-    readonly upload: XMLHttpRequestUpload;
-    /**
-     * True when credentials are to be included in a cross-origin request. False when they are to be excluded in a cross-origin request and when cookies are to be ignored in its response. Initially false.
-     *
-     * When set: throws an "InvalidStateError" DOMException if state is not unsent or opened, or if the send() flag is set.
-     */
-    withCredentials: boolean;
-    /**
-     * Cancels any network activity.
-     */
-    abort(): void;
-    getAllResponseHeaders(): string;
-    getResponseHeader(name: string): string | null;
-    /**
-     * Sets the request method, request URL, and synchronous flag.
-     *
-     * Throws a "SyntaxError" DOMException if either method is not a valid method or url cannot be parsed.
-     *
-     * Throws a "SecurityError" DOMException if method is a case-insensitive match for `CONNECT`, `TRACE`, or `TRACK`.
-     *
-     * Throws an "InvalidAccessError" DOMException if async is false, current global object is a Window object, and the timeout attribute is not zero or the responseType attribute is not the empty string.
-     */
-    open(method: string, url: string | URL): void;
-    open(method: string, url: string | URL, async: boolean, username?: string | null, password?: string | null): void;
-    /**
-     * Acts as if the `Content-Type` header value for a response is mime. (It does not change the header.)
-     *
-     * Throws an "InvalidStateError" DOMException if state is loading or done.
-     */
-    overrideMimeType(mime: string): void;
-    /**
-     * Initiates the request. The body argument provides the request body, if any, and is ignored if the request method is GET or HEAD.
-     *
-     * Throws an "InvalidStateError" DOMException if either state is not opened or the send() flag is set.
-     */
-    send(body?: XMLHttpRequestBodyInit | null): void;
-    /**
-     * Combines a header in author request headers.
-     *
-     * Throws an "InvalidStateError" DOMException if either state is not opened or the send() flag is set.
-     *
-     * Throws a "SyntaxError" DOMException if name is not a header name or if value is not a header value.
-     */
-    setRequestHeader(name: string, value: string): void;
-    readonly DONE: number;
-    readonly HEADERS_RECEIVED: number;
-    readonly LOADING: number;
-    readonly OPENED: number;
-    readonly UNSENT: number;
-    addEventListener<K extends keyof XMLHttpRequestEventMap>(type: K, listener: (this: XMLHttpRequest, ev: XMLHttpRequestEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-    addEventListener(type: string, listener: EventListener, options?: boolean | AddEventListenerOptions): void;
-    removeEventListener<K extends keyof XMLHttpRequestEventMap>(type: K, listener: (this: XMLHttpRequest, ev: XMLHttpRequestEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-    removeEventListener(type: string, listener: EventListener, options?: boolean | EventListenerOptions): void;
-}
-
-declare var XMLHttpRequest: {
-    readonly prototype: XMLHttpRequest;
-    new(): XMLHttpRequest;
-    readonly DONE: number;
-    readonly HEADERS_RECEIVED: number;
-    readonly LOADING: number;
-    readonly OPENED: number;
-    readonly UNSENT: number;
-};
-
-interface XMLHttpRequestEventTarget extends EventTarget {
-    onabort: ((this: XMLHttpRequest, ev: ProgressEvent) => any) | null;
-    onerror: ((this: XMLHttpRequest, ev: ProgressEvent) => any) | null;
-    onload: ((this: XMLHttpRequest, ev: ProgressEvent) => any) | null;
-    onloadend: ((this: XMLHttpRequest, ev: ProgressEvent) => any) | null;
-    onloadstart: ((this: XMLHttpRequest, ev: ProgressEvent) => any) | null;
-    onprogress: ((this: XMLHttpRequest, ev: ProgressEvent) => any) | null;
-    ontimeout: ((this: XMLHttpRequest, ev: ProgressEvent) => any) | null;
-}
-
-declare var XMLHttpRequestEventTarget: {
-    readonly prototype: XMLHttpRequestEventTarget;
-    new(): XMLHttpRequestEventTarget;
-};
-
-interface XMLHttpRequestUpload extends XMLHttpRequestEventTarget {
-}
-
-declare var XMLHttpRequestUpload: {
-    readonly prototype: XMLHttpRequestUpload;
-    new(): XMLHttpRequestUpload;
 };
 
 interface Console {
@@ -5651,10 +5398,6 @@ declare namespace WebAssembly {
     function validate(bytes: BufferSource): boolean;
 }
 
-interface FrameRequestCallback {
-    (time: DOMHighResTimeStamp): void;
-}
-
 interface OnErrorEventHandlerNonNull {
     (event: Event | string, source?: string, lineno?: number, colno?: number, error?: Error): any;
 }
@@ -5711,21 +5454,17 @@ interface VoidFunction {
     (): void;
 }
 
-/**
- * Returns dedicatedWorkerGlobal's name, i.e. the value given to the Worker constructor. Primarily useful for debugging.
- */
-declare var name: string;
-declare var onmessage: ((this: DedicatedWorkerGlobalScope, ev: MessageEvent) => any) | null;
-declare var onmessageerror: ((this: DedicatedWorkerGlobalScope, ev: MessageEvent) => any) | null;
-/**
- * Aborts dedicatedWorkerGlobal.
- */
-declare function close(): void;
-/**
- * Clones message and transmits it to the Worker object associated with dedicatedWorkerGlobal. transfer can be passed as a list of objects that are to be transferred rather than cloned.
- */
-declare function postMessage(message: any, transfer: Transferable[]): void;
-declare function postMessage(message: any, options?: PostMessageOptions): void;
+declare var clients: Clients;
+declare var onactivate: ((this: ServiceWorkerGlobalScope, ev: ExtendableEvent) => any) | null;
+declare var onfetch: ((this: ServiceWorkerGlobalScope, ev: FetchEvent) => any) | null;
+declare var oninstall: ((this: ServiceWorkerGlobalScope, ev: ExtendableEvent) => any) | null;
+declare var onmessage: ((this: ServiceWorkerGlobalScope, ev: ExtendableMessageEvent) => any) | null;
+declare var onmessageerror: ((this: ServiceWorkerGlobalScope, ev: MessageEvent) => any) | null;
+declare var onnotificationclick: ((this: ServiceWorkerGlobalScope, ev: NotificationEvent) => any) | null;
+declare var onnotificationclose: ((this: ServiceWorkerGlobalScope, ev: NotificationEvent) => any) | null;
+declare var onpush: ((this: ServiceWorkerGlobalScope, ev: PushEvent) => any) | null;
+declare var registration: ServiceWorkerRegistration;
+declare function skipWaiting(): Promise<void>;
 /**
  * Dispatches a synthetic event event to target and returns true if either event's cancelable attribute value is false or its preventDefault() method was not invoked, and false otherwise.
  */
@@ -5738,12 +5477,12 @@ declare var location: WorkerLocation;
  * Returns workerGlobal's WorkerNavigator object.
  */
 declare var navigator: WorkerNavigator;
-declare var onerror: ((this: DedicatedWorkerGlobalScope, ev: ErrorEvent) => any) | null;
-declare var onlanguagechange: ((this: DedicatedWorkerGlobalScope, ev: Event) => any) | null;
-declare var onoffline: ((this: DedicatedWorkerGlobalScope, ev: Event) => any) | null;
-declare var ononline: ((this: DedicatedWorkerGlobalScope, ev: Event) => any) | null;
-declare var onrejectionhandled: ((this: DedicatedWorkerGlobalScope, ev: PromiseRejectionEvent) => any) | null;
-declare var onunhandledrejection: ((this: DedicatedWorkerGlobalScope, ev: PromiseRejectionEvent) => any) | null;
+declare var onerror: ((this: ServiceWorkerGlobalScope, ev: ErrorEvent) => any) | null;
+declare var onlanguagechange: ((this: ServiceWorkerGlobalScope, ev: Event) => any) | null;
+declare var onoffline: ((this: ServiceWorkerGlobalScope, ev: Event) => any) | null;
+declare var ononline: ((this: ServiceWorkerGlobalScope, ev: Event) => any) | null;
+declare var onrejectionhandled: ((this: ServiceWorkerGlobalScope, ev: PromiseRejectionEvent) => any) | null;
+declare var onunhandledrejection: ((this: ServiceWorkerGlobalScope, ev: PromiseRejectionEvent) => any) | null;
 /**
  * Returns workerGlobal.
  */
@@ -5774,11 +5513,9 @@ declare function queueMicrotask(callback: VoidFunction): void;
 declare function setInterval(handler: TimerHandler, timeout?: number, ...arguments: any[]): number;
 declare function setTimeout(handler: TimerHandler, timeout?: number, ...arguments: any[]): number;
 declare var fonts: FontFaceSet;
-declare function cancelAnimationFrame(handle: number): void;
-declare function requestAnimationFrame(callback: FrameRequestCallback): number;
-declare function addEventListener<K extends keyof DedicatedWorkerGlobalScopeEventMap>(type: K, listener: (this: DedicatedWorkerGlobalScope, ev: DedicatedWorkerGlobalScopeEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+declare function addEventListener<K extends keyof ServiceWorkerGlobalScopeEventMap>(type: K, listener: (this: ServiceWorkerGlobalScope, ev: ServiceWorkerGlobalScopeEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
 declare function addEventListener(type: string, listener: EventListener, options?: boolean | AddEventListenerOptions): void;
-declare function removeEventListener<K extends keyof DedicatedWorkerGlobalScopeEventMap>(type: K, listener: (this: DedicatedWorkerGlobalScope, ev: DedicatedWorkerGlobalScopeEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+declare function removeEventListener<K extends keyof ServiceWorkerGlobalScopeEventMap>(type: K, listener: (this: ServiceWorkerGlobalScope, ev: ServiceWorkerGlobalScopeEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
 declare function removeEventListener(type: string, listener: EventListener, options?: boolean | EventListenerOptions): void;
 type AlgorithmIdentifier = Algorithm | string;
 type BigInteger = Uint8Array;
@@ -5864,4 +5601,3 @@ type TransferFunction = "hlg" | "pq" | "srgb";
 type VisibilityState = "hidden" | "visible";
 type WebGLPowerPreference = "default" | "high-performance" | "low-power";
 type WorkerType = "classic" | "module";
-type XMLHttpRequestResponseType = "" | "arraybuffer" | "blob" | "document" | "json" | "text";

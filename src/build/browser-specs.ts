@@ -12,5 +12,5 @@ export function getLatestSpecNames(): string[] {
 
     // https://wiki.whatwg.org/wiki/DOM_XSLTProcessor
     "xsltprocessor",
-  ]
+  ];
 }

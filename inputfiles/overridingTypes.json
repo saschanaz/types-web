@@ -1986,6 +1986,45 @@
                             "type": "RTCDataChannelEvent"
                         }
                     ]
+                },
+                "methods": {
+                    "method": {
+                        "addIceCandidate": {
+                            "signature": {
+                                "1": {
+                                    "deprecated": true
+                                }
+                            }
+                        },
+                        "createAnswer": {
+                            "signature": {
+                                "1": {
+                                    "deprecated": true
+                                }
+                            }
+                        },
+                        "createOffer": {
+                            "signature": {
+                                "1": {
+                                    "deprecated": true
+                                }
+                            }
+                        },
+                        "setLocalDescription": {
+                            "signature": {
+                                "1": {
+                                    "deprecated": true
+                                }
+                            }
+                        },
+                        "setRemoteDescription": {
+                            "signature": {
+                                "1": {
+                                    "deprecated": true
+                                }
+                            }
+                        }
+                    }
                 }
             },
             "ServiceWorkerGlobalScope": {
@@ -2023,10 +2062,6 @@
                         {
                             "name": "push",
                             "type": "PushEvent"
-                        },
-                        {
-                            "name": "sync",
-                            "type": "SyncEvent"
                         }
                     ]
                 }

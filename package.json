@@ -1,15 +1,25 @@
 {
   "name": "types-web",
-  "version": "0.1.1",
+  "version": "0.1.7",
   "description": "Provides TypeScript types for the latest web APIs.",
+  "keywords": [
+    "typescript",
+    "web",
+    "api",
+    "dom",
+    "worker",
+    "worklet"
+  ],
   "scripts": {
     "build": "tsc && node ./lib/build.js",
     "fetch-comment": "tsc && node ./lib/fetch-comment.js",
     "fetch-mdn": "npm run build && node ./lib/fetch-mdn.js",
     "fetch": "echo This could take a few minutes... && npm run fetch-comment && npm run fetch-mdn",
     "baseline-accept": "cpx \"generated\\*\" baselines\\",
-    "test": "npm run build && node ./lib/test.js && node ./unittests/index.js",
-    "update-webref": "tsc && node ./lib/update-webref.js"
+    "lint": "eslint --max-warnings 0 src",
+    "test": "npm run lint && npm run build && node ./lib/test.js && node ./unittests/index.js",
+    "update-webref": "tsc && node ./lib/update-webref.js",
+    "changelog": "tsc && node ./lib/changelog.js"
   },
   "author": {
     "name": "Kagami Sascha Rosylight",
@@ -23,20 +33,26 @@
   "license": "Apache-2.0",
   "type": "module",
   "devDependencies": {
-    "@mdn/browser-compat-data": "3.0.1",
-    "@types/jsdom": "^16.2.5",
-    "@types/node": "^14.14.14",
-    "@types/node-fetch": "^2.5.7",
+    "@mdn/browser-compat-data": "3.1.2",
+    "@types/jsdom": "^16.2.6",
+    "@types/node": "^14.14.27",
+    "@types/node-fetch": "^2.5.8",
     "@types/webidl2": "^23.13.5",
-    "browser-specs": "^1.25.1",
+    "@typescript-eslint/eslint-plugin": "^4.15.0",
+    "@typescript-eslint/parser": "^4.15.0",
+    "browser-specs": "^1.28.0",
     "cpx2": "^3.0.0",
+    "eslint": "^7.19.0",
+    "eslint-config-prettier": "^7.2.0",
+    "eslint-plugin-prettier": "^3.3.1",
     "jsdom": "^16.4.0",
     "node-fetch": "^2.6.1",
+    "prettier": "^2.2.1",
     "print-diff": "^1.0.0",
     "styleless-innertext": "^1.1.2",
-    "typescript": "^4.2.0-dev.20201221",
+    "typescript": "^4.2.0-dev.20210210",
     "webidl2": "^23.13.0",
-    "webref": "github:w3c/webref#ba8af28077ce82b51d2214301249e5a89d21686b"
+    "webref": "github:w3c/webref#70e5647287d5efb6dfe595aa54bae7b0eb609242"
   },
   "files": [
     "baselines/*"

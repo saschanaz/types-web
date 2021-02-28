@@ -24,6 +24,13 @@
                     }
                 }
             },
+            "DocumentOrShadowRoot": {
+                "properties": {
+                    "property": {
+                        "adoptedStyleSheets": null
+                    }
+                }
+            },
             "ElementCSSInlineStyle": {
                 "properties": {
                     "property": {

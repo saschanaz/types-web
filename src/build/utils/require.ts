@@ -1,6 +1,6 @@
 import { createRequire } from "module";
 
-export function createTryRequire(path: string) {
+export function createTryRequire(path: string): (id: string) => any {
   const require = createRequire(path);
   return (id: string) => {
     try {
@@ -11,5 +11,5 @@ export function createTryRequire(path: string) {
       }
       return;
     }
-  }
+  };
 }

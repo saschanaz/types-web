@@ -1,12 +1,18 @@
 import * as Browser from "./types.js";
 import { mapToArray, arrayToMap } from "./helpers.js";
 
-export function collectLegacyNamespaceTypes(webidl: Browser.WebIdl): Browser.Interface[] {
+export function collectLegacyNamespaceTypes(
+  webidl: Browser.WebIdl
+): Browser.Interface[] {
   if (!webidl.namespaces) {
     return [];
   }
 
-  const namespaceMap: Record<string, Browser.Interface> = arrayToMap(webidl.namespaces, i => i.name, i => i);
+  const namespaceMap: Record<string, Browser.Interface> = arrayToMap(
+    webidl.namespaces,
+    i => i.name,
+    i => i
+  );
   for (const i of mapToArray(webidl.interfaces!.interface)) {
     if (i.legacyNamespace) {
       getNamespace(i.legacyNamespace).nested!.interfaces.push(i);
@@ -43,7 +49,7 @@ export function collectLegacyNamespaceTypes(webidl: Browser.WebIdl): Browser.Int
 function addEmptyNested(namespace: Browser.Interface): Browser.Interface {
   if (namespace.nested) {
     return namespace;
-  };
+  }
   return {
     ...namespace,
     nested: {
@@ -51,6 +57,6 @@ function addEmptyNested(namespace: Browser.Interface): Browser.Interface {
       enums: [],
       dictionaries: [],
       typedefs: [],
-    }
+    },
   };
 }

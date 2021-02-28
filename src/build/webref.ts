@@ -18,15 +18,18 @@ function hyphenToCamelCase(name: string) {
 }
 
 function generateWebIdlFromCssProperties(properties: string[]) {
-  return `partial interface CSSStyleDeclaration {${
-    properties.map(property => `\n  [CEReactions] attribute [LegacyNullToEmptyString] CSSOMString ${
-      hyphenToCamelCase(property)
-    };`).join("")
-  }\n};`;
+  return `partial interface CSSStyleDeclaration {${properties
+    .map(
+      property =>
+        `\n  [CEReactions] attribute [LegacyNullToEmptyString] CSSOMString ${hyphenToCamelCase(
+          property
+        )};`
+    )
+    .join("")}\n};`;
 }
 
 function tryGetCss(title: string) {
-  let path = new URL(`${title}.json`, webrefCssDir);
+  const path = new URL(`${title}.json`, webrefCssDir);
   const data = tryRequire(fileURLToPath(path));
   if (!data) {
     return;
@@ -38,10 +41,10 @@ function tryGetCss(title: string) {
   return generateWebIdlFromCssProperties(properties);
 }
 
-export async function getIdl(specShortName: string) {
+export async function getIdl(specShortName: string): Promise<string> {
   const sources = [
     await tryReadFile(new URL(`${specShortName}.idl`, webrefIdlDir)),
-    tryGetCss(specShortName)
+    tryGetCss(specShortName),
   ].filter(t => t !== undefined);
 
   return sources.join("\n");
@@ -51,7 +54,7 @@ interface WebrefDefinition {
   type: string;
   for: string[];
   linkingText: string[];
-};
+}
 
 interface WebrefResult {
   dfns: WebrefDefinition[];
@@ -61,9 +64,14 @@ interface WebrefCrawl {
   results: WebrefResult[];
 }
 
-export function getINameToEventMap() {
-  const { results } = require(fileURLToPath(new URL("crawl.json", webrefDir))) as WebrefCrawl;
-  const events = results.map(r => r.dfns.filter(d => d.type === "event")).filter(a => a.length).flat();
+export function getINameToEventMap(): Map<string, string[]> {
+  const { results } = require(fileURLToPath(
+    new URL("crawl.json", webrefDir)
+  )) as WebrefCrawl;
+  const events = results
+    .map(r => r.dfns.filter(d => d.type === "event"))
+    .filter(a => a.length)
+    .flat();
   const map = new Map<string, string[]>();
   for (const event of events) {
     const targets: string[] = event.for!;
