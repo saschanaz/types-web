@@ -38,7 +38,7 @@
     "@types/node": "^14.14.27",
     "@types/node-fetch": "^2.5.8",
     "@types/webidl2": "^23.13.5",
-    "@typescript-eslint/eslint-plugin": "^4.15.0",
+    "@typescript-eslint/eslint-plugin": "^4.16.0",
     "@typescript-eslint/parser": "^4.15.0",
     "browser-specs": "^1.28.0",
     "cpx2": "^3.0.0",
