@@ -1705,13 +1705,6 @@ declare var IDBCursorWithValue: {
     new(): IDBCursorWithValue;
 };
 
-interface IDBDatabaseEventMap {
-    "abort": Event;
-    "close": Event;
-    "error": Event;
-    "versionchange": IDBVersionChangeEvent;
-}
-
 /** This IndexedDB API interface provides a connection to a database; you can use an IDBDatabase object to open a transaction on your database then create, manipulate, and delete objects (data) in that database. The interface provides the only way to get and manage versions of the database. */
 interface IDBDatabase extends EventTarget {
     /**
@@ -1750,10 +1743,6 @@ interface IDBDatabase extends EventTarget {
      * Returns a new transaction with the given mode ("readonly" or "readwrite") and scope which can be a single object store name or an array of names.
      */
     transaction(storeNames: string | string[], mode?: IDBTransactionMode): IDBTransaction;
-    addEventListener<K extends keyof IDBDatabaseEventMap>(type: K, listener: (this: IDBDatabase, ev: IDBDatabaseEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-    addEventListener(type: string, listener: EventListener, options?: boolean | AddEventListenerOptions): void;
-    removeEventListener<K extends keyof IDBDatabaseEventMap>(type: K, listener: (this: IDBDatabase, ev: IDBDatabaseEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-    removeEventListener(type: string, listener: EventListener, options?: boolean | EventListenerOptions): void;
 }
 
 declare var IDBDatabase: {
@@ -2008,30 +1997,16 @@ declare var IDBObjectStore: {
     new(): IDBObjectStore;
 };
 
-interface IDBOpenDBRequestEventMap extends IDBRequestEventMap {
-    "blocked": Event;
-    "upgradeneeded": IDBVersionChangeEvent;
-}
-
 /** Also inherits methods from its parents IDBRequest and EventTarget. */
 interface IDBOpenDBRequest extends IDBRequest<IDBDatabase> {
     onblocked: ((this: IDBOpenDBRequest, ev: Event) => any) | null;
     onupgradeneeded: ((this: IDBOpenDBRequest, ev: IDBVersionChangeEvent) => any) | null;
-    addEventListener<K extends keyof IDBOpenDBRequestEventMap>(type: K, listener: (this: IDBOpenDBRequest, ev: IDBOpenDBRequestEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-    addEventListener(type: string, listener: EventListener, options?: boolean | AddEventListenerOptions): void;
-    removeEventListener<K extends keyof IDBOpenDBRequestEventMap>(type: K, listener: (this: IDBOpenDBRequest, ev: IDBOpenDBRequestEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-    removeEventListener(type: string, listener: EventListener, options?: boolean | EventListenerOptions): void;
 }
 
 declare var IDBOpenDBRequest: {
     readonly prototype: IDBOpenDBRequest;
     new(): IDBOpenDBRequest;
 };
-
-interface IDBRequestEventMap {
-    "error": Event;
-    "success": Event;
-}
 
 /** The request object does not initially contain any information about the result of the operation, but once information becomes available, an event is fired on the request, and the information becomes available through the properties of the IDBRequest instance. */
 interface IDBRequest<T = any> extends EventTarget {
@@ -2057,22 +2032,12 @@ interface IDBRequest<T = any> extends EventTarget {
      * Returns the IDBTransaction the request was made within. If this as an open request, then it returns an upgrade transaction while it is running, or null otherwise.
      */
     readonly transaction: IDBTransaction | null;
-    addEventListener<K extends keyof IDBRequestEventMap>(type: K, listener: (this: IDBRequest<T>, ev: IDBRequestEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-    addEventListener(type: string, listener: EventListener, options?: boolean | AddEventListenerOptions): void;
-    removeEventListener<K extends keyof IDBRequestEventMap>(type: K, listener: (this: IDBRequest<T>, ev: IDBRequestEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-    removeEventListener(type: string, listener: EventListener, options?: boolean | EventListenerOptions): void;
 }
 
 declare var IDBRequest: {
     readonly prototype: IDBRequest;
     new(): IDBRequest;
 };
-
-interface IDBTransactionEventMap {
-    "abort": Event;
-    "complete": Event;
-    "error": Event;
-}
 
 interface IDBTransaction extends EventTarget {
     /**
@@ -2103,10 +2068,6 @@ interface IDBTransaction extends EventTarget {
      * Returns an IDBObjectStore in the transaction's scope.
      */
     objectStore(name: string): IDBObjectStore;
-    addEventListener<K extends keyof IDBTransactionEventMap>(type: K, listener: (this: IDBTransaction, ev: IDBTransactionEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-    addEventListener(type: string, listener: EventListener, options?: boolean | AddEventListenerOptions): void;
-    removeEventListener<K extends keyof IDBTransactionEventMap>(type: K, listener: (this: IDBTransaction, ev: IDBTransactionEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-    removeEventListener(type: string, listener: EventListener, options?: boolean | EventListenerOptions): void;
 }
 
 declare var IDBTransaction: {
@@ -2320,13 +2281,6 @@ declare var NetworkInformation: {
     new(): NetworkInformation;
 };
 
-interface NotificationEventMap {
-    "click": Event;
-    "close": Event;
-    "error": Event;
-    "show": Event;
-}
-
 /** This Notifications API interface is used to configure and display desktop notifications to the user. */
 interface Notification extends EventTarget {
     readonly body: string;
@@ -2341,10 +2295,6 @@ interface Notification extends EventTarget {
     readonly tag: string;
     readonly title: string;
     close(): void;
-    addEventListener<K extends keyof NotificationEventMap>(type: K, listener: (this: Notification, ev: NotificationEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-    addEventListener(type: string, listener: EventListener, options?: boolean | AddEventListenerOptions): void;
-    removeEventListener<K extends keyof NotificationEventMap>(type: K, listener: (this: Notification, ev: NotificationEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-    removeEventListener(type: string, listener: EventListener, options?: boolean | EventListenerOptions): void;
 }
 
 declare var Notification: {
@@ -2419,10 +2369,6 @@ declare var Path2D: {
     new(path?: Path2D | string): Path2D;
 };
 
-interface PerformanceEventMap {
-    "resourcetimingbufferfull": Event;
-}
-
 /** Provides access to performance-related information for the current page. It's part of the High Resolution Time API, but is enhanced by the Performance Timeline API, the Navigation Timing API, the User Timing API, and the Resource Timing API. */
 interface Performance extends EventTarget {
     onresourcetimingbufferfull: ((this: Performance, ev: Event) => any) | null;
@@ -2438,10 +2384,6 @@ interface Performance extends EventTarget {
     now(): DOMHighResTimeStamp;
     setResourceTimingBufferSize(maxSize: number): void;
     toJSON(): any;
-    addEventListener<K extends keyof PerformanceEventMap>(type: K, listener: (this: Performance, ev: PerformanceEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-    addEventListener(type: string, listener: EventListener, options?: boolean | AddEventListenerOptions): void;
-    removeEventListener<K extends keyof PerformanceEventMap>(type: K, listener: (this: Performance, ev: PerformanceEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-    removeEventListener(type: string, listener: EventListener, options?: boolean | EventListenerOptions): void;
 }
 
 declare var Performance: {
@@ -2544,17 +2486,9 @@ declare var PerformanceServerTiming: {
     new(): PerformanceServerTiming;
 };
 
-interface PermissionStatusEventMap {
-    "change": Event;
-}
-
 interface PermissionStatus extends EventTarget {
     onchange: ((this: PermissionStatus, ev: Event) => any) | null;
     readonly state: PermissionState;
-    addEventListener<K extends keyof PermissionStatusEventMap>(type: K, listener: (this: PermissionStatus, ev: PermissionStatusEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-    addEventListener(type: string, listener: EventListener, options?: boolean | AddEventListenerOptions): void;
-    removeEventListener<K extends keyof PermissionStatusEventMap>(type: K, listener: (this: PermissionStatus, ev: PermissionStatusEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-    removeEventListener(type: string, listener: EventListener, options?: boolean | EventListenerOptions): void;
 }
 
 declare var PermissionStatus: {
@@ -2850,13 +2784,15 @@ declare var ServiceWorkerContainer: {
 
 interface ServiceWorkerGlobalScopeEventMap extends WorkerGlobalScopeEventMap {
     "activate": ExtendableEvent;
+    "backgroundfetchabort": Event;
+    "backgroundfetchclick": Event;
+    "backgroundfetchfail": Event;
+    "backgroundfetchsuccess": Event;
+    "contentdelete": Event;
     "fetch": FetchEvent;
     "install": ExtendableEvent;
     "message": ExtendableMessageEvent;
     "messageerror": MessageEvent;
-    "notificationclick": NotificationEvent;
-    "notificationclose": NotificationEvent;
-    "push": PushEvent;
 }
 
 /** This ServiceWorker API interface represents the global execution context of a service worker. */
@@ -5295,6 +5231,7 @@ interface WindowOrWorkerGlobalScope {
 }
 
 interface WorkerEventMap extends AbstractWorkerEventMap {
+    "error": Event;
     "message": MessageEvent;
     "messageerror": MessageEvent;
 }
@@ -5424,8 +5361,15 @@ declare var WritableStreamDefaultWriter: {
     new<W = any>(stream: WritableStream<W>): WritableStreamDefaultWriter<W>;
 };
 
-interface XMLHttpRequestEventMap extends XMLHttpRequestEventTargetEventMap {
+interface XMLHttpRequestEventMap {
+    "abort": Event;
+    "error": Event;
+    "load": Event;
+    "loadend": Event;
+    "loadstart": Event;
+    "progress": Event;
     "readystatechange": Event;
+    "timeout": Event;
 }
 
 /** Use XMLHttpRequest (XHR) objects to interact with servers. You can retrieve data from a URL without having to do a full page refresh. This enables a Web page to update just part of a page without disrupting what the user is doing. */
@@ -5534,16 +5478,6 @@ declare var XMLHttpRequest: {
     readonly UNSENT: number;
 };
 
-interface XMLHttpRequestEventTargetEventMap {
-    "abort": ProgressEvent<XMLHttpRequestEventTarget>;
-    "error": ProgressEvent<XMLHttpRequestEventTarget>;
-    "load": ProgressEvent<XMLHttpRequestEventTarget>;
-    "loadend": ProgressEvent<XMLHttpRequestEventTarget>;
-    "loadstart": ProgressEvent<XMLHttpRequestEventTarget>;
-    "progress": ProgressEvent<XMLHttpRequestEventTarget>;
-    "timeout": ProgressEvent<XMLHttpRequestEventTarget>;
-}
-
 interface XMLHttpRequestEventTarget extends EventTarget {
     onabort: ((this: XMLHttpRequest, ev: ProgressEvent) => any) | null;
     onerror: ((this: XMLHttpRequest, ev: ProgressEvent) => any) | null;
@@ -5552,10 +5486,6 @@ interface XMLHttpRequestEventTarget extends EventTarget {
     onloadstart: ((this: XMLHttpRequest, ev: ProgressEvent) => any) | null;
     onprogress: ((this: XMLHttpRequest, ev: ProgressEvent) => any) | null;
     ontimeout: ((this: XMLHttpRequest, ev: ProgressEvent) => any) | null;
-    addEventListener<K extends keyof XMLHttpRequestEventTargetEventMap>(type: K, listener: (this: XMLHttpRequestEventTarget, ev: XMLHttpRequestEventTargetEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-    addEventListener(type: string, listener: EventListener, options?: boolean | AddEventListenerOptions): void;
-    removeEventListener<K extends keyof XMLHttpRequestEventTargetEventMap>(type: K, listener: (this: XMLHttpRequestEventTarget, ev: XMLHttpRequestEventTargetEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-    removeEventListener(type: string, listener: EventListener, options?: boolean | EventListenerOptions): void;
 }
 
 declare var XMLHttpRequestEventTarget: {
@@ -5564,10 +5494,6 @@ declare var XMLHttpRequestEventTarget: {
 };
 
 interface XMLHttpRequestUpload extends XMLHttpRequestEventTarget {
-    addEventListener<K extends keyof XMLHttpRequestEventTargetEventMap>(type: K, listener: (this: XMLHttpRequestUpload, ev: XMLHttpRequestEventTargetEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-    addEventListener(type: string, listener: EventListener, options?: boolean | AddEventListenerOptions): void;
-    removeEventListener<K extends keyof XMLHttpRequestEventTargetEventMap>(type: K, listener: (this: XMLHttpRequestUpload, ev: XMLHttpRequestEventTargetEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-    removeEventListener(type: string, listener: EventListener, options?: boolean | EventListenerOptions): void;
 }
 
 declare var XMLHttpRequestUpload: {

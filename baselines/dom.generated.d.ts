@@ -1988,12 +1988,6 @@ interface Animatable {
     getAnimations(options?: GetAnimationsOptions): Animation[];
 }
 
-interface AnimationEventMap {
-    "cancel": AnimationPlaybackEvent;
-    "finish": AnimationPlaybackEvent;
-    "remove": Event;
-}
-
 interface Animation extends EventTarget {
     currentTime: number | null;
     effect: AnimationEffect | null;
@@ -2017,10 +2011,6 @@ interface Animation extends EventTarget {
     play(): void;
     reverse(): void;
     updatePlaybackRate(playbackRate: number): void;
-    addEventListener<K extends keyof AnimationEventMap>(type: K, listener: (this: Animation, ev: AnimationEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-    addEventListener(type: string, listener: EventListener, options?: boolean | AddEventListenerOptions): void;
-    removeEventListener<K extends keyof AnimationEventMap>(type: K, listener: (this: Animation, ev: AnimationEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-    removeEventListener(type: string, listener: EventListener, options?: boolean | EventListenerOptions): void;
 }
 
 declare var Animation: {
@@ -2117,10 +2107,6 @@ interface AudioBufferSourceNode extends AudioScheduledSourceNode {
     loopStart: number;
     readonly playbackRate: AudioParam;
     start(when?: number, offset?: number, duration?: number): void;
-    addEventListener<K extends keyof AudioScheduledSourceNodeEventMap>(type: K, listener: (this: AudioBufferSourceNode, ev: AudioScheduledSourceNodeEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-    addEventListener(type: string, listener: EventListener, options?: boolean | AddEventListenerOptions): void;
-    removeEventListener<K extends keyof AudioScheduledSourceNodeEventMap>(type: K, listener: (this: AudioBufferSourceNode, ev: AudioScheduledSourceNodeEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-    removeEventListener(type: string, listener: EventListener, options?: boolean | EventListenerOptions): void;
 }
 
 declare var AudioBufferSourceNode: {
@@ -2138,10 +2124,6 @@ interface AudioContext extends BaseAudioContext {
     getOutputTimestamp(): AudioTimestamp;
     resume(): Promise<void>;
     suspend(): Promise<void>;
-    addEventListener<K extends keyof BaseAudioContextEventMap>(type: K, listener: (this: AudioContext, ev: BaseAudioContextEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-    addEventListener(type: string, listener: EventListener, options?: boolean | AddEventListenerOptions): void;
-    removeEventListener<K extends keyof BaseAudioContextEventMap>(type: K, listener: (this: AudioContext, ev: BaseAudioContextEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-    removeEventListener(type: string, listener: EventListener, options?: boolean | EventListenerOptions): void;
 }
 
 declare var AudioContext: {
@@ -2241,18 +2223,10 @@ declare var AudioProcessingEvent: {
     new(type: string, eventInitDict: AudioProcessingEventInit): AudioProcessingEvent;
 };
 
-interface AudioScheduledSourceNodeEventMap {
-    "ended": Event;
-}
-
 interface AudioScheduledSourceNode extends AudioNode {
     onended: ((this: AudioScheduledSourceNode, ev: Event) => any) | null;
     start(when?: number): void;
     stop(when?: number): void;
-    addEventListener<K extends keyof AudioScheduledSourceNodeEventMap>(type: K, listener: (this: AudioScheduledSourceNode, ev: AudioScheduledSourceNodeEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-    addEventListener(type: string, listener: EventListener, options?: boolean | AddEventListenerOptions): void;
-    removeEventListener<K extends keyof AudioScheduledSourceNodeEventMap>(type: K, listener: (this: AudioScheduledSourceNode, ev: AudioScheduledSourceNodeEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-    removeEventListener(type: string, listener: EventListener, options?: boolean | EventListenerOptions): void;
 }
 
 declare var AudioScheduledSourceNode: {
@@ -2268,18 +2242,10 @@ declare var AudioWorklet: {
     new(): AudioWorklet;
 };
 
-interface AudioWorkletNodeEventMap {
-    "processorerror": Event;
-}
-
 interface AudioWorkletNode extends AudioNode {
     onprocessorerror: ((this: AudioWorkletNode, ev: Event) => any) | null;
     readonly parameters: AudioParamMap;
     readonly port: MessagePort;
-    addEventListener<K extends keyof AudioWorkletNodeEventMap>(type: K, listener: (this: AudioWorkletNode, ev: AudioWorkletNodeEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-    addEventListener(type: string, listener: EventListener, options?: boolean | AddEventListenerOptions): void;
-    removeEventListener<K extends keyof AudioWorkletNodeEventMap>(type: K, listener: (this: AudioWorkletNode, ev: AudioWorkletNodeEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-    removeEventListener(type: string, listener: EventListener, options?: boolean | EventListenerOptions): void;
 }
 
 declare var AudioWorkletNode: {
@@ -2325,10 +2291,6 @@ declare var BarProp: {
     new(): BarProp;
 };
 
-interface BaseAudioContextEventMap {
-    "statechange": Event;
-}
-
 interface BaseAudioContext extends EventTarget {
     readonly audioWorklet: AudioWorklet;
     readonly currentTime: number;
@@ -2356,10 +2318,6 @@ interface BaseAudioContext extends EventTarget {
     createStereoPanner(): StereoPannerNode;
     createWaveShaper(): WaveShaperNode;
     decodeAudioData(audioData: ArrayBuffer, successCallback?: DecodeSuccessCallback | null, errorCallback?: DecodeErrorCallback | null): Promise<AudioBuffer>;
-    addEventListener<K extends keyof BaseAudioContextEventMap>(type: K, listener: (this: BaseAudioContext, ev: BaseAudioContextEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-    addEventListener(type: string, listener: EventListener, options?: boolean | AddEventListenerOptions): void;
-    removeEventListener<K extends keyof BaseAudioContextEventMap>(type: K, listener: (this: BaseAudioContext, ev: BaseAudioContextEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-    removeEventListener(type: string, listener: EventListener, options?: boolean | EventListenerOptions): void;
 }
 
 declare var BaseAudioContext: {
@@ -2479,10 +2437,6 @@ declare var CDATASection: {
 
 interface CSSAnimation extends Animation {
     readonly animationName: string;
-    addEventListener<K extends keyof AnimationEventMap>(type: K, listener: (this: CSSAnimation, ev: AnimationEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-    addEventListener(type: string, listener: EventListener, options?: boolean | AddEventListenerOptions): void;
-    removeEventListener<K extends keyof AnimationEventMap>(type: K, listener: (this: CSSAnimation, ev: AnimationEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-    removeEventListener(type: string, listener: EventListener, options?: boolean | EventListenerOptions): void;
 }
 
 declare var CSSAnimation: {
@@ -3206,10 +3160,6 @@ declare var CSSSupportsRule: {
 
 interface CSSTransition extends Animation {
     readonly transitionProperty: string;
-    addEventListener<K extends keyof AnimationEventMap>(type: K, listener: (this: CSSTransition, ev: AnimationEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-    addEventListener(type: string, listener: EventListener, options?: boolean | AddEventListenerOptions): void;
-    removeEventListener<K extends keyof AnimationEventMap>(type: K, listener: (this: CSSTransition, ev: AnimationEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-    removeEventListener(type: string, listener: EventListener, options?: boolean | EventListenerOptions): void;
 }
 
 declare var CSSTransition: {
@@ -3538,10 +3488,6 @@ declare var CompositionEvent: {
 
 interface ConstantSourceNode extends AudioScheduledSourceNode {
     readonly offset: AudioParam;
-    addEventListener<K extends keyof AudioScheduledSourceNodeEventMap>(type: K, listener: (this: ConstantSourceNode, ev: AudioScheduledSourceNodeEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-    addEventListener(type: string, listener: EventListener, options?: boolean | AddEventListenerOptions): void;
-    removeEventListener<K extends keyof AudioScheduledSourceNodeEventMap>(type: K, listener: (this: ConstantSourceNode, ev: AudioScheduledSourceNodeEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-    removeEventListener(type: string, listener: EventListener, options?: boolean | EventListenerOptions): void;
 }
 
 declare var ConstantSourceNode: {
@@ -4164,13 +4110,10 @@ declare var DeviceOrientationEvent: {
     new(type: string, eventInitDict?: DeviceOrientationEventInit): DeviceOrientationEvent;
 };
 
-interface DocumentEventMap extends GlobalEventHandlersEventMap, DocumentAndElementEventHandlersEventMap {
-    "fullscreenchange": Event;
-    "fullscreenerror": Event;
-    "pointerlockchange": Event;
-    "pointerlockerror": Event;
+interface DocumentEventMap extends GlobalEventHandlersEventMap {
+    "DOMContentLoaded": Event;
     "readystatechange": Event;
-    "visibilitychange": Event;
+    "scroll": Event;
 }
 
 /** Any web page loaded in the browser and serves as an entry point into the web page's content, which is the DOM tree. */
@@ -4632,20 +4575,10 @@ declare var Document: {
     new(): Document;
 };
 
-interface DocumentAndElementEventHandlersEventMap {
-    "copy": ClipboardEvent;
-    "cut": ClipboardEvent;
-    "paste": ClipboardEvent;
-}
-
 interface DocumentAndElementEventHandlers {
     oncopy: ((this: DocumentAndElementEventHandlers, ev: ClipboardEvent) => any) | null;
     oncut: ((this: DocumentAndElementEventHandlers, ev: ClipboardEvent) => any) | null;
     onpaste: ((this: DocumentAndElementEventHandlers, ev: ClipboardEvent) => any) | null;
-    addEventListener<K extends keyof DocumentAndElementEventHandlersEventMap>(type: K, listener: (this: DocumentAndElementEventHandlers, ev: DocumentAndElementEventHandlersEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-    addEventListener(type: string, listener: EventListener, options?: boolean | AddEventListenerOptions): void;
-    removeEventListener<K extends keyof DocumentAndElementEventHandlersEventMap>(type: K, listener: (this: DocumentAndElementEventHandlers, ev: DocumentAndElementEventHandlersEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-    removeEventListener(type: string, listener: EventListener, options?: boolean | EventListenerOptions): void;
 }
 
 /** A minimal document object that has no parent. It is used as a lightweight version of Document that stores a segment of a document structure comprised of nodes just like a standard document. The key difference is that because the document fragment isn't part of the active document tree structure, changes made to the fragment don't affect the document, cause reflow, or incur any performance impact that can occur when changes are made. */
@@ -4767,8 +4700,7 @@ interface EXT_texture_filter_anisotropic {
 }
 
 interface ElementEventMap {
-    "fullscreenchange": Event;
-    "fullscreenerror": Event;
+    "scroll": Event;
 }
 
 /** Element is the most general base class from which all objects in a Document inherit. It only has methods and properties common to all kinds of elements. More specific classes inherit from Element. */
@@ -5464,25 +5396,6 @@ declare var GeolocationPositionError: {
 };
 
 interface GlobalEventHandlersEventMap {
-    "abort": UIEvent;
-    "animationcancel": AnimationEvent;
-    "animationend": AnimationEvent;
-    "animationiteration": AnimationEvent;
-    "animationstart": AnimationEvent;
-    "auxclick": MouseEvent;
-    "beforeinput": InputEvent;
-    "blur": FocusEvent;
-    "canplay": Event;
-    "canplaythrough": Event;
-    "change": Event;
-    "click": MouseEvent;
-    "close": Event;
-    "compositionend": CompositionEvent;
-    "compositionstart": CompositionEvent;
-    "compositionupdate": CompositionEvent;
-    "contextmenu": MouseEvent;
-    "cuechange": Event;
-    "dblclick": MouseEvent;
     "drag": DragEvent;
     "dragend": DragEvent;
     "dragenter": DragEvent;
@@ -5490,74 +5403,6 @@ interface GlobalEventHandlersEventMap {
     "dragover": DragEvent;
     "dragstart": DragEvent;
     "drop": DragEvent;
-    "durationchange": Event;
-    "emptied": Event;
-    "ended": Event;
-    "error": ErrorEvent;
-    "focus": FocusEvent;
-    "focusin": FocusEvent;
-    "focusout": FocusEvent;
-    "formdata": FormDataEvent;
-    "gotpointercapture": PointerEvent;
-    "input": Event;
-    "invalid": Event;
-    "keydown": KeyboardEvent;
-    "keypress": KeyboardEvent;
-    "keyup": KeyboardEvent;
-    "load": Event;
-    "loadeddata": Event;
-    "loadedmetadata": Event;
-    "loadstart": Event;
-    "lostpointercapture": PointerEvent;
-    "mousedown": MouseEvent;
-    "mouseenter": MouseEvent;
-    "mouseleave": MouseEvent;
-    "mousemove": MouseEvent;
-    "mouseout": MouseEvent;
-    "mouseover": MouseEvent;
-    "mouseup": MouseEvent;
-    "pause": Event;
-    "play": Event;
-    "playing": Event;
-    "pointercancel": PointerEvent;
-    "pointerdown": PointerEvent;
-    "pointerenter": PointerEvent;
-    "pointerleave": PointerEvent;
-    "pointermove": PointerEvent;
-    "pointerout": PointerEvent;
-    "pointerover": PointerEvent;
-    "pointerup": PointerEvent;
-    "progress": ProgressEvent;
-    "ratechange": Event;
-    "reset": Event;
-    "resize": UIEvent;
-    "scroll": Event;
-    "securitypolicyviolation": SecurityPolicyViolationEvent;
-    "seeked": Event;
-    "seeking": Event;
-    "select": Event;
-    "selectionchange": Event;
-    "selectstart": Event;
-    "stalled": Event;
-    "submit": Event;
-    "suspend": Event;
-    "timeupdate": Event;
-    "toggle": Event;
-    "touchcancel": TouchEvent;
-    "touchend": TouchEvent;
-    "touchmove": TouchEvent;
-    "touchstart": TouchEvent;
-    "transitioncancel": TransitionEvent;
-    "transitionend": TransitionEvent;
-    "transitionrun": TransitionEvent;
-    "transitionstart": TransitionEvent;
-    "volumechange": Event;
-    "waiting": Event;
-    "webkitanimationend": Event;
-    "webkitanimationiteration": Event;
-    "webkitanimationstart": Event;
-    "webkittransitionend": Event;
-    "wheel": WheelEvent;
 }
 
 interface GlobalEventHandlers {
@@ -6010,10 +5855,6 @@ declare var HTMLBaseElement: {
     new(): HTMLBaseElement;
 };
 
-interface HTMLBodyElementEventMap extends HTMLElementEventMap, WindowEventHandlersEventMap {
-    "orientationchange": Event;
-}
-
 /** Provides special properties (beyond those inherited from the regular HTMLElement interface) for manipulating <body> elements. */
 interface HTMLBodyElement extends HTMLElement, WindowEventHandlers {
     /** @deprecated */
@@ -6030,9 +5871,9 @@ interface HTMLBodyElement extends HTMLElement, WindowEventHandlers {
     text: string;
     /** @deprecated */
     vLink: string;
-    addEventListener<K extends keyof HTMLBodyElementEventMap>(type: K, listener: (this: HTMLBodyElement, ev: HTMLBodyElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+    addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLBodyElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListener, options?: boolean | AddEventListenerOptions): void;
-    removeEventListener<K extends keyof HTMLBodyElementEventMap>(type: K, listener: (this: HTMLBodyElement, ev: HTMLBodyElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLBodyElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
     removeEventListener(type: string, listener: EventListener, options?: boolean | EventListenerOptions): void;
 }
 
@@ -6275,7 +6116,26 @@ declare var HTMLDivElement: {
     new(): HTMLDivElement;
 };
 
-interface HTMLElementEventMap extends ElementEventMap, GlobalEventHandlersEventMap, DocumentAndElementEventHandlersEventMap {
+interface HTMLElementEventMap extends ElementEventMap, GlobalEventHandlersEventMap {
+    "blur": Event;
+    "cancel": Event;
+    "change": Event;
+    "close": Event;
+    "contextmenu": Event;
+    "copy": Event;
+    "cut": Event;
+    "error": Event;
+    "focus": Event;
+    "formdata": Event;
+    "input": Event;
+    "invalid": Event;
+    "load": Event;
+    "paste": Event;
+    "reset": Event;
+    "securitypolicyviolation": Event;
+    "select": Event;
+    "submit": Event;
+    "toggle": Event;
 }
 
 /** Any HTML element. Some elements directly implement this interface, while others implement it via an interface that inherits it. */
@@ -6567,9 +6427,6 @@ declare var HTMLFrameElement: {
     new(): HTMLFrameElement;
 };
 
-interface HTMLFrameSetElementEventMap extends HTMLElementEventMap, WindowEventHandlersEventMap {
-}
-
 /** Provides special properties (beyond those of the regular HTMLElement interface they also inherit) for manipulating <frameset> elements. */
 /** @deprecated */
 interface HTMLFrameSetElement extends HTMLElement, WindowEventHandlers {
@@ -6583,9 +6440,9 @@ interface HTMLFrameSetElement extends HTMLElement, WindowEventHandlers {
      */
     /** @deprecated */
     rows: string;
-    addEventListener<K extends keyof HTMLFrameSetElementEventMap>(type: K, listener: (this: HTMLFrameSetElement, ev: HTMLFrameSetElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+    addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLFrameSetElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListener, options?: boolean | AddEventListenerOptions): void;
-    removeEventListener<K extends keyof HTMLFrameSetElementEventMap>(type: K, listener: (this: HTMLFrameSetElement, ev: HTMLFrameSetElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLFrameSetElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
     removeEventListener(type: string, listener: EventListener, options?: boolean | EventListenerOptions): void;
 }
 
@@ -7304,8 +7161,32 @@ declare var HTMLMarqueeElement: {
 };
 
 interface HTMLMediaElementEventMap extends HTMLElementEventMap {
-    "encrypted": MediaEncryptedEvent;
-    "waitingforkey": Event;
+    "abort": Event;
+    "canplay": Event;
+    "canplaythrough": Event;
+    "cuechange": Event;
+    "durationchange": Event;
+    "emptied": Event;
+    "ended": Event;
+    "enter": Event;
+    "error": Event;
+    "exit": Event;
+    "loadeddata": Event;
+    "loadedmetadata": Event;
+    "loadstart": Event;
+    "pause": Event;
+    "play": Event;
+    "playing": Event;
+    "progress": Event;
+    "ratechange": Event;
+    "resize": Event;
+    "seeked": Event;
+    "seeking": Event;
+    "stalled": Event;
+    "suspend": Event;
+    "timeupdate": Event;
+    "volumechange": Event;
+    "waiting": Event;
 }
 
 /** Adds to HTMLElement the properties and methods needed to support basic media-related capabilities that are common to audio and video. */
@@ -8073,13 +7954,17 @@ declare var HTMLSelectElement: {
     new(): HTMLSelectElement;
 };
 
+interface HTMLSlotElementEventMap extends HTMLElementEventMap {
+    "slotchange": Event;
+}
+
 interface HTMLSlotElement extends HTMLElement {
     name: string;
     assignedElements(options?: AssignedNodesOptions): Element[];
     assignedNodes(options?: AssignedNodesOptions): Node[];
-    addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLSlotElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+    addEventListener<K extends keyof HTMLSlotElementEventMap>(type: K, listener: (this: HTMLSlotElement, ev: HTMLSlotElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListener, options?: boolean | AddEventListenerOptions): void;
-    removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLSlotElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener<K extends keyof HTMLSlotElementEventMap>(type: K, listener: (this: HTMLSlotElement, ev: HTMLSlotElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
     removeEventListener(type: string, listener: EventListener, options?: boolean | EventListenerOptions): void;
 }
 
@@ -8087,6 +7972,10 @@ declare var HTMLSlotElement: {
     readonly prototype: HTMLSlotElement;
     new(): HTMLSlotElement;
 };
+
+interface HTMLSourceElementEventMap extends HTMLElementEventMap {
+    "error": Event;
+}
 
 /** Provides special properties (beyond the regular HTMLElement object interface it also has available to it by inheritance) for manipulating <source> elements. */
 interface HTMLSourceElement extends HTMLElement {
@@ -8104,9 +7993,9 @@ interface HTMLSourceElement extends HTMLElement {
      * Gets or sets the MIME type of a media resource.
      */
     type: string;
-    addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLSourceElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+    addEventListener<K extends keyof HTMLSourceElementEventMap>(type: K, listener: (this: HTMLSourceElement, ev: HTMLSourceElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListener, options?: boolean | AddEventListenerOptions): void;
-    removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLSourceElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener<K extends keyof HTMLSourceElementEventMap>(type: K, listener: (this: HTMLSourceElement, ev: HTMLSourceElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
     removeEventListener(type: string, listener: EventListener, options?: boolean | EventListenerOptions): void;
 }
 
@@ -8629,6 +8518,11 @@ declare var HTMLTitleElement: {
     new(): HTMLTitleElement;
 };
 
+interface HTMLTrackElementEventMap extends HTMLElementEventMap {
+    "error": Event;
+    "load": Event;
+}
+
 /** The HTMLTrackElement */
 interface HTMLTrackElement extends HTMLElement {
     default: boolean;
@@ -8645,9 +8539,9 @@ interface HTMLTrackElement extends HTMLElement {
     readonly LOADED: number;
     readonly LOADING: number;
     readonly NONE: number;
-    addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLTrackElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+    addEventListener<K extends keyof HTMLTrackElementEventMap>(type: K, listener: (this: HTMLTrackElement, ev: HTMLTrackElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListener, options?: boolean | AddEventListenerOptions): void;
-    removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLTrackElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener<K extends keyof HTMLTrackElementEventMap>(type: K, listener: (this: HTMLTrackElement, ev: HTMLTrackElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
     removeEventListener(type: string, listener: EventListener, options?: boolean | EventListenerOptions): void;
 }
 
@@ -8851,13 +8745,6 @@ declare var IDBCursorWithValue: {
     new(): IDBCursorWithValue;
 };
 
-interface IDBDatabaseEventMap {
-    "abort": Event;
-    "close": Event;
-    "error": Event;
-    "versionchange": IDBVersionChangeEvent;
-}
-
 /** This IndexedDB API interface provides a connection to a database; you can use an IDBDatabase object to open a transaction on your database then create, manipulate, and delete objects (data) in that database. The interface provides the only way to get and manage versions of the database. */
 interface IDBDatabase extends EventTarget {
     /**
@@ -8896,10 +8783,6 @@ interface IDBDatabase extends EventTarget {
      * Returns a new transaction with the given mode ("readonly" or "readwrite") and scope which can be a single object store name or an array of names.
      */
     transaction(storeNames: string | string[], mode?: IDBTransactionMode): IDBTransaction;
-    addEventListener<K extends keyof IDBDatabaseEventMap>(type: K, listener: (this: IDBDatabase, ev: IDBDatabaseEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-    addEventListener(type: string, listener: EventListener, options?: boolean | AddEventListenerOptions): void;
-    removeEventListener<K extends keyof IDBDatabaseEventMap>(type: K, listener: (this: IDBDatabase, ev: IDBDatabaseEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-    removeEventListener(type: string, listener: EventListener, options?: boolean | EventListenerOptions): void;
 }
 
 declare var IDBDatabase: {
@@ -9154,30 +9037,16 @@ declare var IDBObjectStore: {
     new(): IDBObjectStore;
 };
 
-interface IDBOpenDBRequestEventMap extends IDBRequestEventMap {
-    "blocked": Event;
-    "upgradeneeded": IDBVersionChangeEvent;
-}
-
 /** Also inherits methods from its parents IDBRequest and EventTarget. */
 interface IDBOpenDBRequest extends IDBRequest<IDBDatabase> {
     onblocked: ((this: IDBOpenDBRequest, ev: Event) => any) | null;
     onupgradeneeded: ((this: IDBOpenDBRequest, ev: IDBVersionChangeEvent) => any) | null;
-    addEventListener<K extends keyof IDBOpenDBRequestEventMap>(type: K, listener: (this: IDBOpenDBRequest, ev: IDBOpenDBRequestEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-    addEventListener(type: string, listener: EventListener, options?: boolean | AddEventListenerOptions): void;
-    removeEventListener<K extends keyof IDBOpenDBRequestEventMap>(type: K, listener: (this: IDBOpenDBRequest, ev: IDBOpenDBRequestEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-    removeEventListener(type: string, listener: EventListener, options?: boolean | EventListenerOptions): void;
 }
 
 declare var IDBOpenDBRequest: {
     readonly prototype: IDBOpenDBRequest;
     new(): IDBOpenDBRequest;
 };
-
-interface IDBRequestEventMap {
-    "error": Event;
-    "success": Event;
-}
 
 /** The request object does not initially contain any information about the result of the operation, but once information becomes available, an event is fired on the request, and the information becomes available through the properties of the IDBRequest instance. */
 interface IDBRequest<T = any> extends EventTarget {
@@ -9203,22 +9072,12 @@ interface IDBRequest<T = any> extends EventTarget {
      * Returns the IDBTransaction the request was made within. If this as an open request, then it returns an upgrade transaction while it is running, or null otherwise.
      */
     readonly transaction: IDBTransaction | null;
-    addEventListener<K extends keyof IDBRequestEventMap>(type: K, listener: (this: IDBRequest<T>, ev: IDBRequestEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-    addEventListener(type: string, listener: EventListener, options?: boolean | AddEventListenerOptions): void;
-    removeEventListener<K extends keyof IDBRequestEventMap>(type: K, listener: (this: IDBRequest<T>, ev: IDBRequestEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-    removeEventListener(type: string, listener: EventListener, options?: boolean | EventListenerOptions): void;
 }
 
 declare var IDBRequest: {
     readonly prototype: IDBRequest;
     new(): IDBRequest;
 };
-
-interface IDBTransactionEventMap {
-    "abort": Event;
-    "complete": Event;
-    "error": Event;
-}
 
 interface IDBTransaction extends EventTarget {
     /**
@@ -9249,10 +9108,6 @@ interface IDBTransaction extends EventTarget {
      * Returns an IDBObjectStore in the transaction's scope.
      */
     objectStore(name: string): IDBObjectStore;
-    addEventListener<K extends keyof IDBTransactionEventMap>(type: K, listener: (this: IDBTransaction, ev: IDBTransactionEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-    addEventListener(type: string, listener: EventListener, options?: boolean | AddEventListenerOptions): void;
-    removeEventListener<K extends keyof IDBTransactionEventMap>(type: K, listener: (this: IDBTransaction, ev: IDBTransactionEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-    removeEventListener(type: string, listener: EventListener, options?: boolean | EventListenerOptions): void;
 }
 
 declare var IDBTransaction: {
@@ -9553,10 +9408,6 @@ declare var MediaDeviceInfo: {
     new(): MediaDeviceInfo;
 };
 
-interface MediaDevicesEventMap {
-    "devicechange": Event;
-}
-
 /** Provides access to connected media input devices like cameras and microphones, as well as screen sharing. In essence, it lets you obtain access to any hardware source of media data. */
 interface MediaDevices extends EventTarget {
     ondevicechange: ((this: MediaDevices, ev: Event) => any) | null;
@@ -9564,10 +9415,6 @@ interface MediaDevices extends EventTarget {
     getDisplayMedia(constraints?: DisplayMediaStreamConstraints): Promise<MediaStream>;
     getSupportedConstraints(): MediaTrackSupportedConstraints;
     getUserMedia(constraints?: MediaStreamConstraints): Promise<MediaStream>;
-    addEventListener<K extends keyof MediaDevicesEventMap>(type: K, listener: (this: MediaDevices, ev: MediaDevicesEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-    addEventListener(type: string, listener: EventListener, options?: boolean | AddEventListenerOptions): void;
-    removeEventListener<K extends keyof MediaDevicesEventMap>(type: K, listener: (this: MediaDevices, ev: MediaDevicesEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-    removeEventListener(type: string, listener: EventListener, options?: boolean | EventListenerOptions): void;
 }
 
 declare var MediaDevices: {
@@ -9625,11 +9472,6 @@ declare var MediaKeyMessageEvent: {
     new(type: string, eventInitDict: MediaKeyMessageEventInit): MediaKeyMessageEvent;
 };
 
-interface MediaKeySessionEventMap {
-    "keystatuseschange": Event;
-    "message": MediaKeyMessageEvent;
-}
-
 /** This EncryptedMediaExtensions API interface represents a context for message exchange with a content decryption module (CDM). */
 interface MediaKeySession extends EventTarget {
     readonly closed: Promise<undefined>;
@@ -9643,10 +9485,6 @@ interface MediaKeySession extends EventTarget {
     load(sessionId: string): Promise<boolean>;
     remove(): Promise<void>;
     update(response: BufferSource): Promise<void>;
-    addEventListener<K extends keyof MediaKeySessionEventMap>(type: K, listener: (this: MediaKeySession, ev: MediaKeySessionEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-    addEventListener(type: string, listener: EventListener, options?: boolean | AddEventListenerOptions): void;
-    removeEventListener<K extends keyof MediaKeySessionEventMap>(type: K, listener: (this: MediaKeySession, ev: MediaKeySessionEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-    removeEventListener(type: string, listener: EventListener, options?: boolean | EventListenerOptions): void;
 }
 
 declare var MediaKeySession: {
@@ -9801,12 +9639,6 @@ declare var MediaSession: {
     new(): MediaSession;
 };
 
-interface MediaSourceEventMap {
-    "sourceclose": Event;
-    "sourceended": Event;
-    "sourceopen": Event;
-}
-
 /** This Media Source Extensions API interface represents a source of media data for an HTMLMediaElement object. A MediaSource object can be attached to a HTMLMediaElement to be played in the user agent. */
 interface MediaSource extends EventTarget {
     readonly activeSourceBuffers: SourceBufferList;
@@ -9821,10 +9653,6 @@ interface MediaSource extends EventTarget {
     endOfStream(error?: EndOfStreamError): void;
     removeSourceBuffer(sourceBuffer: SourceBuffer): void;
     setLiveSeekableRange(start: number, end: number): void;
-    addEventListener<K extends keyof MediaSourceEventMap>(type: K, listener: (this: MediaSource, ev: MediaSourceEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-    addEventListener(type: string, listener: EventListener, options?: boolean | AddEventListenerOptions): void;
-    removeEventListener<K extends keyof MediaSourceEventMap>(type: K, listener: (this: MediaSource, ev: MediaSourceEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-    removeEventListener(type: string, listener: EventListener, options?: boolean | EventListenerOptions): void;
 }
 
 declare var MediaSource: {
@@ -9832,11 +9660,6 @@ declare var MediaSource: {
     new(): MediaSource;
     isTypeSupported(type: string): boolean;
 };
-
-interface MediaStreamEventMap {
-    "addtrack": MediaStreamTrackEvent;
-    "removetrack": MediaStreamTrackEvent;
-}
 
 /** A stream of media content. A stream consists of several tracks such as video or audio tracks. Each track is specified as an instance of MediaStreamTrack. */
 interface MediaStream extends EventTarget {
@@ -9851,10 +9674,6 @@ interface MediaStream extends EventTarget {
     getTracks(): MediaStreamTrack[];
     getVideoTracks(): MediaStreamTrack[];
     removeTrack(track: MediaStreamTrack): void;
-    addEventListener<K extends keyof MediaStreamEventMap>(type: K, listener: (this: MediaStream, ev: MediaStreamEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-    addEventListener(type: string, listener: EventListener, options?: boolean | AddEventListenerOptions): void;
-    removeEventListener<K extends keyof MediaStreamEventMap>(type: K, listener: (this: MediaStream, ev: MediaStreamEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-    removeEventListener(type: string, listener: EventListener, options?: boolean | EventListenerOptions): void;
 }
 
 declare var MediaStream: {
@@ -9883,12 +9702,6 @@ declare var MediaStreamAudioSourceNode: {
     new(context: AudioContext, options: MediaStreamAudioSourceOptions): MediaStreamAudioSourceNode;
 };
 
-interface MediaStreamTrackEventMap {
-    "ended": Event;
-    "mute": Event;
-    "unmute": Event;
-}
-
 /** A single media track within a stream; typically, these are audio or video tracks, but other track types may exist as well. */
 interface MediaStreamTrack extends EventTarget {
     contentHint: string;
@@ -9907,10 +9720,6 @@ interface MediaStreamTrack extends EventTarget {
     getConstraints(): MediaTrackConstraints;
     getSettings(): MediaTrackSettings;
     stop(): void;
-    addEventListener<K extends keyof MediaStreamTrackEventMap>(type: K, listener: (this: MediaStreamTrack, ev: MediaStreamTrackEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-    addEventListener(type: string, listener: EventListener, options?: boolean | AddEventListenerOptions): void;
-    removeEventListener<K extends keyof MediaStreamTrackEventMap>(type: K, listener: (this: MediaStreamTrack, ev: MediaStreamTrackEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-    removeEventListener(type: string, listener: EventListener, options?: boolean | EventListenerOptions): void;
 }
 
 declare var MediaStreamTrack: {
@@ -10559,13 +10368,6 @@ interface NonElementParentNode {
     getElementById(elementId: string): Element | null;
 }
 
-interface NotificationEventMap {
-    "click": Event;
-    "close": Event;
-    "error": Event;
-    "show": Event;
-}
-
 /** This Notifications API interface is used to configure and display desktop notifications to the user. */
 interface Notification extends EventTarget {
     readonly body: string;
@@ -10580,10 +10382,6 @@ interface Notification extends EventTarget {
     readonly tag: string;
     readonly title: string;
     close(): void;
-    addEventListener<K extends keyof NotificationEventMap>(type: K, listener: (this: Notification, ev: NotificationEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-    addEventListener(type: string, listener: EventListener, options?: boolean | AddEventListenerOptions): void;
-    removeEventListener<K extends keyof NotificationEventMap>(type: K, listener: (this: Notification, ev: NotificationEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-    removeEventListener(type: string, listener: EventListener, options?: boolean | EventListenerOptions): void;
 }
 
 declare var Notification: {
@@ -10645,20 +10443,12 @@ declare var OfflineAudioCompletionEvent: {
     new(type: string, eventInitDict: OfflineAudioCompletionEventInit): OfflineAudioCompletionEvent;
 };
 
-interface OfflineAudioContextEventMap extends BaseAudioContextEventMap {
-    "complete": OfflineAudioCompletionEvent;
-}
-
 /** An AudioContext interface representing an audio-processing graph built from linked together AudioNodes. In contrast with a standard AudioContext, an OfflineAudioContext doesn't render the audio to the device hardware; instead, it generates it, as fast as it can, and outputs the result to an AudioBuffer. */
 interface OfflineAudioContext extends BaseAudioContext {
     readonly length: number;
     oncomplete: ((this: OfflineAudioContext, ev: OfflineAudioCompletionEvent) => any) | null;
     resume(): Promise<void>;
     startRendering(): Promise<AudioBuffer>;
-    addEventListener<K extends keyof OfflineAudioContextEventMap>(type: K, listener: (this: OfflineAudioContext, ev: OfflineAudioContextEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-    addEventListener(type: string, listener: EventListener, options?: boolean | AddEventListenerOptions): void;
-    removeEventListener<K extends keyof OfflineAudioContextEventMap>(type: K, listener: (this: OfflineAudioContext, ev: OfflineAudioContextEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-    removeEventListener(type: string, listener: EventListener, options?: boolean | EventListenerOptions): void;
 }
 
 declare var OfflineAudioContext: {
@@ -10673,10 +10463,6 @@ interface OscillatorNode extends AudioScheduledSourceNode {
     readonly frequency: AudioParam;
     type: OscillatorType;
     setPeriodicWave(periodicWave: PeriodicWave): void;
-    addEventListener<K extends keyof AudioScheduledSourceNodeEventMap>(type: K, listener: (this: OscillatorNode, ev: AudioScheduledSourceNodeEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-    addEventListener(type: string, listener: EventListener, options?: boolean | AddEventListenerOptions): void;
-    removeEventListener<K extends keyof AudioScheduledSourceNodeEventMap>(type: K, listener: (this: OscillatorNode, ev: AudioScheduledSourceNodeEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-    removeEventListener(type: string, listener: EventListener, options?: boolean | EventListenerOptions): void;
 }
 
 declare var OscillatorNode: {
@@ -10831,12 +10617,6 @@ declare var PaymentMethodChangeEvent: {
     new(type: string, eventInitDict?: PaymentMethodChangeEventInit): PaymentMethodChangeEvent;
 };
 
-interface PaymentRequestEventMap {
-    "paymentmethodchange": Event;
-    "shippingaddresschange": Event;
-    "shippingoptionchange": Event;
-}
-
 /** This Payment Request API interface is the primary access point into the API, and lets web content and apps accept payments from the end user. */
 interface PaymentRequest extends EventTarget {
     readonly id: string;
@@ -10849,10 +10629,6 @@ interface PaymentRequest extends EventTarget {
     abort(): Promise<void>;
     canMakePayment(): Promise<boolean>;
     show(detailsPromise?: PaymentDetailsUpdate | PromiseLike<PaymentDetailsUpdate>): Promise<PaymentResponse>;
-    addEventListener<K extends keyof PaymentRequestEventMap>(type: K, listener: (this: PaymentRequest, ev: PaymentRequestEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-    addEventListener(type: string, listener: EventListener, options?: boolean | AddEventListenerOptions): void;
-    removeEventListener<K extends keyof PaymentRequestEventMap>(type: K, listener: (this: PaymentRequest, ev: PaymentRequestEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-    removeEventListener(type: string, listener: EventListener, options?: boolean | EventListenerOptions): void;
 }
 
 declare var PaymentRequest: {
@@ -10870,10 +10646,6 @@ declare var PaymentRequestUpdateEvent: {
     new(type: string, eventInitDict?: PaymentRequestUpdateEventInit): PaymentRequestUpdateEvent;
 };
 
-interface PaymentResponseEventMap {
-    "payerdetailchange": Event;
-}
-
 /** This Payment Request API interface is returned after a user selects a payment method and approves a payment request. */
 interface PaymentResponse extends EventTarget {
     readonly details: any;
@@ -10888,20 +10660,12 @@ interface PaymentResponse extends EventTarget {
     complete(result?: PaymentComplete): Promise<void>;
     retry(errorFields?: PaymentValidationErrors): Promise<void>;
     toJSON(): any;
-    addEventListener<K extends keyof PaymentResponseEventMap>(type: K, listener: (this: PaymentResponse, ev: PaymentResponseEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-    addEventListener(type: string, listener: EventListener, options?: boolean | AddEventListenerOptions): void;
-    removeEventListener<K extends keyof PaymentResponseEventMap>(type: K, listener: (this: PaymentResponse, ev: PaymentResponseEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-    removeEventListener(type: string, listener: EventListener, options?: boolean | EventListenerOptions): void;
 }
 
 declare var PaymentResponse: {
     readonly prototype: PaymentResponse;
     new(): PaymentResponse;
 };
-
-interface PerformanceEventMap {
-    "resourcetimingbufferfull": Event;
-}
 
 /** Provides access to performance-related information for the current page. It's part of the High Resolution Time API, but is enhanced by the Performance Timeline API, the Navigation Timing API, the User Timing API, and the Resource Timing API. */
 interface Performance extends EventTarget {
@@ -10922,10 +10686,6 @@ interface Performance extends EventTarget {
     now(): DOMHighResTimeStamp;
     setResourceTimingBufferSize(maxSize: number): void;
     toJSON(): any;
-    addEventListener<K extends keyof PerformanceEventMap>(type: K, listener: (this: Performance, ev: PerformanceEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-    addEventListener(type: string, listener: EventListener, options?: boolean | AddEventListenerOptions): void;
-    removeEventListener<K extends keyof PerformanceEventMap>(type: K, listener: (this: Performance, ev: PerformanceEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-    removeEventListener(type: string, listener: EventListener, options?: boolean | EventListenerOptions): void;
 }
 
 declare var Performance: {
@@ -11145,17 +10905,9 @@ declare var PeriodicWave: {
     new(context: BaseAudioContext, options?: PeriodicWaveOptions): PeriodicWave;
 };
 
-interface PermissionStatusEventMap {
-    "change": Event;
-}
-
 interface PermissionStatus extends EventTarget {
     onchange: ((this: PermissionStatus, ev: Event) => any) | null;
     readonly state: PermissionState;
-    addEventListener<K extends keyof PermissionStatusEventMap>(type: K, listener: (this: PermissionStatus, ev: PermissionStatusEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-    addEventListener(type: string, listener: EventListener, options?: boolean | AddEventListenerOptions): void;
-    removeEventListener<K extends keyof PermissionStatusEventMap>(type: K, listener: (this: PermissionStatus, ev: PermissionStatusEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-    removeEventListener(type: string, listener: EventListener, options?: boolean | EventListenerOptions): void;
 }
 
 declare var PermissionStatus: {
@@ -11361,19 +11113,11 @@ declare var RTCCertificate: {
     new(): RTCCertificate;
 };
 
-interface RTCDTMFSenderEventMap {
-    "tonechange": RTCDTMFToneChangeEvent;
-}
-
 interface RTCDTMFSender extends EventTarget {
     readonly canInsertDTMF: boolean;
     ontonechange: ((this: RTCDTMFSender, ev: RTCDTMFToneChangeEvent) => any) | null;
     readonly toneBuffer: string;
     insertDTMF(tones: string, duration?: number, interToneGap?: number): void;
-    addEventListener<K extends keyof RTCDTMFSenderEventMap>(type: K, listener: (this: RTCDTMFSender, ev: RTCDTMFSenderEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-    addEventListener(type: string, listener: EventListener, options?: boolean | AddEventListenerOptions): void;
-    removeEventListener<K extends keyof RTCDTMFSenderEventMap>(type: K, listener: (this: RTCDTMFSender, ev: RTCDTMFSenderEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-    removeEventListener(type: string, listener: EventListener, options?: boolean | EventListenerOptions): void;
 }
 
 declare var RTCDTMFSender: {
@@ -11390,14 +11134,6 @@ declare var RTCDTMFToneChangeEvent: {
     readonly prototype: RTCDTMFToneChangeEvent;
     new(type: string, eventInitDict?: RTCDTMFToneChangeEventInit): RTCDTMFToneChangeEvent;
 };
-
-interface RTCDataChannelEventMap {
-    "bufferedamountlow": Event;
-    "close": Event;
-    "error": Event;
-    "message": MessageEvent;
-    "open": Event;
-}
 
 interface RTCDataChannel extends EventTarget {
     binaryType: BinaryType;
@@ -11421,10 +11157,6 @@ interface RTCDataChannel extends EventTarget {
     send(data: Blob): void;
     send(data: ArrayBuffer): void;
     send(data: ArrayBufferView): void;
-    addEventListener<K extends keyof RTCDataChannelEventMap>(type: K, listener: (this: RTCDataChannel, ev: RTCDataChannelEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-    addEventListener(type: string, listener: EventListener, options?: boolean | AddEventListenerOptions): void;
-    removeEventListener<K extends keyof RTCDataChannelEventMap>(type: K, listener: (this: RTCDataChannel, ev: RTCDataChannelEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-    removeEventListener(type: string, listener: EventListener, options?: boolean | EventListenerOptions): void;
 }
 
 declare var RTCDataChannel: {
@@ -11441,17 +11173,9 @@ declare var RTCDataChannelEvent: {
     new(type: string, eventInitDict: RTCDataChannelEventInit): RTCDataChannelEvent;
 };
 
-interface RTCDtlsTransportEventMap {
-    "statechange": Event;
-}
-
 interface RTCDtlsTransport extends EventTarget {
     onstatechange: ((this: RTCDtlsTransport, ev: Event) => any) | null;
     readonly state: RTCDtlsTransportState;
-    addEventListener<K extends keyof RTCDtlsTransportEventMap>(type: K, listener: (this: RTCDtlsTransport, ev: RTCDtlsTransportEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-    addEventListener(type: string, listener: EventListener, options?: boolean | AddEventListenerOptions): void;
-    removeEventListener<K extends keyof RTCDtlsTransportEventMap>(type: K, listener: (this: RTCDtlsTransport, ev: RTCDtlsTransportEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-    removeEventListener(type: string, listener: EventListener, options?: boolean | EventListenerOptions): void;
 }
 
 declare var RTCDtlsTransport: {
@@ -11483,17 +11207,6 @@ declare var RTCIceTransport: {
     readonly prototype: RTCIceTransport;
     new(): RTCIceTransport;
 };
-
-interface RTCPeerConnectionEventMap {
-    "connectionstatechange": Event;
-    "datachannel": RTCDataChannelEvent;
-    "icecandidate": RTCPeerConnectionIceEvent;
-    "iceconnectionstatechange": Event;
-    "icegatheringstatechange": Event;
-    "negotiationneeded": Event;
-    "signalingstatechange": Event;
-    "track": RTCTrackEvent;
-}
 
 /** A WebRTC connection between the local computer and a remote peer. It provides methods to connect to a remote peer, maintain and monitor the connection, and close the connection once it's no longer needed. */
 interface RTCPeerConnection extends EventTarget {
@@ -11543,10 +11256,6 @@ interface RTCPeerConnection extends EventTarget {
     setRemoteDescription(description: RTCSessionDescriptionInit): Promise<void>;
     /** @deprecated */
     setRemoteDescription(description: RTCSessionDescriptionInit, successCallback: VoidFunction, failureCallback: RTCPeerConnectionErrorCallback): Promise<void>;
-    addEventListener<K extends keyof RTCPeerConnectionEventMap>(type: K, listener: (this: RTCPeerConnection, ev: RTCPeerConnectionEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-    addEventListener(type: string, listener: EventListener, options?: boolean | AddEventListenerOptions): void;
-    removeEventListener<K extends keyof RTCPeerConnectionEventMap>(type: K, listener: (this: RTCPeerConnection, ev: RTCPeerConnectionEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-    removeEventListener(type: string, listener: EventListener, options?: boolean | EventListenerOptions): void;
 }
 
 declare var RTCPeerConnection: {
@@ -11749,12 +11458,6 @@ interface ReadableStreamGenericReader {
     cancel(reason?: any): Promise<void>;
 }
 
-interface RemotePlaybackEventMap {
-    "connect": Event;
-    "connecting": Event;
-    "disconnect": Event;
-}
-
 interface RemotePlayback extends EventTarget {
     onconnect: ((this: RemotePlayback, ev: Event) => any) | null;
     onconnecting: ((this: RemotePlayback, ev: Event) => any) | null;
@@ -11763,10 +11466,6 @@ interface RemotePlayback extends EventTarget {
     cancelWatchAvailability(id?: number): Promise<void>;
     prompt(): Promise<void>;
     watchAvailability(callback: RemotePlaybackAvailabilityCallback): Promise<number>;
-    addEventListener<K extends keyof RemotePlaybackEventMap>(type: K, listener: (this: RemotePlayback, ev: RemotePlaybackEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-    addEventListener(type: string, listener: EventListener, options?: boolean | AddEventListenerOptions): void;
-    removeEventListener<K extends keyof RemotePlaybackEventMap>(type: K, listener: (this: RemotePlayback, ev: RemotePlaybackEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-    removeEventListener(type: string, listener: EventListener, options?: boolean | EventListenerOptions): void;
 }
 
 declare var RemotePlayback: {
@@ -12225,7 +11924,7 @@ declare var SVGDescElement: {
     new(): SVGDescElement;
 };
 
-interface SVGElementEventMap extends ElementEventMap, GlobalEventHandlersEventMap, DocumentAndElementEventHandlersEventMap {
+interface SVGElementEventMap extends ElementEventMap, GlobalEventHandlersEventMap {
 }
 
 /** All of the SVG DOM interfaces that correspond directly to elements in the SVG language derive from the SVGElement interface. */
@@ -13249,9 +12948,6 @@ declare var SVGRectElement: {
     new(): SVGRectElement;
 };
 
-interface SVGSVGElementEventMap extends SVGElementEventMap, WindowEventHandlersEventMap {
-}
-
 /** Provides access to the properties of <svg> elements, as well as methods to manipulate them. This interface contains also various miscellaneous commonly-used utility methods, such as matrix operations and the ability to control the time of redraw on visual rendering devices. */
 interface SVGSVGElement extends SVGGraphicsElement, SVGFitToViewBox, WindowEventHandlers {
     currentScale: number;
@@ -13287,9 +12983,9 @@ interface SVGSVGElement extends SVGGraphicsElement, SVGFitToViewBox, WindowEvent
     unsuspendRedraw(suspendHandleID: number): void;
     /** @deprecated */
     unsuspendRedrawAll(): void;
-    addEventListener<K extends keyof SVGSVGElementEventMap>(type: K, listener: (this: SVGSVGElement, ev: SVGSVGElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+    addEventListener<K extends keyof SVGElementEventMap>(type: K, listener: (this: SVGSVGElement, ev: SVGElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListener, options?: boolean | AddEventListenerOptions): void;
-    removeEventListener<K extends keyof SVGSVGElementEventMap>(type: K, listener: (this: SVGSVGElement, ev: SVGSVGElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener<K extends keyof SVGElementEventMap>(type: K, listener: (this: SVGSVGElement, ev: SVGElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
     removeEventListener(type: string, listener: EventListener, options?: boolean | EventListenerOptions): void;
 }
 
@@ -13639,30 +13335,18 @@ declare var Screen: {
     new(): Screen;
 };
 
-interface ScreenOrientationEventMap {
-    "change": Event;
-}
-
 interface ScreenOrientation extends EventTarget {
     readonly angle: number;
     onchange: ((this: ScreenOrientation, ev: Event) => any) | null;
     readonly type: OrientationType;
     lock(orientation: OrientationLockType): Promise<void>;
     unlock(): void;
-    addEventListener<K extends keyof ScreenOrientationEventMap>(type: K, listener: (this: ScreenOrientation, ev: ScreenOrientationEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-    addEventListener(type: string, listener: EventListener, options?: boolean | AddEventListenerOptions): void;
-    removeEventListener<K extends keyof ScreenOrientationEventMap>(type: K, listener: (this: ScreenOrientation, ev: ScreenOrientationEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-    removeEventListener(type: string, listener: EventListener, options?: boolean | EventListenerOptions): void;
 }
 
 declare var ScreenOrientation: {
     readonly prototype: ScreenOrientation;
     new(): ScreenOrientation;
 };
-
-interface ScriptProcessorNodeEventMap {
-    "audioprocess": AudioProcessingEvent;
-}
 
 /** Allows the generation, processing, or analyzing of audio using JavaScript.
  * @deprecated As of the August 29 2014 Web Audio API spec publication, this feature has been marked as deprecated, and was replaced by AudioWorklet (see AudioWorkletNode). */
@@ -13671,10 +13355,6 @@ interface ScriptProcessorNode extends AudioNode {
     readonly bufferSize: number;
     /** @deprecated */
     onaudioprocess: ((this: ScriptProcessorNode, ev: AudioProcessingEvent) => any) | null;
-    addEventListener<K extends keyof ScriptProcessorNodeEventMap>(type: K, listener: (this: ScriptProcessorNode, ev: ScriptProcessorNodeEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-    addEventListener(type: string, listener: EventListener, options?: boolean | AddEventListenerOptions): void;
-    removeEventListener<K extends keyof ScriptProcessorNodeEventMap>(type: K, listener: (this: ScriptProcessorNode, ev: ScriptProcessorNodeEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-    removeEventListener(type: string, listener: EventListener, options?: boolean | EventListenerOptions): void;
 }
 
 /** @deprecated */
@@ -13827,14 +13507,18 @@ declare var ShadowRoot: {
     new(): ShadowRoot;
 };
 
+interface SharedWorkerEventMap extends AbstractWorkerEventMap {
+    "error": Event;
+}
+
 interface SharedWorker extends EventTarget, AbstractWorker {
     /**
      * Returns sharedWorker's MessagePort object which can be used to communicate with the global environment.
      */
     readonly port: MessagePort;
-    addEventListener<K extends keyof AbstractWorkerEventMap>(type: K, listener: (this: SharedWorker, ev: AbstractWorkerEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+    addEventListener<K extends keyof SharedWorkerEventMap>(type: K, listener: (this: SharedWorker, ev: SharedWorkerEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListener, options?: boolean | AddEventListenerOptions): void;
-    removeEventListener<K extends keyof AbstractWorkerEventMap>(type: K, listener: (this: SharedWorker, ev: AbstractWorkerEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener<K extends keyof SharedWorkerEventMap>(type: K, listener: (this: SharedWorker, ev: SharedWorkerEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
     removeEventListener(type: string, listener: EventListener, options?: boolean | EventListenerOptions): void;
 }
 
@@ -13845,14 +13529,6 @@ declare var SharedWorker: {
 
 interface Slottable {
     readonly assignedSlot: HTMLSlotElement | null;
-}
-
-interface SourceBufferEventMap {
-    "abort": Event;
-    "error": Event;
-    "update": Event;
-    "updateend": Event;
-    "updatestart": Event;
 }
 
 /** A chunk of media to be passed into an HTMLMediaElement and played, via a MediaSource object. This can be made up of one or several media segments. */
@@ -13871,10 +13547,6 @@ interface SourceBuffer extends EventTarget {
     abort(): void;
     appendBuffer(data: BufferSource): void;
     remove(start: number, end: number): void;
-    addEventListener<K extends keyof SourceBufferEventMap>(type: K, listener: (this: SourceBuffer, ev: SourceBufferEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-    addEventListener(type: string, listener: EventListener, options?: boolean | AddEventListenerOptions): void;
-    removeEventListener<K extends keyof SourceBufferEventMap>(type: K, listener: (this: SourceBuffer, ev: SourceBufferEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-    removeEventListener(type: string, listener: EventListener, options?: boolean | EventListenerOptions): void;
 }
 
 declare var SourceBuffer: {
@@ -13882,20 +13554,11 @@ declare var SourceBuffer: {
     new(): SourceBuffer;
 };
 
-interface SourceBufferListEventMap {
-    "addsourcebuffer": Event;
-    "removesourcebuffer": Event;
-}
-
 /** A simple container list for multiple SourceBuffer objects. */
 interface SourceBufferList extends EventTarget {
     readonly length: number;
     onaddsourcebuffer: ((this: SourceBufferList, ev: Event) => any) | null;
     onremovesourcebuffer: ((this: SourceBufferList, ev: Event) => any) | null;
-    addEventListener<K extends keyof SourceBufferListEventMap>(type: K, listener: (this: SourceBufferList, ev: SourceBufferListEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-    addEventListener(type: string, listener: EventListener, options?: boolean | AddEventListenerOptions): void;
-    removeEventListener<K extends keyof SourceBufferListEventMap>(type: K, listener: (this: SourceBufferList, ev: SourceBufferListEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-    removeEventListener(type: string, listener: EventListener, options?: boolean | EventListenerOptions): void;
     [index: number]: SourceBuffer;
 }
 
@@ -14306,10 +13969,6 @@ declare var TextMetrics: {
     new(): TextMetrics;
 };
 
-interface TextTrackEventMap {
-    "cuechange": Event;
-}
-
 /** This interface also inherits properties from EventTarget. */
 interface TextTrack extends EventTarget {
     /**
@@ -14359,21 +14018,12 @@ interface TextTrack extends EventTarget {
      * Removes the given cue from textTrack's text track list of cues.
      */
     removeCue(cue: TextTrackCue): void;
-    addEventListener<K extends keyof TextTrackEventMap>(type: K, listener: (this: TextTrack, ev: TextTrackEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-    addEventListener(type: string, listener: EventListener, options?: boolean | AddEventListenerOptions): void;
-    removeEventListener<K extends keyof TextTrackEventMap>(type: K, listener: (this: TextTrack, ev: TextTrackEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-    removeEventListener(type: string, listener: EventListener, options?: boolean | EventListenerOptions): void;
 }
 
 declare var TextTrack: {
     readonly prototype: TextTrack;
     new(): TextTrack;
 };
-
-interface TextTrackCueEventMap {
-    "enter": Event;
-    "exit": Event;
-}
 
 /** TextTrackCues represent a string of text that will be displayed for some duration of time on a TextTrack. This includes the start and end times that the cue will be displayed. A TextTrackCue cannot be used directly, instead one of the derived types (e.g. VTTCue) must be used. */
 interface TextTrackCue extends EventTarget {
@@ -14407,10 +14057,6 @@ interface TextTrackCue extends EventTarget {
      * Returns the TextTrack object to which this text track cue belongs, if any, or null otherwise.
      */
     readonly track: TextTrack | null;
-    addEventListener<K extends keyof TextTrackCueEventMap>(type: K, listener: (this: TextTrackCue, ev: TextTrackCueEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-    addEventListener(type: string, listener: EventListener, options?: boolean | AddEventListenerOptions): void;
-    removeEventListener<K extends keyof TextTrackCueEventMap>(type: K, listener: (this: TextTrackCue, ev: TextTrackCueEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-    removeEventListener(type: string, listener: EventListener, options?: boolean | EventListenerOptions): void;
 }
 
 declare var TextTrackCue: {
@@ -14693,10 +14339,6 @@ interface VTTCue extends TextTrackCue {
     text: string;
     vertical: DirectionSetting;
     getCueAsHTML(): DocumentFragment;
-    addEventListener<K extends keyof TextTrackCueEventMap>(type: K, listener: (this: VTTCue, ev: TextTrackCueEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-    addEventListener(type: string, listener: EventListener, options?: boolean | AddEventListenerOptions): void;
-    removeEventListener<K extends keyof TextTrackCueEventMap>(type: K, listener: (this: VTTCue, ev: TextTrackCueEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-    removeEventListener(type: string, listener: EventListener, options?: boolean | EventListenerOptions): void;
 }
 
 declare var VTTCue: {
@@ -14754,11 +14396,6 @@ declare var VideoPlaybackQuality: {
     new(): VideoPlaybackQuality;
 };
 
-interface VisualViewportEventMap {
-    "resize": Event;
-    "scroll": Event;
-}
-
 interface VisualViewport extends EventTarget {
     readonly height: number;
     readonly offsetLeft: number;
@@ -14769,10 +14406,6 @@ interface VisualViewport extends EventTarget {
     readonly pageTop: number;
     readonly scale: number;
     readonly width: number;
-    addEventListener<K extends keyof VisualViewportEventMap>(type: K, listener: (this: VisualViewport, ev: VisualViewportEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-    addEventListener(type: string, listener: EventListener, options?: boolean | AddEventListenerOptions): void;
-    removeEventListener<K extends keyof VisualViewportEventMap>(type: K, listener: (this: VisualViewport, ev: VisualViewportEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-    removeEventListener(type: string, listener: EventListener, options?: boolean | EventListenerOptions): void;
 }
 
 declare var VisualViewport: {
@@ -16895,12 +16528,30 @@ declare var WheelEvent: {
     readonly DOM_DELTA_PIXEL: number;
 };
 
-interface WindowEventMap extends GlobalEventHandlersEventMap, WindowEventHandlersEventMap {
-    "devicemotion": DeviceMotionEvent;
-    "deviceorientation": DeviceOrientationEvent;
-    "gamepadconnected": GamepadEvent;
-    "gamepaddisconnected": GamepadEvent;
-    "orientationchange": Event;
+interface WindowEventMap extends GlobalEventHandlersEventMap {
+    "abort": Event;
+    "afterprint": Event;
+    "beforeprint": Event;
+    "beforeunload": Event;
+    "blur": Event;
+    "error": Event;
+    "focus": Event;
+    "hashchange": Event;
+    "languagechange": Event;
+    "load": Event;
+    "message": Event;
+    "messageerror": Event;
+    "offline": Event;
+    "online": Event;
+    "pagehide": Event;
+    "pageshow": Event;
+    "popstate": Event;
+    "portalactivate": Event;
+    "rejectionhandled": Event;
+    "resize": Event;
+    "storage": Event;
+    "unhandledrejection": Event;
+    "unload": Event;
 }
 
 /** A window containing a DOM document; the document property points to the DOM document loaded in that window. */
@@ -17041,25 +16692,6 @@ declare var Window: {
     new(): Window;
 };
 
-interface WindowEventHandlersEventMap {
-    "afterprint": Event;
-    "beforeprint": Event;
-    "beforeunload": BeforeUnloadEvent;
-    "hashchange": Event;
-    "languagechange": Event;
-    "message": MessageEvent;
-    "messageerror": MessageEvent;
-    "offline": Event;
-    "online": Event;
-    "pagehide": PageTransitionEvent;
-    "pageshow": PageTransitionEvent;
-    "popstate": PopStateEvent;
-    "rejectionhandled": PromiseRejectionEvent;
-    "storage": StorageEvent;
-    "unhandledrejection": PromiseRejectionEvent;
-    "unload": Event;
-}
-
 interface WindowEventHandlers {
     onafterprint: ((this: WindowEventHandlers, ev: Event) => any) | null;
     onbeforeprint: ((this: WindowEventHandlers, ev: Event) => any) | null;
@@ -17077,10 +16709,6 @@ interface WindowEventHandlers {
     onstorage: ((this: WindowEventHandlers, ev: StorageEvent) => any) | null;
     onunhandledrejection: ((this: WindowEventHandlers, ev: PromiseRejectionEvent) => any) | null;
     onunload: ((this: WindowEventHandlers, ev: Event) => any) | null;
-    addEventListener<K extends keyof WindowEventHandlersEventMap>(type: K, listener: (this: WindowEventHandlers, ev: WindowEventHandlersEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-    addEventListener(type: string, listener: EventListener, options?: boolean | AddEventListenerOptions): void;
-    removeEventListener<K extends keyof WindowEventHandlersEventMap>(type: K, listener: (this: WindowEventHandlers, ev: WindowEventHandlersEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-    removeEventListener(type: string, listener: EventListener, options?: boolean | EventListenerOptions): void;
 }
 
 interface WindowLocalStorage {
@@ -17112,6 +16740,7 @@ interface WindowSessionStorage {
 }
 
 interface WorkerEventMap extends AbstractWorkerEventMap {
+    "error": Event;
     "message": MessageEvent;
     "messageerror": MessageEvent;
 }
@@ -17208,8 +16837,15 @@ declare var XMLDocument: {
     new(): XMLDocument;
 };
 
-interface XMLHttpRequestEventMap extends XMLHttpRequestEventTargetEventMap {
+interface XMLHttpRequestEventMap {
+    "abort": Event;
+    "error": Event;
+    "load": Event;
+    "loadend": Event;
+    "loadstart": Event;
+    "progress": Event;
     "readystatechange": Event;
+    "timeout": Event;
 }
 
 /** Use XMLHttpRequest (XHR) objects to interact with servers. You can retrieve data from a URL without having to do a full page refresh. This enables a Web page to update just part of a page without disrupting what the user is doing. */
@@ -17324,16 +16960,6 @@ declare var XMLHttpRequest: {
     readonly UNSENT: number;
 };
 
-interface XMLHttpRequestEventTargetEventMap {
-    "abort": ProgressEvent<XMLHttpRequestEventTarget>;
-    "error": ProgressEvent<XMLHttpRequestEventTarget>;
-    "load": ProgressEvent<XMLHttpRequestEventTarget>;
-    "loadend": ProgressEvent<XMLHttpRequestEventTarget>;
-    "loadstart": ProgressEvent<XMLHttpRequestEventTarget>;
-    "progress": ProgressEvent<XMLHttpRequestEventTarget>;
-    "timeout": ProgressEvent<XMLHttpRequestEventTarget>;
-}
-
 interface XMLHttpRequestEventTarget extends EventTarget {
     onabort: ((this: XMLHttpRequest, ev: ProgressEvent) => any) | null;
     onerror: ((this: XMLHttpRequest, ev: ProgressEvent) => any) | null;
@@ -17342,10 +16968,6 @@ interface XMLHttpRequestEventTarget extends EventTarget {
     onloadstart: ((this: XMLHttpRequest, ev: ProgressEvent) => any) | null;
     onprogress: ((this: XMLHttpRequest, ev: ProgressEvent) => any) | null;
     ontimeout: ((this: XMLHttpRequest, ev: ProgressEvent) => any) | null;
-    addEventListener<K extends keyof XMLHttpRequestEventTargetEventMap>(type: K, listener: (this: XMLHttpRequestEventTarget, ev: XMLHttpRequestEventTargetEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-    addEventListener(type: string, listener: EventListener, options?: boolean | AddEventListenerOptions): void;
-    removeEventListener<K extends keyof XMLHttpRequestEventTargetEventMap>(type: K, listener: (this: XMLHttpRequestEventTarget, ev: XMLHttpRequestEventTargetEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-    removeEventListener(type: string, listener: EventListener, options?: boolean | EventListenerOptions): void;
 }
 
 declare var XMLHttpRequestEventTarget: {
@@ -17354,10 +16976,6 @@ declare var XMLHttpRequestEventTarget: {
 };
 
 interface XMLHttpRequestUpload extends XMLHttpRequestEventTarget {
-    addEventListener<K extends keyof XMLHttpRequestEventTargetEventMap>(type: K, listener: (this: XMLHttpRequestUpload, ev: XMLHttpRequestEventTargetEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-    addEventListener(type: string, listener: EventListener, options?: boolean | AddEventListenerOptions): void;
-    removeEventListener<K extends keyof XMLHttpRequestEventTargetEventMap>(type: K, listener: (this: XMLHttpRequestUpload, ev: XMLHttpRequestEventTargetEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-    removeEventListener(type: string, listener: EventListener, options?: boolean | EventListenerOptions): void;
 }
 
 declare var XMLHttpRequestUpload: {

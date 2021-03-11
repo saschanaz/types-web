@@ -4,12 +4,12 @@ import {
   distinct,
   mapValues,
   toNameMap,
-  mapDefined,
   arrayToMap,
   integerTypes,
   baseTypeConversionMap,
 } from "./helpers.js";
 import { collectLegacyNamespaceTypes } from "./legacy-namespace.js";
+import { getINameToEventMap } from "./webref.js";
 
 /// Decide which members of a function to emit
 enum EmitScope {
@@ -190,18 +190,19 @@ export function emitWebIdl(
   /// 1. eventhandler name: "onready", "onabort" etc.
   /// 2. the event name that it handles: "ready", "SVGAbort" etc.
   /// And they don't just differ by an "on" prefix!
-  const iNameToEhList = arrayToMap(
-    allInterfaces,
-    i => i.name,
-    i => {
-      const fromProperties = mapDefined(
-        mapToArray(i.properties?.property),
-        p => p.eventHandler
-      );
-      const fromEvents = (i.events?.event ?? []).map(e => e.name);
-      return distinct([...fromProperties, ...fromEvents]).sort();
-    }
-  );
+  // const iNameToEhList = arrayToMap(
+  //   allInterfaces,
+  //   i => i.name,
+  //   i => {
+  //     const fromProperties = mapDefined(
+  //       mapToArray(i.properties?.property),
+  //       p => p.eventHandler
+  //     );
+  //     const fromEvents = (i.events?.event ?? []).map(e => e.name);
+  //     return distinct([...fromProperties, ...fromEvents]).sort();
+  //   }
+  // );
+  const iNameToEhList = getINameToEventMap();
 
   const iNameToConstList = arrayToMap(
     allInterfaces,
@@ -257,7 +258,7 @@ export function emitWebIdl(
 
   function getParentsWithEventHandler(i: Browser.Interface) {
     function getParentEventHandler(i: Browser.Interface): Browser.Interface[] {
-      const hasEventListener = iNameToEhList[i.name]?.length;
+      const hasEventListener = iNameToEhList.has(i.name);
       if (hasEventListener) {
         return [i];
       }
@@ -1047,7 +1048,7 @@ export function emitWebIdl(
       addOrRemove: string,
       optionsType: string
     ) {
-      const hasEventListener = iNameToEhList[i.name]?.length;
+      const hasEventListener = iNameToEhList.has(i.name);
       const ehParentCount = iNameToEhParents[i.name]?.length;
 
       if (hasEventListener || ehParentCount > 1) {
@@ -1268,7 +1269,7 @@ export function emitWebIdl(
       );
     }
 
-    const hasEventHandlers = iNameToEhList[i.name]?.length;
+    const hasEventHandlers = iNameToEhList.has(i.name);
     const ehParentCount = iNameToEhParents[i.name]?.length;
 
     if (hasEventHandlers || ehParentCount > 1) {
@@ -1280,7 +1281,10 @@ export function emitWebIdl(
       printer.print(" {");
       printer.endLine();
       printer.increaseIndent();
-      iNameToEhList[i.name].forEach(emitInterfaceEventMapEntry);
+      (iNameToEhList.get(i.name) ?? [])
+        .slice()
+        .sort()
+        .forEach(emitInterfaceEventMapEntry);
       printer.decreaseIndent();
       printer.printLine("}");
       printer.printLine("");
