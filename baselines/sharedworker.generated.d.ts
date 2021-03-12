@@ -5448,14 +5448,14 @@ declare namespace WebAssembly {
 
     interface Table {
         readonly length: number;
-        get(index: number): Function | null;
-        grow(delta: number): number;
-        set(index: number, value: Function | null): void;
+        get(index: number): any;
+        grow(delta: number, value?: any): number;
+        set(index: number, value?: any): void;
     }
 
     var Table: {
         readonly prototype: Table;
-        new(descriptor: TableDescriptor): Table;
+        new(descriptor: TableDescriptor, value?: any): Table;
     };
 
     interface GlobalDescriptor {
@@ -5492,8 +5492,8 @@ declare namespace WebAssembly {
     }
 
     type ImportExportKind = "function" | "global" | "memory" | "table";
-    type TableKind = "anyfunc";
-    type ValueType = "f32" | "f64" | "i32" | "i64";
+    type TableKind = "anyfunc" | "externref";
+    type ValueType = "anyfunc" | "externref" | "f32" | "f64" | "i32" | "i64";
     type ExportValue = Function | Global | Memory | Table;
     type Exports = Record<string, ExportValue>;
     type ImportValue = ExportValue | number;

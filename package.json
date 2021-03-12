@@ -52,7 +52,7 @@
     "styleless-innertext": "^1.1.2",
     "typescript": "^4.2.0-dev.20210210",
     "webidl2": "^23.13.1",
-    "webref": "github:w3c/webref#0c206818a4f3bda0056a23a44a2d2aa89cc40f13"
+    "webref": "github:w3c/webref#41a8ec6b85634d1bdf5daa85f3c32a1adad1d2f8"
   },
   "files": [
     "baselines/*"
