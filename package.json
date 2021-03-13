@@ -40,7 +40,7 @@
     "@types/webidl2": "^23.13.5",
     "@typescript-eslint/eslint-plugin": "^4.16.0",
     "@typescript-eslint/parser": "^4.16.0",
-    "browser-specs": "^1.28.0",
+    "browser-specs": "^1.30.0",
     "cpx2": "^3.0.0",
     "eslint": "^7.19.0",
     "eslint-config-prettier": "^8.1.0",
@@ -50,7 +50,7 @@
     "prettier": "^2.2.1",
     "print-diff": "^1.0.0",
     "styleless-innertext": "^1.1.2",
-    "typescript": "^4.2.0-dev.20210210",
+    "typescript": "^4.2.3",
     "webidl2": "^23.13.1",
     "webref": "github:w3c/webref#41a8ec6b85634d1bdf5daa85f3c32a1adad1d2f8"
   },
