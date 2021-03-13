@@ -40,7 +40,7 @@
     "@types/webidl2": "^23.13.5",
     "@typescript-eslint/eslint-plugin": "^4.16.0",
     "@typescript-eslint/parser": "^4.16.0",
-    "browser-specs": "^1.28.0",
+    "browser-specs": "^1.30.0",
     "cpx2": "^3.0.0",
     "eslint": "^7.19.0",
     "eslint-config-prettier": "^8.1.0",
