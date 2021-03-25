@@ -1211,6 +1211,7 @@ interface RTCCertificateExpiration {
 interface RTCConfiguration {
     bundlePolicy?: RTCBundlePolicy;
     certificates?: RTCCertificate[];
+    encodedInsertableStreams?: boolean;
     iceCandidatePoolSize?: number;
     iceServers?: RTCIceServer[];
     iceTransportPolicy?: RTCIceTransportPolicy;
@@ -5414,8 +5415,8 @@ interface GenericTransformStream {
 /** An object able to programmatically obtain the position of the device. It gives Web content access to the location of the device. This allows a Web site or app to offer customized results based on the user's location. */
 interface Geolocation {
     clearWatch(watchId: number): void;
-    getCurrentPosition(successCallback: PositionCallback, errorCallback?: PositionErrorCallback, options?: PositionOptions): void;
-    watchPosition(successCallback: PositionCallback, errorCallback?: PositionErrorCallback, options?: PositionOptions): number;
+    getCurrentPosition(successCallback: PositionCallback, errorCallback?: PositionErrorCallback | null, options?: PositionOptions): void;
+    watchPosition(successCallback: PositionCallback, errorCallback?: PositionErrorCallback | null, options?: PositionOptions): number;
 }
 
 declare var Geolocation: {
@@ -18538,7 +18539,7 @@ type MediaDecodingType = "file" | "media-source" | "webrtc";
 type MediaDeviceKind = "audioinput" | "audiooutput" | "videoinput";
 type MediaEncodingType = "record" | "webrtc";
 type MediaKeyMessageType = "individualization-request" | "license-release" | "license-renewal" | "license-request";
-type MediaKeySessionType = "persistent-license" | "persistent-usage-record" | "temporary";
+type MediaKeySessionType = "persistent-license" | "temporary";
 type MediaKeyStatus = "expired" | "internal-error" | "output-downscaled" | "output-restricted" | "released" | "status-pending" | "usable" | "usable-in-future";
 type MediaKeysRequirement = "not-allowed" | "optional" | "required";
 type MediaSessionAction = "nexttrack" | "pause" | "play" | "previoustrack" | "seekbackward" | "seekforward" | "seekto" | "skipad" | "stop";
