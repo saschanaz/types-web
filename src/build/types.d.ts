@@ -31,7 +31,7 @@ export interface Property extends Typed {
   eventHandler?: string;
   readonly?: boolean;
   replaceable?: string;
-  "put-forwards"?: string;
+  putForwards?: string;
   stringifier?: boolean;
   tags?: string;
   "property-descriptor-not-enumerable"?: string;

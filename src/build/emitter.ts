@@ -793,11 +793,27 @@ export function emitWebIdl(
       if (p.optional && prefix) {
         pType += " | undefined";
       }
-      const readOnlyModifier = p.readonly && prefix === "" ? "readonly " : "";
       const optionalModifier = !p.optional || prefix ? "" : "?";
-      printer.printLine(
-        `${prefix}${readOnlyModifier}${p.name}${optionalModifier}: ${pType};`
-      );
+      if (!prefix && !p.readonly && p.putForwards) {
+        printer.printLine(`get ${p.name}${optionalModifier}(): ${pType};`);
+
+        const forwardingProperty =
+          allInterfacesMap[pType].properties?.property[p.putForwards];
+        if (!forwardingProperty) {
+          throw new Error("Couldn't find [PutForwards]");
+        }
+        const setterType = `${convertDomTypeToTsType(
+          forwardingProperty
+        )} | ${pType}`;
+        printer.printLine(
+          `set ${p.name}${optionalModifier}(${p.putForwards}: ${setterType});`
+        );
+      } else {
+        const readOnlyModifier = p.readonly && prefix === "" ? "readonly " : "";
+        printer.printLine(
+          `${prefix}${readOnlyModifier}${p.name}${optionalModifier}: ${pType};`
+        );
+      }
     }
 
     if (p.stringifier) {
