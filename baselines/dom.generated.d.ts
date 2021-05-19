@@ -8,19 +8,6 @@ interface AddEventListenerOptions extends EventListenerOptions {
     signal?: AbortSignal;
 }
 
-interface AddressErrors {
-    addressLine?: string;
-    city?: string;
-    country?: string;
-    dependentLocality?: string;
-    organization?: string;
-    phone?: string;
-    postalCode?: string;
-    recipient?: string;
-    region?: string;
-    sortingCode?: string;
-}
-
 interface AesCbcParams extends Algorithm {
     iv: BufferSource;
 }
@@ -981,12 +968,6 @@ interface PannerOptions extends AudioNodeOptions {
     rolloffFactor?: number;
 }
 
-interface PayerErrors {
-    email?: string;
-    name?: string;
-    phone?: string;
-}
-
 interface PaymentCurrencyAmount {
     currency: string;
     value: string;
@@ -995,7 +976,6 @@ interface PaymentCurrencyAmount {
 interface PaymentDetailsBase {
     displayItems?: PaymentItem[];
     modifiers?: PaymentDetailsModifier[];
-    shippingOptions?: PaymentShippingOption[];
 }
 
 interface PaymentDetailsInit extends PaymentDetailsBase {
@@ -1011,10 +991,7 @@ interface PaymentDetailsModifier {
 }
 
 interface PaymentDetailsUpdate extends PaymentDetailsBase {
-    error?: string;
-    payerErrors?: PayerErrors;
     paymentMethodErrors?: any;
-    shippingAddressErrors?: AddressErrors;
     total?: PaymentItem;
 }
 
@@ -1034,30 +1011,12 @@ interface PaymentMethodData {
     supportedMethods: string;
 }
 
-interface PaymentOptions {
-    requestBillingAddress?: boolean;
-    requestPayerEmail?: boolean;
-    requestPayerName?: boolean;
-    requestPayerPhone?: boolean;
-    requestShipping?: boolean;
-    shippingType?: PaymentShippingType;
-}
-
 interface PaymentRequestUpdateEventInit extends EventInit {
-}
-
-interface PaymentShippingOption {
-    amount: PaymentCurrencyAmount;
-    id: string;
-    label: string;
-    selected?: boolean;
 }
 
 interface PaymentValidationErrors {
     error?: string;
-    payer?: PayerErrors;
     paymentMethod?: any;
-    shippingAddress?: AddressErrors;
 }
 
 interface Pbkdf2Params extends Algorithm {
@@ -6337,6 +6296,7 @@ interface HTMLElement extends Element, DocumentAndElementEventHandlers, ElementC
     readonly offsetParent: Element | null;
     readonly offsetTop: number;
     readonly offsetWidth: number;
+    outerText: string;
     spellcheck: boolean;
     title: string;
     translate: boolean;
@@ -10906,19 +10866,12 @@ declare var PaymentMethodChangeEvent: {
 
 interface PaymentRequestEventMap {
     "paymentmethodchange": Event;
-    "shippingaddresschange": Event;
-    "shippingoptionchange": Event;
 }
 
 /** This Payment Request API interface is the primary access point into the API, and lets web content and apps accept payments from the end user. */
 interface PaymentRequest extends EventTarget {
     readonly id: string;
     onpaymentmethodchange: ((this: PaymentRequest, ev: Event) => any) | null;
-    onshippingaddresschange: ((this: PaymentRequest, ev: Event) => any) | null;
-    onshippingoptionchange: ((this: PaymentRequest, ev: Event) => any) | null;
-    readonly shippingAddress: PaymentAddress | null;
-    readonly shippingOption: string | null;
-    readonly shippingType: PaymentShippingType | null;
     abort(): Promise<void>;
     canMakePayment(): Promise<boolean>;
     show(detailsPromise?: PaymentDetailsUpdate | PromiseLike<PaymentDetailsUpdate>): Promise<PaymentResponse>;
@@ -10930,7 +10883,7 @@ interface PaymentRequest extends EventTarget {
 
 declare var PaymentRequest: {
     readonly prototype: PaymentRequest;
-    new(methodData: PaymentMethodData[], details: PaymentDetailsInit, options?: PaymentOptions): PaymentRequest;
+    new(methodData: PaymentMethodData[], details: PaymentDetailsInit): PaymentRequest;
 };
 
 /** This Payment Request API interface enables a web page to update the details of a PaymentRequest in response to a user action. */
@@ -10943,28 +10896,14 @@ declare var PaymentRequestUpdateEvent: {
     new(type: string, eventInitDict?: PaymentRequestUpdateEventInit): PaymentRequestUpdateEvent;
 };
 
-interface PaymentResponseEventMap {
-    "payerdetailchange": Event;
-}
-
 /** This Payment Request API interface is returned after a user selects a payment method and approves a payment request. */
 interface PaymentResponse extends EventTarget {
     readonly details: any;
     readonly methodName: string;
-    onpayerdetailchange: ((this: PaymentResponse, ev: Event) => any) | null;
-    readonly payerEmail: string | null;
-    readonly payerName: string | null;
-    readonly payerPhone: string | null;
     readonly requestId: string;
-    readonly shippingAddress: PaymentAddress | null;
-    readonly shippingOption: string | null;
     complete(result?: PaymentComplete): Promise<void>;
     retry(errorFields?: PaymentValidationErrors): Promise<void>;
     toJSON(): any;
-    addEventListener<K extends keyof PaymentResponseEventMap>(type: K, listener: (this: PaymentResponse, ev: PaymentResponseEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-    addEventListener(type: string, listener: EventListener, options?: boolean | AddEventListenerOptions): void;
-    removeEventListener<K extends keyof PaymentResponseEventMap>(type: K, listener: (this: PaymentResponse, ev: PaymentResponseEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-    removeEventListener(type: string, listener: EventListener, options?: boolean | EventListenerOptions): void;
 }
 
 declare var PaymentResponse: {
@@ -18682,7 +18621,6 @@ type OscillatorType = "custom" | "sawtooth" | "sine" | "square" | "triangle";
 type OverSampleType = "2x" | "4x" | "none";
 type PanningModelType = "HRTF" | "equalpower";
 type PaymentComplete = "fail" | "success" | "unknown";
-type PaymentShippingType = "delivery" | "pickup" | "shipping";
 type PermissionName = "geolocation" | "notifications" | "persistent-storage" | "push";
 type PermissionState = "denied" | "granted" | "prompt";
 type PlaybackDirection = "alternate" | "alternate-reverse" | "normal" | "reverse";
