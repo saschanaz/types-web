@@ -2783,6 +2783,7 @@ interface CSSStyleDeclaration {
     fontStyle: string;
     fontSynthesis: string;
     fontVariant: string;
+    fontVariantAlternates: string;
     fontVariantCaps: string;
     fontVariantEastAsian: string;
     fontVariantLigatures: string;
@@ -10835,20 +10836,33 @@ declare var Path2D: {
 };
 
 /** This Payment Request API interface is used to store shipping or payment address information. */
+/** @deprecated */
 interface PaymentAddress {
+    /** @deprecated */
     readonly addressLine: ReadonlyArray<string>;
+    /** @deprecated */
     readonly city: string;
+    /** @deprecated */
     readonly country: string;
+    /** @deprecated */
     readonly dependentLocality: string;
+    /** @deprecated */
     readonly organization: string;
+    /** @deprecated */
     readonly phone: string;
+    /** @deprecated */
     readonly postalCode: string;
+    /** @deprecated */
     readonly recipient: string;
+    /** @deprecated */
     readonly region: string;
+    /** @deprecated */
     readonly sortingCode: string;
+    /** @deprecated */
     toJSON(): any;
 }
 
+/** @deprecated */
 declare var PaymentAddress: {
     readonly prototype: PaymentAddress;
     new(): PaymentAddress;
@@ -10957,6 +10971,18 @@ interface PerformanceEntry {
 declare var PerformanceEntry: {
     readonly prototype: PerformanceEntry;
     new(): PerformanceEntry;
+};
+
+interface PerformanceEventTiming extends PerformanceEntry {
+    readonly cancelable: boolean;
+    readonly processingEnd: DOMHighResTimeStamp;
+    readonly processingStart: DOMHighResTimeStamp;
+    readonly target: Node | null;
+}
+
+declare var PerformanceEventTiming: {
+    readonly prototype: PerformanceEventTiming;
+    new(): PerformanceEventTiming;
 };
 
 /** PerformanceMark is an abstract interface for PerformanceEntry objects with an entryType of "mark". Entries of this type are created by calling performance.mark() to add a named DOMHighResTimeStamp (the mark) to the browser's performance timeline. */

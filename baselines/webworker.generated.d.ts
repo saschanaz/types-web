@@ -5387,6 +5387,16 @@ declare var WorkerGlobalScope: {
 
 /** The absolute location of the script executed by the Worker. Such an object is initialized for each worker and is available via the WorkerGlobalScope.location property obtained by calling self.location. */
 interface WorkerLocation {
+    readonly hash: string;
+    readonly host: string;
+    readonly hostname: string;
+    readonly href: string;
+    toString(): string;
+    readonly origin: string;
+    readonly pathname: string;
+    readonly port: string;
+    readonly protocol: string;
+    readonly search: string;
 }
 
 declare var WorkerLocation: {
