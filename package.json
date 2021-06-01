@@ -41,7 +41,7 @@
     "@typescript-eslint/parser": "^4.24.0",
     "@webref/css": "^1.0.1",
     "@webref/idl": "^2.1.4",
-    "browser-specs": "^1.38.0",
+    "browser-specs": "^1.38.1",
     "cpx2": "^3.0.0",
     "eslint": "^7.27.0",
     "eslint-config-prettier": "^8.3.0",
