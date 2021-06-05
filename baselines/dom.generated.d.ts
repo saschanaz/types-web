@@ -1275,6 +1275,14 @@ interface RTCOutboundRtpStreamStats extends RTCSentRtpStreamStats {
     remoteId?: string;
 }
 
+interface RTCPeerConnectionIceErrorEventInit extends EventInit {
+    address?: string | null;
+    errorCode: number;
+    errorText?: string;
+    port?: number | null;
+    url?: string;
+}
+
 interface RTCPeerConnectionIceEventInit extends EventInit {
     candidate?: RTCIceCandidate | null;
     url?: string | null;
@@ -4456,6 +4464,7 @@ interface Document extends Node, DocumentAndElementEventHandlers, DocumentOrShad
     createEvent(eventInterface: "PromiseRejectionEvent"): PromiseRejectionEvent;
     createEvent(eventInterface: "RTCDTMFToneChangeEvent"): RTCDTMFToneChangeEvent;
     createEvent(eventInterface: "RTCDataChannelEvent"): RTCDataChannelEvent;
+    createEvent(eventInterface: "RTCPeerConnectionIceErrorEvent"): RTCPeerConnectionIceErrorEvent;
     createEvent(eventInterface: "RTCPeerConnectionIceEvent"): RTCPeerConnectionIceEvent;
     createEvent(eventInterface: "RTCTrackEvent"): RTCTrackEvent;
     createEvent(eventInterface: "SecurityPolicyViolationEvent"): SecurityPolicyViolationEvent;
@@ -11617,6 +11626,17 @@ declare var RTCPeerConnection: {
     readonly prototype: RTCPeerConnection;
     new(configuration?: RTCConfiguration): RTCPeerConnection;
     generateCertificate(keygenAlgorithm: AlgorithmIdentifier): Promise<RTCCertificate>;
+};
+
+interface RTCPeerConnectionIceErrorEvent extends Event {
+    readonly errorCode: number;
+    readonly errorText: string;
+    readonly url: string;
+}
+
+declare var RTCPeerConnectionIceErrorEvent: {
+    readonly prototype: RTCPeerConnectionIceErrorEvent;
+    new(type: string, eventInitDict: RTCPeerConnectionIceErrorEventInit): RTCPeerConnectionIceErrorEvent;
 };
 
 /** Events that occurs in relation to ICE candidates with the target, usually an RTCPeerConnection. Only one event is of this type: icecandidate. */
