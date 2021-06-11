@@ -781,13 +781,16 @@ interface MediaTrackCapabilities {
     aspectRatio?: DoubleRange;
     autoGainControl?: boolean[];
     channelCount?: ULongRange;
+    cursor?: string[];
     deviceId?: string;
+    displaySurface?: string;
     echoCancellation?: boolean[];
     facingMode?: string[];
     frameRate?: DoubleRange;
     groupId?: string;
     height?: ULongRange;
     latency?: DoubleRange;
+    logicalSurface?: boolean;
     noiseSuppression?: boolean[];
     resizeMode?: string[];
     sampleRate?: ULongRange;
@@ -822,6 +825,7 @@ interface MediaTrackSettings {
     frameRate?: number;
     groupId?: string;
     height?: number;
+    restrictOwnAudio?: boolean;
     sampleRate?: number;
     sampleSize?: number;
     width?: number;
@@ -2497,6 +2501,25 @@ interface CSSConditionRule extends CSSGroupingRule {
 declare var CSSConditionRule: {
     readonly prototype: CSSConditionRule;
     new(): CSSConditionRule;
+};
+
+interface CSSCounterStyleRule extends CSSRule {
+    additiveSymbols: string;
+    fallback: string;
+    name: string;
+    negative: string;
+    pad: string;
+    prefix: string;
+    range: string;
+    speakAs: string;
+    suffix: string;
+    symbols: string;
+    system: string;
+}
+
+declare var CSSCounterStyleRule: {
+    readonly prototype: CSSCounterStyleRule;
+    new(): CSSCounterStyleRule;
 };
 
 interface CSSFontFaceRule extends CSSRule {
@@ -9543,6 +9566,21 @@ interface Location {
 declare var Location: {
     readonly prototype: Location;
     new(): Location;
+};
+
+interface MathMLElementEventMap extends ElementEventMap, DocumentAndElementEventHandlersEventMap, GlobalEventHandlersEventMap {
+}
+
+interface MathMLElement extends Element, DocumentAndElementEventHandlers, ElementCSSInlineStyle, GlobalEventHandlers, HTMLOrSVGElement {
+    addEventListener<K extends keyof MathMLElementEventMap>(type: K, listener: (this: MathMLElement, ev: MathMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+    addEventListener(type: string, listener: EventListener, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener<K extends keyof MathMLElementEventMap>(type: K, listener: (this: MathMLElement, ev: MathMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener(type: string, listener: EventListener, options?: boolean | EventListenerOptions): void;
+}
+
+declare var MathMLElement: {
+    readonly prototype: MathMLElement;
+    new(): MathMLElement;
 };
 
 interface MediaCapabilities {
