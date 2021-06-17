@@ -810,6 +810,7 @@ interface MediaTrackConstraintSet {
     latency?: ConstrainDouble;
     sampleRate?: ConstrainULong;
     sampleSize?: ConstrainULong;
+    suppressLocalAudioPlayback?: ConstrainBoolean;
     width?: ConstrainULong;
 }
 
@@ -841,6 +842,7 @@ interface MediaTrackSupportedConstraints {
     height?: boolean;
     sampleRate?: boolean;
     sampleSize?: boolean;
+    suppressLocalAudioPlayback?: boolean;
     width?: boolean;
 }
 
@@ -13995,6 +13997,7 @@ interface SourceBuffer extends EventTarget {
     readonly updating: boolean;
     abort(): void;
     appendBuffer(data: BufferSource): void;
+    changeType(type: string): void;
     remove(start: number, end: number): void;
     addEventListener<K extends keyof SourceBufferEventMap>(type: K, listener: (this: SourceBuffer, ev: SourceBufferEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListener, options?: boolean | AddEventListenerOptions): void;
