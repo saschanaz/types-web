@@ -1502,15 +1502,19 @@ declare var FileReader: {
 };
 
 interface FontFace {
+    ascentOverride: string;
+    descentOverride: string;
     display: string;
     family: string;
     featureSettings: string;
+    lineGapOverride: string;
     readonly loaded: Promise<FontFace>;
     readonly status: FontFaceLoadStatus;
     stretch: string;
     style: string;
     unicodeRange: string;
     variant: string;
+    variationSettings: string;
     weight: string;
     load(): Promise<FontFace>;
 }
