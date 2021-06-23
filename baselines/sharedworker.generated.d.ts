@@ -656,7 +656,7 @@ interface AbortController {
 }
 
 declare var AbortController: {
-    readonly prototype: AbortController;
+    prototype: AbortController;
     new(): AbortController;
 };
 
@@ -678,7 +678,7 @@ interface AbortSignal extends EventTarget {
 }
 
 declare var AbortSignal: {
-    readonly prototype: AbortSignal;
+    prototype: AbortSignal;
     new(): AbortSignal;
 };
 
@@ -705,7 +705,7 @@ interface Blob {
 }
 
 declare var Blob: {
-    readonly prototype: Blob;
+    prototype: Blob;
     new(blobParts?: BlobPart[], options?: BlobPropertyBag): Blob;
 };
 
@@ -746,7 +746,7 @@ interface BroadcastChannel extends EventTarget {
 }
 
 declare var BroadcastChannel: {
-    readonly prototype: BroadcastChannel;
+    prototype: BroadcastChannel;
     new(name: string): BroadcastChannel;
 };
 
@@ -757,7 +757,7 @@ interface ByteLengthQueuingStrategy extends QueuingStrategy<ArrayBufferView> {
 }
 
 declare var ByteLengthQueuingStrategy: {
-    readonly prototype: ByteLengthQueuingStrategy;
+    prototype: ByteLengthQueuingStrategy;
     new(init: QueuingStrategyInit): ByteLengthQueuingStrategy;
 };
 
@@ -773,7 +773,7 @@ interface Cache {
 }
 
 declare var Cache: {
-    readonly prototype: Cache;
+    prototype: Cache;
     new(): Cache;
 };
 
@@ -787,7 +787,7 @@ interface CacheStorage {
 }
 
 declare var CacheStorage: {
-    readonly prototype: CacheStorage;
+    prototype: CacheStorage;
     new(): CacheStorage;
 };
 
@@ -802,7 +802,7 @@ interface CanvasGradient {
 }
 
 declare var CanvasGradient: {
-    readonly prototype: CanvasGradient;
+    prototype: CanvasGradient;
     new(): CanvasGradient;
 };
 
@@ -827,7 +827,7 @@ interface CanvasPattern {
 }
 
 declare var CanvasPattern: {
-    readonly prototype: CanvasPattern;
+    prototype: CanvasPattern;
     new(): CanvasPattern;
 };
 
@@ -848,7 +848,7 @@ interface CloseEvent extends Event {
 }
 
 declare var CloseEvent: {
-    readonly prototype: CloseEvent;
+    prototype: CloseEvent;
     new(type: string, eventInitDict?: CloseEventInit): CloseEvent;
 };
 
@@ -859,7 +859,7 @@ interface CountQueuingStrategy extends QueuingStrategy {
 }
 
 declare var CountQueuingStrategy: {
-    readonly prototype: CountQueuingStrategy;
+    prototype: CountQueuingStrategy;
     new(init: QueuingStrategyInit): CountQueuingStrategy;
 };
 
@@ -870,7 +870,7 @@ interface Crypto {
 }
 
 declare var Crypto: {
-    readonly prototype: Crypto;
+    prototype: Crypto;
     new(): Crypto;
 };
 
@@ -883,7 +883,7 @@ interface CryptoKey {
 }
 
 declare var CryptoKey: {
-    readonly prototype: CryptoKey;
+    prototype: CryptoKey;
     new(): CryptoKey;
 };
 
@@ -897,7 +897,7 @@ interface CustomEvent<T = any> extends Event {
 }
 
 declare var CustomEvent: {
-    readonly prototype: CustomEvent;
+    prototype: CustomEvent;
     new<T>(type: string, eventInitDict?: CustomEventInit<T>): CustomEvent<T>;
 };
 
@@ -934,7 +934,7 @@ interface DOMException {
 }
 
 declare var DOMException: {
-    readonly prototype: DOMException;
+    prototype: DOMException;
     new(message?: string, name?: string): DOMException;
     readonly ABORT_ERR: number;
     readonly DATA_CLONE_ERR: number;
@@ -978,7 +978,7 @@ interface DOMMatrix extends DOMMatrixReadOnly {
 }
 
 declare var DOMMatrix: {
-    readonly prototype: DOMMatrix;
+    prototype: DOMMatrix;
     new(init?: string | number[]): DOMMatrix;
     fromFloat32Array(array32: Float32Array): DOMMatrix;
     fromFloat64Array(array64: Float64Array): DOMMatrix;
@@ -1031,7 +1031,7 @@ interface DOMMatrixReadOnly {
 }
 
 declare var DOMMatrixReadOnly: {
-    readonly prototype: DOMMatrixReadOnly;
+    prototype: DOMMatrixReadOnly;
     new(init?: string | number[]): DOMMatrixReadOnly;
     fromFloat32Array(array32: Float32Array): DOMMatrixReadOnly;
     fromFloat64Array(array64: Float64Array): DOMMatrixReadOnly;
@@ -1042,7 +1042,7 @@ interface DOMPoint extends DOMPointReadOnly {
 }
 
 declare var DOMPoint: {
-    readonly prototype: DOMPoint;
+    prototype: DOMPoint;
     new(x?: number, y?: number, z?: number, w?: number): DOMPoint;
     fromPoint(other?: DOMPointInit): DOMPoint;
 };
@@ -1057,7 +1057,7 @@ interface DOMPointReadOnly {
 }
 
 declare var DOMPointReadOnly: {
-    readonly prototype: DOMPointReadOnly;
+    prototype: DOMPointReadOnly;
     new(x?: number, y?: number, z?: number, w?: number): DOMPointReadOnly;
     fromPoint(other?: DOMPointInit): DOMPointReadOnly;
 };
@@ -1072,7 +1072,7 @@ interface DOMQuad {
 }
 
 declare var DOMQuad: {
-    readonly prototype: DOMQuad;
+    prototype: DOMQuad;
     new(p1?: DOMPointInit, p2?: DOMPointInit, p3?: DOMPointInit, p4?: DOMPointInit): DOMQuad;
     fromQuad(other?: DOMQuadInit): DOMQuad;
     fromRect(other?: DOMRectInit): DOMQuad;
@@ -1082,7 +1082,7 @@ interface DOMRect extends DOMRectReadOnly {
 }
 
 declare var DOMRect: {
-    readonly prototype: DOMRect;
+    prototype: DOMRect;
     new(x?: number, y?: number, width?: number, height?: number): DOMRect;
     fromRect(other?: DOMRectInit): DOMRect;
 };
@@ -1100,7 +1100,7 @@ interface DOMRectReadOnly {
 }
 
 declare var DOMRectReadOnly: {
-    readonly prototype: DOMRectReadOnly;
+    prototype: DOMRectReadOnly;
     new(x?: number, y?: number, width?: number, height?: number): DOMRectReadOnly;
     fromRect(other?: DOMRectInit): DOMRectReadOnly;
 };
@@ -1123,7 +1123,7 @@ interface DOMStringList {
 }
 
 declare var DOMStringList: {
-    readonly prototype: DOMStringList;
+    prototype: DOMStringList;
     new(): DOMStringList;
 };
 
@@ -1182,7 +1182,7 @@ interface ErrorEvent extends Event {
 }
 
 declare var ErrorEvent: {
-    readonly prototype: ErrorEvent;
+    prototype: ErrorEvent;
     new(type: string, eventInitDict?: ErrorEventInit): ErrorEvent;
 };
 
@@ -1258,7 +1258,7 @@ interface Event {
 }
 
 declare var Event: {
-    readonly prototype: Event;
+    prototype: Event;
     new(type: string, eventInitDict?: EventInit): Event;
     readonly AT_TARGET: number;
     readonly BUBBLING_PHASE: number;
@@ -1302,7 +1302,7 @@ interface EventSource extends EventTarget {
 }
 
 declare var EventSource: {
-    readonly prototype: EventSource;
+    prototype: EventSource;
     new(url: string | URL, eventSourceInitDict?: EventSourceInit): EventSource;
     readonly CLOSED: number;
     readonly CONNECTING: number;
@@ -1338,7 +1338,7 @@ interface EventTarget {
 }
 
 declare var EventTarget: {
-    readonly prototype: EventTarget;
+    prototype: EventTarget;
     new(): EventTarget;
 };
 
@@ -1350,7 +1350,7 @@ interface File extends Blob {
 }
 
 declare var File: {
-    readonly prototype: File;
+    prototype: File;
     new(fileBits: BlobPart[], fileName: string, options?: FilePropertyBag): File;
 };
 
@@ -1362,7 +1362,7 @@ interface FileList {
 }
 
 declare var FileList: {
-    readonly prototype: FileList;
+    prototype: FileList;
     new(): FileList;
 };
 
@@ -1401,7 +1401,7 @@ interface FileReader extends EventTarget {
 }
 
 declare var FileReader: {
-    readonly prototype: FileReader;
+    prototype: FileReader;
     new(): FileReader;
     readonly DONE: number;
     readonly EMPTY: number;
@@ -1418,7 +1418,7 @@ interface FileReaderSync {
 }
 
 declare var FileReaderSync: {
-    readonly prototype: FileReaderSync;
+    prototype: FileReaderSync;
     new(): FileReaderSync;
 };
 
@@ -1441,7 +1441,7 @@ interface FontFace {
 }
 
 declare var FontFace: {
-    readonly prototype: FontFace;
+    prototype: FontFace;
     new(family: string, source: string | BinaryData, descriptors?: FontFaceDescriptors): FontFace;
 };
 
@@ -1467,7 +1467,7 @@ interface FontFaceSet extends EventTarget {
 }
 
 declare var FontFaceSet: {
-    readonly prototype: FontFaceSet;
+    prototype: FontFaceSet;
     new(initialFaces: FontFace[]): FontFaceSet;
 };
 
@@ -1476,7 +1476,7 @@ interface FontFaceSetLoadEvent extends Event {
 }
 
 declare var FontFaceSetLoadEvent: {
-    readonly prototype: FontFaceSetLoadEvent;
+    prototype: FontFaceSetLoadEvent;
     new(type: string, eventInitDict?: FontFaceSetLoadEventInit): FontFaceSetLoadEvent;
 };
 
@@ -1496,7 +1496,7 @@ interface FormData {
 }
 
 declare var FormData: {
-    readonly prototype: FormData;
+    prototype: FormData;
     new(): FormData;
 };
 
@@ -1516,7 +1516,7 @@ interface Headers {
 }
 
 declare var Headers: {
-    readonly prototype: Headers;
+    prototype: Headers;
     new(init?: HeadersInit): Headers;
 };
 
@@ -1568,7 +1568,7 @@ interface IDBCursor {
 }
 
 declare var IDBCursor: {
-    readonly prototype: IDBCursor;
+    prototype: IDBCursor;
     new(): IDBCursor;
 };
 
@@ -1581,7 +1581,7 @@ interface IDBCursorWithValue extends IDBCursor {
 }
 
 declare var IDBCursorWithValue: {
-    readonly prototype: IDBCursorWithValue;
+    prototype: IDBCursorWithValue;
     new(): IDBCursorWithValue;
 };
 
@@ -1637,7 +1637,7 @@ interface IDBDatabase extends EventTarget {
 }
 
 declare var IDBDatabase: {
-    readonly prototype: IDBDatabase;
+    prototype: IDBDatabase;
     new(): IDBDatabase;
 };
 
@@ -1661,7 +1661,7 @@ interface IDBFactory {
 }
 
 declare var IDBFactory: {
-    readonly prototype: IDBFactory;
+    prototype: IDBFactory;
     new(): IDBFactory;
 };
 
@@ -1723,7 +1723,7 @@ interface IDBIndex {
 }
 
 declare var IDBIndex: {
-    readonly prototype: IDBIndex;
+    prototype: IDBIndex;
     new(): IDBIndex;
 };
 
@@ -1752,7 +1752,7 @@ interface IDBKeyRange {
 }
 
 declare var IDBKeyRange: {
-    readonly prototype: IDBKeyRange;
+    prototype: IDBKeyRange;
     new(): IDBKeyRange;
     /**
      * Returns a new IDBKeyRange spanning from lower to upper. If lowerOpen is true, lower is not included in the range. If upperOpen is true, upper is not included in the range.
@@ -1884,7 +1884,7 @@ interface IDBObjectStore {
 }
 
 declare var IDBObjectStore: {
-    readonly prototype: IDBObjectStore;
+    prototype: IDBObjectStore;
     new(): IDBObjectStore;
 };
 
@@ -1904,7 +1904,7 @@ interface IDBOpenDBRequest extends IDBRequest<IDBDatabase> {
 }
 
 declare var IDBOpenDBRequest: {
-    readonly prototype: IDBOpenDBRequest;
+    prototype: IDBOpenDBRequest;
     new(): IDBOpenDBRequest;
 };
 
@@ -1944,7 +1944,7 @@ interface IDBRequest<T = any> extends EventTarget {
 }
 
 declare var IDBRequest: {
-    readonly prototype: IDBRequest;
+    prototype: IDBRequest;
     new(): IDBRequest;
 };
 
@@ -1990,7 +1990,7 @@ interface IDBTransaction extends EventTarget {
 }
 
 declare var IDBTransaction: {
-    readonly prototype: IDBTransaction;
+    prototype: IDBTransaction;
     new(): IDBTransaction;
 };
 
@@ -2001,7 +2001,7 @@ interface IDBVersionChangeEvent extends Event {
 }
 
 declare var IDBVersionChangeEvent: {
-    readonly prototype: IDBVersionChangeEvent;
+    prototype: IDBVersionChangeEvent;
     new(type: string, eventInitDict?: IDBVersionChangeEventInit): IDBVersionChangeEvent;
 };
 
@@ -2021,7 +2021,7 @@ interface ImageBitmap {
 }
 
 declare var ImageBitmap: {
-    readonly prototype: ImageBitmap;
+    prototype: ImageBitmap;
     new(): ImageBitmap;
 };
 
@@ -2033,7 +2033,7 @@ interface ImageBitmapRenderingContext {
 }
 
 declare var ImageBitmapRenderingContext: {
-    readonly prototype: ImageBitmapRenderingContext;
+    prototype: ImageBitmapRenderingContext;
     new(): ImageBitmapRenderingContext;
 };
 
@@ -2054,7 +2054,7 @@ interface ImageData {
 }
 
 declare var ImageData: {
-    readonly prototype: ImageData;
+    prototype: ImageData;
     new(sw: number, sh: number, settings?: ImageDataSettings): ImageData;
     new(data: Uint8ClampedArray, sw: number, sh?: number, settings?: ImageDataSettings): ImageData;
 };
@@ -2069,7 +2069,7 @@ interface MediaCapabilities {
 }
 
 declare var MediaCapabilities: {
-    readonly prototype: MediaCapabilities;
+    prototype: MediaCapabilities;
     new(): MediaCapabilities;
 };
 
@@ -2086,7 +2086,7 @@ interface MessageChannel {
 }
 
 declare var MessageChannel: {
-    readonly prototype: MessageChannel;
+    prototype: MessageChannel;
     new(): MessageChannel;
 };
 
@@ -2117,7 +2117,7 @@ interface MessageEvent<T = any> extends Event {
 }
 
 declare var MessageEvent: {
-    readonly prototype: MessageEvent;
+    prototype: MessageEvent;
     new<T>(type: string, eventInitDict?: MessageEventInit<T>): MessageEvent<T>;
 };
 
@@ -2152,7 +2152,7 @@ interface MessagePort extends EventTarget {
 }
 
 declare var MessagePort: {
-    readonly prototype: MessagePort;
+    prototype: MessagePort;
     new(): MessagePort;
 };
 
@@ -2196,7 +2196,7 @@ interface NetworkInformation extends EventTarget {
 }
 
 declare var NetworkInformation: {
-    readonly prototype: NetworkInformation;
+    prototype: NetworkInformation;
     new(): NetworkInformation;
 };
 
@@ -2228,7 +2228,7 @@ interface Notification extends EventTarget {
 }
 
 declare var Notification: {
-    readonly prototype: Notification;
+    prototype: Notification;
     new(title: string, options?: NotificationOptions): Notification;
     readonly permission: NotificationPermission;
 };
@@ -2287,7 +2287,7 @@ interface Path2D extends CanvasPath {
 }
 
 declare var Path2D: {
-    readonly prototype: Path2D;
+    prototype: Path2D;
     new(path?: Path2D | string): Path2D;
 };
 
@@ -2317,7 +2317,7 @@ interface Performance extends EventTarget {
 }
 
 declare var Performance: {
-    readonly prototype: Performance;
+    prototype: Performance;
     new(): Performance;
 };
 
@@ -2331,7 +2331,7 @@ interface PerformanceEntry {
 }
 
 declare var PerformanceEntry: {
-    readonly prototype: PerformanceEntry;
+    prototype: PerformanceEntry;
     new(): PerformanceEntry;
 };
 
@@ -2341,7 +2341,7 @@ interface PerformanceMark extends PerformanceEntry {
 }
 
 declare var PerformanceMark: {
-    readonly prototype: PerformanceMark;
+    prototype: PerformanceMark;
     new(markName: string, markOptions?: PerformanceMarkOptions): PerformanceMark;
 };
 
@@ -2351,7 +2351,7 @@ interface PerformanceMeasure extends PerformanceEntry {
 }
 
 declare var PerformanceMeasure: {
-    readonly prototype: PerformanceMeasure;
+    prototype: PerformanceMeasure;
     new(): PerformanceMeasure;
 };
 
@@ -2362,7 +2362,7 @@ interface PerformanceObserver {
 }
 
 declare var PerformanceObserver: {
-    readonly prototype: PerformanceObserver;
+    prototype: PerformanceObserver;
     new(callback: PerformanceObserverCallback): PerformanceObserver;
     readonly supportedEntryTypes: ReadonlyArray<string>;
 };
@@ -2374,7 +2374,7 @@ interface PerformanceObserverEntryList {
 }
 
 declare var PerformanceObserverEntryList: {
-    readonly prototype: PerformanceObserverEntryList;
+    prototype: PerformanceObserverEntryList;
     new(): PerformanceObserverEntryList;
 };
 
@@ -2402,7 +2402,7 @@ interface PerformanceResourceTiming extends PerformanceEntry {
 }
 
 declare var PerformanceResourceTiming: {
-    readonly prototype: PerformanceResourceTiming;
+    prototype: PerformanceResourceTiming;
     new(): PerformanceResourceTiming;
 };
 
@@ -2414,7 +2414,7 @@ interface PerformanceServerTiming {
 }
 
 declare var PerformanceServerTiming: {
-    readonly prototype: PerformanceServerTiming;
+    prototype: PerformanceServerTiming;
     new(): PerformanceServerTiming;
 };
 
@@ -2432,7 +2432,7 @@ interface PermissionStatus extends EventTarget {
 }
 
 declare var PermissionStatus: {
-    readonly prototype: PermissionStatus;
+    prototype: PermissionStatus;
     new(): PermissionStatus;
 };
 
@@ -2441,7 +2441,7 @@ interface Permissions {
 }
 
 declare var Permissions: {
-    readonly prototype: Permissions;
+    prototype: Permissions;
     new(): Permissions;
 };
 
@@ -2454,7 +2454,7 @@ interface ProgressEvent<T extends EventTarget = EventTarget> extends Event {
 }
 
 declare var ProgressEvent: {
-    readonly prototype: ProgressEvent;
+    prototype: ProgressEvent;
     new(type: string, eventInitDict?: ProgressEventInit): ProgressEvent;
 };
 
@@ -2464,7 +2464,7 @@ interface PromiseRejectionEvent extends Event {
 }
 
 declare var PromiseRejectionEvent: {
-    readonly prototype: PromiseRejectionEvent;
+    prototype: PromiseRejectionEvent;
     new(type: string, eventInitDict: PromiseRejectionEventInit): PromiseRejectionEvent;
 };
 
@@ -2476,7 +2476,7 @@ interface PushManager {
 }
 
 declare var PushManager: {
-    readonly prototype: PushManager;
+    prototype: PushManager;
     new(): PushManager;
     readonly supportedContentEncodings: ReadonlyArray<string>;
 };
@@ -2491,7 +2491,7 @@ interface PushSubscription {
 }
 
 declare var PushSubscription: {
-    readonly prototype: PushSubscription;
+    prototype: PushSubscription;
     new(): PushSubscription;
 };
 
@@ -2500,7 +2500,7 @@ interface PushSubscriptionOptions {
 }
 
 declare var PushSubscriptionOptions: {
-    readonly prototype: PushSubscriptionOptions;
+    prototype: PushSubscriptionOptions;
     new(): PushSubscriptionOptions;
 };
 
@@ -2516,7 +2516,7 @@ interface ReadableStream<R = any> {
 }
 
 declare var ReadableStream: {
-    readonly prototype: ReadableStream;
+    prototype: ReadableStream;
     new<R = any>(underlyingSource?: UnderlyingSource<R>, strategy?: QueuingStrategy<R>): ReadableStream<R>;
 };
 
@@ -2528,7 +2528,7 @@ interface ReadableStreamDefaultController<R = any> {
 }
 
 declare var ReadableStreamDefaultController: {
-    readonly prototype: ReadableStreamDefaultController;
+    prototype: ReadableStreamDefaultController;
     new(): ReadableStreamDefaultController;
 };
 
@@ -2538,7 +2538,7 @@ interface ReadableStreamDefaultReader<R = any> extends ReadableStreamGenericRead
 }
 
 declare var ReadableStreamDefaultReader: {
-    readonly prototype: ReadableStreamDefaultReader;
+    prototype: ReadableStreamDefaultReader;
     new<R = any>(stream: ReadableStream<R>): ReadableStreamDefaultReader<R>;
 };
 
@@ -2605,7 +2605,7 @@ interface Request extends Body {
 }
 
 declare var Request: {
-    readonly prototype: Request;
+    prototype: Request;
     new(input: RequestInfo, init?: RequestInit): Request;
 };
 
@@ -2622,7 +2622,7 @@ interface Response extends Body {
 }
 
 declare var Response: {
-    readonly prototype: Response;
+    prototype: Response;
     new(body?: BodyInit | null, init?: ResponseInit): Response;
     error(): Response;
     redirect(url: string | URL, status?: number): Response;
@@ -2645,7 +2645,7 @@ interface SecurityPolicyViolationEvent extends Event {
 }
 
 declare var SecurityPolicyViolationEvent: {
-    readonly prototype: SecurityPolicyViolationEvent;
+    prototype: SecurityPolicyViolationEvent;
     new(type: string, eventInitDict?: SecurityPolicyViolationEventInit): SecurityPolicyViolationEvent;
 };
 
@@ -2667,7 +2667,7 @@ interface ServiceWorker extends EventTarget, AbstractWorker {
 }
 
 declare var ServiceWorker: {
-    readonly prototype: ServiceWorker;
+    prototype: ServiceWorker;
     new(): ServiceWorker;
 };
 
@@ -2695,7 +2695,7 @@ interface ServiceWorkerContainer extends EventTarget {
 }
 
 declare var ServiceWorkerContainer: {
-    readonly prototype: ServiceWorkerContainer;
+    prototype: ServiceWorkerContainer;
     new(): ServiceWorkerContainer;
 };
 
@@ -2723,7 +2723,7 @@ interface ServiceWorkerRegistration extends EventTarget {
 }
 
 declare var ServiceWorkerRegistration: {
-    readonly prototype: ServiceWorkerRegistration;
+    prototype: ServiceWorkerRegistration;
     new(): ServiceWorkerRegistration;
 };
 
@@ -2748,7 +2748,7 @@ interface SharedWorkerGlobalScope extends WorkerGlobalScope {
 }
 
 declare var SharedWorkerGlobalScope: {
-    readonly prototype: SharedWorkerGlobalScope;
+    prototype: SharedWorkerGlobalScope;
     new(): SharedWorkerGlobalScope;
 };
 
@@ -2758,7 +2758,7 @@ interface StorageManager {
 }
 
 declare var StorageManager: {
-    readonly prototype: StorageManager;
+    prototype: StorageManager;
     new(): StorageManager;
 };
 
@@ -2783,7 +2783,7 @@ interface SubtleCrypto {
 }
 
 declare var SubtleCrypto: {
-    readonly prototype: SubtleCrypto;
+    prototype: SubtleCrypto;
     new(): SubtleCrypto;
 };
 
@@ -2806,7 +2806,7 @@ interface TextDecoder extends TextDecoderCommon {
 }
 
 declare var TextDecoder: {
-    readonly prototype: TextDecoder;
+    prototype: TextDecoder;
     new(label?: string, options?: TextDecoderOptions): TextDecoder;
 };
 
@@ -2831,7 +2831,7 @@ interface TextDecoderStream extends GenericTransformStream, TextDecoderCommon {
 }
 
 declare var TextDecoderStream: {
-    readonly prototype: TextDecoderStream;
+    prototype: TextDecoderStream;
     new(label?: string, options?: TextDecoderOptions): TextDecoderStream;
 };
 
@@ -2848,7 +2848,7 @@ interface TextEncoder extends TextEncoderCommon {
 }
 
 declare var TextEncoder: {
-    readonly prototype: TextEncoder;
+    prototype: TextEncoder;
     new(): TextEncoder;
 };
 
@@ -2865,7 +2865,7 @@ interface TextEncoderStream extends GenericTransformStream, TextEncoderCommon {
 }
 
 declare var TextEncoderStream: {
-    readonly prototype: TextEncoderStream;
+    prototype: TextEncoderStream;
     new(): TextEncoderStream;
 };
 
@@ -2902,7 +2902,7 @@ interface TextMetrics {
 }
 
 declare var TextMetrics: {
-    readonly prototype: TextMetrics;
+    prototype: TextMetrics;
     new(): TextMetrics;
 };
 
@@ -2912,7 +2912,7 @@ interface TransformStream<I = any, O = any> {
 }
 
 declare var TransformStream: {
-    readonly prototype: TransformStream;
+    prototype: TransformStream;
     new<I = any, O = any>(transformer?: Transformer<I, O>, writableStrategy?: QueuingStrategy<I>, readableStrategy?: QueuingStrategy<O>): TransformStream<I, O>;
 };
 
@@ -2924,7 +2924,7 @@ interface TransformStreamDefaultController<O = any> {
 }
 
 declare var TransformStreamDefaultController: {
-    readonly prototype: TransformStreamDefaultController;
+    prototype: TransformStreamDefaultController;
     new(): TransformStreamDefaultController;
 };
 
@@ -2947,7 +2947,7 @@ interface URL {
 }
 
 declare var URL: {
-    readonly prototype: URL;
+    prototype: URL;
     new(url: string | URL, base?: string | URL): URL;
     createObjectURL(object: any): string;
     revokeObjectURL(url: string): void;
@@ -2987,7 +2987,7 @@ interface URLSearchParams {
 }
 
 declare var URLSearchParams: {
-    readonly prototype: URLSearchParams;
+    prototype: URLSearchParams;
     new(init?: string[][] | Record<string, string> | string | URLSearchParams): URLSearchParams;
     toString(): string;
 };
@@ -3131,7 +3131,7 @@ interface WebGL2RenderingContext extends WebGL2RenderingContextBase, WebGL2Rende
 }
 
 declare var WebGL2RenderingContext: {
-    readonly prototype: WebGL2RenderingContext;
+    prototype: WebGL2RenderingContext;
     new(): WebGL2RenderingContext;
     readonly ACTIVE_UNIFORM_BLOCKS: GLenum;
     readonly ALREADY_SIGNALED: GLenum;
@@ -4099,7 +4099,7 @@ interface WebGLActiveInfo {
 }
 
 declare var WebGLActiveInfo: {
-    readonly prototype: WebGLActiveInfo;
+    prototype: WebGLActiveInfo;
     new(): WebGLActiveInfo;
 };
 
@@ -4108,7 +4108,7 @@ interface WebGLBuffer {
 }
 
 declare var WebGLBuffer: {
-    readonly prototype: WebGLBuffer;
+    prototype: WebGLBuffer;
     new(): WebGLBuffer;
 };
 
@@ -4118,7 +4118,7 @@ interface WebGLContextEvent extends Event {
 }
 
 declare var WebGLContextEvent: {
-    readonly prototype: WebGLContextEvent;
+    prototype: WebGLContextEvent;
     new(type: string, eventInit?: WebGLContextEventInit): WebGLContextEvent;
 };
 
@@ -4127,7 +4127,7 @@ interface WebGLFramebuffer {
 }
 
 declare var WebGLFramebuffer: {
-    readonly prototype: WebGLFramebuffer;
+    prototype: WebGLFramebuffer;
     new(): WebGLFramebuffer;
 };
 
@@ -4136,7 +4136,7 @@ interface WebGLProgram {
 }
 
 declare var WebGLProgram: {
-    readonly prototype: WebGLProgram;
+    prototype: WebGLProgram;
     new(): WebGLProgram;
 };
 
@@ -4144,7 +4144,7 @@ interface WebGLQuery {
 }
 
 declare var WebGLQuery: {
-    readonly prototype: WebGLQuery;
+    prototype: WebGLQuery;
     new(): WebGLQuery;
 };
 
@@ -4153,7 +4153,7 @@ interface WebGLRenderbuffer {
 }
 
 declare var WebGLRenderbuffer: {
-    readonly prototype: WebGLRenderbuffer;
+    prototype: WebGLRenderbuffer;
     new(): WebGLRenderbuffer;
 };
 
@@ -4162,7 +4162,7 @@ interface WebGLRenderingContext extends WebGLRenderingContextBase, WebGLRenderin
 }
 
 declare var WebGLRenderingContext: {
-    readonly prototype: WebGLRenderingContext;
+    prototype: WebGLRenderingContext;
     new(): WebGLRenderingContext;
     readonly ACTIVE_ATTRIBUTES: GLenum;
     readonly ACTIVE_TEXTURE: GLenum;
@@ -4939,7 +4939,7 @@ interface WebGLSampler {
 }
 
 declare var WebGLSampler: {
-    readonly prototype: WebGLSampler;
+    prototype: WebGLSampler;
     new(): WebGLSampler;
 };
 
@@ -4948,7 +4948,7 @@ interface WebGLShader {
 }
 
 declare var WebGLShader: {
-    readonly prototype: WebGLShader;
+    prototype: WebGLShader;
     new(): WebGLShader;
 };
 
@@ -4960,7 +4960,7 @@ interface WebGLShaderPrecisionFormat {
 }
 
 declare var WebGLShaderPrecisionFormat: {
-    readonly prototype: WebGLShaderPrecisionFormat;
+    prototype: WebGLShaderPrecisionFormat;
     new(): WebGLShaderPrecisionFormat;
 };
 
@@ -4968,7 +4968,7 @@ interface WebGLSync {
 }
 
 declare var WebGLSync: {
-    readonly prototype: WebGLSync;
+    prototype: WebGLSync;
     new(): WebGLSync;
 };
 
@@ -4977,7 +4977,7 @@ interface WebGLTexture {
 }
 
 declare var WebGLTexture: {
-    readonly prototype: WebGLTexture;
+    prototype: WebGLTexture;
     new(): WebGLTexture;
 };
 
@@ -4985,7 +4985,7 @@ interface WebGLTransformFeedback {
 }
 
 declare var WebGLTransformFeedback: {
-    readonly prototype: WebGLTransformFeedback;
+    prototype: WebGLTransformFeedback;
     new(): WebGLTransformFeedback;
 };
 
@@ -4994,7 +4994,7 @@ interface WebGLUniformLocation {
 }
 
 declare var WebGLUniformLocation: {
-    readonly prototype: WebGLUniformLocation;
+    prototype: WebGLUniformLocation;
     new(): WebGLUniformLocation;
 };
 
@@ -5002,7 +5002,7 @@ interface WebGLVertexArrayObject {
 }
 
 declare var WebGLVertexArrayObject: {
-    readonly prototype: WebGLVertexArrayObject;
+    prototype: WebGLVertexArrayObject;
     new(): WebGLVertexArrayObject;
 };
 
@@ -5069,7 +5069,7 @@ interface WebSocket extends EventTarget {
 }
 
 declare var WebSocket: {
-    readonly prototype: WebSocket;
+    prototype: WebSocket;
     new(url: string | URL, protocols?: string | string[]): WebSocket;
     readonly CLOSED: number;
     readonly CLOSING: number;
@@ -5122,7 +5122,7 @@ interface Worker extends EventTarget, AbstractWorker {
 }
 
 declare var Worker: {
-    readonly prototype: Worker;
+    prototype: Worker;
     new(scriptURL: string | URL, options?: WorkerOptions): Worker;
 };
 
@@ -5166,7 +5166,7 @@ interface WorkerGlobalScope extends EventTarget, FontFaceSource, WindowOrWorkerG
 }
 
 declare var WorkerGlobalScope: {
-    readonly prototype: WorkerGlobalScope;
+    prototype: WorkerGlobalScope;
     new(): WorkerGlobalScope;
 };
 
@@ -5185,7 +5185,7 @@ interface WorkerLocation {
 }
 
 declare var WorkerLocation: {
-    readonly prototype: WorkerLocation;
+    prototype: WorkerLocation;
     new(): WorkerLocation;
 };
 
@@ -5194,7 +5194,7 @@ interface WorkerNavigator extends NavigatorConcurrentHardware, NavigatorID, Navi
 }
 
 declare var WorkerNavigator: {
-    readonly prototype: WorkerNavigator;
+    prototype: WorkerNavigator;
     new(): WorkerNavigator;
 };
 
@@ -5207,7 +5207,7 @@ interface WritableStream<W = any> {
 }
 
 declare var WritableStream: {
-    readonly prototype: WritableStream;
+    prototype: WritableStream;
     new<W = any>(underlyingSink?: UnderlyingSink<W>, strategy?: QueuingStrategy<W>): WritableStream<W>;
 };
 
@@ -5217,7 +5217,7 @@ interface WritableStreamDefaultController {
 }
 
 declare var WritableStreamDefaultController: {
-    readonly prototype: WritableStreamDefaultController;
+    prototype: WritableStreamDefaultController;
     new(): WritableStreamDefaultController;
 };
 
@@ -5233,7 +5233,7 @@ interface WritableStreamDefaultWriter<W = any> {
 }
 
 declare var WritableStreamDefaultWriter: {
-    readonly prototype: WritableStreamDefaultWriter;
+    prototype: WritableStreamDefaultWriter;
     new<W = any>(stream: WritableStream<W>): WritableStreamDefaultWriter<W>;
 };
 
@@ -5338,7 +5338,7 @@ interface XMLHttpRequest extends XMLHttpRequestEventTarget {
 }
 
 declare var XMLHttpRequest: {
-    readonly prototype: XMLHttpRequest;
+    prototype: XMLHttpRequest;
     new(): XMLHttpRequest;
     readonly DONE: number;
     readonly HEADERS_RECEIVED: number;
@@ -5372,7 +5372,7 @@ interface XMLHttpRequestEventTarget extends EventTarget {
 }
 
 declare var XMLHttpRequestEventTarget: {
-    readonly prototype: XMLHttpRequestEventTarget;
+    prototype: XMLHttpRequestEventTarget;
     new(): XMLHttpRequestEventTarget;
 };
 
@@ -5384,7 +5384,7 @@ interface XMLHttpRequestUpload extends XMLHttpRequestEventTarget {
 }
 
 declare var XMLHttpRequestUpload: {
-    readonly prototype: XMLHttpRequestUpload;
+    prototype: XMLHttpRequestUpload;
     new(): XMLHttpRequestUpload;
 };
 
@@ -5418,7 +5418,7 @@ declare namespace WebAssembly {
     }
 
     var CompileError: {
-        readonly prototype: CompileError;
+        prototype: CompileError;
         new(): CompileError;
     };
 
@@ -5428,7 +5428,7 @@ declare namespace WebAssembly {
     }
 
     var Global: {
-        readonly prototype: Global;
+        prototype: Global;
         new(descriptor: GlobalDescriptor, v?: any): Global;
     };
 
@@ -5437,7 +5437,7 @@ declare namespace WebAssembly {
     }
 
     var Instance: {
-        readonly prototype: Instance;
+        prototype: Instance;
         new(module: Module, importObject?: Imports): Instance;
     };
 
@@ -5445,7 +5445,7 @@ declare namespace WebAssembly {
     }
 
     var LinkError: {
-        readonly prototype: LinkError;
+        prototype: LinkError;
         new(): LinkError;
     };
 
@@ -5455,7 +5455,7 @@ declare namespace WebAssembly {
     }
 
     var Memory: {
-        readonly prototype: Memory;
+        prototype: Memory;
         new(descriptor: MemoryDescriptor): Memory;
     };
 
@@ -5463,7 +5463,7 @@ declare namespace WebAssembly {
     }
 
     var Module: {
-        readonly prototype: Module;
+        prototype: Module;
         new(bytes: BufferSource): Module;
         customSections(moduleObject: Module, sectionName: string): ArrayBuffer[];
         exports(moduleObject: Module): ModuleExportDescriptor[];
@@ -5474,7 +5474,7 @@ declare namespace WebAssembly {
     }
 
     var RuntimeError: {
-        readonly prototype: RuntimeError;
+        prototype: RuntimeError;
         new(): RuntimeError;
     };
 
@@ -5486,7 +5486,7 @@ declare namespace WebAssembly {
     }
 
     var Table: {
-        readonly prototype: Table;
+        prototype: Table;
         new(descriptor: TableDescriptor, value?: any): Table;
     };
 

@@ -1104,7 +1104,8 @@ export function emitWebIdl(
     printer.printLine(`${prefix}var ${i.name}: {`);
     printer.increaseIndent();
 
-    printer.printLine(`readonly prototype: ${i.name};`);
+    // TODO: 'strict emit' with readonly added back?
+    printer.printLine(`prototype: ${i.name};`);
     emitConstructorSignature(i);
     emitConstants(i);
     if (iNameToConstParents[i.name]?.length) {
