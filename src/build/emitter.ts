@@ -404,6 +404,9 @@ export function emitWebIdl(
     if (baseTypeConversionMap.has(objDomType)) {
       return baseTypeConversionMap.get(objDomType)!;
     }
+    if (objDomType === "EventListener") {
+      return "EventListenerOrEventListenerObject";
+    }
     // Name of an interface / enum / dict. Just return itself
     if (
       allInterfacesMap[objDomType] ||
@@ -681,28 +684,46 @@ export function emitWebIdl(
   }
 
   function emitCallBackInterface(i: Browser.Interface) {
-    const methods = mapToArray(i.methods.method);
-    const m = methods[0];
-    const overload = m.signature[0];
-    const paramsString = overload.param ? paramsToString(overload.param) : "";
-    const returnType = overload.type
-      ? convertDomTypeToTsReturnType(overload)
-      : "void";
-    printer.printLine(
-      `type ${i.name} = ((${paramsString}) => ${returnType}) | { ${m.name}(${paramsString}): ${returnType}; };`
-    );
-    printer.printLine("");
+    if (i.name === "EventListener") {
+      printer.printLine(`interface EventListener {`);
+      printer.increaseIndent();
+      printer.printLine("(evt: Event): void;");
+      printer.decreaseIndent();
+      printer.printLine("}");
 
-    if (!mapToArray(i.constants?.constant ?? {}).length) {
-      return;
+      printer.printLine(`interface EventListenerObject {`);
+      printer.increaseIndent();
+      printer.printLine("handleEvent(evt: Event): void");
+      printer.decreaseIndent();
+      printer.printLine("}");
+
+      printer.printLine(
+        "declare type EventListenerOrEventListenerObject = EventListener | EventListenerObject;"
+      );
+    } else {
+      const methods = mapToArray(i.methods.method);
+      const m = methods[0];
+      const overload = m.signature[0];
+      const paramsString = overload.param ? paramsToString(overload.param) : "";
+      const returnType = overload.type
+        ? convertDomTypeToTsReturnType(overload)
+        : "void";
+      printer.printLine(
+        `type ${i.name} = ((${paramsString}) => ${returnType}) | { ${m.name}(${paramsString}): ${returnType}; };`
+      );
+      printer.printLine("");
+
+      if (!mapToArray(i.constants?.constant ?? {}).length) {
+        return;
+      }
+
+      printer.printLine(`declare var ${i.name}: {`);
+      printer.increaseIndent();
+      emitConstants(i);
+      printer.decreaseIndent();
+      printer.printLine("};");
+      printer.printLine("");
     }
-
-    printer.printLine(`declare var ${i.name}: {`);
-    printer.increaseIndent();
-    emitConstants(i);
-    printer.decreaseIndent();
-    printer.printLine("};");
-    printer.printLine("");
   }
 
   function emitCallBackFunction(cb: Browser.CallbackFunction) {
@@ -1037,7 +1058,7 @@ export function emitWebIdl(
       if (tryEmitTypedEventHandlerForInterface(addOrRemove, optionsType)) {
         // only emit the string event handler if we just emitted a typed handler
         printer.printLine(
-          `${fPrefix}${addOrRemove}EventListener(type: string, listener: EventListener, options?: boolean | ${optionsType}): void;`
+          `${fPrefix}${addOrRemove}EventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | ${optionsType}): void;`
         );
       }
     }
