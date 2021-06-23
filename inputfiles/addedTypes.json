@@ -282,6 +282,16 @@
                     }
                 }
             },
+            "HTMLTableDataCellElement": {
+                "name": "HTMLTableDataCellElement",
+                "extends": "HTMLTableCellElement",
+                "noInterfaceObject": true
+            },
+            "HTMLTableHeaderCellElement": {
+                "name": "HTMLTableHeaderCellElement",
+                "extends": "HTMLTableCellElement",
+                "noInterfaceObject": true
+            },
             "HTMLMediaElement": {
                 "events": {
                     "event": [
