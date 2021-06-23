@@ -1104,7 +1104,9 @@ export function emitWebIdl(
     printer.printLine(`${prefix}var ${i.name}: {`);
     printer.increaseIndent();
 
-    // TODO: 'strict emit' with readonly added back?
+    // TODO: To be more accurate, this should be `readonly prototype`
+    // however, TypeScript's ability to keep track of readonly-ness can
+    // sometimes fail in un-expected ways, making this not backwards compatible.
     printer.printLine(`prototype: ${i.name};`);
     emitConstructorSignature(i);
     emitConstants(i);
