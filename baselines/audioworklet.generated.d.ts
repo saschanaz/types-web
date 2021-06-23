@@ -267,6 +267,12 @@ declare var EventTarget: {
     new(): EventTarget;
 };
 
+interface HTMLTableDataCellElement extends HTMLTableCellElement {
+}
+
+interface HTMLTableHeaderCellElement extends HTMLTableCellElement {
+}
+
 /** A message received by a target object. */
 interface MessageEvent<T = any> extends Event {
     /**
