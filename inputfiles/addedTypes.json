@@ -285,12 +285,16 @@
             "HTMLTableDataCellElement": {
                 "name": "HTMLTableDataCellElement",
                 "extends": "HTMLTableCellElement",
-                "noInterfaceObject": true
+                "noInterfaceObject": true,
+                "comment": "@deprecated - prefer HTMLTableCellElement",
+                "exposed": "Window"
             },
             "HTMLTableHeaderCellElement": {
                 "name": "HTMLTableHeaderCellElement",
                 "extends": "HTMLTableCellElement",
-                "noInterfaceObject": true
+                "noInterfaceObject": true,
+                "comment": "@deprecated - prefer HTMLTableCellElement",
+                "exposed": "Window"
             },
             "HTMLMediaElement": {
                 "events": {

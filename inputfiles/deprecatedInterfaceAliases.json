@@ -1,0 +1,16 @@
+{
+  "Window": [
+    {
+      "name": "HTMLTableDataCellElement",
+      "extends": "HTMLTableCellElement",
+      "noInterfaceObject": true,
+      "comment": "@deprecated - prefer HTMLTableCellElement"
+    },
+    {
+      "name": "HTMLTableHeaderCellElement",
+      "extends": "HTMLTableCellElement",
+      "noInterfaceObject": true,
+      "comment": "@deprecated - prefer HTMLTableCellElement"
+    }
+  ]
+}

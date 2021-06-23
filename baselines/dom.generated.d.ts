@@ -8315,6 +8315,7 @@ declare var HTMLTableColElement: {
     new(): HTMLTableColElement;
 };
 
+/** @deprecated - prefer HTMLTableCellElement */
 interface HTMLTableDataCellElement extends HTMLTableCellElement {
     addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLTableDataCellElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListener, options?: boolean | AddEventListenerOptions): void;
@@ -8435,6 +8436,7 @@ declare var HTMLTableElement: {
     new(): HTMLTableElement;
 };
 
+/** @deprecated - prefer HTMLTableCellElement */
 interface HTMLTableHeaderCellElement extends HTMLTableCellElement {
     addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLTableHeaderCellElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListener, options?: boolean | AddEventListenerOptions): void;
