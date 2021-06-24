@@ -296,6 +296,13 @@
                 "comment": "@deprecated - prefer HTMLTableCellElement",
                 "exposed": "Window"
             },
+            "HTMLDialogElement": {
+                "name": "HTMLDialogElement",
+                "extends": "HTMLElement",
+                "noInterfaceObject": true,
+                "comment": "@deprecated - this is not available in most browsers",
+                "exposed": "Window"
+            },
             "HTMLMediaElement": {
                 "events": {
                     "event": [
