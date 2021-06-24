@@ -654,7 +654,7 @@ declare var sampleRate: number;
 declare function registerProcessor(name: string, processorCtor: AudioWorkletProcessorConstructor): void;
 type BufferSource = ArrayBufferView | ArrayBuffer;
 type DOMHighResTimeStamp = number;
-type EventListenerOrEventListenerObject = EventListenerOrEventListenerObject | EventListenerObject;
+type EventListenerOrEventListenerObject = EventListener | EventListenerObject;
 type MessageEventSource = MessagePort;
 type ReadableStreamController<T> = ReadableStreamDefaultController<T>;
 type ReadableStreamDefaultReadResult<T> = ReadableStreamDefaultReadValueResult<T> | ReadableStreamDefaultReadDoneResult;

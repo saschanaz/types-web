@@ -1191,7 +1191,7 @@
             {
                 "name": "EventListenerOrEventListenerObject",
                 "type": [
-                    { "type": "EventListener" },
+                    { "type": "_EventListener" },
                     { "type": "EventListenerObject" }
                 ]
             }
