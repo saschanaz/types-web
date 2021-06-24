@@ -6285,6 +6285,14 @@ declare var HTMLDetailsElement: {
     new(): HTMLDetailsElement;
 };
 
+/** @deprecated - this is not available in most browsers */
+interface HTMLDialogElement extends HTMLElement {
+    addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLDialogElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+    addEventListener(type: string, listener: EventListener, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLDialogElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener(type: string, listener: EventListener, options?: boolean | EventListenerOptions): void;
+}
+
 /** @deprecated */
 interface HTMLDirectoryElement extends HTMLElement {
     /** @deprecated */
@@ -17984,6 +17992,7 @@ interface HTMLElementTagNameMap {
     "del": HTMLModElement;
     "details": HTMLDetailsElement;
     "dfn": HTMLElement;
+    "dialog": HTMLDialogElement;
     "dir": HTMLDirectoryElement;
     "div": HTMLDivElement;
     "dl": HTMLDListElement;

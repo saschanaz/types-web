@@ -2426,6 +2426,10 @@ interface OVR_multiview2 {
     readonly MAX_VIEWS_OVR: GLenum;
 }
 
+/** @deprecated - this is not available in most browsers */
+interface OffscreenCanvas extends HTMLElement {
+}
+
 /** This Canvas 2D API interface is used to declare a path that can then be used on a CanvasRenderingContext2D object. The path methods of the CanvasRenderingContext2D interface are also present on this interface, which gives you the convenience of being able to retain and replay your path whenever desired. */
 interface Path2D extends CanvasPath {
     /**
@@ -5893,7 +5897,7 @@ type BinaryData = ArrayBuffer | ArrayBufferView;
 type BlobPart = BufferSource | Blob | string;
 type BodyInit = ReadableStream | XMLHttpRequestBodyInit;
 type BufferSource = ArrayBufferView | ArrayBuffer;
-type CanvasImageSource = ImageBitmap;
+type CanvasImageSource = ImageBitmap | OffscreenCanvas;
 type DOMHighResTimeStamp = number;
 type DOMTimeStamp = number;
 type Float32List = Float32Array | GLfloat[];
@@ -5924,7 +5928,7 @@ type ReadableStreamController<T> = ReadableStreamDefaultController<T>;
 type ReadableStreamDefaultReadResult<T> = ReadableStreamDefaultReadValueResult<T> | ReadableStreamDefaultReadDoneResult;
 type ReadableStreamReader<T> = ReadableStreamDefaultReader<T>;
 type RequestInfo = Request | string;
-type TexImageSource = ImageBitmap | ImageData;
+type TexImageSource = ImageBitmap | ImageData | OffscreenCanvas;
 type TimerHandler = string | Function;
 type Transferable = ArrayBuffer | MessagePort | ImageBitmap;
 type Uint32List = Uint32Array | GLuint[];
