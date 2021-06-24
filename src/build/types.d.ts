@@ -146,9 +146,6 @@ export interface Interface {
   mixin?: boolean;
   extends?: string;
   comment?: string;
-  callSignatures?: {
-    callSignatures: AnonymousMethod[];
-  };
   constants?: {
     constant: Record<string, Constant>;
   };
