@@ -298,14 +298,12 @@
             },
             "HTMLDialogElement": {
                 "name": "HTMLDialogElement",
-                "extends": "HTMLElement",
                 "noInterfaceObject": true,
                 "comment": "@deprecated - this is not available in most browsers",
                 "exposed": "Window"
             },
             "OffscreenCanvas": {
                 "name": "OffscreenCanvas",
-                "extends": "HTMLElement",
                 "noInterfaceObject": true,
                 "comment": "@deprecated - this is not available in most browsers",
                 "exposed": "Worker"
