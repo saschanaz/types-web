@@ -546,17 +546,19 @@
             "EventListener": {
                 "name": "EventListener",
                 "noInterfaceObject": true,
-                "callSignatures": {
-                    "callSignatures": [{
-                        "signature":[ {
-                            "type": "void",
-                            "param": [{
-                                "name": "evt",
-                                "type": "Event"
-                            }]
-                        }]
-                    }]
-                }
+                "methods": {
+                    "method": {
+                        // This is a hack to add a call signature, but I think it's reasonable
+                        // as it means we don't have to add a call signatures section to the
+                        // emitter for this one case.
+                        "callable": {
+                            "overrideSignatures": [
+                                "(evt: Event): void"
+                            ]
+                        }
+                    }
+                },
+
             },
             "EventListenerObject": {
                 "name": "EventListenerObject",

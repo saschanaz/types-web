@@ -1007,14 +1007,6 @@ export function emitWebIdl(
     );
   }
 
-  /// Emit call signatures for a given interface
-  function emitCallSignatures(i: Browser.Interface) {
-    const callSignatures = i.callSignatures?.callSignatures ?? [];
-    for (const signature of callSignatures) {
-      emitSignatures(signature, "", "", printer.printLine, false);
-    }
-  }
-
   /// Emit the properties and methods of a given interface
   function emitMembers(
     prefix: string,
@@ -1336,7 +1328,6 @@ export function emitWebIdl(
     emitInterfaceDeclaration(i);
     printer.increaseIndent();
 
-    emitCallSignatures(i);
     emitMembers(/*prefix*/ "", EmitScope.InstanceOnly, i);
     emitConstants(i);
     emitEventHandlers(/*prefix*/ "", i);
