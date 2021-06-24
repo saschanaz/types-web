@@ -661,13 +661,6 @@ interface WebGLContextEventInit extends EventInit {
     statusMessage?: string;
 }
 
-interface EventListener {
-    (evt: Event): void;
-}
-interface EventListenerObject {
-    handleEvent(evt: Event): void
-}
-declare type EventListenerOrEventListenerObject = EventListener | EventListenerObject;
 /** The ANGLE_instanced_arrays extension is part of the WebGL API and allows to draw the same object, or groups of similar objects multiple times, if they share the same vertex data, primitive count and type. */
 interface ANGLE_instanced_arrays {
     drawArraysInstancedANGLE(mode: GLenum, first: GLint, count: GLsizei, primcount: GLsizei): void;
@@ -1326,6 +1319,14 @@ declare var Event: {
     readonly CAPTURING_PHASE: number;
     readonly NONE: number;
 };
+
+interface EventListener {
+    (evt: Event): void;
+}
+
+interface EventListenerObject {
+    handleEvent(object: Event): void;
+}
 
 interface EventSourceEventMap {
     "error": Event;
@@ -5627,6 +5628,7 @@ type BufferSource = ArrayBufferView | ArrayBuffer;
 type CanvasImageSource = ImageBitmap;
 type DOMHighResTimeStamp = number;
 type DOMTimeStamp = number;
+type EventListenerOrEventListenerObject = EventListenerOrEventListenerObject | EventListenerObject;
 type Float32List = Float32Array | GLfloat[];
 type FormDataEntryValue = File | string;
 type GLbitfield = number;

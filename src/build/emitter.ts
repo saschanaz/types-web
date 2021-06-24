@@ -327,7 +327,7 @@ export function emitWebIdl(
     if (obj.overrideType) {
       return obj.nullable ? makeNullable(obj.overrideType) : obj.overrideType;
     }
-    if (!obj.type) throw new Error("Missing type " + JSON.stringify(obj));
+    if (!obj.type) throw new Error("Missing 'type' field in " + JSON.stringify(obj));
     const type = convertDomTypeToTsTypeWorker(obj);
     return obj.nullable ? makeNullable(type) : type;
   }
@@ -684,46 +684,28 @@ export function emitWebIdl(
   }
 
   function emitCallBackInterface(i: Browser.Interface) {
-    if (i.name === "EventListener") {
-      printer.printLine(`interface EventListener {`);
-      printer.increaseIndent();
-      printer.printLine("(evt: Event): void;");
-      printer.decreaseIndent();
-      printer.printLine("}");
+    const methods = mapToArray(i.methods.method);
+    const m = methods[0];
+    const overload = m.signature[0];
+    const paramsString = overload.param ? paramsToString(overload.param) : "";
+    const returnType = overload.type
+      ? convertDomTypeToTsReturnType(overload)
+      : "void";
+    printer.printLine(
+      `type ${i.name} = ((${paramsString}) => ${returnType}) | { ${m.name}(${paramsString}): ${returnType}; };`
+    );
+    printer.printLine("");
 
-      printer.printLine(`interface EventListenerObject {`);
-      printer.increaseIndent();
-      printer.printLine("handleEvent(evt: Event): void");
-      printer.decreaseIndent();
-      printer.printLine("}");
-
-      printer.printLine(
-        "declare type EventListenerOrEventListenerObject = EventListener | EventListenerObject;"
-      );
-    } else {
-      const methods = mapToArray(i.methods.method);
-      const m = methods[0];
-      const overload = m.signature[0];
-      const paramsString = overload.param ? paramsToString(overload.param) : "";
-      const returnType = overload.type
-        ? convertDomTypeToTsReturnType(overload)
-        : "void";
-      printer.printLine(
-        `type ${i.name} = ((${paramsString}) => ${returnType}) | { ${m.name}(${paramsString}): ${returnType}; };`
-      );
-      printer.printLine("");
-
-      if (!mapToArray(i.constants?.constant ?? {}).length) {
-        return;
-      }
-
-      printer.printLine(`declare var ${i.name}: {`);
-      printer.increaseIndent();
-      emitConstants(i);
-      printer.decreaseIndent();
-      printer.printLine("};");
-      printer.printLine("");
+    if (!mapToArray(i.constants?.constant ?? {}).length) {
+      return;
     }
+
+    printer.printLine(`declare var ${i.name}: {`);
+    printer.increaseIndent();
+    emitConstants(i);
+    printer.decreaseIndent();
+    printer.printLine("};");
+    printer.printLine("");
   }
 
   function emitCallBackFunction(cb: Browser.CallbackFunction) {
@@ -1013,6 +995,14 @@ export function emitWebIdl(
     printer.printLine(
       `forEach(callbackfn: (value: ${value}, key: ${key}, parent: ${name}) => void, thisArg?: any): void;`
     );
+  }
+
+  /// Emit call signatures for a given interface
+  function emitCallSignatures(i: Browser.Interface) {
+    const callSignatures = i.callSignatures?.callSignatures ?? [];
+    for (const signature of callSignatures) {
+      emitSignatures(signature, "", "", printer.printLine, false);
+    }
   }
 
   /// Emit the properties and methods of a given interface
@@ -1333,6 +1323,7 @@ export function emitWebIdl(
     emitInterfaceDeclaration(i);
     printer.increaseIndent();
 
+    emitCallSignatures(i);
     emitMembers(/*prefix*/ "", EmitScope.InstanceOnly, i);
     emitConstants(i);
     emitEventHandlers(/*prefix*/ "", i);

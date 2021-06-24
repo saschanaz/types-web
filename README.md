@@ -67,3 +67,17 @@ Not yet. A small part of things still needs manual modification, which is done b
     ```sh
     npm test
     ```
+
+* For larger changes, create a split terminal with:
+
+  ```sh
+  npx tsc --watch
+  ```
+
+  Running in the background updating your TypeScript files. Then run:
+
+  ```sh
+  node ./lib/build.js && node ./lib/test.js
+  ```
+
+  To trigger the build and tests.

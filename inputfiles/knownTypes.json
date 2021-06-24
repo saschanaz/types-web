@@ -50,7 +50,8 @@
         "RsaOaepParams",
         "RsaPssParams",
         "Transferable",
-        "VideoFacingModeEnum"
+        "VideoFacingModeEnum",
+        "EventListenerOrEventListenerObject"
     ],
     "Worker": [
         "AesCbcParams",
@@ -80,9 +81,11 @@
         "RsaKeyGenParams",
         "RsaPssParams",
         "RsaOaepParams",
-        "Transferable"
+        "Transferable",
+        "EventListenerOrEventListenerObject"
     ],
     "Worklet": [
-        "Transferable"
+        "Transferable",
+        "EventListenerOrEventListenerObject"
     ]
 }

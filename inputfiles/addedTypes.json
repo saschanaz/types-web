@@ -538,6 +538,34 @@
                     }
                 }
             },
+            "EventListener": {
+                "name": "EventListener",
+                "noInterfaceObject": true,
+                "callSignatures": {
+                    "callSignatures": [{
+                        "signature":[ {
+                            "type": "void",
+                            "param": [{
+                                "name": "evt",
+                                "type": "Event"
+                            }]
+                        }]
+                    }]
+                }
+            },
+            "EventListenerObject": {
+                "name": "EventListenerObject",
+                "noInterfaceObject": true,
+                "methods": {
+                    "method": {
+                        "handleEvent": {
+                            "overrideSignatures": [
+                                "handleEvent(object: Event): void"
+                            ]
+                        }
+                    }
+                },
+            },
             "Document": {
                 "methods": {
                     "method": {
@@ -1154,6 +1182,13 @@
                     }
                 ],
                 "overrideType": "ReadableStreamDefaultReader<T>"
+            },
+            {
+                "name": "EventListenerOrEventListenerObject",
+                "type": [
+                    { "type": "EventListener" },
+                    { "type": "EventListenerObject" }
+                ]
             }
         ]
     }

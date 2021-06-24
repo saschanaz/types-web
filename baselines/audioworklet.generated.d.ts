@@ -109,13 +109,6 @@ interface UnderlyingSource<R = any> {
     type?: undefined;
 }
 
-interface EventListener {
-    (evt: Event): void;
-}
-interface EventListenerObject {
-    handleEvent(evt: Event): void
-}
-declare type EventListenerOrEventListenerObject = EventListener | EventListenerObject;
 interface AudioWorkletGlobalScope extends WorkletGlobalScope {
     readonly currentFrame: number;
     readonly currentTime: number;
@@ -238,6 +231,14 @@ declare var Event: {
     readonly CAPTURING_PHASE: number;
     readonly NONE: number;
 };
+
+interface EventListener {
+    (evt: Event): void;
+}
+
+interface EventListenerObject {
+    handleEvent(object: Event): void;
+}
 
 /** EventTarget is a DOM interface implemented by objects that can receive events and may have listeners for them. */
 interface EventTarget {
@@ -653,6 +654,7 @@ declare var sampleRate: number;
 declare function registerProcessor(name: string, processorCtor: AudioWorkletProcessorConstructor): void;
 type BufferSource = ArrayBufferView | ArrayBuffer;
 type DOMHighResTimeStamp = number;
+type EventListenerOrEventListenerObject = EventListenerOrEventListenerObject | EventListenerObject;
 type MessageEventSource = MessagePort;
 type ReadableStreamController<T> = ReadableStreamDefaultController<T>;
 type ReadableStreamDefaultReadResult<T> = ReadableStreamDefaultReadValueResult<T> | ReadableStreamDefaultReadDoneResult;

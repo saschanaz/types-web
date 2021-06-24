@@ -10,6 +10,7 @@ import { getDeprecationData, getRemovalData } from "./build/bcd.js";
 import { createTryRequire } from "./build/utils/require.js";
 import { getInterfaceElementMergeData } from "./build/webref/elements.js";
 import { getWebidls } from "./build/webref/idl.js";
+import JSON5 from "json5";
 
 const require = createRequire(import.meta.url);
 const tryRequire = createTryRequire(import.meta.url);
@@ -92,24 +93,19 @@ async function emitDom() {
     recursive: true,
   });
 
-  const overriddenItems = require(fileURLToPath(
-    new URL("overridingTypes.json", inputFolder)
-  ));
-  const addedItems = require(fileURLToPath(
-    new URL("addedTypes.json", inputFolder)
-  ));
-  const comments = require(fileURLToPath(
-    new URL("comments.json", inputFolder)
-  ));
-  const deprecatedInfo = require(fileURLToPath(
-    new URL("deprecatedMessage.json", inputFolder)
-  ));
-  const documentationFromMDN = require(fileURLToPath(
-    new URL("mdn/apiDescriptions.json", inputFolder)
-  ));
-  const removedItems = require(fileURLToPath(
-    new URL("removedTypes.json", inputFolder)
-  ));
+  const overriddenItems = await readInputJSON("overridingTypes.json");
+  const addedItems = await readInputJSON("addedTypes.json");
+  const comments = await readInputJSON("comments.json");
+  const deprecatedInfo = await readInputJSON("deprecatedMessage.json");
+  const documentationFromMDN = await readInputJSON("mdn/apiDescriptions.json");
+  const removedItems = await readInputJSON("removedTypes.json");
+
+  async function readInputJSON(filename: string) {
+    const path = fileURLToPath(new URL(filename, inputFolder));
+    const content = await fs.readFile(path, "utf8");
+    return JSON5.parse(content);
+  }
+
   const widlStandardTypes = (
     await Promise.all([...(await getWebidls()).entries()].map(convertWidl))
   ).filter((i) => i) as ReturnType<typeof convert>[];
@@ -242,7 +238,7 @@ async function emitDom() {
   webidl = merge(webidl, await getInterfaceElementMergeData());
 
   webidl = merge(webidl, getDeprecationData(webidl));
-  webidl = merge(webidl, getRemovalData(webidl) as any);
+  webidl = merge(webidl, getRemovalData(webidl));
   webidl = prune(webidl, removedItems);
   webidl = mergeApiDescriptions(webidl, documentationFromMDN);
   webidl = merge(webidl, addedItems);

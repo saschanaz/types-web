@@ -1806,13 +1806,6 @@ interface WorkletOptions {
     credentials?: RequestCredentials;
 }
 
-interface EventListener {
-    (evt: Event): void;
-}
-interface EventListenerObject {
-    handleEvent(evt: Event): void
-}
-declare type EventListenerOrEventListenerObject = EventListener | EventListenerObject;
 type NodeFilter = ((node: Node) => number) | { acceptNode(node: Node): number; };
 
 declare var NodeFilter: {
@@ -5082,6 +5075,14 @@ declare var Event: {
     readonly CAPTURING_PHASE: number;
     readonly NONE: number;
 };
+
+interface EventListener {
+    (evt: Event): void;
+}
+
+interface EventListenerObject {
+    handleEvent(object: Event): void;
+}
 
 interface EventSourceEventMap {
     "error": Event;
@@ -18621,6 +18622,7 @@ type ConstrainDouble = number | ConstrainDoubleRange;
 type ConstrainULong = number | ConstrainULongRange;
 type DOMHighResTimeStamp = number;
 type DOMTimeStamp = number;
+type EventListenerOrEventListenerObject = EventListenerOrEventListenerObject | EventListenerObject;
 type Float32List = Float32Array | GLfloat[];
 type FormDataEntryValue = File | string;
 type GLbitfield = number;
