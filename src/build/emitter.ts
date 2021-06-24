@@ -1116,7 +1116,10 @@ export function emitWebIdl(
     printer.printLine(`${prefix}var ${i.name}: {`);
     printer.increaseIndent();
 
-    printer.printLine(`readonly prototype: ${i.name};`);
+    // TODO: To be more accurate, this should be `readonly prototype`
+    // however, TypeScript's ability to keep track of readonly-ness can
+    // sometimes fail in un-expected ways, making this not backwards compatible.
+    printer.printLine(`prototype: ${i.name};`);
     emitConstructorSignature(i);
     emitConstants(i);
     if (iNameToConstParents[i.name]?.length) {
