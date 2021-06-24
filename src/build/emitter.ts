@@ -327,7 +327,8 @@ export function emitWebIdl(
     if (obj.overrideType) {
       return obj.nullable ? makeNullable(obj.overrideType) : obj.overrideType;
     }
-    if (!obj.type) throw new Error("Missing 'type' field in " + JSON.stringify(obj));
+    if (!obj.type)
+      throw new Error("Missing 'type' field in " + JSON.stringify(obj));
     const type = convertDomTypeToTsTypeWorker(obj);
     return obj.nullable ? makeNullable(type) : type;
   }
