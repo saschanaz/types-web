@@ -406,14 +406,6 @@ export function emitWebIdl(
       return baseTypeConversionMap.get(objDomType)!;
     }
 
-    // There is only one place we need to use EventListener (in the type
-    // alias at the bottom of each dts file) but it cannot be transformed by
-    // this function to EventListenerOrEventListenerObject in order to not
-    // be a circular reference.
-    if (objDomType === "_EventListener") {
-      return "EventListener";
-    }
-
     if (objDomType === "EventListener") {
       return "EventListenerOrEventListenerObject";
     }

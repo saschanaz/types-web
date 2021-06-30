@@ -1192,10 +1192,7 @@
             },
             {
                 "name": "EventListenerOrEventListenerObject",
-                "type": [
-                    { "type": "_EventListener" },
-                    { "type": "EventListenerObject" }
-                ]
+                "overrideType": "EventListener | EventListenerObject"
             }
         ]
     }
