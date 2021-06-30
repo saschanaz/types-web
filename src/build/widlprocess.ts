@@ -175,7 +175,7 @@ function convertInterfaceCommon(
         member.name
       );
     } else if (member.type === "attribute") {
-      if (member.inherit) {
+      if ((member.special as string) === "inherit") {
         continue; // no need to redeclare
       }
       const { properties } = result;

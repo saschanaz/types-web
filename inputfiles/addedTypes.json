@@ -296,6 +296,25 @@
                 "comment": "@deprecated - prefer HTMLTableCellElement",
                 "exposed": "Window"
             },
+            "HTMLDialogElement": {
+                "name": "HTMLDialogElement",
+                "noInterfaceObject": true,
+                "comment": "@deprecated - this is not available in most browsers",
+                "exposed": "Window"
+            },
+            "OffscreenCanvas": {
+                "name": "OffscreenCanvas",
+                "noInterfaceObject": true,
+                "comment": "@deprecated - this is not available in most browsers",
+                "exposed": "Worker"
+            },
+            "HTMLDocument": {
+                "name": "HTMLDocument",
+                "extends": "Document",
+                "noInterfaceObject": true,
+                "comment": "@deprecated - use Document",
+                "exposed": "Window"
+            },
             "HTMLMediaElement": {
                 "events": {
                     "event": [
@@ -830,25 +849,6 @@
                 "name": "RuntimeError",
                 "extends": "Error",
                 "legacyNamespace": "WebAssembly"
-            },
-            "SVGCursorElement": {
-                "name": "SVGCursorElement",
-                "extends": "SVGElement",
-                "exposed": "Window",
-                "properties": {
-                    "property": {
-                        "x": {
-                            "name": "x",
-                            "readonly": true,
-                            "type": "SVGAnimatedLength"
-                        },
-                        "y": {
-                            "name": "y",
-                            "readonly": true,
-                            "type": "SVGAnimatedLength"
-                        }
-                    }
-                }
             },
             "SVGStyleElement": {
                 "properties": {

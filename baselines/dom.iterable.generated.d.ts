@@ -89,7 +89,7 @@ interface HTMLFormElement {
 }
 
 interface HTMLSelectElement {
-    [Symbol.iterator](): IterableIterator<Element>;
+    [Symbol.iterator](): IterableIterator<HTMLOptionElement>;
 }
 
 interface Headers {

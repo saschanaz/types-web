@@ -1073,19 +1073,17 @@ export function emitWebIdl(
       const hasEventListener = iNameToEhList[i.name]?.length;
       const ehParentCount = iNameToEhParents[i.name]?.length;
 
+      let target: Browser.Interface;
       if (hasEventListener || ehParentCount > 1) {
-        emitTypedEventHandler(fPrefix, addOrRemove, i, optionsType);
-        return true;
+        target = i;
       } else if (ehParentCount === 1) {
-        emitTypedEventHandler(
-          fPrefix,
-          addOrRemove,
-          iNameToEhParents[i.name][0],
-          optionsType
-        );
-        return true;
+        target = iNameToEhParents[i.name][0];
+      } else {
+        return false;
       }
-      return false;
+
+      emitTypedEventHandler(fPrefix, addOrRemove, target, optionsType);
+      return true;
     }
   }
 

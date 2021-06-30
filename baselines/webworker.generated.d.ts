@@ -62,6 +62,7 @@ interface CanvasRenderingContext2DSettings {
     alpha?: boolean;
     colorSpace?: PredefinedColorSpace;
     desynchronized?: boolean;
+    willReadFrequently?: boolean;
 }
 
 interface ClientQueryOptions {
@@ -551,20 +552,17 @@ interface RsaPssParams extends Algorithm {
 
 interface SecurityPolicyViolationEventInit extends EventInit {
     blockedURI?: string;
-    blockedURL?: string;
-    colno?: number;
     columnNumber?: number;
     disposition: SecurityPolicyViolationEventDisposition;
-    documentURI?: string;
-    documentURL: string;
+    documentURI: string;
     effectiveDirective: string;
     lineNumber?: number;
-    lineno?: number;
     originalPolicy: string;
     referrer?: string;
     sample?: string;
     sourceFile?: string;
     statusCode: number;
+    violatedDirective: string;
 }
 
 interface StorageEstimate {
@@ -712,6 +710,7 @@ interface AbortSignal extends EventTarget {
 declare var AbortSignal: {
     prototype: AbortSignal;
     new(): AbortSignal;
+    abort(): AbortSignal;
 };
 
 interface AbstractWorkerEventMap {
@@ -2430,6 +2429,10 @@ interface OVR_multiview2 {
     readonly FRAMEBUFFER_ATTACHMENT_TEXTURE_NUM_VIEWS_OVR: GLenum;
     readonly FRAMEBUFFER_INCOMPLETE_VIEW_TARGETS_OVR: GLenum;
     readonly MAX_VIEWS_OVR: GLenum;
+}
+
+/** @deprecated - this is not available in most browsers */
+interface OffscreenCanvas extends EventTarget {
 }
 
 /** This Canvas 2D API interface is used to declare a path that can then be used on a CanvasRenderingContext2D object. The path methods of the CanvasRenderingContext2D interface are also present on this interface, which gives you the convenience of being able to retain and replay your path whenever desired. */
@@ -5899,7 +5902,7 @@ type BinaryData = ArrayBuffer | ArrayBufferView;
 type BlobPart = BufferSource | Blob | string;
 type BodyInit = ReadableStream | XMLHttpRequestBodyInit;
 type BufferSource = ArrayBufferView | ArrayBuffer;
-type CanvasImageSource = ImageBitmap;
+type CanvasImageSource = ImageBitmap | OffscreenCanvas;
 type DOMHighResTimeStamp = number;
 type DOMTimeStamp = number;
 type EventListenerOrEventListenerObject = EventListener | EventListenerObject;
@@ -5931,7 +5934,7 @@ type ReadableStreamController<T> = ReadableStreamDefaultController<T>;
 type ReadableStreamDefaultReadResult<T> = ReadableStreamDefaultReadValueResult<T> | ReadableStreamDefaultReadDoneResult;
 type ReadableStreamReader<T> = ReadableStreamDefaultReader<T>;
 type RequestInfo = Request | string;
-type TexImageSource = ImageBitmap | ImageData;
+type TexImageSource = ImageBitmap | ImageData | OffscreenCanvas;
 type TimerHandler = string | Function;
 type Transferable = ArrayBuffer | MessagePort | ImageBitmap;
 type Uint32List = Uint32Array | GLuint[];
@@ -5958,7 +5961,7 @@ type MediaDecodingType = "file" | "media-source" | "webrtc";
 type MediaEncodingType = "record" | "webrtc";
 type NotificationDirection = "auto" | "ltr" | "rtl";
 type NotificationPermission = "default" | "denied" | "granted";
-type PermissionName = "geolocation" | "notifications" | "persistent-storage" | "push";
+type PermissionName = "gamepad" | "geolocation" | "notifications" | "persistent-storage" | "push";
 type PermissionState = "denied" | "granted" | "prompt";
 type PredefinedColorSpace = "display-p3" | "srgb";
 type PremultiplyAlpha = "default" | "none" | "premultiply";

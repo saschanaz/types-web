@@ -7,7 +7,6 @@
         "AesKeyAlgorithm",
         "AesKeyGenParams",
         "BigInteger",
-        "CanvasRenderingContext2DSettings",
         "ClientQueryOptions",
         "ClientTypes",
         "CompositeOperationOrAuto",
