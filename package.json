@@ -42,7 +42,7 @@
     "@typescript-eslint/parser": "^4.28.0",
     "@webref/css": "2.0.1",
     "@webref/elements": "1.0.1",
-    "@webref/idl": "2.2.4",
+    "@webref/idl": "2.2.5",
     "cpx2": "^3.0.0",
     "eslint": "^7.29.0",
     "eslint-config-prettier": "^8.3.0",
