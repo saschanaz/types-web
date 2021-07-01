@@ -101,8 +101,7 @@ async function emitDom() {
   const removedItems = await readInputJSON("removedTypes.json");
 
   async function readInputJSON(filename: string) {
-    const path = fileURLToPath(new URL(filename, inputFolder));
-    const content = await fs.readFile(path, "utf8");
+    const content = await fs.readFile(new URL(filename, inputFolder), "utf8");
     return JSON5.parse(content);
   }
 
