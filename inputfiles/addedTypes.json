@@ -557,6 +557,14 @@
                     }
                 }
             },
+            // This is used in many DT libraries, via ckeditor
+            "ClientRect": {
+                "name": "ClientRect",
+                "exposed": "Window",
+                "deprecated": true,
+                "extends": "DOMRect",
+                "noInterfaceObject": true
+            },
             /*
               Keeping EventListener and EventListenerObject isn't the most elegant way to handle
               the event listeners, but we need to keep the EventListener as an extendable interface

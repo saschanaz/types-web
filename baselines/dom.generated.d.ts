@@ -3496,6 +3496,10 @@ interface ChildNode {
     replaceWith(...nodes: (Node | string)[]): void;
 }
 
+/** @deprecated */
+interface ClientRect extends DOMRect {
+}
+
 interface Clipboard extends EventTarget {
     read(): Promise<ClipboardItems>;
     readText(): Promise<string>;
