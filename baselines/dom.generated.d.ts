@@ -14311,6 +14311,12 @@ declare var StorageManager: {
     new(): StorageManager;
 };
 
+/** @deprecated */
+interface StyleMedia {
+    type: string;
+    matchMedium(mediaquery: string): boolean;
+}
+
 /** A single style sheet. CSS style sheets will further implement the more specialized CSSStyleSheet interface. */
 interface StyleSheet {
     disabled: boolean;
