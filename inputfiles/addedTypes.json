@@ -627,7 +627,7 @@
                     "property": {
                         "type": {
                             "name": "type",
-                            "overrideType": "string"
+                            "type": "DOMString"
                         }
                     }
                 },
