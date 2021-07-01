@@ -406,9 +406,6 @@ export function emitWebIdl(
       return baseTypeConversionMap.get(objDomType)!;
     }
 
-    if (objDomType === "EventListener") {
-      return "EventListenerOrEventListenerObject";
-    }
     // Name of an interface / enum / dict. Just return itself
     if (
       allInterfacesMap[objDomType] ||

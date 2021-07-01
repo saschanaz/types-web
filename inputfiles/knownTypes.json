@@ -13,11 +13,12 @@
         "ComputedKeyframe",
         "CryptoKeyPair",
         "DisplayCaptureSurfaceType",
+        "EcdhKeyDeriveParams",
+        "EcdsaParams",
         "EcKeyAlgorithm",
         "EcKeyGenParams",
         "EcKeyImportParams",
-        "EcdhKeyDeriveParams",
-        "EcdsaParams",
+        "EventListenerOrEventListenerObject",
         "HashAlgorithmIdentifier",
         "HkdfParams",
         "HmacImportParams",
@@ -30,6 +31,13 @@
         "NamedCurve",
         "Pbkdf2Params",
         "PropertyIndexedKeyframes",
+        "RsaHashedImportParams",
+        "RsaHashedKeyAlgorithm",
+        "RsaHashedKeyGenParams",
+        "RsaKeyAlgorithm",
+        "RsaKeyGenParams",
+        "RsaOaepParams",
+        "RsaPssParams",
         "RTCCertificateExpiration",
         "RTCIceCandidatePairStats",
         "RTCInboundRtpStreamStats",
@@ -41,16 +49,8 @@
         "RTCStatsIceCandidatePairState",
         "RTCStatsType",
         "RTCTransportStats",
-        "RsaHashedImportParams",
-        "RsaHashedKeyAlgorithm",
-        "RsaHashedKeyGenParams",
-        "RsaKeyAlgorithm",
-        "RsaKeyGenParams",
-        "RsaOaepParams",
-        "RsaPssParams",
         "Transferable",
-        "VideoFacingModeEnum",
-        "EventListenerOrEventListenerObject"
+        "VideoFacingModeEnum"
     ],
     "Worker": [
         "AesCbcParams",
@@ -67,6 +67,7 @@
         "EcdsaParams",
         "EcKeyGenParams",
         "EcKeyImportParams",
+        "EventListenerOrEventListenerObject",
         "HashAlgorithmIdentifier",
         "HkdfParams",
         "HmacImportParams",
@@ -78,13 +79,12 @@
         "RsaHashedImportParams",
         "RsaHashedKeyGenParams",
         "RsaKeyGenParams",
-        "RsaPssParams",
         "RsaOaepParams",
-        "Transferable",
-        "EventListenerOrEventListenerObject"
+        "RsaPssParams",
+        "Transferable"
     ],
     "Worklet": [
-        "Transferable",
-        "EventListenerOrEventListenerObject"
+        "EventListenerOrEventListenerObject",
+        "Transferable"
     ]
 }
