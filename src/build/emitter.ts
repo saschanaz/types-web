@@ -405,7 +405,6 @@ export function emitWebIdl(
     if (baseTypeConversionMap.has(objDomType)) {
       return baseTypeConversionMap.get(objDomType)!;
     }
-
     // Name of an interface / enum / dict. Just return itself
     if (
       allInterfacesMap[objDomType] ||
