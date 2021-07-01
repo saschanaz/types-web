@@ -203,12 +203,12 @@ interface CompositionEventInit extends UIEventInit {
 }
 
 interface ComputedEffectTiming extends EffectTiming {
-    activeDuration?: number;
+    activeDuration?: CSSNumberish;
     currentIteration?: number | null;
-    endTime?: number;
-    localTime?: number | null;
-    progress?: number | null;
-    startTime?: number;
+    endTime?: CSSNumberish;
+    localTime?: CSSNumberish | null;
+    progress?: CSSNumberish | null;
+    startTime?: CSSNumberish;
 }
 
 interface ComputedKeyframe {
@@ -18629,6 +18629,7 @@ type BlobPart = BufferSource | Blob | string;
 type BodyInit = ReadableStream | XMLHttpRequestBodyInit;
 type BufferSource = ArrayBufferView | ArrayBuffer;
 type COSEAlgorithmIdentifier = number;
+type CSSNumberish = number;
 type CanvasImageSource = HTMLOrSVGImageElement | HTMLVideoElement | HTMLCanvasElement | ImageBitmap;
 type ClipboardItemData = Promise<ClipboardItemDataType>;
 type ClipboardItemDataType = string | Blob;
