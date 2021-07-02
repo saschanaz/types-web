@@ -624,7 +624,7 @@
                     }
                 }
             },
-            // This is used in the React d.ts files, and not including 
+            // This is used in the React d.ts files, and not including
             // it would force an update for anyone using React.
             "StyleMedia": {
                 "name": "StyleMedia",
