@@ -58,13 +58,6 @@ interface CacheQueryOptions {
     ignoreVary?: boolean;
 }
 
-interface CanvasRenderingContext2DSettings {
-    alpha?: boolean;
-    colorSpace?: PredefinedColorSpace;
-    desynchronized?: boolean;
-    willReadFrequently?: boolean;
-}
-
 interface CloseEventInit extends EventInit {
     code?: number;
     reason?: string;

@@ -60,7 +60,6 @@
         "AesKeyAlgorithm",
         "AesKeyGenParams",
         "BigInteger",
-        "CanvasRenderingContext2DSettings",
         "ClientTypes",
         "CryptoKeyPair",
         "EcdhKeyDeriveParams",
