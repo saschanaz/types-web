@@ -16,6 +16,7 @@ if (!tscWD)
 
 const generatedFiles = readdirSync("generated");
 generatedFiles.forEach((file) => {
+  if (file == ".DS_Store") return;
   const contents = readFileSync(join("generated", file), "utf8");
   const newFilePath = join(tscWD, "src", "lib", file);
   writeFileSync(newFilePath, contents);

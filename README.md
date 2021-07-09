@@ -4,9 +4,9 @@ This tool is used to generate the web-based `lib.dom.d.ts` file which is include
 
 ## Why is my fancy API still not available here?
 
-A feature needs to be supported by more than two major browser engines to be included here, to make sure there is a good consensus among vendors: __Gecko__ (Firefox), __Blink__ (Chrome/Edge), and __WebKit__ (Safari).
+A feature needs to be supported by two or more major browser engines to be included here, to make sure there is a good consensus among vendors: __Gecko__ (Firefox), __Blink__ (Chrome/Edge), and __WebKit__ (Safari).
 
-If the condition is met but still is not available here, please [file an issue](hthttps://github.com/microsoft/TypeScript-DOM-lib-generator/issues/new).
+If the condition is met but still is not available here, first check the heuristics below and then please [file an issue](hthttps://github.com/microsoft/TypeScript-DOM-lib-generator/issues/new).
 
 ## Build Instructions
 
@@ -28,13 +28,13 @@ To test:
 npm run test
 ```
 
-To deploy:
 
-```sh
-npm run migrate
-```
+## `@types/[lib]` to TypeScript Versions
 
-The script will look in for a clone of the TypeScript repo in "../TypeScript", or "./TypeScript" to move the generated files in.
+| `@types/[lib]` version | TypeScript Version  | Minimum TypeScript Support |
+| ---------------------------------------------------------------------- | ----------- | -------------- |
+| `@types/web` [0.0.1](https://www.npmjs.com/package/@types/web/v/0.0.1) | ~4.3        | 4.4            |
+| `@types/web` [0.0.2](https://www.npmjs.com/package/@types/web/v/0.0.2) | ~4.4 beta   | 4.4            |
 
 ## Contribution Guidelines
 
@@ -71,3 +71,26 @@ If you are familiar with Web IDL, you may also want to check whether the upstrea
 - `removedTypes.json`: types that are defined in the spec file but should be removed.
 - `comments.json`: comment strings to be embedded in the generated .js files.
 - `deprecatedMessage.json`: the reason why one type is deprecated. The reason why it is a separate file rather than merge in comment.json is mdn/apiDescriptions.json would also possibly be deprecated.
+
+## Deployment to TypeScript
+
+To migrate the *.d.ts files into TypeScript:
+
+1. Run:
+
+    ```sh
+    npm run migrate -- [previous_types_web_version]
+    ```
+
+    The script will look in for a clone of the TypeScript repo in "../TypeScript", or "./TypeScript" to move the generated files in. Or migrate the files manually, you do you.
+
+1. Update the README table with the mappings for versions in the `@types/[lib]`. E.g. TS 4.5 -> `@types/web` `0.0.23`.
+
+1. Generate a CHANGELOG for the releases:
+
+    ```sh
+    #                       lib        from  to
+    npm run ts-changelog -- @types/web 0.0.2 0.0.23
+    ```
+
+1. Add the CHANGELOG to the release issue

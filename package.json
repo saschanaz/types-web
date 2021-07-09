@@ -20,7 +20,8 @@
     "lint": "eslint --max-warnings 0 src",
     "test": "npm run lint && npm run build && node ./lib/test.js && node ./unittests/index.js",
     "changelog": "tsc && node ./lib/changelog.js",
-    "migrate": "node ./lib/migrate.js",
+    "ts-changelog": "node ./deploy/versionChangelog.mjs",
+    "migrate": "node ./deploy/migrate.mjs",
     "version": "npm i && tsc && node ./lib/version.js"
   },
   "author": {
