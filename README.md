@@ -6,7 +6,7 @@ This tool is used to generate the web-based `lib.dom.d.ts` file which is include
 
 A feature needs to be supported by two or more major browser engines to be included here, to make sure there is a good consensus among vendors: __Gecko__ (Firefox), __Blink__ (Chrome/Edge), and __WebKit__ (Safari).
 
-If the condition is met but still is not available here, first check the heuristics below and then please [file an issue](hthttps://github.com/microsoft/TypeScript-DOM-lib-generator/issues/new).
+If the condition is met but still is not available here, first check the [contribution guidelines](#contribution-guidelines) below and then please [file an issue](hthttps://github.com/microsoft/TypeScript-DOM-lib-generator/issues/new).
 
 ## Build Instructions
 
@@ -46,7 +46,7 @@ In order to make the tests pass, please update the baseline as well in any pull 
 
 It's possible that the automated algorithm decided that it's not well supported by browsers and thus removed it. Say we we want to add a new interface named `Foo`. Check if there is a document about that interface in [MDN](https://developer.mozilla.org/). If there is, see the browser compatibility section and check whether it's supported by two or more browser engines. (Note that Chromium-based browsers use the same browser engine and thus support from them counts as a single support.)
 
-If all the conditions are fulfilled, it could be that the type is incorrectly removed by `inputfiles/removedTypes.jsonc`. Try finding the relevant item there and run `npm run build && npm run baseline-accept`.
+If all the conditions are fulfilled, it could be that the type is incorrectly removed by `inputfiles/removedTypes.jsonc`. Try finding and removing the relevant item there and run `npm run build && npm run baseline-accept`.
 
 If conditions are not fulfilled but you think MDN is wrong, please file an issue at https://github.com/mdn/browser-compat-data/issues/. The type will be automatically added in a few weeks when MDN fixes their data.
 
@@ -54,7 +54,7 @@ If conditions are not fulfilled but you think MDN is wrong, please file an issue
 
 It's possible that the type is too specific or too general. First you need to check whether `inputfiles/overridingTypes.jsonc` or `inputfiles/addedTypes.jsonc` have a relevant item, which can be fixed if exists. If they don't, add one in `overridingTypes.jsonc`. Run `npm run build && npm run baseline-accept` to make sure the resulting changes are what you want.
 
-If you are familiar with Web IDL, you may also want to check whether the upstream IDL itself can be made more specific. Doing so will reduce the need for manual overridings in this repository and thus can be more helpful.
+If you are familiar with Web IDL, you may also want to check whether the upstream IDL itself can be made more specific. Doing so will reduce the need for manual overrides in this repository and thus can be more helpful.
 
 # This repo
 
