@@ -44,7 +44,7 @@ In order to make the tests pass, please update the baseline as well in any pull 
 
 ### When the type is missing
 
-It's possible that the automated algorithm decided that it's not well supported by browsers and thus removed it. Say we we want to add a new interface named `Foo`. Check if there is a document about that interface in [MDN](https://developer.mozilla.org/). If there is, see the browser compatibility section and check whether it's supported by two or more browser engines. (Note that Chromium-based browsers use the same browser engine and thus support from them counts as a single support.)
+It's possible that the automated algorithm decided that it's not well supported by browsers and thus removed it. Say we want to add a new interface named `Foo`. Check if there is a document about that interface in [MDN](https://developer.mozilla.org/). If there is, see the browser compatibility section and check whether it's supported by two or more browser engines. (Note that Chromium-based browsers use the same browser engine and thus support from them counts as a single support.)
 
 If all the conditions are fulfilled, it could be that the type is incorrectly removed by `inputfiles/removedTypes.jsonc`. Try finding and removing the relevant item there and run `npm run build && npm run baseline-accept`.
 
