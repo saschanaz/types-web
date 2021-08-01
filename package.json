@@ -42,7 +42,7 @@
     "@types/jsdom": "^16.2.12",
     "@types/node": "^15.12.5",
     "@types/node-fetch": "^2.5.10",
-    "@types/webidl2": "^23.13.5",
+    "@types/webidl2": "^23.13.6",
     "@typescript-eslint/eslint-plugin": "^4.28.1",
     "@typescript-eslint/parser": "^4.28.1",
     "@webref/css": "2.0.2",
