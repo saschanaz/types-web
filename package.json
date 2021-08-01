@@ -45,7 +45,7 @@
     "@types/webidl2": "^23.13.5",
     "@typescript-eslint/eslint-plugin": "^4.28.1",
     "@typescript-eslint/parser": "^4.28.1",
-    "@webref/css": "2.0.2",
+    "@webref/css": "2.0.5",
     "@webref/elements": "1.0.1",
     "@webref/idl": "2.2.6",
     "cpx2": "^3.0.0",
