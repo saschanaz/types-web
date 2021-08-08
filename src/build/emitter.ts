@@ -832,24 +832,17 @@ export function emitWebIdl(
         : entity.deprecated
         ? "@deprecated"
         : null;
-    if (entity.comment) {
-      if (entity.comment.startsWith("/*")) {
-        const split = entity.comment.split("\n");
+    const comments = entity.comment?.split("\n") ?? [];
+    if (deprecated) {
+      comments.push(deprecated);
+    }
 
-        // Merge in the deprecated notice, if required.
-        if (deprecated) {
-          split.splice(split.length - 1, 0, ` * ${deprecated}`);
-        }
-
-        split.forEach(print);
-      } else if (deprecated) {
-        // Convert into multi-line comment with deprecation notice.
-        print(`/**\n * ${entity.comment}\n * ${deprecated}\n */`);
-      } else {
-        print(`/** ${entity.comment} */`);
-      }
-    } else if (deprecated) {
-      print(`/** ${deprecated} */`);
+    if (comments.length > 1) {
+      print("/**");
+      comments.forEach((l) => print(` * ${l}`.trimEnd()));
+      print(" */");
+    } else if (comments.length == 1) {
+      print(`/** ${comments[0]} */`);
     }
   }
 
@@ -1566,9 +1559,7 @@ export function emitWebIdl(
       const comments = i.iterator?.comments?.comment;
 
       methods.forEach((m) => {
-        if (comments?.[m.name]) {
-          comments[m.name].split("\n").forEach(printer.printLine);
-        }
+        emitComments({ comment: comments?.[m.name] }, printer.printLine);
         printer.printLine(`${m.name}(): ${m.definition};`);
       });
     }

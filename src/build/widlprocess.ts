@@ -130,10 +130,7 @@ function addComments(
   const key =
     container.toLowerCase() + (member ? "-" + member.toLowerCase() : "");
   if (commentMap[key]) {
-    const comments = commentMap[key].split("\n");
-    obj.comment = "/**\n";
-    obj.comment += comments.map((c) => ` * ${c}`.trimEnd() + "\n").join("");
-    obj.comment += " */";
+    obj.comment = commentMap[key];
   }
 }
 
