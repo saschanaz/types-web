@@ -16035,11 +16035,9 @@ interface Window extends EventTarget, AnimationFrameProvider, GlobalEventHandler
     /** @deprecated This is a legacy alias of `scrollY`. */
     readonly pageYOffset: number;
     /**
-     * /**
-     *  * Refers to either the parent WindowProxy, or itself.
-     *  *
-     *  * It can rarely be null e.g. for contentWindow of an iframe that is already removed from the parent.
-     *  */
+     * Refers to either the parent WindowProxy, or itself.
+     *
+     * It can rarely be null e.g. for contentWindow of an iframe that is already removed from the parent.
      */
     readonly parent: WindowProxy;
     /** Returns true if the personal bar is visible; otherwise, returns false. */
@@ -17072,11 +17070,9 @@ declare var pageXOffset: number;
 /** @deprecated This is a legacy alias of `scrollY`. */
 declare var pageYOffset: number;
 /**
- * /**
- *  * Refers to either the parent WindowProxy, or itself.
- *  *
- *  * It can rarely be null e.g. for contentWindow of an iframe that is already removed from the parent.
- *  */
+ * Refers to either the parent WindowProxy, or itself.
+ *
+ * It can rarely be null e.g. for contentWindow of an iframe that is already removed from the parent.
  */
 declare var parent: WindowProxy;
 /** Returns true if the personal bar is visible; otherwise, returns false. */
