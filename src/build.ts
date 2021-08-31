@@ -1,19 +1,13 @@
 import * as Browser from "./build/types.js";
 import { promises as fs } from "fs";
-import { createRequire } from "module";
-import { fileURLToPath } from "url";
 import { merge, resolveExposure, arrayToMap } from "./build/helpers.js";
 import { emitWebIdl } from "./build/emitter.js";
 import { convert } from "./build/widlprocess.js";
 import { getExposedTypes } from "./build/expose.js";
 import { getDeprecationData, getRemovalData } from "./build/bcd.js";
-import { createTryRequire } from "./build/utils/require.js";
 import { getInterfaceElementMergeData } from "./build/webref/elements.js";
 import { getWebidls } from "./build/webref/idl.js";
-import JSON5 from "json5";
-
-const require = createRequire(import.meta.url);
-const tryRequire = createTryRequire(import.meta.url);
+import jsonc from "jsonc-parser";
 
 function mergeNamesakes(filtered: Browser.WebIdl) {
   const targets = [
@@ -93,16 +87,16 @@ async function emitDom() {
     recursive: true,
   });
 
-  const overriddenItems = await readInputJSON("overridingTypes.json");
-  const addedItems = await readInputJSON("addedTypes.json");
+  const overriddenItems = await readInputJSON("overridingTypes.jsonc");
+  const addedItems = await readInputJSON("addedTypes.jsonc");
   const comments = await readInputJSON("comments.json");
   const deprecatedInfo = await readInputJSON("deprecatedMessage.json");
   const documentationFromMDN = await readInputJSON("mdn/apiDescriptions.json");
-  const removedItems = await readInputJSON("removedTypes.json");
+  const removedItems = await readInputJSON("removedTypes.jsonc");
 
   async function readInputJSON(filename: string) {
     const content = await fs.readFile(new URL(filename, inputFolder), "utf8");
-    return JSON5.parse(content);
+    return jsonc.parse(content);
   }
 
   const widlStandardTypes = (
@@ -110,12 +104,12 @@ async function emitDom() {
   ).filter((i) => i) as ReturnType<typeof convert>[];
 
   async function convertWidl([shortName, idl]: string[]) {
-    const commentsMapFilePath = new URL(
-      `idl/${shortName}.commentmap.json`,
-      inputFolder
-    );
-    const commentsMap: Record<string, string> =
-      (await tryRequire(fileURLToPath(commentsMapFilePath))) ?? {};
+    let commentsMap: Record<string, string>;
+    try {
+      commentsMap = await readInputJSON(`idl/${shortName}.commentmap.json`);
+    } catch {
+      commentsMap = {};
+    }
     commentCleanup(commentsMap);
     const result = convert(idl, commentsMap);
     return result;
@@ -159,9 +153,7 @@ async function emitDom() {
     for (const [key, value] of Object.entries(descriptions)) {
       const target = idl.interfaces!.interface[key] || namespaces[key];
       if (target) {
-        const comment = target.comment ?? "";
-        const deprecated = "\n * @deprecated " + transformVerbosity(key, value);
-        target.comment = comment + deprecated;
+        target.deprecated = transformVerbosity(key, value);
       }
     }
     return idl;
@@ -251,9 +243,7 @@ async function emitDom() {
     }
   }
 
-  const knownTypes = require(fileURLToPath(
-    new URL("knownTypes.json", inputFolder)
-  ));
+  const knownTypes = await readInputJSON("knownTypes.json");
 
   emitFlavor(webidl, new Set(knownTypes.Window), {
     name: "dom",

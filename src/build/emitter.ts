@@ -8,6 +8,7 @@ import {
   arrayToMap,
   integerTypes,
   baseTypeConversionMap,
+  assertUnique,
 } from "./helpers.js";
 import { collectLegacyNamespaceTypes } from "./legacy-namespace.js";
 
@@ -160,7 +161,7 @@ export function emitWebIdl(
   const allEnumsMap = webidl.enums ? webidl.enums.enum : {};
   const allCallbackFunctionsMap =
     webidl.callbackFunctions?.callbackFunction ?? {};
-  const allTypeDefsMap = new Set(webidl.typedefs?.typedef.map((td) => td.name));
+  const allTypedefsMap = toNameMap(webidl.typedefs?.typedef ?? []);
 
   /// Tag name to element name map
   const tagNameToEleName = getTagNameToElementNameMap();
@@ -415,7 +416,7 @@ export function emitWebIdl(
     )
       return objDomType;
     // Name of a type alias. Just return itself
-    if (allTypeDefsMap.has(objDomType)) return objDomType;
+    if (allTypedefsMap[objDomType]) return objDomType;
 
     throw new Error("Unknown DOM type: " + objDomType);
   }
@@ -648,11 +649,22 @@ export function emitWebIdl(
   }
 
   function resolvePromise<T extends Browser.Typed>(t: T): T {
-    if (t.type !== "Promise") {
+    const typedef =
+      typeof t.type === "string" ? allTypedefsMap[t.type] : undefined;
+    const typeOwner = typedef ?? t;
+    if (typeOwner.type !== "Promise") {
+      if (t.subtype) {
+        return {
+          ...t,
+          subtype: Array.isArray(t.subtype)
+            ? t.subtype.map(resolvePromise)
+            : resolvePromise(t.subtype),
+        };
+      }
       return t;
     }
-    const type = [t.subtype!].flat();
-    type.push({ ...t, type: "PromiseLike" });
+    const type = [typeOwner.subtype!].flat();
+    type.push({ ...typeOwner, type: "PromiseLike" });
     return { ...t, subtype: undefined, type };
   }
 
@@ -791,7 +803,7 @@ export function emitWebIdl(
       } else {
         pType = convertDomTypeToTsType(p);
       }
-      if (p.optional && prefix) {
+      if (p.optional) {
         pType += " | undefined";
       }
       const optionalModifier = !p.optional || prefix ? "" : "?";
@@ -823,18 +835,26 @@ export function emitWebIdl(
   }
 
   function emitComments(
-    entity: { comment?: string; deprecated?: boolean },
+    entity: { comment?: string; deprecated?: boolean | string },
     print: (s: string) => void
   ) {
-    if (entity.comment) {
-      if (entity.comment.startsWith("/*")) {
-        entity.comment.split("\n").forEach(print);
-      } else {
-        print(`/** ${entity.comment} */`);
-      }
+    const deprecated =
+      typeof entity.deprecated === "string"
+        ? `@deprecated ${entity.deprecated}`
+        : entity.deprecated
+        ? "@deprecated"
+        : null;
+    const comments = entity.comment?.split("\n") ?? [];
+    if (deprecated) {
+      comments.push(deprecated);
     }
-    if (entity.deprecated && !entity.comment?.includes("@deprecated")) {
-      print(`/** @deprecated */`);
+
+    if (comments.length > 1) {
+      print("/**");
+      comments.forEach((l) => print(` * ${l}`.trimEnd()));
+      print(" */");
+    } else if (comments.length == 1) {
+      print(`/** ${comments[0]} */`);
     }
   }
 
@@ -1179,7 +1199,7 @@ export function emitWebIdl(
       .map(processIName);
 
     if (finalExtends.length) {
-      printer.print(` extends ${finalExtends.join(", ")}`);
+      printer.print(` extends ${assertUnique(finalExtends).join(", ")}`);
     }
     printer.print(" {");
     printer.endLine();
@@ -1295,7 +1315,7 @@ export function emitWebIdl(
       printer.print(`interface ${i.name}EventMap`);
       if (ehParentCount) {
         const extend = iNameToEhParents[i.name].map((i) => i.name + "EventMap");
-        printer.print(` extends ${extend.join(", ")}`);
+        printer.print(` extends ${assertUnique(extend).join(", ")}`);
       }
       printer.print(" {");
       printer.endLine();
@@ -1551,9 +1571,7 @@ export function emitWebIdl(
       const comments = i.iterator?.comments?.comment;
 
       methods.forEach((m) => {
-        if (comments?.[m.name]) {
-          comments[m.name].split("\n").forEach(printer.printLine);
-        }
+        emitComments({ comment: comments?.[m.name] }, printer.printLine);
         printer.printLine(`${m.name}(): ${m.definition};`);
       });
     }

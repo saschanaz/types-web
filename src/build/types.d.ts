@@ -190,7 +190,7 @@ export interface Interface {
     dictionaries: Dictionary[];
     typedefs: TypeDef[];
   };
-  deprecated?: boolean;
+  deprecated?: boolean | string;
 }
 
 export interface Iterator {

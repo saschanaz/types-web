@@ -10,7 +10,5 @@ updates:
     # Check the npm registry for updates every month
     schedule:
       interval: "monthly"
-    # Bump versions in package.json
-    # https://github.com/dependabot/dependabot-core/issues/3103
-    # https://docs.github.com/en/github/administering-a-repository/configuration-options-for-dependency-updates#versioning-strategy
-    versioning-strategy: "increase"
+    # Bump versions only in package-lock.json
+    versioning-strategy: "lockfile-only"

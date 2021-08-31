@@ -29,6 +29,26 @@
                     ]
                 }
             },
+            "DocumentOrShadowRoot": {
+                // Manually moved from Document
+                // See https://github.com/w3c/csswg-drafts/issues/5886 and https://github.com/w3c/csswg-drafts/issues/556
+                "methods": {
+                    "method": {
+                        "elementFromPoint": {
+                            "name": "elementFromPoint",
+                            "overrideSignatures": [
+                                "elementFromPoint(x: number, y: number): Element | null"
+                            ]
+                        },
+                        "elementsFromPoint": {
+                            "name": "elementsFromPoint",
+                            "overrideSignatures": [
+                                "elementsFromPoint(x: number, y: number): Element[]"
+                            ]
+                        }
+                    }
+                }
+            },
             "GlobalEventHandlers": {
                 "events": {
                     "event": [
@@ -169,6 +189,10 @@
                             "type": "SecurityPolicyViolationEvent"
                         },
                         {
+                            "name": "submit",
+                            "type": "SubmitEvent"
+                        },
+                        {
                             "name": "dblclick",
                             "type": "MouseEvent"
                         },
@@ -179,12 +203,33 @@
                     ]
                 }
             },
+            "WebGLRenderingContextBase": {
+                "properties": {
+                    "property": {
+                        "canvas": {
+                            "exposed": "Window"
+                        }
+                    }
+                }
+            },
             "WindowEventHandlers": {
                 "events": {
                     "event": [
                         {
                             "name": "beforeunload",
                             "type": "BeforeUnloadEvent"
+                        },
+                        {
+                            "name": "gamepadconnected",
+                            "type": "GamepadEvent"
+                        },
+                        {
+                            "name": "gamepaddisconnected",
+                            "type": "GamepadEvent"
+                        },
+                        {
+                            "name": "hashchange",
+                            "type": "HashChangeEvent"
                         },
                         {
                             "name": "message",
@@ -228,14 +273,8 @@
     },
     "enums": {
         "enum": {
-            "ClientTypes": {
-                "name": "ClientTypes",
-                "value": [
-                    "window",
-                    "worker",
-                    "sharedworker",
-                    "all"
-                ]
+            "ClientType": {
+                "name": "ClientTypes"
             },
             "RTCStatsIceCandidatePairState": {
                 "value": [
@@ -286,33 +325,32 @@
                 "name": "HTMLTableDataCellElement",
                 "extends": "HTMLTableCellElement",
                 "noInterfaceObject": true,
-                "comment": "@deprecated - prefer HTMLTableCellElement",
+                "deprecated": "prefer HTMLTableCellElement",
                 "exposed": "Window"
             },
             "HTMLTableHeaderCellElement": {
                 "name": "HTMLTableHeaderCellElement",
                 "extends": "HTMLTableCellElement",
                 "noInterfaceObject": true,
-                "comment": "@deprecated - prefer HTMLTableCellElement",
+                "deprecated": "prefer HTMLTableCellElement",
                 "exposed": "Window"
             },
             "HTMLDialogElement": {
                 "name": "HTMLDialogElement",
                 "noInterfaceObject": true,
-                "comment": "@deprecated - this is not available in most browsers",
+                "deprecated": "this is not available in most browsers",
                 "exposed": "Window"
             },
             "OffscreenCanvas": {
                 "name": "OffscreenCanvas",
                 "noInterfaceObject": true,
-                "comment": "@deprecated - this is not available in most browsers",
+                "deprecated": "this is not available in most browsers",
                 "exposed": "Worker"
             },
             "HTMLDocument": {
                 "name": "HTMLDocument",
                 "extends": "Document",
-                "noInterfaceObject": true,
-                "comment": "@deprecated - use Document",
+                "deprecated": "use Document",
                 "exposed": "Window"
             },
             "HTMLMediaElement": {
@@ -344,14 +382,6 @@
                     "method": {
                         "captureEvents": {
                             "deprecated": true
-                        }
-                    }
-                },
-                "properties": {
-                    "property": {
-                        "HTMLDocument": {
-                            "name": "HTMLDocument",
-                            "type": "Document"
                         }
                     }
                 },
@@ -389,19 +419,6 @@
                                     "name": "init",
                                     "additionalTypes": ["URLSearchParams"]
                                 }
-                            ]
-                        }
-                    }
-                }
-            },
-            "URL": {
-                "name": "URL",
-                "methods": {
-                    "method": {
-                        "createObjectURL": {
-                            "exposed": "Window Worker",
-                            "overrideSignatures": [
-                                "createObjectURL(object: any): string"
                             ]
                         }
                     }
@@ -584,8 +601,7 @@
                             ]
                         }
                     }
-                },
-
+                }
             },
             "EventListenerObject": {
                 "name": "EventListenerObject",
@@ -598,7 +614,7 @@
                             ]
                         }
                     }
-                },
+                }
             },
             "Document": {
                 "methods": {
@@ -610,6 +626,13 @@
                                 "createElementNS<K extends keyof SVGElementTagNameMap>(namespaceURI: \"http://www.w3.org/2000/svg\", qualifiedName: K): SVGElementTagNameMap[K]",
                                 "createElementNS(namespaceURI: \"http://www.w3.org/2000/svg\", qualifiedName: string): SVGElement",
                                 "createElementNS(namespaceURI: string | null, qualifiedName: string, options?: ElementCreationOptions): Element"
+                            ]
+                        },
+                        "caretRangeFromPoint": {
+                            "name": "caretRangeFromPoint",
+                            "deprecated": true,
+                            "overrideSignatures": [
+                                "caretRangeFromPoint(x: number, y: number): Range | null"
                             ]
                         }
                     }
@@ -654,11 +677,6 @@
                 "name": "Navigator",
                 "properties": {
                     "property": {
-                        "pointerEnabled": {
-                            "name": "pointerEnabled",
-                            "readonly": true,
-                            "type": "boolean"
-                        },
                         "doNotTrack": {
                             "name": "doNotTrack",
                             "readonly": true,
@@ -710,24 +728,6 @@
                     }
                 }
             },
-            "SpeechRecognition": {
-                "events": {
-                    "event": [
-                        {
-                            "name": "result",
-                            "type": "SpeechRecognitionEvent"
-                        },
-                        {
-                            "name": "nomatch",
-                            "type": "SpeechRecognitionEvent"
-                        },
-                        {
-                            "name": "error",
-                            "type": "SpeechRecognitionErrorEvent"
-                        }
-                    ]
-                }
-            },
             "SpeechSynthesisUtterance": {
                 "events": {
                     "event": [
@@ -760,24 +760,6 @@
                             "type": "SpeechSynthesisEvent"
                         }
                     ]
-                }
-            },
-            "SVGElement": {
-                "implements": [
-                    "GlobalEventHandlers",
-                    "DocumentAndElementEventHandlers"
-                ]
-            },
-            "Text": {
-                "name": "Text",
-                "properties": {
-                    "property": {
-                        "assignedSlot": {
-                            "name": "assignedSlot",
-                            "readonly": true,
-                            "overrideType": "HTMLSlotElement | null"
-                        }
-                    }
                 }
             },
             "TextTrackList": {
@@ -821,11 +803,6 @@
                         }
                     }
                 }
-            },
-            "HTMLElement": {
-                "implements": [
-                    "ElementCSSInlineStyle"
-                ]
             },
             "HTMLInputElement": {
                 "properties": {

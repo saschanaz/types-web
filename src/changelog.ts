@@ -2,7 +2,7 @@ import { execSync } from "child_process";
 import ts from "typescript";
 import { fileURLToPath } from "url";
 
-function gitShowFile(commit: string, path: string) {
+export function gitShowFile(commit: string, path: string): string {
   return execSync(`git show ${commit}:${path}`, { encoding: "utf-8" });
 }
 
@@ -137,10 +137,21 @@ function writeAddedRemovedInline(added: Set<string>, removed: Set<string>) {
 
 const dom = "baselines/dom.generated.d.ts";
 
-export function generate(): string {
+export function generateDefaultFromRecentTag(): string {
   const [base = gitLatestTag(), head = "HEAD"] = process.argv.slice(2);
   const previous = gitShowFile(base, dom);
   const current = gitShowFile(head, dom);
+  const changelog = generateChangelogFrom(previous, current);
+  if (!changelog.length) {
+    throw new Error(`No change reported between ${base} and ${head}.`);
+  }
+  return changelog;
+}
+
+export function generateChangelogFrom(
+  previous: string,
+  current: string
+): string {
   const {
     interfaces: { added, removed, modified },
     others,
@@ -150,6 +161,7 @@ export function generate(): string {
   if (added.size || removed.size) {
     outputs.push(writeAddedRemoved(added, removed));
   }
+
   if (modified.size) {
     const modifiedOutput = [`## Modified\n`];
     for (const [key, value] of modified.entries()) {
@@ -169,14 +181,9 @@ export function generate(): string {
   }
 
   const output = outputs.join("\n\n");
-
-  if (!output.length) {
-    throw new Error(`No change reported between ${base} and ${head}.`);
-  }
-
   return output;
 }
 
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
-  console.log(generate());
+  console.log(generateDefaultFromRecentTag());
 }

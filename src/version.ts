@@ -1,8 +1,8 @@
 import { execSync } from "child_process";
 import { readFile, writeFile } from "fs/promises";
-import { generate } from "./changelog.js";
+import { generateDefaultFromRecentTag } from "./changelog.js";
 
-const output = generate();
+const output = generateDefaultFromRecentTag();
 
 const path = new URL("../CHANGELOG.md", import.meta.url);
 

@@ -130,10 +130,7 @@ function addComments(
   const key =
     container.toLowerCase() + (member ? "-" + member.toLowerCase() : "");
   if (commentMap[key]) {
-    const comments = commentMap[key].split("\n");
-    obj.comment = "/**\n";
-    obj.comment += comments.map((c) => ` * ${c}`.trimEnd() + "\n").join("");
-    obj.comment += " */";
+    obj.comment = commentMap[key];
   }
 }
 
@@ -175,9 +172,6 @@ function convertInterfaceCommon(
         member.name
       );
     } else if (member.type === "attribute") {
-      if ((member.special as string) === "inherit") {
-        continue; // no need to redeclare
-      }
       const { properties } = result;
       const prop = convertAttribute(member, result.exposed);
       addComments(prop, commentMap, i.name, member.name);
