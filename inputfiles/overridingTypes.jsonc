@@ -2801,6 +2801,17 @@
                         }
                     }
                 }
+            },
+
+            // https://github.com/w3c/media-source/pull/282, but not supported anywhere yet
+            "MediaSource": {
+                "exposed": "Window"
+            },
+            "SourceBuffer": {
+                "exposed": "Window"
+            },
+            "SourceBufferList": {
+                "exposed": "Window"
             }
         }
     },

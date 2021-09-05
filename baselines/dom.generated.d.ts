@@ -9950,41 +9950,6 @@ declare var Path2D: {
     new(path?: Path2D | string): Path2D;
 };
 
-/**
- * This Payment Request API interface is used to store shipping or payment address information.
- * @deprecated
- */
-interface PaymentAddress {
-    /** @deprecated */
-    readonly addressLine: ReadonlyArray<string>;
-    /** @deprecated */
-    readonly city: string;
-    /** @deprecated */
-    readonly country: string;
-    /** @deprecated */
-    readonly dependentLocality: string;
-    /** @deprecated */
-    readonly organization: string;
-    /** @deprecated */
-    readonly phone: string;
-    /** @deprecated */
-    readonly postalCode: string;
-    /** @deprecated */
-    readonly recipient: string;
-    /** @deprecated */
-    readonly region: string;
-    /** @deprecated */
-    readonly sortingCode: string;
-    /** @deprecated */
-    toJSON(): any;
-}
-
-/** @deprecated */
-declare var PaymentAddress: {
-    prototype: PaymentAddress;
-    new(): PaymentAddress;
-};
-
 interface PaymentMethodChangeEvent extends PaymentRequestUpdateEvent {
     readonly methodDetails: any;
     readonly methodName: string;
@@ -17609,7 +17574,7 @@ type OscillatorType = "custom" | "sawtooth" | "sine" | "square" | "triangle";
 type OverSampleType = "2x" | "4x" | "none";
 type PanningModelType = "HRTF" | "equalpower";
 type PaymentComplete = "fail" | "success" | "unknown";
-type PermissionName = "geolocation" | "notifications" | "persistent-storage" | "push" | "screen-wake-lock";
+type PermissionName = "geolocation" | "notifications" | "persistent-storage" | "push" | "screen-wake-lock" | "xr-spatial-tracking";
 type PermissionState = "denied" | "granted" | "prompt";
 type PlaybackDirection = "alternate" | "alternate-reverse" | "normal" | "reverse";
 type PositionAlignSetting = "auto" | "center" | "line-left" | "line-right";
