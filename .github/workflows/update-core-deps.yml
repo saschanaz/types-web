@@ -12,6 +12,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+        with:
+          repository: microsoft/TypeScript-DOM-lib-generator
       - uses: actions/setup-node@v1
         with:
           node-version: "15"
@@ -26,20 +28,11 @@ jobs:
       - id: git-diff
         run: git diff --quiet HEAD baselines
         continue-on-error: true
-      # TODO: Remove the following command after the fork is created
-      - env:
-          TS_TOKEN: ${{ secrets.TS_GITHUB_BOT_AUTH }}
-        run: |
-          echo $TS_TOKEN > ts_token
-          gh auth login --with-token < ts_token
-          gh repo fork --remote false
-          rm ts_token
-        continue-on-error: true
       - uses: peter-evans/create-pull-request@v3
         if: ${{ steps.git-diff.outcome == 'failure' }}
         with:
           commit-message: "🤖 Update core dependencies"
           title: "Update core dependencies"
-          push-to-fork: typescript-bot/TypeScript-DOM-lib-generator
+          push-to-fork: saschanaz/types-web
           branch: update-core-deps
-          token: ${{ secrets.TS_GITHUB_BOT_AUTH }}
+          token: ${{ secrets.PAT }}
