@@ -2584,7 +2584,6 @@
                 }
             },
             "ByteLengthQueuingStrategy": {
-                "extends": "QueuingStrategy<ArrayBufferView>",
                 "properties": {
                     "property": {
                         "size": {
@@ -2597,7 +2596,6 @@
                 }
             },
             "CountQueuingStrategy": {
-                "extends": "QueuingStrategy",
                 "properties": {
                     "property": {
                         "size": {
