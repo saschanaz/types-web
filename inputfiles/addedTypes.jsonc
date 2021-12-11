@@ -335,7 +335,7 @@
                 "extends": "Error",
                 "legacyNamespace": "WebAssembly",
                 "constructor": {
-                    "overrideSignatures": [
+                    "inheritedSignatures": [
                         "new(message?: string): CompileError",
                         "(message?: string): CompileError"
                     ]
@@ -862,7 +862,7 @@
                 "extends": "Error",
                 "legacyNamespace": "WebAssembly",
                 "constructor": {
-                    "overrideSignatures": [
+                    "inheritedSignatures": [
                         "new(message?: string): RuntimeError",
                         "(message?: string): RuntimeError"
                     ]
@@ -883,7 +883,7 @@
                 "extends": "Error",
                 "legacyNamespace": "WebAssembly",
                 "constructor": {
-                    "overrideSignatures": [
+                    "inheritedSignatures": [
                         "new(message?: string): LinkError",
                         "(message?: string): LinkError"
                     ]
