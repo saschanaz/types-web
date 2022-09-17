@@ -53,11 +53,6 @@
                     }
                 }
             },
-            "Navigator": {
-                "implements": [
-                    "NavigatorNetworkInformation"
-                ]
-            },
             "Response": {
                 "methods": {
                     "method": {
@@ -123,11 +118,6 @@
             },
             "WebGLVertexArrayObjectOES": {
                 "extends": null
-            },
-            "WorkerNavigator": {
-                "implements": [
-                    "NavigatorNetworkInformation"
-                ]
             }
         }
     },
@@ -546,6 +536,18 @@
                 "members": {
                     "member": {
                         "xrCompatible": null
+                    }
+                }
+            }
+        }
+    },
+    "mixins": {
+        "mixin":{
+            "NavigatorNetworkInformation": {
+                "properties": {
+                    "property": {
+                        // https://github.com/mdn/browser-compat-data/pull/17824
+                        "connection": null
                     }
                 }
             }
