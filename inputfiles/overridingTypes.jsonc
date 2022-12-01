@@ -2972,6 +2972,7 @@
             },
             "MIDIInputMap": {
                 "iterator": {
+                    // https://github.com/mdn/browser-compat-data/pull/18352
                     "exposed": "Window"
                 }
             },
