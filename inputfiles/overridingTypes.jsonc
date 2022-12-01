@@ -1909,6 +1909,14 @@
                     ]
                 }
             },
+            "FileSystemDirectoryHandle": {
+                "iterator": {
+                    // It's true that Blink is the only supported engine for Symbol.asyncIterator,
+                    // WebKit does support the keys/values/entries method and Gecko will soon follow.
+                    // Let's not go back and forth for this one.
+                    "exposed": "Window Worker"
+                }
+            },
             "MutationRecord": {
                 "properties": {
                     "property": {
