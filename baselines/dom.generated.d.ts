@@ -9346,6 +9346,7 @@ declare var MIDIInput: {
 
 /** Available only in secure contexts. */
 interface MIDIInputMap {
+    forEach(callbackfn: (value: MIDIInput, key: string, parent: MIDIInputMap) => void, thisArg?: any): void;
 }
 
 declare var MIDIInputMap: {

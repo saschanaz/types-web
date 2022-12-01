@@ -2970,6 +2970,11 @@
                     }
                 }
             },
+            "MIDIInputMap": {
+                "iterator": {
+                    "exposed": "Window"
+                }
+            },
             "Clients": {
                 "methods": {
                     "method": {
