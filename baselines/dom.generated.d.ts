@@ -178,6 +178,11 @@ interface ChannelSplitterOptions extends AudioNodeOptions {
     numberOfOutputs?: number;
 }
 
+interface CheckVisibilityOptions {
+    checkOpacity?: boolean;
+    checkVisibilityCSS?: boolean;
+}
+
 interface ClientQueryOptions {
     includeUncontrolled?: boolean;
     type?: ClientTypes;
@@ -5044,6 +5049,7 @@ interface Element extends Node, ARIAMixin, Animatable, ChildNode, InnerHTML, Non
     readonly tagName: string;
     /** Creates a shadow root for element and returns it. */
     attachShadow(init: ShadowRootInit): ShadowRoot;
+    checkVisibility(options?: CheckVisibilityOptions): boolean;
     /** Returns the first (starting at element) inclusive ancestor that matches selectors, and null otherwise. */
     closest<K extends keyof HTMLElementTagNameMap>(selector: K): HTMLElementTagNameMap[K] | null;
     closest<K extends keyof SVGElementTagNameMap>(selector: K): SVGElementTagNameMap[K] | null;
@@ -9340,7 +9346,6 @@ declare var MIDIInput: {
 
 /** Available only in secure contexts. */
 interface MIDIInputMap {
-    forEach(callbackfn: (value: MIDIInput, key: string, parent: MIDIInputMap) => void, thisArg?: any): void;
 }
 
 declare var MIDIInputMap: {
