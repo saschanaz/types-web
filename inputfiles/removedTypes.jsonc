@@ -538,6 +538,7 @@
                         "powerEfficientEncoder": null, // No implementation as of 2022-10
                         "qualityLimitationReason": null, // Blink only as of 2022-09
                         "qualityLimitationDurations": null, // Blink only as of 2022-09
+                        "scalabilityMode": null, // No implementation as of 2022-12
                         "encoderImplementation": null // Blink only as of 2022-09
                     }
                 }
