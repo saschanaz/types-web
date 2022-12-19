@@ -462,12 +462,12 @@ export function emitWebIdl(
 
   function emitConstant(c: Browser.Constant) {
     emitComments(c, printer.printLine);
-    printer.printLine(`readonly ${c.name}: ${convertDomTypeToTsType(c)};`);
+    printer.printLine(`readonly ${c.name}: ${c.value};`);
   }
 
   function emitConstants(i: Browser.Interface) {
     if (i.constants) {
-      mapToArray(i.constants.constant).sort(compareName).forEach(emitConstant);
+      mapToArray(i.constants.constant).forEach(emitConstant);
     }
   }
 
