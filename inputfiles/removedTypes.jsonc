@@ -519,6 +519,7 @@
                         // https://searchfox.org/wubkat/source/Source/WebCore/Modules/mediastream/RTCStatsReport.idl
                         // https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/stats/rtcstats_objects.cc
                         "framesAssembledFromMultiplePackets": null, // Blink only as of 2022-10
+                        "framesRendered": null, // No implementation as of 2022-12
                         "freezeCount": null, // Blink only as of 2022-10
                         "jitterBufferMinimumDelay": null, // Blink only as of 2022-10
                         "jitterBufferTargetDelay": null, // Blink only as of 2022-10
