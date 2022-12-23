@@ -1352,6 +1352,7 @@ interface RTCInboundRtpStreamStats extends RTCReceivedRtpStreamStats {
     framesDropped?: number;
     framesPerSecond?: number;
     framesReceived?: number;
+    framesRendered?: number;
     headerBytesReceived?: number;
     insertedSamplesForDeceleration?: number;
     jitterBufferDelay?: number;
