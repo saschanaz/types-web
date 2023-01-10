@@ -2700,6 +2700,15 @@ declare var CSSFontFaceRule: {
     new(): CSSFontFaceRule;
 };
 
+interface CSSFontFeatureValuesRule extends CSSRule {
+    fontFamily: string;
+}
+
+declare var CSSFontFeatureValuesRule: {
+    prototype: CSSFontFeatureValuesRule;
+    new(): CSSFontFeatureValuesRule;
+};
+
 interface CSSFontPaletteValuesRule extends CSSRule {
     readonly basePalette: string;
     readonly fontFamily: string;
@@ -4439,7 +4448,7 @@ declare var DeviceOrientationEvent: {
     new(type: string, eventInitDict?: DeviceOrientationEventInit): DeviceOrientationEvent;
 };
 
-interface DocumentEventMap extends DocumentAndElementEventHandlersEventMap, GlobalEventHandlersEventMap {
+interface DocumentEventMap extends GlobalEventHandlersEventMap {
     "DOMContentLoaded": Event;
     "fullscreenchange": Event;
     "fullscreenerror": Event;
@@ -4450,7 +4459,7 @@ interface DocumentEventMap extends DocumentAndElementEventHandlersEventMap, Glob
 }
 
 /** Any web page loaded in the browser and serves as an entry point into the web page's content, which is the DOM tree. */
-interface Document extends Node, DocumentAndElementEventHandlers, DocumentOrShadowRoot, FontFaceSource, GlobalEventHandlers, NonElementParentNode, ParentNode, XPathEvaluatorBase {
+interface Document extends Node, DocumentOrShadowRoot, FontFaceSource, GlobalEventHandlers, NonElementParentNode, ParentNode, XPathEvaluatorBase {
     /** Sets or gets the URL for the current document. */
     readonly URL: string;
     /**
@@ -4855,22 +4864,6 @@ declare var Document: {
     prototype: Document;
     new(): Document;
 };
-
-interface DocumentAndElementEventHandlersEventMap {
-    "copy": ClipboardEvent;
-    "cut": ClipboardEvent;
-    "paste": ClipboardEvent;
-}
-
-interface DocumentAndElementEventHandlers {
-    oncopy: ((this: DocumentAndElementEventHandlers, ev: ClipboardEvent) => any) | null;
-    oncut: ((this: DocumentAndElementEventHandlers, ev: ClipboardEvent) => any) | null;
-    onpaste: ((this: DocumentAndElementEventHandlers, ev: ClipboardEvent) => any) | null;
-    addEventListener<K extends keyof DocumentAndElementEventHandlersEventMap>(type: K, listener: (this: DocumentAndElementEventHandlers, ev: DocumentAndElementEventHandlersEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
-    removeEventListener<K extends keyof DocumentAndElementEventHandlersEventMap>(type: K, listener: (this: DocumentAndElementEventHandlers, ev: DocumentAndElementEventHandlersEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
-}
 
 /** A minimal document object that has no parent. It is used as a lightweight version of Document that stores a segment of a document structure comprised of nodes just like a standard document. The key difference is that because the document fragment isn't part of the active document tree structure, changes made to the fragment don't affect the document, cause reflow, or incur any performance impact that can occur when changes are made. */
 interface DocumentFragment extends Node, NonElementParentNode, ParentNode {
@@ -5753,7 +5746,9 @@ interface GlobalEventHandlersEventMap {
     "compositionstart": CompositionEvent;
     "compositionupdate": CompositionEvent;
     "contextmenu": MouseEvent;
+    "copy": Event;
     "cuechange": Event;
+    "cut": Event;
     "dblclick": MouseEvent;
     "drag": DragEvent;
     "dragend": DragEvent;
@@ -5788,6 +5783,7 @@ interface GlobalEventHandlersEventMap {
     "mouseout": MouseEvent;
     "mouseover": MouseEvent;
     "mouseup": MouseEvent;
+    "paste": Event;
     "pause": Event;
     "play": Event;
     "playing": Event;
@@ -5873,7 +5869,9 @@ interface GlobalEventHandlers {
      * @param ev The mouse event.
      */
     oncontextmenu: ((this: GlobalEventHandlers, ev: MouseEvent) => any) | null;
+    oncopy: ((this: GlobalEventHandlers, ev: Event) => any) | null;
     oncuechange: ((this: GlobalEventHandlers, ev: Event) => any) | null;
+    oncut: ((this: GlobalEventHandlers, ev: Event) => any) | null;
     /**
      * Fires when the user double-clicks the object.
      * @param ev The mouse event.
@@ -6003,6 +6001,7 @@ interface GlobalEventHandlers {
      * @param ev The mouse event.
      */
     onmouseup: ((this: GlobalEventHandlers, ev: MouseEvent) => any) | null;
+    onpaste: ((this: GlobalEventHandlers, ev: Event) => any) | null;
     /**
      * Occurs when playback is paused.
      * @param ev The event.
@@ -6529,11 +6528,11 @@ declare var HTMLDocument: {
     new(): HTMLDocument;
 };
 
-interface HTMLElementEventMap extends ElementEventMap, DocumentAndElementEventHandlersEventMap, GlobalEventHandlersEventMap {
+interface HTMLElementEventMap extends ElementEventMap, GlobalEventHandlersEventMap {
 }
 
 /** Any HTML element. Some elements directly implement this interface, while others implement it via an interface that inherits it. */
-interface HTMLElement extends Element, DocumentAndElementEventHandlers, ElementCSSInlineStyle, ElementContentEditable, GlobalEventHandlers, HTMLOrSVGElement {
+interface HTMLElement extends Element, ElementCSSInlineStyle, ElementContentEditable, GlobalEventHandlers, HTMLOrSVGElement {
     accessKey: string;
     readonly accessKeyLabel: string;
     autocapitalize: string;
@@ -9433,10 +9432,10 @@ declare var MIDIPort: {
     new(): MIDIPort;
 };
 
-interface MathMLElementEventMap extends ElementEventMap, DocumentAndElementEventHandlersEventMap, GlobalEventHandlersEventMap {
+interface MathMLElementEventMap extends ElementEventMap, GlobalEventHandlersEventMap {
 }
 
-interface MathMLElement extends Element, DocumentAndElementEventHandlers, ElementCSSInlineStyle, GlobalEventHandlers, HTMLOrSVGElement {
+interface MathMLElement extends Element, ElementCSSInlineStyle, GlobalEventHandlers, HTMLOrSVGElement {
     addEventListener<K extends keyof MathMLElementEventMap>(type: K, listener: (this: MathMLElement, ev: MathMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
     removeEventListener<K extends keyof MathMLElementEventMap>(type: K, listener: (this: MathMLElement, ev: MathMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
@@ -12268,11 +12267,11 @@ declare var SVGDescElement: {
     new(): SVGDescElement;
 };
 
-interface SVGElementEventMap extends ElementEventMap, DocumentAndElementEventHandlersEventMap, GlobalEventHandlersEventMap {
+interface SVGElementEventMap extends ElementEventMap, GlobalEventHandlersEventMap {
 }
 
 /** All of the SVG DOM interfaces that correspond directly to elements in the SVG language derive from the SVGElement interface. */
-interface SVGElement extends Element, DocumentAndElementEventHandlers, ElementCSSInlineStyle, GlobalEventHandlers, HTMLOrSVGElement {
+interface SVGElement extends Element, ElementCSSInlineStyle, GlobalEventHandlers, HTMLOrSVGElement {
     /** @deprecated */
     readonly className: any;
     readonly ownerSVGElement: SVGSVGElement | null;
@@ -18200,7 +18199,9 @@ declare var onclose: ((this: Window, ev: Event) => any) | null;
  * @param ev The mouse event.
  */
 declare var oncontextmenu: ((this: Window, ev: MouseEvent) => any) | null;
+declare var oncopy: ((this: Window, ev: Event) => any) | null;
 declare var oncuechange: ((this: Window, ev: Event) => any) | null;
+declare var oncut: ((this: Window, ev: Event) => any) | null;
 /**
  * Fires when the user double-clicks the object.
  * @param ev The mouse event.
@@ -18330,6 +18331,7 @@ declare var onmouseover: ((this: Window, ev: MouseEvent) => any) | null;
  * @param ev The mouse event.
  */
 declare var onmouseup: ((this: Window, ev: MouseEvent) => any) | null;
+declare var onpaste: ((this: Window, ev: Event) => any) | null;
 /**
  * Occurs when playback is paused.
  * @param ev The event.
