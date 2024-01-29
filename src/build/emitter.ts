@@ -765,8 +765,8 @@ export function emitWebIdl(
   function isCovariantEventHandler(i: Browser.Interface, p: Browser.Property) {
     return (
       isEventHandler(p) &&
-      iNameToEhParents[i.name].some(
-        (parent) => parent.properties?.property.hasOwnProperty(p.name),
+      iNameToEhParents[i.name].some((parent) =>
+        parent.properties?.property.hasOwnProperty(p.name),
       )
     );
   }
