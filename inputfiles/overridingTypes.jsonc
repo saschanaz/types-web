@@ -3040,6 +3040,10 @@
                     ]
                 }
             },
+            "InstallEvent": {
+                // https://github.com/mdn/browser-compat-data/issues/22591
+                "exposed": ""
+            },
             "Instance": {
                 "constructor": {
                     "signature": {
@@ -3352,6 +3356,25 @@
                 "overrideIndexSignatures": [
                     "[property: string]: string | number | null | undefined"
                 ]
+            },
+            // https://github.com/w3c/mediasession/issues/322
+            "MediaSessionActionDetails": {
+                "members": {
+                    "member": {
+                        "fastSeek": {
+                            "name": "fastSeek",
+                            "type": "boolean"
+                        },
+                        "seekOffset": {
+                            "name": "seekOffset",
+                            "type": "double"
+                        },
+                        "seekTime": {
+                            "name": "seekTime",
+                            "type": "double"
+                        }
+                    }
+                }
             },
             "PermissionDescriptor": {
                 "members": {
