@@ -19,9 +19,6 @@
             "ConnectionType": {
                 "value": ["wimax"]
             },
-            "GamepadHapticActuatorType": {
-                "value": ["dual-rumble"] // Blink only as of 2022-12
-            },
             "MediaSessionAction": {
                 "value": [
                     "enterpictureinpicture", // Blink only as of 2023-10
@@ -133,13 +130,6 @@
                                 }
                             }
                         }
-                    }
-                }
-            },
-            "ServiceWorkerGlobalScope": {
-                "properties": {
-                    "property": {
-                        "onsync": null // No implementations as of 2023-11
                     }
                 }
             },
@@ -547,8 +537,6 @@
             "PublicKeyCredentialRequestOptions": {
                 "members": {
                     "member": {
-                        "attestation": null, // No implementation as of 2023-09
-                        "attestationFormats": null, // No implementation as of 2023-09
                         "hints": null // // No implementation as of 2023-09
                     }
                 }
