@@ -111,6 +111,7 @@ export function generateDescriptions(): Record<string, string> {
 export function extractSummaryFromFile(url: string): string {
   const relativePath = url
     .replace("https://developer.mozilla.org/docs/", "")
+    .split("#")[0]
     .toLowerCase();
 
   const filePath = new URL(
