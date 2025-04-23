@@ -88,7 +88,7 @@ function getIndexMdContents(folders: URL[]): { [key: string]: string } {
   return results;
 }
 
-export function generateDescription(): Record<string, string> {
+export function generateDescriptions(): Record<string, string> {
   const stats = fs.statSync(basePath);
   if (!stats.isDirectory()) {
     throw new Error(

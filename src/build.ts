@@ -13,7 +13,7 @@ import { getInterfaceElementMergeData } from "./build/webref/elements.js";
 import { getInterfaceToEventMap } from "./build/webref/events.js";
 import { getWebidls } from "./build/webref/idl.js";
 import jsonc from "jsonc-parser";
-import { generateDescription } from "./build/mdn-comments.js";
+import { generateDescriptions } from "./build/mdn-comments.js";
 
 function mergeNamesakes(filtered: Browser.WebIdl) {
   const targets = [
@@ -95,7 +95,7 @@ async function emitDom() {
   const addedItems = await readInputJSON("addedTypes.jsonc");
   const comments = await readInputJSON("comments.json");
   const deprecatedInfo = await readInputJSON("deprecatedMessage.json");
-  const documentationFromMDN = generateDescription();
+  const documentationFromMDN = generateDescriptions();
   const removedItems = await readInputJSON("removedTypes.jsonc");
 
   async function readInputJSON(filename: string) {
