@@ -1,4 +1,4 @@
-import fs from "fs/promises";
+import fs from "fs";
 import { basename } from "path";
 
 const basePath = new URL(
@@ -50,11 +50,9 @@ function extractSummary(markdown: string): string {
   return normalizedText.split(" ")[0] || ""; // Fallback: first word if no sentence found
 }
 
-async function getDirectories(dirPath: URL): Promise<URL[]> {
+function getDirectories(dirPath: URL): URL[] {
   try {
-    const entries = await fs.readdir(dirPath, {
-      withFileTypes: true,
-    });
+    const entries = fs.readdirSync(dirPath, { withFileTypes: true });
     return entries
       .filter((entry) => entry.isDirectory())
       .map((entry) => new URL(entry.name + "/", dirPath));
@@ -64,16 +62,14 @@ async function getDirectories(dirPath: URL): Promise<URL[]> {
   }
 }
 
-async function getIndexMdContents(
-  folders: URL[],
-): Promise<{ [key: string]: string }> {
+function getIndexMdContents(folders: URL[]): { [key: string]: string } {
   const results: { [key: string]: string } = {};
 
   for (const folder of folders) {
     const indexPath = new URL("index.md", folder);
 
     try {
-      const content = await fs.readFile(indexPath, "utf-8");
+      const content = fs.readFileSync(indexPath, "utf-8");
 
       // Improved title extraction
       const titleMatch = content.match(/title:\s*["']?([^"'\n]+)["']?/);
@@ -92,17 +88,18 @@ async function getIndexMdContents(
   return results;
 }
 
-export async function generateDescription(): Promise<Record<string, string>> {
-  const stats = await fs.stat(basePath);
+export function generateDescription(): Record<string, string> {
+  const stats = fs.statSync(basePath);
   if (!stats.isDirectory()) {
     throw new Error(
       "MDN submodule does not exist; try running `git submodule update --init`",
     );
   }
+
   try {
-    const folders = await getDirectories(basePath);
+    const folders = getDirectories(basePath);
     if (folders.length > 0) {
-      return await getIndexMdContents(folders);
+      return getIndexMdContents(folders);
     }
   } catch (error) {
     console.error("Error generating API descriptions:", error);
