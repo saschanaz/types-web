@@ -12,6 +12,7 @@ import {
   arrayBufferViewTypes,
 } from "./helpers.js";
 import { collectLegacyNamespaceTypes } from "./legacy-namespace.js";
+import { extractSummaryFromFile } from "./mdn-comments.js";
 
 /// Decide which members of a function to emit
 enum EmitScope {
@@ -906,7 +907,10 @@ export function emitWebIdl(
       comments.push("Available only in secure contexts.");
     }
     if (entity.mdnUrl) {
-      if (comments.length > 0) comments.push("");
+      if (comments.length == 0) {
+        comments.push(extractSummaryFromFile(entity.mdnUrl));
+      }
+      comments.push("");
       comments.push(`[MDN Reference](${entity.mdnUrl})`);
     }
 

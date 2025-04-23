@@ -107,3 +107,25 @@ export function generateDescriptions(): Record<string, string> {
 
   return {};
 }
+
+export function extractSummaryFromFile(url: string): string {
+  const relativePath = url
+    .replace("https://developer.mozilla.org/docs/", "")
+    .toLowerCase();
+
+  const filePath = new URL(
+    `../../inputfiles/mdn/files/en-us/${relativePath}/index.md`,
+    import.meta.url,
+  );
+
+  try {
+    const content = fs.readFileSync(filePath, "utf-8");
+    return extractSummary(content);
+  } catch (error) {
+    console.error(
+      `Failed to read or extract summary from: ${filePath.href}`,
+      error,
+    );
+    return "";
+  }
+}
