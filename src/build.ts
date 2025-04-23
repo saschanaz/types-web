@@ -50,7 +50,7 @@ async function emitFlavor(
   mergeNamesakes(exposed);
   exposed.events = webidl.events;
 
-  const result = emitWebIdl(
+  const result = await emitWebIdl(
     exposed,
     options.global[0],
     "",
@@ -61,7 +61,7 @@ async function emitFlavor(
     result,
   );
 
-  const iterators = emitWebIdl(
+  const iterators = await emitWebIdl(
     exposed,
     options.global[0],
     "sync",
@@ -72,7 +72,7 @@ async function emitFlavor(
     iterators,
   );
 
-  const asyncIterators = emitWebIdl(
+  const asyncIterators = await emitWebIdl(
     exposed,
     options.global[0],
     "async",
@@ -94,7 +94,7 @@ async function emitDom() {
   const overriddenItems = await readInputJSON("overridingTypes.jsonc");
   const addedItems = await readInputJSON("addedTypes.jsonc");
   const deprecatedInfo = await readInputJSON("deprecatedMessage.json");
-  const documentationFromMDN = generateDescriptions();
+  const documentationFromMDN = await generateDescriptions();
   const removedItems = await readInputJSON("removedTypes.jsonc");
 
   async function readInputJSON(filename: string) {

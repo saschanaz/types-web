@@ -1,4 +1,5 @@
-import fs from "fs";
+import { readFileSync } from "fs";
+import fs from "fs/promises";
 import { basename } from "path";
 
 const basePath = new URL(
@@ -50,9 +51,11 @@ function extractSummary(markdown: string): string {
   return normalizedText.split(" ")[0] || ""; // Fallback: first word if no sentence found
 }
 
-function getDirectories(dirPath: URL): URL[] {
+async function getDirectories(dirPath: URL): Promise<URL[]> {
   try {
-    const entries = fs.readdirSync(dirPath, { withFileTypes: true });
+    const entries = await fs.readdir(dirPath, {
+      withFileTypes: true,
+    });
     return entries
       .filter((entry) => entry.isDirectory())
       .map((entry) => new URL(entry.name + "/", dirPath));
@@ -62,14 +65,16 @@ function getDirectories(dirPath: URL): URL[] {
   }
 }
 
-function getIndexMdContents(folders: URL[]): { [key: string]: string } {
+async function getIndexMdContents(
+  folders: URL[],
+): Promise<{ [key: string]: string }> {
   const results: { [key: string]: string } = {};
 
   for (const folder of folders) {
     const indexPath = new URL("index.md", folder);
 
     try {
-      const content = fs.readFileSync(indexPath, "utf-8");
+      const content = await fs.readFile(indexPath, "utf-8");
 
       // Improved title extraction
       const titleMatch = content.match(/title:\s*["']?([^"'\n]+)["']?/);
@@ -88,18 +93,17 @@ function getIndexMdContents(folders: URL[]): { [key: string]: string } {
   return results;
 }
 
-export function generateDescriptions(): Record<string, string> {
-  const stats = fs.statSync(basePath);
+export async function generateDescriptions(): Promise<Record<string, string>> {
+  const stats = await fs.stat(basePath);
   if (!stats.isDirectory()) {
     throw new Error(
       "MDN submodule does not exist; try running `git submodule update --init`",
     );
   }
-
   try {
-    const folders = getDirectories(basePath);
+    const folders = await getDirectories(basePath);
     if (folders.length > 0) {
-      return getIndexMdContents(folders);
+      return await getIndexMdContents(folders);
     }
   } catch (error) {
     console.error("Error generating API descriptions:", error);
@@ -107,7 +111,6 @@ export function generateDescriptions(): Record<string, string> {
 
   return {};
 }
-
 export function extractSummaryFromFile(url: string): string {
   const relativePath = url
     .replace("https://developer.mozilla.org/docs/", "")
@@ -120,7 +123,7 @@ export function extractSummaryFromFile(url: string): string {
   );
 
   try {
-    const content = fs.readFileSync(filePath, "utf-8");
+    const content = readFileSync(filePath, "utf-8");
     return extractSummary(content);
   } catch (error) {
     console.error(
