@@ -93,7 +93,6 @@ async function emitDom() {
 
   const overriddenItems = await readInputJSON("overridingTypes.jsonc");
   const addedItems = await readInputJSON("addedTypes.jsonc");
-  const comments = await readInputJSON("comments.json");
   const deprecatedInfo = await readInputJSON("deprecatedMessage.json");
   const documentationFromMDN = generateDescriptions();
   const removedItems = await readInputJSON("removedTypes.jsonc");
@@ -227,7 +226,6 @@ async function emitDom() {
   webidl = mergeApiDescriptions(webidl, documentationFromMDN);
   webidl = merge(webidl, addedItems);
   webidl = merge(webidl, overriddenItems);
-  webidl = merge(webidl, comments);
   webidl = mergeDeprecatedMessage(webidl, deprecatedInfo);
   for (const name in webidl.interfaces!.interface) {
     const i = webidl.interfaces!.interface[name];
