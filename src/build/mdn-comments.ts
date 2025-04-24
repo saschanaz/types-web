@@ -1,5 +1,5 @@
 import fs from "fs/promises";
-import { relative, resolve, sep } from "path";
+import { basename, dirname, relative, resolve, sep } from "path";
 import { fileURLToPath } from "url";
 
 const basePath = new URL(
@@ -80,14 +80,22 @@ export async function generateDescriptions(): Promise<Record<string, string>> {
       try {
         const content = await fs.readFile(filePath, "utf-8");
 
-        const relPath = relative(baseDir, filePath);
-        const key = relPath
-          .replace(/\/index\.md$/, "")
-          .split(sep)
-          .join(".");
+        const titleMatch = content.match(/title:\s*["']?([^"'\n]+)["']?/);
+        const filename = basename(filePath.toString());
+        const title = titleMatch
+          ? titleMatch[1].replace(/ extension$/, "").split(":")[0]
+          : filename || "";
+        // Get relative path to the file, excluding index.md
+        const relPath = relative(baseDir, dirname(filePath));
+        const parentKey = relPath.split(sep).filter(Boolean).join(".");
+        const fullKey = parentKey.includes(".")
+          ? parentKey.includes(title.toLowerCase())
+            ? parentKey
+            : `${parentKey}.${title}`
+          : title;
 
         const summary = extractSummary(content);
-        results[key] = summary;
+        results[fullKey] = summary;
       } catch (error) {
         console.warn(`Skipping ${filePath}: ${error}`);
       }
