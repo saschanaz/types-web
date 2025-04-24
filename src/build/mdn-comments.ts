@@ -9,7 +9,9 @@ const basePath = new URL(
 const baseDir = fileURLToPath(basePath);
 
 function extractSummary(markdown: string): string {
+  // Remove frontmatter (--- at the beginning)
   markdown = markdown.replace(/^---[\s\S]+?---\n/, "");
+  // Normalize line breaks by collapsing consecutive newlines into a single space
   const normalizedText = markdown
     .split("\n")
     .map((line) => line.trim())
@@ -24,15 +26,15 @@ function extractSummary(markdown: string): string {
     .replace(
       /\{\{\s*(Glossary|HTMLElement|SVGAttr|SVGElement|cssxref|jsxref|HTTPHeader)\s*\(\s*["']((?:\\.|[^"\\])*?)["'].*?\)\s*\}\}/gi,
       "$2",
-    )
+    ) // Extract first argument from multiple templates, handling escaped quotes & spaces
     .replace(
       /\{\{\s*domxref\s*\(\s*["']((?:\\.|[^"\\])*?)["'][^}]*\)\s*\}\}/gi,
       "$1",
-    )
+    ) // Extract first argument from domxref, handling spaces
     .replace(
       /\{\{\s*(?:event|jsxref|cssref|specname)\s*\|\s*([^}]+)\s*\}\}/gi,
       "$1",
-    )
+    ) // Handle event, jsxref, cssref, etc.
     .replace(/\{\{\s*([^}]+)\s*\}\}/g, (_, match) => `[MISSING: ${match}]`)
     .replace(/\[(.*?)\]\(.*?\)/g, "$1")
     .replace(/\s+/g, " ")
