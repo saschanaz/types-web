@@ -1,12 +1,9 @@
 import fs from "fs/promises";
-import { basename, dirname, relative, resolve, sep } from "path";
-import { fileURLToPath } from "url";
-
+import { basename } from "path";
 const basePath = new URL(
   "../../inputfiles/mdn/files/en-us/web/api/",
   import.meta.url,
 );
-const baseDir = fileURLToPath(basePath);
 
 function extractSummary(markdown: string): string {
   // Remove frontmatter (--- at the beginning)
@@ -48,16 +45,18 @@ function extractSummary(markdown: string): string {
   return sentenceMatch ? sentenceMatch[0] : normalizedText.split(" ")[0] || "";
 }
 
-async function walkDirectory(dirPath: string): Promise<string[]> {
-  let results: string[] = [];
+async function walkDirectory(dir: URL): Promise<URL[]> {
+  const entries = await fs.readdir(dir, { withFileTypes: true });
+  let results: URL[] = [];
 
-  const entries = await fs.readdir(dirPath, { withFileTypes: true });
   for (const entry of entries) {
-    const fullPath = resolve(dirPath, entry.name);
+    const fullPath = new URL(`${entry.name}/`, dir);
+    const fullFile = new URL(entry.name, dir);
+
     if (entry.isDirectory()) {
       results = results.concat(await walkDirectory(fullPath));
     } else if (entry.isFile() && entry.name === "index.md") {
-      results.push(fullPath);
+      results.push(fullFile);
     }
   }
 
@@ -74,20 +73,21 @@ export async function generateDescriptions(): Promise<Record<string, string>> {
 
   const results: Record<string, string> = {};
   try {
-    const indexPaths = await walkDirectory(baseDir);
+    const indexPaths = await walkDirectory(basePath);
 
-    for (const filePath of indexPaths) {
+    for (const fileURL of indexPaths) {
       try {
-        const content = await fs.readFile(filePath, "utf-8");
+        const content = await fs.readFile(fileURL, "utf-8");
 
         const titleMatch = content.match(/title:\s*["']?([^"'\n]+)["']?/);
-        const filename = basename(filePath.toString());
         const title = titleMatch
           ? titleMatch[1].replace(/ extension$/, "").split(":")[0]
-          : filename || "";
-        // Get relative path to the file, excluding index.md
-        const relPath = relative(baseDir, dirname(filePath));
-        const parentKey = relPath.split(sep).filter(Boolean).join(".");
+          : basename(fileURL.pathname) || "";
+
+        const relPath = fileURL.pathname
+          .replace(basePath.pathname, "")
+          .replace(/\/index\.md$/, "");
+        const parentKey = relPath.split("/").filter(Boolean).join(".");
         const fullKey = parentKey.includes(".")
           ? parentKey.includes(title.toLowerCase())
             ? parentKey
@@ -97,7 +97,7 @@ export async function generateDescriptions(): Promise<Record<string, string>> {
         const summary = extractSummary(content);
         results[fullKey] = summary;
       } catch (error) {
-        console.warn(`Skipping ${filePath}: ${error}`);
+        console.warn(`Skipping ${fileURL.href}: ${error}`);
       }
     }
   } catch (error) {
