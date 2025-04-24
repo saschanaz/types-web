@@ -2631,7 +2631,11 @@ interface ARIAMixin {
      * [MDN Reference](https://developer.mozilla.org/docs/Web/API/Element/ariaHidden)
      */
     ariaHidden: string | null;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Element/ariaInvalid) */
+    /**
+     * The **`ariaInvalid`** property of the Element interface reflects the value of the `aria-invalid` attribute.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/Element/ariaInvalid)
+     */
     ariaInvalid: string | null;
     /**
      * The **`ariaKeyShortcuts`** property of the Element interface reflects the value of the `aria-keyshortcuts` attribute, which indicates keyboard shortcuts that an author has implemented to activate or give focus to an element.
@@ -6572,7 +6576,7 @@ interface CSSStyleDeclaration {
      */
     clipPath: string;
     /**
-     * The **`clip-rule`** CSS property defines how to determine which pixels in a mask's box are inside the clipping shape defined by a clip path, and which are outside, when parts of the path overlap other parts.
+     * The **`clip-rule`** CSS property determines, when parts of the path overlap other parts, which pixels in a mask's box are inside the clipping shape defined by a clip path and which are outside.
      *
      * [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/clip-rule)
      */
@@ -7394,7 +7398,7 @@ interface CSSStyleDeclaration {
      */
     markerStart: string;
     /**
-     * The **`mask`** CSS shorthand property hides an element (partially or fully) by masking or clipping the image at specific points.
+     * The **`mask`** CSS shorthand property hides an element (partially or fully) by masking or clipping a specified area of the image.
      *
      * [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/mask)
      */
@@ -13158,25 +13162,25 @@ interface Element extends Node, ARIAMixin, Animatable, ChildNode, NonDocumentTyp
      */
     className: string;
     /**
-     * The **`Element.clientHeight`** read-only property is zero for elements with no CSS or inline layout boxes; otherwise, it's the inner height of an element in pixels.
+     * The **`clientHeight`** read-only property of the Element interface is zero for elements with no CSS or inline layout boxes; otherwise, it's the inner height of an element in pixels.
      *
      * [MDN Reference](https://developer.mozilla.org/docs/Web/API/Element/clientHeight)
      */
     readonly clientHeight: number;
     /**
-     * The width of the left border of an element in pixels.
+     * The **`clientLeft`** read-only property of the Element interface returns the width of the left border of an element in pixels.
      *
      * [MDN Reference](https://developer.mozilla.org/docs/Web/API/Element/clientLeft)
      */
     readonly clientLeft: number;
     /**
-     * The width of the top border of an element in pixels.
+     * The **`clientTop`** read-only property of the Element interface returns the width of the top border of an element in pixels.
      *
      * [MDN Reference](https://developer.mozilla.org/docs/Web/API/Element/clientTop)
      */
     readonly clientTop: number;
     /**
-     * The **`Element.clientWidth`** property is zero for inline elements and elements with no CSS; otherwise, it's the inner width of an element in pixels.
+     * The **`clientWidth`** read-only property of the Element interface is zero for inline elements and elements with no CSS; otherwise, it's the inner width of an element in pixels.
      *
      * [MDN Reference](https://developer.mozilla.org/docs/Web/API/Element/clientWidth)
      */
@@ -13243,25 +13247,25 @@ interface Element extends Node, ARIAMixin, Animatable, ChildNode, NonDocumentTyp
      */
     readonly prefix: string | null;
     /**
-     * The **`Element.scrollHeight`** read-only property is a measurement of the height of an element's content, including content not visible on the screen due to overflow.
+     * The **`scrollHeight`** read-only property of the Element interface is a measurement of the height of an element's content, including content not visible on the screen due to overflow.
      *
      * [MDN Reference](https://developer.mozilla.org/docs/Web/API/Element/scrollHeight)
      */
     readonly scrollHeight: number;
     /**
-     * The **`Element.scrollLeft`** property gets or sets the number of pixels by which an element's content is scrolled from its left edge.
+     * The **`scrollLeft`** property of the Element interface gets or sets the number of pixels by which an element's content is scrolled from its left edge.
      *
      * [MDN Reference](https://developer.mozilla.org/docs/Web/API/Element/scrollLeft)
      */
     scrollLeft: number;
     /**
-     * The **`Element.scrollTop`** property gets or sets the number of pixels by which an element's content is scrolled from its top edge.
+     * The **`scrollTop`** property of the Element interface gets or sets the number of pixels by which an element's content is scrolled from its top edge.
      *
      * [MDN Reference](https://developer.mozilla.org/docs/Web/API/Element/scrollTop)
      */
     scrollTop: number;
     /**
-     * The **`Element.scrollWidth`** read-only property is a measurement of the width of an element's content, including content not visible on the screen due to overflow.
+     * The **`scrollWidth`** read-only property of the Element interface is a measurement of the width of an element's content, including content not visible on the screen due to overflow.
      *
      * [MDN Reference](https://developer.mozilla.org/docs/Web/API/Element/scrollWidth)
      */
@@ -16648,13 +16652,13 @@ interface HTMLElement extends Element, ElementCSSInlineStyle, ElementContentEdit
      */
     lang: string;
     /**
-     * The **`HTMLElement.offsetHeight`** read-only property returns the height of an element, including vertical padding and borders, as an integer.
+     * The **`offsetHeight`** read-only property of the HTMLElement interface returns the height of an element, including vertical padding and borders, as an integer.
      *
      * [MDN Reference](https://developer.mozilla.org/docs/Web/API/HTMLElement/offsetHeight)
      */
     readonly offsetHeight: number;
     /**
-     * The **`HTMLElement.offsetLeft`** read-only property returns the number of pixels that the _upper left corner_ of the current element is offset to the left within the HTMLElement.offsetParent node.
+     * The **`offsetLeft`** read-only property of the HTMLElement interface returns the number of pixels that the _upper left corner_ of the current element is offset to the left within the HTMLElement.offsetParent node.
      *
      * [MDN Reference](https://developer.mozilla.org/docs/Web/API/HTMLElement/offsetLeft)
      */
@@ -16666,13 +16670,13 @@ interface HTMLElement extends Element, ElementCSSInlineStyle, ElementContentEdit
      */
     readonly offsetParent: Element | null;
     /**
-     * The **`HTMLElement.offsetTop`** read-only property returns the distance from the outer border of the current element (including its margin) to the top padding edge of the HTMLelement.offsetParent, the _closest positioned_ ancestor element.
+     * The **`offsetTop`** read-only property of the HTMLElement interface returns the distance from the outer border of the current element (including its margin) to the top padding edge of the HTMLelement.offsetParent, the _closest positioned_ ancestor element.
      *
      * [MDN Reference](https://developer.mozilla.org/docs/Web/API/HTMLElement/offsetTop)
      */
     readonly offsetTop: number;
     /**
-     * The **`HTMLElement.offsetWidth`** read-only property returns the layout width of an element as an integer.
+     * The **`offsetWidth`** read-only property of the HTMLElement interface returns the layout width of an element as an integer.
      *
      * [MDN Reference](https://developer.mozilla.org/docs/Web/API/HTMLElement/offsetWidth)
      */
