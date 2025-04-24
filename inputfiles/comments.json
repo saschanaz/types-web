@@ -1,0 +1,61 @@
+{
+    "interfaces": {
+        "interface": {
+            "Headers": {
+                "iterator": {
+                    "comments": {
+                        "comment": {
+                            "entries": "Returns an iterator allowing to go through all key/value pairs contained in this object.",
+                            "keys": "Returns an iterator allowing to go through all keys of the key/value pairs contained in this object.",
+                            "values": "Returns an iterator allowing to go through all values of the key/value pairs contained in this object."
+                        }
+                    }
+                }
+            },
+            "FormData": {
+                "iterator": {
+                    "comments": {
+                        "comment": {
+                            "entries": "Returns an array of key, value pairs for every entry in the list.",
+                            "keys": "Returns a list of keys in the list.",
+                            "values": "Returns a list of values in the list."
+                        }
+                    }
+                }
+            },
+            "NodeListOf": {
+                "iterator": {
+                    "comments": {
+                        "comment": {
+                            "entries": "Returns an array of key, value pairs for every entry in the list.",
+                            "keys": "Returns an list of keys in the list.",
+                            "values": "Returns an list of values in the list."
+                        }
+                    }
+                }
+            },
+            "NodeList": {
+                "iterator": {
+                    "comments": {
+                        "comment": {
+                            "entries": "Returns an array of key, value pairs for every entry in the list.",
+                            "keys": "Returns an list of keys in the list.",
+                            "values": "Returns an list of values in the list."
+                        }
+                    }
+                }
+            },
+            "URLSearchParams": {
+                "iterator": {
+                    "comments": {
+                        "comment": {
+                            "entries": "Returns an array of key, value pairs for every entry in the search params.",
+                            "keys": "Returns a list of keys in the search params.",
+                            "values": "Returns a list of values in the search params."
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

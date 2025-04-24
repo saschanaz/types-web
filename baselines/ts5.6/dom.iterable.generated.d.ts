@@ -127,8 +127,11 @@ interface FormDataIterator<T> extends IteratorObject<T, BuiltinIteratorReturn, u
 
 interface FormData {
     [Symbol.iterator](): FormDataIterator<[string, FormDataEntryValue]>;
+    /** Returns an array of key, value pairs for every entry in the list. */
     entries(): FormDataIterator<[string, FormDataEntryValue]>;
+    /** Returns a list of keys in the list. */
     keys(): FormDataIterator<string>;
+    /** Returns a list of values in the list. */
     values(): FormDataIterator<FormDataEntryValue>;
 }
 
@@ -158,8 +161,11 @@ interface HeadersIterator<T> extends IteratorObject<T, BuiltinIteratorReturn, un
 
 interface Headers {
     [Symbol.iterator](): HeadersIterator<[string, string]>;
+    /** Returns an iterator allowing to go through all key/value pairs contained in this object. */
     entries(): HeadersIterator<[string, string]>;
+    /** Returns an iterator allowing to go through all keys of the key/value pairs contained in this object. */
     keys(): HeadersIterator<string>;
+    /** Returns an iterator allowing to go through all values of the key/value pairs contained in this object. */
     values(): HeadersIterator<string>;
 }
 
@@ -253,15 +259,21 @@ interface Navigator {
 
 interface NodeList {
     [Symbol.iterator](): ArrayIterator<Node>;
+    /** Returns an array of key, value pairs for every entry in the list. */
     entries(): ArrayIterator<[number, Node]>;
+    /** Returns an list of keys in the list. */
     keys(): ArrayIterator<number>;
+    /** Returns an list of values in the list. */
     values(): ArrayIterator<Node>;
 }
 
 interface NodeListOf<TNode extends Node> {
     [Symbol.iterator](): ArrayIterator<TNode>;
+    /** Returns an array of key, value pairs for every entry in the list. */
     entries(): ArrayIterator<[number, TNode]>;
+    /** Returns an list of keys in the list. */
     keys(): ArrayIterator<number>;
+    /** Returns an list of values in the list. */
     values(): ArrayIterator<TNode>;
 }
 
@@ -381,8 +393,11 @@ interface URLSearchParamsIterator<T> extends IteratorObject<T, BuiltinIteratorRe
 
 interface URLSearchParams {
     [Symbol.iterator](): URLSearchParamsIterator<[string, string]>;
+    /** Returns an array of key, value pairs for every entry in the search params. */
     entries(): URLSearchParamsIterator<[string, string]>;
+    /** Returns a list of keys in the search params. */
     keys(): URLSearchParamsIterator<string>;
+    /** Returns a list of values in the search params. */
     values(): URLSearchParamsIterator<string>;
 }
 
