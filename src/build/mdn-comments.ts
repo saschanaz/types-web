@@ -11,6 +11,7 @@ const baseDir = fileURLToPath(basePath);
 function extractSummary(markdown: string): string {
   // Remove frontmatter (--- at the beginning)
   markdown = markdown.replace(/^---[\s\S]+?---\n/, "");
+
   // Normalize line breaks by collapsing consecutive newlines into a single space
   const normalizedText = markdown
     .split("\n")
@@ -35,10 +36,13 @@ function extractSummary(markdown: string): string {
       /\{\{\s*(?:event|jsxref|cssref|specname)\s*\|\s*([^}]+)\s*\}\}/gi,
       "$1",
     ) // Handle event, jsxref, cssref, etc.
+    .replace(/\{\{\s*([^}]+)\s*\}\}/g, (_, match) => `[MISSING: ${match}]`) // Catch any remaining unhandled templates
     .replace(/\{\{\s*([^}]+)\s*\}\}/g, (_, match) => `[MISSING: ${match}]`)
+    .replace(/\[(.*?)\]\(.*?\)/g, "$1") // Keep link text but remove URLs
     .replace(/\[(.*?)\]\(.*?\)/g, "$1")
+    .replace(/\s+/g, " ") // Normalize spaces
     .replace(/\s+/g, " ")
-    .replace(/\n\s*/g, "\n")
+    .replace(/\n\s*/g, "\n") // Ensure line breaks are preserved
     .replace(/"/g, "'")
     .trim();
 
