@@ -12,7 +12,6 @@ import {
   arrayBufferViewTypes,
 } from "./helpers.js";
 import { collectLegacyNamespaceTypes } from "./legacy-namespace.js";
-import { extractSummaryFromFile } from "./mdn-comments.js";
 
 /// Decide which members of a function to emit
 enum EmitScope {
@@ -145,6 +144,7 @@ export function emitWebIdl(
   global: string,
   iterator: "" | "sync" | "async",
   compilerBehavior: CompilerBehavior,
+  descriptions: Record<string, string>,
 ): string {
   // Global print target
   const printer = createTextWriter("\n");
@@ -908,7 +908,15 @@ export function emitWebIdl(
     }
     if (entity.mdnUrl) {
       if (comments.length == 0) {
-        comments.push(extractSummaryFromFile(entity.mdnUrl));
+        const key = entity.mdnUrl
+          .split("/API/")
+          .pop()
+          ?.replace("/", ".")
+          .split("#")[0]
+          .toLowerCase();
+        if (key && descriptions[key]) {
+          comments.push(descriptions[key]);
+        }
       }
       comments.push("");
       comments.push(`[MDN Reference](${entity.mdnUrl})`);

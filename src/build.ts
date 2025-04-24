@@ -45,6 +45,7 @@ async function emitFlavor(
   webidl: Browser.WebIdl,
   forceKnownTypes: Set<string>,
   options: EmitOptions,
+  descriptions: Record<string, string>,
 ) {
   const exposed = getExposedTypes(webidl, options.global, forceKnownTypes);
   mergeNamesakes(exposed);
@@ -55,6 +56,7 @@ async function emitFlavor(
     options.global[0],
     "",
     options.compilerBehavior,
+    descriptions,
   );
   await fs.writeFile(
     new URL(`${options.name}.generated.d.ts`, options.outputFolder),
@@ -66,6 +68,7 @@ async function emitFlavor(
     options.global[0],
     "sync",
     options.compilerBehavior,
+    descriptions,
   );
   await fs.writeFile(
     new URL(`${options.name}.iterable.generated.d.ts`, options.outputFolder),
@@ -77,6 +80,7 @@ async function emitFlavor(
     options.global[0],
     "async",
     options.compilerBehavior,
+    descriptions,
   );
   await fs.writeFile(
     new URL(
@@ -295,36 +299,61 @@ async function emitDom() {
       recursive: true,
     });
 
-    emitFlavor(webidl, new Set(knownTypes.Window), {
-      name: "dom",
-      global: ["Window"],
-      outputFolder,
-      compilerBehavior,
-    });
-    emitFlavor(webidl, new Set(knownTypes.Worker), {
-      name: "webworker",
-      global: ["Worker", "DedicatedWorker", "SharedWorker", "ServiceWorker"],
-      outputFolder,
-      compilerBehavior,
-    });
-    emitFlavor(webidl, new Set(knownTypes.Worker), {
-      name: "sharedworker",
-      global: ["SharedWorker", "Worker"],
-      outputFolder,
-      compilerBehavior,
-    });
-    emitFlavor(webidl, new Set(knownTypes.Worker), {
-      name: "serviceworker",
-      global: ["ServiceWorker", "Worker"],
-      outputFolder,
-      compilerBehavior,
-    });
-    emitFlavor(webidl, new Set(knownTypes.Worklet), {
-      name: "audioworklet",
-      global: ["AudioWorklet", "Worklet"],
-      outputFolder,
-      compilerBehavior,
-    });
+    emitFlavor(
+      webidl,
+      new Set(knownTypes.Window),
+      {
+        name: "dom",
+        global: ["Window"],
+        outputFolder,
+        compilerBehavior,
+      },
+      documentationFromMDN,
+    );
+    emitFlavor(
+      webidl,
+      new Set(knownTypes.Worker),
+      {
+        name: "webworker",
+        global: ["Worker", "DedicatedWorker", "SharedWorker", "ServiceWorker"],
+        outputFolder,
+        compilerBehavior,
+      },
+      documentationFromMDN,
+    );
+    emitFlavor(
+      webidl,
+      new Set(knownTypes.Worker),
+      {
+        name: "sharedworker",
+        global: ["SharedWorker", "Worker"],
+        outputFolder,
+        compilerBehavior,
+      },
+      documentationFromMDN,
+    );
+    emitFlavor(
+      webidl,
+      new Set(knownTypes.Worker),
+      {
+        name: "serviceworker",
+        global: ["ServiceWorker", "Worker"],
+        outputFolder,
+        compilerBehavior,
+      },
+      documentationFromMDN,
+    );
+    emitFlavor(
+      webidl,
+      new Set(knownTypes.Worklet),
+      {
+        name: "audioworklet",
+        global: ["AudioWorklet", "Worklet"],
+        outputFolder,
+        compilerBehavior,
+      },
+      documentationFromMDN,
+    );
   }
 
   function prune(
