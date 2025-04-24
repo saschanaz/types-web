@@ -2631,6 +2631,7 @@ interface ARIAMixin {
      * [MDN Reference](https://developer.mozilla.org/docs/Web/API/Element/ariaHidden)
      */
     ariaHidden: string | null;
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Element/ariaInvalid) */
     ariaInvalid: string | null;
     /**
      * The **`ariaKeyShortcuts`** property of the Element interface reflects the value of the `aria-keyshortcuts` attribute, which indicates keyboard shortcuts that an author has implemented to activate or give focus to an element.
