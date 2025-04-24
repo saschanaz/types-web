@@ -37,15 +37,13 @@ function extractSummary(markdown: string): string {
       "$1",
     ) // Handle event, jsxref, cssref, etc.
     .replace(/\{\{\s*([^}]+)\s*\}\}/g, (_, match) => `[MISSING: ${match}]`) // Catch any remaining unhandled templates
-    .replace(/\{\{\s*([^}]+)\s*\}\}/g, (_, match) => `[MISSING: ${match}]`)
     .replace(/\[(.*?)\]\(.*?\)/g, "$1") // Keep link text but remove URLs
-    .replace(/\[(.*?)\]\(.*?\)/g, "$1")
     .replace(/\s+/g, " ") // Normalize spaces
-    .replace(/\s+/g, " ")
     .replace(/\n\s*/g, "\n") // Ensure line breaks are preserved
     .replace(/"/g, "'")
     .trim();
 
+  // Extract the first sentence (ending in . ! or ?)
   const sentenceMatch = normalizedText.match(/(.*?[.!?])(?=\s|$)/);
   return sentenceMatch ? sentenceMatch[0] : normalizedText.split(" ")[0] || "";
 }
