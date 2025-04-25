@@ -51,7 +51,7 @@ async function emitFlavor(
   mergeNamesakes(exposed);
   exposed.events = webidl.events;
 
-  const result = await emitWebIdl(
+  const result = emitWebIdl(
     exposed,
     options.global[0],
     "",
@@ -63,7 +63,7 @@ async function emitFlavor(
     result,
   );
 
-  const iterators = await emitWebIdl(
+  const iterators = emitWebIdl(
     exposed,
     options.global[0],
     "sync",
@@ -75,7 +75,7 @@ async function emitFlavor(
     iterators,
   );
 
-  const asyncIterators = await emitWebIdl(
+  const asyncIterators = emitWebIdl(
     exposed,
     options.global[0],
     "async",
