@@ -68,6 +68,14 @@ async function walkDirectory(dir: URL): Promise<URL[]> {
   return results;
 }
 
+function generateTitle(content: string, file: URL) {
+  const match = content.match(/title:\s*["']?([^"'\n]+)["']?/);
+  if (match) {
+    return match[1].replace(/ extension$/, "").split(":")[0];
+  }
+  return basename(file.pathname) || "";
+}
+
 export async function generateDescriptions(): Promise<Record<string, string>> {
   const stats = await fs.stat(basePath);
   if (!stats.isDirectory()) {
@@ -84,10 +92,7 @@ export async function generateDescriptions(): Promise<Record<string, string>> {
       try {
         const content = await fs.readFile(fileURL, "utf-8");
 
-        const titleMatch = content.match(/title:\s*["']?([^"'\n]+)["']?/);
-        const title = titleMatch
-          ? titleMatch[1].replace(/ extension$/, "").split(":")[0]
-          : basename(fileURL.pathname) || "";
+        const title = generateTitle(content, fileURL);
 
         const relPath = fileURL.pathname
           .replace(basePath.pathname, "")
