@@ -42,7 +42,12 @@ function extractSummary(markdown: string): string {
 
   // Extract the first sentence (ending in . ! or ?)
   const sentenceMatch = normalizedText.match(/(.*?[.!?])(?=\s|$)/);
-  return sentenceMatch ? sentenceMatch[0] : normalizedText.split(" ")[0] || "";
+  if (sentenceMatch) {
+    return sentenceMatch[0];
+  }
+
+  const firstWord = normalizedText.split(" ")[0];
+  return firstWord || "";
 }
 
 async function walkDirectory(dir: URL): Promise<URL[]> {
