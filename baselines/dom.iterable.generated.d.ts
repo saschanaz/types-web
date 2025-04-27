@@ -72,20 +72,12 @@ interface Cache {
 }
 
 interface CanvasPath {
-    /**
-     * The **`CanvasRenderingContext2D.roundRect()`** method of the Canvas 2D API adds a rounded rectangle to the current path.
-     *
-     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/roundRect)
-     */
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/roundRect) */
     roundRect(x: number, y: number, w: number, h: number, radii?: number | DOMPointInit | Iterable<number | DOMPointInit>): void;
 }
 
 interface CanvasPathDrawingStyles {
-    /**
-     * The **`setLineDash()`** method of the Canvas 2D API's stroking lines.
-     *
-     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/setLineDash)
-     */
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/setLineDash) */
     setLineDash(segments: Iterable<number>): void;
 }
 
@@ -177,7 +169,7 @@ interface HighlightRegistry extends Map<string, Highlight> {
 
 interface IDBDatabase {
     /**
-     * Returns a new transaction with the given mode ("readonly" or "readwrite") and scope which can be a single object store name or an array of names.
+     * The **`transaction`** method of the IDBDatabase interface immediately returns a transaction object (IDBTransaction) containing the IDBTransaction.objectStore method, which you can use to access your object store.
      *
      * [MDN Reference](https://developer.mozilla.org/docs/Web/API/IDBDatabase/transaction)
      */
@@ -186,9 +178,7 @@ interface IDBDatabase {
 
 interface IDBObjectStore {
     /**
-     * Creates a new index in store with the given name, keyPath and options and returns a new IDBIndex. If the keyPath and options define constraints that cannot be satisfied with the data already in store the upgrade transaction will abort with a "ConstraintError" DOMException.
-     *
-     * Throws an "InvalidStateError" DOMException if not called within an upgrade transaction.
+     * The **`createIndex()`** method of the field/column defining a new data point for each database record to contain.
      *
      * [MDN Reference](https://developer.mozilla.org/docs/Web/API/IDBObjectStore/createIndex)
      */
@@ -244,6 +234,7 @@ interface NamedNodeMap {
 
 interface Navigator {
     /**
+     * The **`requestMediaKeySystemAccess()`** method of the Navigator interface returns a Promise which delivers a MediaKeySystemAccess object that can be used to access a particular media key system, which can in turn be used to create keys for decrypting a media stream.
      * Available only in secure contexts.
      *
      * [MDN Reference](https://developer.mozilla.org/docs/Web/API/Navigator/requestMediaKeySystemAccess)
@@ -441,295 +432,107 @@ interface WEBGL_multi_draw {
 }
 
 interface WebGL2RenderingContextBase {
-    /**
-     * The **`WebGL2RenderingContext.clearBufferfiuv`** methods of the WebGL 2 API clear buffers from the currently bound framebuffer.
-     *
-     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGL2RenderingContext/clearBuffer)
-     */
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGL2RenderingContext/clearBuffer) */
     clearBufferfv(buffer: GLenum, drawbuffer: GLint, values: Iterable<GLfloat>, srcOffset?: number): void;
-    /**
-     * The **`WebGL2RenderingContext.clearBufferfiuv`** methods of the WebGL 2 API clear buffers from the currently bound framebuffer.
-     *
-     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGL2RenderingContext/clearBuffer)
-     */
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGL2RenderingContext/clearBuffer) */
     clearBufferiv(buffer: GLenum, drawbuffer: GLint, values: Iterable<GLint>, srcOffset?: number): void;
-    /**
-     * The **`WebGL2RenderingContext.clearBufferfiuv`** methods of the WebGL 2 API clear buffers from the currently bound framebuffer.
-     *
-     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGL2RenderingContext/clearBuffer)
-     */
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGL2RenderingContext/clearBuffer) */
     clearBufferuiv(buffer: GLenum, drawbuffer: GLint, values: Iterable<GLuint>, srcOffset?: number): void;
-    /**
-     * The **`WebGL2RenderingContext.drawBuffers()`** method of the WebGL 2 API defines draw buffers to which fragment colors are written into.
-     *
-     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGL2RenderingContext/drawBuffers)
-     */
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGL2RenderingContext/drawBuffers) */
     drawBuffers(buffers: Iterable<GLenum>): void;
-    /**
-     * The **`WebGL2RenderingContext.getActiveUniforms()`** method of the WebGL 2 API retrieves information about active uniforms within a WebGLProgram.
-     *
-     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGL2RenderingContext/getActiveUniforms)
-     */
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGL2RenderingContext/getActiveUniforms) */
     getActiveUniforms(program: WebGLProgram, uniformIndices: Iterable<GLuint>, pname: GLenum): any;
-    /**
-     * The **`WebGL2RenderingContext.getUniformIndices()`** method of the WebGL 2 API retrieves the indices of a number of uniforms within a WebGLProgram.
-     *
-     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGL2RenderingContext/getUniformIndices)
-     */
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGL2RenderingContext/getUniformIndices) */
     getUniformIndices(program: WebGLProgram, uniformNames: Iterable<string>): Iterable<GLuint> | null;
-    /**
-     * The **`WebGL2RenderingContext.invalidateFramebuffer()`** method of the WebGL 2 API invalidates the contents of attachments in a framebuffer.
-     *
-     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGL2RenderingContext/invalidateFramebuffer)
-     */
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGL2RenderingContext/invalidateFramebuffer) */
     invalidateFramebuffer(target: GLenum, attachments: Iterable<GLenum>): void;
-    /**
-     * The **`WebGL2RenderingContext.invalidateSubFramebuffer()`** method of the WebGL 2 API invalidates portions of the contents of attachments in a framebuffer.
-     *
-     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGL2RenderingContext/invalidateSubFramebuffer)
-     */
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGL2RenderingContext/invalidateSubFramebuffer) */
     invalidateSubFramebuffer(target: GLenum, attachments: Iterable<GLenum>, x: GLint, y: GLint, width: GLsizei, height: GLsizei): void;
-    /**
-     * The **`WebGL2RenderingContext.transformFeedbackVaryings()`** method of the WebGL 2 API specifies values to record in WebGLTransformFeedback buffers.
-     *
-     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGL2RenderingContext/transformFeedbackVaryings)
-     */
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGL2RenderingContext/transformFeedbackVaryings) */
     transformFeedbackVaryings(program: WebGLProgram, varyings: Iterable<string>, bufferMode: GLenum): void;
-    /**
-     * The **`WebGL2RenderingContext.uniform1234][uif][v`** methods of the WebGL API specify values of uniform variables.
-     *
-     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGL2RenderingContext/uniform)
-     */
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGL2RenderingContext/uniform) */
     uniform1uiv(location: WebGLUniformLocation | null, data: Iterable<GLuint>, srcOffset?: number, srcLength?: GLuint): void;
-    /**
-     * The **`WebGL2RenderingContext.uniform1234][uif][v`** methods of the WebGL API specify values of uniform variables.
-     *
-     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGL2RenderingContext/uniform)
-     */
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGL2RenderingContext/uniform) */
     uniform2uiv(location: WebGLUniformLocation | null, data: Iterable<GLuint>, srcOffset?: number, srcLength?: GLuint): void;
-    /**
-     * The **`WebGL2RenderingContext.uniform1234][uif][v`** methods of the WebGL API specify values of uniform variables.
-     *
-     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGL2RenderingContext/uniform)
-     */
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGL2RenderingContext/uniform) */
     uniform3uiv(location: WebGLUniformLocation | null, data: Iterable<GLuint>, srcOffset?: number, srcLength?: GLuint): void;
-    /**
-     * The **`WebGL2RenderingContext.uniform1234][uif][v`** methods of the WebGL API specify values of uniform variables.
-     *
-     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGL2RenderingContext/uniform)
-     */
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGL2RenderingContext/uniform) */
     uniform4uiv(location: WebGLUniformLocation | null, data: Iterable<GLuint>, srcOffset?: number, srcLength?: GLuint): void;
-    /**
-     * The **`WebGL2RenderingContext.uniformMatrix234]x[234]fv()`** methods of the [WebGL 2 API specify matrix values for uniform variables.
-     *
-     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGL2RenderingContext/uniformMatrix)
-     */
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGL2RenderingContext/uniformMatrix) */
     uniformMatrix2x3fv(location: WebGLUniformLocation | null, transpose: GLboolean, data: Iterable<GLfloat>, srcOffset?: number, srcLength?: GLuint): void;
-    /**
-     * The **`WebGL2RenderingContext.uniformMatrix234]x[234]fv()`** methods of the [WebGL 2 API specify matrix values for uniform variables.
-     *
-     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGL2RenderingContext/uniformMatrix)
-     */
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGL2RenderingContext/uniformMatrix) */
     uniformMatrix2x4fv(location: WebGLUniformLocation | null, transpose: GLboolean, data: Iterable<GLfloat>, srcOffset?: number, srcLength?: GLuint): void;
-    /**
-     * The **`WebGL2RenderingContext.uniformMatrix234]x[234]fv()`** methods of the [WebGL 2 API specify matrix values for uniform variables.
-     *
-     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGL2RenderingContext/uniformMatrix)
-     */
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGL2RenderingContext/uniformMatrix) */
     uniformMatrix3x2fv(location: WebGLUniformLocation | null, transpose: GLboolean, data: Iterable<GLfloat>, srcOffset?: number, srcLength?: GLuint): void;
-    /**
-     * The **`WebGL2RenderingContext.uniformMatrix234]x[234]fv()`** methods of the [WebGL 2 API specify matrix values for uniform variables.
-     *
-     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGL2RenderingContext/uniformMatrix)
-     */
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGL2RenderingContext/uniformMatrix) */
     uniformMatrix3x4fv(location: WebGLUniformLocation | null, transpose: GLboolean, data: Iterable<GLfloat>, srcOffset?: number, srcLength?: GLuint): void;
-    /**
-     * The **`WebGL2RenderingContext.uniformMatrix234]x[234]fv()`** methods of the [WebGL 2 API specify matrix values for uniform variables.
-     *
-     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGL2RenderingContext/uniformMatrix)
-     */
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGL2RenderingContext/uniformMatrix) */
     uniformMatrix4x2fv(location: WebGLUniformLocation | null, transpose: GLboolean, data: Iterable<GLfloat>, srcOffset?: number, srcLength?: GLuint): void;
-    /**
-     * The **`WebGL2RenderingContext.uniformMatrix234]x[234]fv()`** methods of the [WebGL 2 API specify matrix values for uniform variables.
-     *
-     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGL2RenderingContext/uniformMatrix)
-     */
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGL2RenderingContext/uniformMatrix) */
     uniformMatrix4x3fv(location: WebGLUniformLocation | null, transpose: GLboolean, data: Iterable<GLfloat>, srcOffset?: number, srcLength?: GLuint): void;
-    /**
-     * The **`WebGL2RenderingContext.vertexAttribI4u]i[v`** methods of the WebGL 2 API specify integer values for generic vertex attributes.
-     *
-     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGL2RenderingContext/vertexAttribI)
-     */
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGL2RenderingContext/vertexAttribI) */
     vertexAttribI4iv(index: GLuint, values: Iterable<GLint>): void;
-    /**
-     * The **`WebGL2RenderingContext.vertexAttribI4u]i[v`** methods of the WebGL 2 API specify integer values for generic vertex attributes.
-     *
-     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGL2RenderingContext/vertexAttribI)
-     */
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGL2RenderingContext/vertexAttribI) */
     vertexAttribI4uiv(index: GLuint, values: Iterable<GLuint>): void;
 }
 
 interface WebGL2RenderingContextOverloads {
-    /**
-     * The **`WebGLRenderingContext.uniform1234][fi][v`** methods of the WebGL API specify values of uniform variables.
-     *
-     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/uniform)
-     */
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/uniform) */
     uniform1fv(location: WebGLUniformLocation | null, data: Iterable<GLfloat>, srcOffset?: number, srcLength?: GLuint): void;
-    /**
-     * The **`WebGLRenderingContext.uniform1234][fi][v`** methods of the WebGL API specify values of uniform variables.
-     *
-     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/uniform)
-     */
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/uniform) */
     uniform1iv(location: WebGLUniformLocation | null, data: Iterable<GLint>, srcOffset?: number, srcLength?: GLuint): void;
-    /**
-     * The **`WebGLRenderingContext.uniform1234][fi][v`** methods of the WebGL API specify values of uniform variables.
-     *
-     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/uniform)
-     */
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/uniform) */
     uniform2fv(location: WebGLUniformLocation | null, data: Iterable<GLfloat>, srcOffset?: number, srcLength?: GLuint): void;
-    /**
-     * The **`WebGLRenderingContext.uniform1234][fi][v`** methods of the WebGL API specify values of uniform variables.
-     *
-     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/uniform)
-     */
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/uniform) */
     uniform2iv(location: WebGLUniformLocation | null, data: Iterable<GLint>, srcOffset?: number, srcLength?: GLuint): void;
-    /**
-     * The **`WebGLRenderingContext.uniform1234][fi][v`** methods of the WebGL API specify values of uniform variables.
-     *
-     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/uniform)
-     */
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/uniform) */
     uniform3fv(location: WebGLUniformLocation | null, data: Iterable<GLfloat>, srcOffset?: number, srcLength?: GLuint): void;
-    /**
-     * The **`WebGLRenderingContext.uniform1234][fi][v`** methods of the WebGL API specify values of uniform variables.
-     *
-     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/uniform)
-     */
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/uniform) */
     uniform3iv(location: WebGLUniformLocation | null, data: Iterable<GLint>, srcOffset?: number, srcLength?: GLuint): void;
-    /**
-     * The **`WebGLRenderingContext.uniform1234][fi][v`** methods of the WebGL API specify values of uniform variables.
-     *
-     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/uniform)
-     */
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/uniform) */
     uniform4fv(location: WebGLUniformLocation | null, data: Iterable<GLfloat>, srcOffset?: number, srcLength?: GLuint): void;
-    /**
-     * The **`WebGLRenderingContext.uniform1234][fi][v`** methods of the WebGL API specify values of uniform variables.
-     *
-     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/uniform)
-     */
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/uniform) */
     uniform4iv(location: WebGLUniformLocation | null, data: Iterable<GLint>, srcOffset?: number, srcLength?: GLuint): void;
-    /**
-     * The **`WebGL2RenderingContext.uniformMatrix234]x[234]fv()`** methods of the [WebGL 2 API specify matrix values for uniform variables.
-     *
-     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGL2RenderingContext/uniformMatrix)
-     */
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGL2RenderingContext/uniformMatrix) */
     uniformMatrix2fv(location: WebGLUniformLocation | null, transpose: GLboolean, data: Iterable<GLfloat>, srcOffset?: number, srcLength?: GLuint): void;
-    /**
-     * The **`WebGLRenderingContext.uniformMatrix234]fv()`** methods of the [WebGL API specify matrix values for uniform variables.
-     *
-     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/uniformMatrix)
-     */
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/uniformMatrix) */
     uniformMatrix3fv(location: WebGLUniformLocation | null, transpose: GLboolean, data: Iterable<GLfloat>, srcOffset?: number, srcLength?: GLuint): void;
-    /**
-     * The **`WebGLRenderingContext.uniformMatrix234]fv()`** methods of the [WebGL API specify matrix values for uniform variables.
-     *
-     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/uniformMatrix)
-     */
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/uniformMatrix) */
     uniformMatrix4fv(location: WebGLUniformLocation | null, transpose: GLboolean, data: Iterable<GLfloat>, srcOffset?: number, srcLength?: GLuint): void;
 }
 
 interface WebGLRenderingContextBase {
-    /**
-     * The **`WebGLRenderingContext.vertexAttrib1234]f[v`** methods of the WebGL API specify constant values for generic vertex attributes.
-     *
-     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/vertexAttrib)
-     */
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/vertexAttrib) */
     vertexAttrib1fv(index: GLuint, values: Iterable<GLfloat>): void;
-    /**
-     * The **`WebGLRenderingContext.vertexAttrib1234]f[v`** methods of the WebGL API specify constant values for generic vertex attributes.
-     *
-     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/vertexAttrib)
-     */
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/vertexAttrib) */
     vertexAttrib2fv(index: GLuint, values: Iterable<GLfloat>): void;
-    /**
-     * The **`WebGLRenderingContext.vertexAttrib1234]f[v`** methods of the WebGL API specify constant values for generic vertex attributes.
-     *
-     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/vertexAttrib)
-     */
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/vertexAttrib) */
     vertexAttrib3fv(index: GLuint, values: Iterable<GLfloat>): void;
-    /**
-     * The **`WebGLRenderingContext.vertexAttrib1234]f[v`** methods of the WebGL API specify constant values for generic vertex attributes.
-     *
-     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/vertexAttrib)
-     */
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/vertexAttrib) */
     vertexAttrib4fv(index: GLuint, values: Iterable<GLfloat>): void;
 }
 
 interface WebGLRenderingContextOverloads {
-    /**
-     * The **`WebGLRenderingContext.uniform1234][fi][v`** methods of the WebGL API specify values of uniform variables.
-     *
-     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/uniform)
-     */
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/uniform) */
     uniform1fv(location: WebGLUniformLocation | null, v: Iterable<GLfloat>): void;
-    /**
-     * The **`WebGLRenderingContext.uniform1234][fi][v`** methods of the WebGL API specify values of uniform variables.
-     *
-     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/uniform)
-     */
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/uniform) */
     uniform1iv(location: WebGLUniformLocation | null, v: Iterable<GLint>): void;
-    /**
-     * The **`WebGLRenderingContext.uniform1234][fi][v`** methods of the WebGL API specify values of uniform variables.
-     *
-     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/uniform)
-     */
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/uniform) */
     uniform2fv(location: WebGLUniformLocation | null, v: Iterable<GLfloat>): void;
-    /**
-     * The **`WebGLRenderingContext.uniform1234][fi][v`** methods of the WebGL API specify values of uniform variables.
-     *
-     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/uniform)
-     */
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/uniform) */
     uniform2iv(location: WebGLUniformLocation | null, v: Iterable<GLint>): void;
-    /**
-     * The **`WebGLRenderingContext.uniform1234][fi][v`** methods of the WebGL API specify values of uniform variables.
-     *
-     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/uniform)
-     */
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/uniform) */
     uniform3fv(location: WebGLUniformLocation | null, v: Iterable<GLfloat>): void;
-    /**
-     * The **`WebGLRenderingContext.uniform1234][fi][v`** methods of the WebGL API specify values of uniform variables.
-     *
-     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/uniform)
-     */
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/uniform) */
     uniform3iv(location: WebGLUniformLocation | null, v: Iterable<GLint>): void;
-    /**
-     * The **`WebGLRenderingContext.uniform1234][fi][v`** methods of the WebGL API specify values of uniform variables.
-     *
-     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/uniform)
-     */
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/uniform) */
     uniform4fv(location: WebGLUniformLocation | null, v: Iterable<GLfloat>): void;
-    /**
-     * The **`WebGLRenderingContext.uniform1234][fi][v`** methods of the WebGL API specify values of uniform variables.
-     *
-     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/uniform)
-     */
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/uniform) */
     uniform4iv(location: WebGLUniformLocation | null, v: Iterable<GLint>): void;
-    /**
-     * The **`WebGLRenderingContext.uniformMatrix234]fv()`** methods of the [WebGL API specify matrix values for uniform variables.
-     *
-     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/uniformMatrix)
-     */
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/uniformMatrix) */
     uniformMatrix2fv(location: WebGLUniformLocation | null, transpose: GLboolean, value: Iterable<GLfloat>): void;
-    /**
-     * The **`WebGLRenderingContext.uniformMatrix234]fv()`** methods of the [WebGL API specify matrix values for uniform variables.
-     *
-     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/uniformMatrix)
-     */
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/uniformMatrix) */
     uniformMatrix3fv(location: WebGLUniformLocation | null, transpose: GLboolean, value: Iterable<GLfloat>): void;
-    /**
-     * The **`WebGLRenderingContext.uniformMatrix234]fv()`** methods of the [WebGL API specify matrix values for uniform variables.
-     *
-     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/uniformMatrix)
-     */
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/uniformMatrix) */
     uniformMatrix4fv(location: WebGLUniformLocation | null, transpose: GLboolean, value: Iterable<GLfloat>): void;
 }
