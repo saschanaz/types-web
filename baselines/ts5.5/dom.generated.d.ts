@@ -16097,7 +16097,6 @@ declare var HTMLDivElement: {
     new(): HTMLDivElement;
 };
 
-/** @deprecated use Document */
 interface HTMLDocument extends Document {
     addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: HTMLDocument, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
@@ -16105,7 +16104,6 @@ interface HTMLDocument extends Document {
     removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
 }
 
-/** @deprecated */
 declare var HTMLDocument: {
     prototype: HTMLDocument;
     new(): HTMLDocument;
