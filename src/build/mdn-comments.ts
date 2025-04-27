@@ -1,5 +1,6 @@
 import fs from "fs/promises";
 import { basename } from "path";
+
 const basePath = new URL(
   "../../inputfiles/mdn/files/en-us/web/api/",
   import.meta.url,
@@ -43,7 +44,7 @@ function extractSummary(markdown: string): string {
   // Extract the first sentence (ending in . ! or ?)
   const sentenceMatch = normalizedText.match(/(.*?[.!?])(?=\s|$)/);
   if (sentenceMatch) {
-    return sentenceMatch[0];
+    return sentenceMatch[0]; // Return the first full sentence
   }
 
   const firstWord = normalizedText.split(" ")[0];

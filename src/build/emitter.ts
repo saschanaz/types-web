@@ -906,7 +906,7 @@ export function emitWebIdl(
       comments.push("Available only in secure contexts.");
     }
     if (entity.mdnUrl) {
-      comments.push("");
+      if (comments.length > 0) comments.push("");
       comments.push(`[MDN Reference](${entity.mdnUrl})`);
     }
 
