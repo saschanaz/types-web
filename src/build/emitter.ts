@@ -144,7 +144,6 @@ export function emitWebIdl(
   global: string,
   iterator: "" | "sync" | "async",
   compilerBehavior: CompilerBehavior,
-  descriptions: Record<string, string>,
 ): string {
   // Global print target
   const printer = createTextWriter("\n");
@@ -907,17 +906,6 @@ export function emitWebIdl(
       comments.push("Available only in secure contexts.");
     }
     if (entity.mdnUrl) {
-      if (comments.length == 0) {
-        const key = entity.mdnUrl
-          .split("/API/")
-          .pop()
-          ?.replace("/", ".")
-          .split("#")[0]
-          .toLowerCase();
-        if (key && descriptions[key]) {
-          comments.push(descriptions[key]);
-        }
-      }
       comments.push("");
       comments.push(`[MDN Reference](${entity.mdnUrl})`);
     }
