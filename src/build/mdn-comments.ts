@@ -89,7 +89,7 @@ export async function generateDescriptions(): Promise<Record<string, string>> {
   try {
     const indexPaths = await walkDirectory(basePath);
 
-    for (const fileURL of indexPaths) {
+    const promises = indexPaths.map(async (fileURL) => {
       try {
         const content = await fs.readFile(fileURL, "utf-8");
 
@@ -110,7 +110,10 @@ export async function generateDescriptions(): Promise<Record<string, string>> {
       } catch (error) {
         console.warn(`Skipping ${fileURL.href}: ${error}`);
       }
-    }
+    });
+
+    // Wait for all file processing to finish
+    await Promise.all(promises);
   } catch (error) {
     console.error("Error generating API descriptions:", error);
   }
