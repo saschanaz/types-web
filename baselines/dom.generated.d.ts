@@ -36286,7 +36286,7 @@ interface Window extends EventTarget, AnimationFrameProvider, GlobalEventHandler
      *
      * [MDN Reference](https://developer.mozilla.org/docs/Web/API/Window/alert)
      */
-    alert(message?: any): void;
+    alert(message?: string): void;
     /**
      * The **`Window.blur()`** method does nothing.
      * @deprecated
@@ -38230,7 +38230,7 @@ declare var window: Window & typeof globalThis;
  *
  * [MDN Reference](https://developer.mozilla.org/docs/Web/API/Window/alert)
  */
-declare function alert(message?: any): void;
+declare function alert(message?: string): void;
 /**
  * The **`Window.blur()`** method does nothing.
  * @deprecated
