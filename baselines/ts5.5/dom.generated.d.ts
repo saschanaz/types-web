@@ -121,7 +121,7 @@ interface AudioDataInit {
 
 interface AudioDecoderConfig {
     codec: string;
-    description?: AllowSharedBufferSource;
+    description?: BufferSource;
     numberOfChannels: number;
     sampleRate: number;
 }
@@ -232,7 +232,7 @@ interface BiquadFilterOptions extends AudioNodeOptions {
     type?: BiquadFilterType;
 }
 
-interface BlobEventInit extends EventInit {
+interface BlobEventInit {
     data: Blob;
     timecode?: DOMHighResTimeStamp;
 }
@@ -18441,7 +18441,6 @@ declare var ImageBitmapRenderingContext: {
 
 /**
  * The **`ImageCapture`** interface of the MediaStream Image Capture API provides methods to enable the capture of images or photos from a camera or other photographic device.
- * Available only in secure contexts.
  *
  * [MDN Reference](https://developer.mozilla.org/docs/Web/API/ImageCapture)
  */
@@ -19717,7 +19716,7 @@ interface MediaKeySession extends EventTarget {
      */
     close(): Promise<void>;
     /**
-     * The `generateRequest()` method of the MediaKeySession interface returns a Promise after generating a media request based on initialization data.
+     * The `generateRequest()` method of the MediaKeySession interface returns a Promise after generating a license request based on initialization data.
      *
      * [MDN Reference](https://developer.mozilla.org/docs/Web/API/MediaKeySession/generateRequest)
      */
@@ -25375,7 +25374,7 @@ interface Range extends AbstractRange {
      */
     selectNodeContents(node: Node): void;
     /**
-     * The **`Range.setEnd()`** method sets the end position of a Range to be located at the given offset into the specified node x.Setting the end point above (higher in the document) than the start point will result in a collapsed range with the start and end points both set to the specified end position.
+     * The **`Range.setEnd()`** method sets the end position of a Range to be located at the given offset into the specified node.
      *
      * [MDN Reference](https://developer.mozilla.org/docs/Web/API/Range/setEnd)
      */
@@ -28137,7 +28136,7 @@ interface SVGLength {
      */
     value: number;
     /**
-     * The `valueAsString` property of the SVGLength interface represents the \<length>'s value as a strin\*, in the units expressed by SVGLength.unitType.
+     * The `valueAsString` property of the SVGLength interface represents the \<length>'s value as a string, in the units expressed by SVGLength.unitType.
      *
      * [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGLength/valueAsString)
      */

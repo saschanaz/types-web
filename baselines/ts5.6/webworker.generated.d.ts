@@ -66,7 +66,7 @@ interface AudioDataInit {
 
 interface AudioDecoderConfig {
     codec: string;
-    description?: AllowSharedBufferSource;
+    description?: BufferSource;
     numberOfChannels: number;
     sampleRate: number;
 }
