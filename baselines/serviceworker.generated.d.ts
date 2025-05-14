@@ -481,6 +481,11 @@ interface PushEventInit extends ExtendableEventInit {
     data?: PushMessageDataInit;
 }
 
+interface PushSubscriptionChangeEventInit extends ExtendableEventInit {
+    newSubscription?: PushSubscription;
+    oldSubscription?: PushSubscription;
+}
+
 interface PushSubscriptionJSON {
     endpoint?: string;
     expirationTime?: EpochTimeStamp | null;
@@ -6167,6 +6172,17 @@ declare var PushSubscription: {
     new(): PushSubscription;
 };
 
+/** Available only in secure contexts. */
+interface PushSubscriptionChangeEvent extends ExtendableEvent {
+    readonly newSubscription: PushSubscription | null;
+    readonly oldSubscription: PushSubscription | null;
+}
+
+declare var PushSubscriptionChangeEvent: {
+    prototype: PushSubscriptionChangeEvent;
+    new(type: string, eventInitDict?: PushSubscriptionChangeEventInit): PushSubscriptionChangeEvent;
+};
+
 /**
  * The **`PushSubscriptionOptions`** interface of the Push API represents the options associated with a push subscription.
  * Available only in secure contexts.
@@ -6867,7 +6883,7 @@ interface ServiceWorkerGlobalScopeEventMap extends WorkerGlobalScopeEventMap {
     "notificationclick": NotificationEvent;
     "notificationclose": NotificationEvent;
     "push": PushEvent;
-    "pushsubscriptionchange": Event;
+    "pushsubscriptionchange": PushSubscriptionChangeEvent;
 }
 
 /**
@@ -6906,12 +6922,8 @@ interface ServiceWorkerGlobalScope extends WorkerGlobalScope {
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/ServiceWorkerGlobalScope/push_event) */
     onpush: ((this: ServiceWorkerGlobalScope, ev: PushEvent) => any) | null;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/ServiceWorkerGlobalScope/pushsubscriptionchange_event) */
-    onpushsubscriptionchange: ((this: ServiceWorkerGlobalScope, ev: Event) => any) | null;
-    /**
-     * The **`registration`** read-only property of the ServiceWorkerGlobalScope interface returns a reference to the ServiceWorkerRegistration object, which represents the service worker's registration.
-     *
-     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/ServiceWorkerGlobalScope/registration)
-     */
+    onpushsubscriptionchange: ((this: ServiceWorkerGlobalScope, ev: PushSubscriptionChangeEvent) => any) | null;
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/ServiceWorkerGlobalScope/registration) */
     readonly registration: ServiceWorkerRegistration;
     /**
      * The **`serviceWorker`** read-only property of the ServiceWorkerGlobalScope interface returns a reference to the ServiceWorker object, which represents the service worker.
@@ -7009,12 +7021,8 @@ interface ServiceWorkerRegistration extends EventTarget {
      * [MDN Reference](https://developer.mozilla.org/docs/Web/API/ServiceWorkerRegistration/unregister)
      */
     unregister(): Promise<boolean>;
-    /**
-     * The **`update()`** method of the worker.
-     *
-     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/ServiceWorkerRegistration/update)
-     */
-    update(): Promise<void>;
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/ServiceWorkerRegistration/update) */
+    update(): Promise<ServiceWorkerRegistration>;
     addEventListener<K extends keyof ServiceWorkerRegistrationEventMap>(type: K, listener: (this: ServiceWorkerRegistration, ev: ServiceWorkerRegistrationEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
     removeEventListener<K extends keyof ServiceWorkerRegistrationEventMap>(type: K, listener: (this: ServiceWorkerRegistration, ev: ServiceWorkerRegistrationEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
@@ -11008,12 +11016,8 @@ declare var onnotificationclose: ((this: ServiceWorkerGlobalScope, ev: Notificat
 /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/ServiceWorkerGlobalScope/push_event) */
 declare var onpush: ((this: ServiceWorkerGlobalScope, ev: PushEvent) => any) | null;
 /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/ServiceWorkerGlobalScope/pushsubscriptionchange_event) */
-declare var onpushsubscriptionchange: ((this: ServiceWorkerGlobalScope, ev: Event) => any) | null;
-/**
- * The **`registration`** read-only property of the ServiceWorkerGlobalScope interface returns a reference to the ServiceWorkerRegistration object, which represents the service worker's registration.
- *
- * [MDN Reference](https://developer.mozilla.org/docs/Web/API/ServiceWorkerGlobalScope/registration)
- */
+declare var onpushsubscriptionchange: ((this: ServiceWorkerGlobalScope, ev: PushSubscriptionChangeEvent) => any) | null;
+/** [MDN Reference](https://developer.mozilla.org/docs/Web/API/ServiceWorkerGlobalScope/registration) */
 declare var registration: ServiceWorkerRegistration;
 /**
  * The **`serviceWorker`** read-only property of the ServiceWorkerGlobalScope interface returns a reference to the ServiceWorker object, which represents the service worker.
