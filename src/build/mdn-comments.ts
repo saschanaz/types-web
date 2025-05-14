@@ -133,6 +133,5 @@ export async function generateDescriptions(): Promise<Record<string, any>> {
     console.error("Error generating API descriptions:", error);
   }
 
-  console.log(results);
   return results;
 }
