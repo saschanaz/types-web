@@ -129,32 +129,44 @@ async function emitDom() {
 
   function mergeApiDescriptions(
     idl: Browser.WebIdl,
-    descriptions: Record<string, string>,
+    descriptions: Record<string, any>,
   ) {
     const namespaces = arrayToMap(
       idl.namespaces!,
       (i) => i.name,
       (i) => i,
     );
-    for (const [key, value] of Object.entries(descriptions)) {
-      const target = idl.interfaces!.interface[key] || namespaces[key];
-      if (target) {
-        target.comment = value;
 
-        // Check if the target has properties and methods before destructuring
-        const { properties, methods } = idl.interfaces!.interface[key] || {};
+    for (const [key, descObject] of Object.entries(descriptions)) {
+      const target = idl.interfaces?.interface?.[key] || namespaces[key];
 
-        // Safely access properties and methods
-        const propertiesValues = properties?.property
-          ? Object.values(properties.property)
-          : [];
-        const methodsValues = methods?.method
-          ? Object.values(methods.method)
-          : [];
+      if (!target) continue;
 
-        for (const value of [...propertiesValues, ...methodsValues]) {
-          const descriptionKey = `${key}.${value.name}`.toLowerCase();
-          value.comment = descriptions[descriptionKey];
+      // Set interface/class-level comment
+      if (descObject.__comment) {
+        target.comment = descObject.__comment;
+      }
+
+      const { properties, methods } = idl.interfaces?.interface?.[key] || {};
+
+      const propertyItems = properties?.property
+        ? Object.values(properties.property)
+        : [];
+      const methodItems = methods?.method ? Object.values(methods.method) : [];
+
+      // Add comments to properties
+      for (const prop of propertyItems) {
+        const propDesc = descObject[prop.name];
+        if (propDesc?.__comment) {
+          prop.comment = propDesc.__comment;
+        }
+      }
+
+      // Add comments to methods
+      for (const method of methodItems) {
+        const methodDesc = descObject[method.name];
+        if (methodDesc?.__comment) {
+          method.comment = methodDesc.__comment;
         }
       }
     }

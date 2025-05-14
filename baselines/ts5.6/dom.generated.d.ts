@@ -18089,13 +18089,29 @@ interface IDBKeyRange {
 declare var IDBKeyRange: {
     prototype: IDBKeyRange;
     new(): IDBKeyRange;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/IDBKeyRange/bound_static) */
+    /**
+     * Returns a new IDBKeyRange spanning from lower to upper. If lowerOpen is true, lower is not included in the range. If upperOpen is true, upper is not included in the range.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/IDBKeyRange/bound_static)
+     */
     bound(lower: any, upper: any, lowerOpen?: boolean, upperOpen?: boolean): IDBKeyRange;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/IDBKeyRange/lowerBound_static) */
+    /**
+     * Returns a new IDBKeyRange starting at key with no upper bound. If open is true, key is not included in the range.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/IDBKeyRange/lowerBound_static)
+     */
     lowerBound(lower: any, open?: boolean): IDBKeyRange;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/IDBKeyRange/only_static) */
+    /**
+     * Returns a new IDBKeyRange spanning only key.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/IDBKeyRange/only_static)
+     */
     only(value: any): IDBKeyRange;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/IDBKeyRange/upperBound_static) */
+    /**
+     * Returns a new IDBKeyRange with no lower bound and ending at key. If open is true, key is not included in the range.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/IDBKeyRange/upperBound_static)
+     */
     upperBound(upper: any, open?: boolean): IDBKeyRange;
 };
 
@@ -20697,13 +20713,25 @@ declare var MessagePort: {
  * [MDN Reference](https://developer.mozilla.org/docs/Web/API/MimeType)
  */
 interface MimeType {
-    /** @deprecated */
+    /**
+     * Returns the MIME type's description.
+     * @deprecated
+     */
     readonly description: string;
-    /** @deprecated */
+    /**
+     * Returns the Plugin object that implements this MIME type.
+     * @deprecated
+     */
     readonly enabledPlugin: Plugin;
-    /** @deprecated */
+    /**
+     * Returns the MIME type's typical file extensions, in a comma-separated list.
+     * @deprecated
+     */
     readonly suffixes: string;
-    /** @deprecated */
+    /**
+     * Returns the MIME type.
+     * @deprecated
+     */
     readonly type: string;
 }
 
@@ -22796,9 +22824,17 @@ interface PaymentResponse extends EventTarget {
      * [MDN Reference](https://developer.mozilla.org/docs/Web/API/PaymentResponse/payerEmail)
      */
     readonly payerEmail: string | null;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/PaymentResponse/payerName) */
+    /**
+     * The **`payerName`** read-only property of the option is only present when the `requestPayerName` option is set to `true` in the options parameter of the A string containing the payer name.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/PaymentResponse/payerName)
+     */
     readonly payerName: string | null;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/PaymentResponse/payerPhone) */
+    /**
+     * The `payerPhone` read-only property of the PaymentResponse interface returns the phone number supplied by the user.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/PaymentResponse/payerPhone)
+     */
     readonly payerPhone: string | null;
     /**
      * The **`requestId`** read-only property of the the `PaymentResponse()` constructor by details.id.
@@ -23753,15 +23789,30 @@ declare var PictureInPictureWindow: {
  * [MDN Reference](https://developer.mozilla.org/docs/Web/API/Plugin)
  */
 interface Plugin {
-    /** @deprecated */
+    /**
+     * Returns the plugin's description.
+     * @deprecated
+     */
     readonly description: string;
-    /** @deprecated */
+    /**
+     * Returns the plugin library's filename, if applicable on the current platform.
+     * @deprecated
+     */
     readonly filename: string;
-    /** @deprecated */
+    /**
+     * Returns the number of MIME types, represented by MimeType objects, supported by the plugin.
+     * @deprecated
+     */
     readonly length: number;
-    /** @deprecated */
+    /**
+     * Returns the plugin's name.
+     * @deprecated
+     */
     readonly name: string;
-    /** @deprecated */
+    /**
+     * Returns the specified MimeType object.
+     * @deprecated
+     */
     item(index: number): MimeType | null;
     /** @deprecated */
     namedItem(name: string): MimeType | null;
@@ -26546,9 +26597,17 @@ declare var SVGAnimatedString: {
  * [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGAnimatedTransformList)
  */
 interface SVGAnimatedTransformList {
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGAnimatedTransformList/animVal) */
+    /**
+     * The **`animVal`** read-only property of the SVGAnimatedTransformList interface represents the animated value of the `transform` attribute of an SVG element.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGAnimatedTransformList/animVal)
+     */
     readonly animVal: SVGTransformList;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGAnimatedTransformList/baseVal) */
+    /**
+     * The **`baseVal`** read-only property of the SVGAnimatedTransformList interface represents the non-animated value of the `transform` attribute of an SVG element.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGAnimatedTransformList/baseVal)
+     */
     readonly baseVal: SVGTransformList;
 }
 

@@ -1,5 +1,4 @@
 import fs from "fs/promises";
-import { basename } from "path";
 
 const basePath = new URL(
   "../../inputfiles/mdn/files/en-us/web/api/",
@@ -69,15 +68,42 @@ async function walkDirectory(dir: URL): Promise<URL[]> {
   return results;
 }
 
-function generateTitle(content: string, file: URL) {
-  const match = content.match(/title:\s*["']?([^"'\n]+)["']?/);
-  if (match) {
-    return match[1].replace(/ extension$/, "").split(":")[0];
-  }
-  return basename(file.pathname) || "";
+function generateSlug(content: string): string {
+  const match = content.match(/slug:\s*["']?([^"'\n]+)["']?/);
+  if (!match) throw new Error("Slug not found");
+  const url = match[1].split(":").pop()!;
+  const parts = url.split("/").slice(2); // remove first 2 segments
+  const result = parts.join("/");
+  return result;
 }
 
-export async function generateDescriptions(): Promise<Record<string, string>> {
+function urlToNestedObject(url: string, text: string): Record<string, any> {
+  const keys = url.split("/");
+  return keys.reduceRight<Record<string, any>>((acc, key) => ({ [key]: acc }), {
+    __comment: text,
+  });
+}
+
+function deepMerge(
+  target: Record<string, any>,
+  source: Record<string, any>,
+): Record<string, any> {
+  for (const key in source) {
+    if (
+      source[key] &&
+      typeof source[key] === "object" &&
+      !Array.isArray(source[key])
+    ) {
+      if (!target[key]) target[key] = {};
+      deepMerge(target[key], source[key]);
+    } else {
+      target[key] = source[key];
+    }
+  }
+  return target;
+}
+
+export async function generateDescriptions(): Promise<Record<string, any>> {
   const stats = await fs.stat(basePath);
   if (!stats.isDirectory()) {
     throw new Error(
@@ -85,28 +111,17 @@ export async function generateDescriptions(): Promise<Record<string, string>> {
     );
   }
 
-  const results: Record<string, string> = {};
+  const results: Record<string, any> = {};
   try {
     const indexPaths = await walkDirectory(basePath);
 
     const promises = indexPaths.map(async (fileURL) => {
       try {
         const content = await fs.readFile(fileURL, "utf-8");
-
-        const title = generateTitle(content, fileURL);
-
-        const relPath = fileURL.pathname
-          .replace(basePath.pathname, "")
-          .replace(/\/index\.md$/, "");
-        const parentKey = relPath.split("/").filter(Boolean).join(".");
-        const fullKey = parentKey.includes(".")
-          ? parentKey.includes(title.toLowerCase())
-            ? parentKey
-            : `${parentKey}.${title}`
-          : title;
-
+        const slug = generateSlug(content);
         const summary = extractSummary(content);
-        results[fullKey] = summary;
+        const nested = urlToNestedObject(slug, summary);
+        deepMerge(results, nested as any);
       } catch (error) {
         console.warn(`Skipping ${fileURL.href}: ${error}`);
       }
@@ -118,5 +133,6 @@ export async function generateDescriptions(): Promise<Record<string, string>> {
     console.error("Error generating API descriptions:", error);
   }
 
+  console.log(results);
   return results;
 }

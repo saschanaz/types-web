@@ -4387,13 +4387,29 @@ interface IDBKeyRange {
 declare var IDBKeyRange: {
     prototype: IDBKeyRange;
     new(): IDBKeyRange;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/IDBKeyRange/bound_static) */
+    /**
+     * Returns a new IDBKeyRange spanning from lower to upper. If lowerOpen is true, lower is not included in the range. If upperOpen is true, upper is not included in the range.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/IDBKeyRange/bound_static)
+     */
     bound(lower: any, upper: any, lowerOpen?: boolean, upperOpen?: boolean): IDBKeyRange;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/IDBKeyRange/lowerBound_static) */
+    /**
+     * Returns a new IDBKeyRange starting at key with no upper bound. If open is true, key is not included in the range.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/IDBKeyRange/lowerBound_static)
+     */
     lowerBound(lower: any, open?: boolean): IDBKeyRange;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/IDBKeyRange/only_static) */
+    /**
+     * Returns a new IDBKeyRange spanning only key.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/IDBKeyRange/only_static)
+     */
     only(value: any): IDBKeyRange;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/IDBKeyRange/upperBound_static) */
+    /**
+     * Returns a new IDBKeyRange with no lower bound and ending at key. If open is true, key is not included in the range.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/IDBKeyRange/upperBound_static)
+     */
     upperBound(upper: any, open?: boolean): IDBKeyRange;
 };
 
