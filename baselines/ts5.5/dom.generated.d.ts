@@ -12625,18 +12625,8 @@ interface GlobalEventHandlers {
     oncanplaythrough: ((this: GlobalEventHandlers, ev: Event) => any) | null;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/HTMLElement/change_event) */
     onchange: ((this: GlobalEventHandlers, ev: Event) => any) | null;
-<<<<<<< HEAD
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Element/click_event) */
-    onclick: ((this: GlobalEventHandlers, ev: MouseEvent) => any) | null;
-=======
-    /**
-     * Fires when the user clicks the left mouse button on the object
-     * @param ev The mouse event.
-     *
-     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/Element/click_event)
-     */
     onclick: ((this: GlobalEventHandlers, ev: PointerEvent) => any) | null;
->>>>>>> 043b1d804eb57b45edb74969ad75ba3f98074ec9
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/HTMLDialogElement/close_event) */
     onclose: ((this: GlobalEventHandlers, ev: Event) => any) | null;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/HTMLCanvasElement/contextlost_event) */
@@ -19072,11 +19062,7 @@ interface LargestContentfulPaint extends PerformanceEntry {
      * [MDN Reference](https://developer.mozilla.org/docs/Web/API/LargestContentfulPaint/loadTime)
      */
     readonly loadTime: DOMHighResTimeStamp;
-    /**
-     * The **`renderTime`** read-only property of the LargestContentfulPaint interface represents the time that the element was rendered to the screen.
-     *
-     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/LargestContentfulPaint/renderTime)
-     */
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/LargestContentfulPaint/renderTime) */
     readonly renderTime: DOMHighResTimeStamp;
     /**
      * The **`size`** read-only property of the LargestContentfulPaint interface returns the intrinsic size of the element that is the largest contentful paint.
@@ -24571,7 +24557,7 @@ interface RTCIceCandidate {
      */
     readonly component: RTCIceComponent | null;
     /**
-     * The **RTCIceCandidate** interface's read-only **`foundation`** property is a string which uniquely identifies the candidate across multiple transports.
+     * The **`foundation`** read-only property of the RTCIceCandidate interface is a string that allows correlation of candidates from a common network path on multiple RTCIceTransport objects.
      *
      * [MDN Reference](https://developer.mozilla.org/docs/Web/API/RTCIceCandidate/foundation)
      */
@@ -30181,17 +30167,17 @@ interface Selection {
      * [MDN Reference](https://developer.mozilla.org/docs/Web/API/Selection/extend)
      */
     extend(node: Node, offset?: number): void;
-<<<<<<< HEAD
+    /**
+     * The **`Selection.getComposedRanges()`** method returns an array of StaticRange objects representing the current selection ranges, and can return ranges that potentially cross shadow boundaries.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/Selection/getComposedRanges)
+     */
+    getComposedRanges(options?: GetComposedRangesOptions): StaticRange[];
     /**
      * The **`getRangeAt()`** method of the Selection interface returns a range object representing a currently selected range.
      *
      * [MDN Reference](https://developer.mozilla.org/docs/Web/API/Selection/getRangeAt)
      */
-=======
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Selection/getComposedRanges) */
-    getComposedRanges(options?: GetComposedRangesOptions): StaticRange[];
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Selection/getRangeAt) */
->>>>>>> 043b1d804eb57b45edb74969ad75ba3f98074ec9
     getRangeAt(index: number): Range;
     /**
      * The **`Selection.modify()`** method applies a change to the current selection or cursor position, using simple textual commands.
@@ -30419,17 +30405,12 @@ interface ServiceWorkerRegistration extends EventTarget {
      * [MDN Reference](https://developer.mozilla.org/docs/Web/API/ServiceWorkerRegistration/unregister)
      */
     unregister(): Promise<boolean>;
-<<<<<<< HEAD
     /**
      * The **`update()`** method of the worker.
      *
      * [MDN Reference](https://developer.mozilla.org/docs/Web/API/ServiceWorkerRegistration/update)
      */
-    update(): Promise<void>;
-=======
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/ServiceWorkerRegistration/update) */
     update(): Promise<ServiceWorkerRegistration>;
->>>>>>> 043b1d804eb57b45edb74969ad75ba3f98074ec9
     addEventListener<K extends keyof ServiceWorkerRegistrationEventMap>(type: K, listener: (this: ServiceWorkerRegistration, ev: ServiceWorkerRegistrationEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
     removeEventListener<K extends keyof ServiceWorkerRegistrationEventMap>(type: K, listener: (this: ServiceWorkerRegistration, ev: ServiceWorkerRegistrationEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
@@ -36332,17 +36313,12 @@ interface Window extends EventTarget, AnimationFrameProvider, GlobalEventHandler
      * [MDN Reference](https://developer.mozilla.org/docs/Web/API/Window/window)
      */
     readonly window: Window & typeof globalThis;
-<<<<<<< HEAD
     /**
      * `window.alert()` instructs the browser to display a dialog with an optional message, and to wait until the user dismisses the dialog.
      *
      * [MDN Reference](https://developer.mozilla.org/docs/Web/API/Window/alert)
      */
-    alert(message?: string): void;
-=======
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Window/alert) */
     alert(message?: any): void;
->>>>>>> 043b1d804eb57b45edb74969ad75ba3f98074ec9
     /**
      * The **`Window.blur()`** method does nothing.
      * @deprecated
@@ -38281,17 +38257,12 @@ declare var visualViewport: VisualViewport | null;
  * [MDN Reference](https://developer.mozilla.org/docs/Web/API/Window/window)
  */
 declare var window: Window & typeof globalThis;
-<<<<<<< HEAD
 /**
  * `window.alert()` instructs the browser to display a dialog with an optional message, and to wait until the user dismisses the dialog.
  *
  * [MDN Reference](https://developer.mozilla.org/docs/Web/API/Window/alert)
  */
-declare function alert(message?: string): void;
-=======
-/** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Window/alert) */
 declare function alert(message?: any): void;
->>>>>>> 043b1d804eb57b45edb74969ad75ba3f98074ec9
 /**
  * The **`Window.blur()`** method does nothing.
  * @deprecated
@@ -38476,18 +38447,8 @@ declare var oncanplay: ((this: Window, ev: Event) => any) | null;
 declare var oncanplaythrough: ((this: Window, ev: Event) => any) | null;
 /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/HTMLElement/change_event) */
 declare var onchange: ((this: Window, ev: Event) => any) | null;
-<<<<<<< HEAD
 /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Element/click_event) */
-declare var onclick: ((this: Window, ev: MouseEvent) => any) | null;
-=======
-/**
- * Fires when the user clicks the left mouse button on the object
- * @param ev The mouse event.
- *
- * [MDN Reference](https://developer.mozilla.org/docs/Web/API/Element/click_event)
- */
 declare var onclick: ((this: Window, ev: PointerEvent) => any) | null;
->>>>>>> 043b1d804eb57b45edb74969ad75ba3f98074ec9
 /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/HTMLDialogElement/close_event) */
 declare var onclose: ((this: Window, ev: Event) => any) | null;
 /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/HTMLCanvasElement/contextlost_event) */
