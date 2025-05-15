@@ -1,4 +1,5 @@
 import fs from "fs/promises";
+import { merge } from "./helpers.js";
 
 const basePath = new URL(
   "../../inputfiles/mdn/files/en-us/web/api/",
@@ -68,39 +69,17 @@ async function walkDirectory(dir: URL): Promise<URL[]> {
   return results;
 }
 
-function generateSlug(content: string): string {
-  const match = content.match(/slug:\s*["']?([^"'\n]+)["']?/);
-  if (!match) throw new Error("Slug not found");
+function generateSlug(content: string): string[] {
+  const match = content.match(/slug:\s*["']?([^"'\n]+)["']?/)!;
   const url = match[1].split(":").pop()!;
   const parts = url.split("/").slice(2); // remove first 2 segments
-  const result = parts.join("/");
-  return result;
+  return parts;
 }
 
-function urlToNestedObject(url: string, text: string): Record<string, any> {
-  const keys = url.split("/");
-  return keys.reduceRight<Record<string, any>>((acc, key) => ({ [key]: acc }), {
+function urlToNestedObject(url: string[], text: string): Record<string, any> {
+  return url.reduceRight<Record<string, any>>((acc, key) => ({ [key]: acc }), {
     __comment: text,
   });
-}
-
-function deepMerge(
-  target: Record<string, any>,
-  source: Record<string, any>,
-): Record<string, any> {
-  for (const key in source) {
-    if (
-      source[key] &&
-      typeof source[key] === "object" &&
-      !Array.isArray(source[key])
-    ) {
-      if (!target[key]) target[key] = {};
-      deepMerge(target[key], source[key]);
-    } else {
-      target[key] = source[key];
-    }
-  }
-  return target;
 }
 
 export async function generateDescriptions(): Promise<Record<string, any>> {
@@ -121,7 +100,7 @@ export async function generateDescriptions(): Promise<Record<string, any>> {
         const slug = generateSlug(content);
         const summary = extractSummary(content);
         const nested = urlToNestedObject(slug, summary);
-        deepMerge(results, nested as any);
+        merge(results, nested);
       } catch (error) {
         console.warn(`Skipping ${fileURL.href}: ${error}`);
       }
