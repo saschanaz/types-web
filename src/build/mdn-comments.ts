@@ -1,5 +1,4 @@
 import fs from "fs/promises";
-import { merge } from "./helpers.js";
 
 const basePath = new URL(
   "../../inputfiles/mdn/files/en-us/web/api/",
@@ -76,10 +75,16 @@ function generateSlug(content: string): string[] {
   return parts;
 }
 
-function urlToNestedObject(url: string[], text: string): Record<string, any> {
-  return url.reduceRight<Record<string, any>>((acc, key) => ({ [key]: acc }), {
-    __comment: text,
-  });
+function ensureLeaf(
+  obj: Record<string, any>,
+  keys: string[],
+): Record<string, any> {
+  let leaf = obj;
+  for (const key of keys) {
+    leaf[key] ??= {};
+    leaf = leaf[key];
+  }
+  return leaf;
 }
 
 export async function generateDescriptions(): Promise<Record<string, any>> {
@@ -99,8 +104,8 @@ export async function generateDescriptions(): Promise<Record<string, any>> {
         const content = await fs.readFile(fileURL, "utf-8");
         const slug = generateSlug(content);
         const summary = extractSummary(content);
-        const nested = urlToNestedObject(slug, summary);
-        merge(results, nested);
+        const leaf = ensureLeaf(results, slug);
+        leaf.__comment = summary;
       } catch (error) {
         console.warn(`Skipping ${fileURL.href}: ${error}`);
       }
