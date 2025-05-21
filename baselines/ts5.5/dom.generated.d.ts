@@ -30708,6 +30708,7 @@ declare var SourceBufferList: {
 
 /**
  * The **`SpeechRecognitionAlternative`** interface of the Web Speech API represents a single word that has been recognized by the speech recognition service.
+ * Available only in secure contexts.
  *
  * [MDN Reference](https://developer.mozilla.org/docs/Web/API/SpeechRecognitionAlternative)
  */
@@ -30733,6 +30734,7 @@ declare var SpeechRecognitionAlternative: {
 
 /**
  * The **`SpeechRecognitionResult`** interface of the Web Speech API represents a single recognition match, which may contain multiple SpeechRecognitionAlternative objects.
+ * Available only in secure contexts.
  *
  * [MDN Reference](https://developer.mozilla.org/docs/Web/API/SpeechRecognitionResult)
  */
@@ -30765,6 +30767,7 @@ declare var SpeechRecognitionResult: {
 
 /**
  * The **`SpeechRecognitionResultList`** interface of the Web Speech API represents a list of SpeechRecognitionResult objects, or a single one if results are being captured in SpeechRecognition.continuous mode.
+ * Available only in secure contexts.
  *
  * [MDN Reference](https://developer.mozilla.org/docs/Web/API/SpeechRecognitionResultList)
  */
