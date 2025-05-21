@@ -1,5 +1,4 @@
 import fs from "fs/promises";
-
 const basePath = new URL(
   "../../inputfiles/mdn/files/en-us/web/api/",
   import.meta.url,
@@ -52,33 +51,48 @@ function extractSummary(markdown: string): string {
 
 async function walkDirectory(dir: URL): Promise<URL[]> {
   const entries = await fs.readdir(dir, { withFileTypes: true });
+  const parentDirName = dir.pathname.split("/").filter(Boolean).slice(-1)[0];
   let results: URL[] = [];
 
   for (const entry of entries) {
-    const fullPath = new URL(`${entry.name}/`, dir);
-    const fullFile = new URL(entry.name, dir);
-
     if (entry.isDirectory()) {
-      results = results.concat(await walkDirectory(fullPath));
+      if (entry.name === parentDirName) continue;
+      const subDir = new URL(`${entry.name}/`, dir);
+      results = results.concat(await walkDirectory(subDir));
     } else if (entry.isFile() && entry.name === "index.md") {
-      results.push(fullFile);
+      results.push(new URL(entry.name, dir));
     }
   }
 
   return results;
 }
 
-function generateSlug(content: string): string[] {
-  const match = content.match(/slug:\s*["']?([^"'\n]+)["']?/)!;
-  const url = match[1].split(":").pop()!;
-  const parts = url.split("/").slice(2); // remove first 2 segments
-  return parts;
+const types: Record<string, string> = {
+  property: "properties",
+  method: "methods",
+};
+
+function generateTypes(content: string): string[] | undefined {
+  const pageType = content.match(/page-type:\s*["']?([^"'\n]+)["']?/);
+  if (!pageType) throw new Error("pageType not found");
+
+  const type = pageType[1].split("-").pop()!;
+  const plural = types[type];
+  if (!plural) return;
+
+  return [plural, type];
 }
 
-function ensureLeaf(
-  obj: Record<string, any>,
-  keys: string[],
-): Record<string, any> {
+function generateSlug(content: string): string[] {
+  const match = content.match(/slug:\s*["']?([^"'\n]+)["']?/);
+  if (!match) throw new Error("Slug not found");
+
+  const url = match[1].split(":").pop()!;
+  const parts = url.split("/").slice(2); // skip `/en-US/web/api/...`
+  return parts; // Keep only top-level and method
+}
+
+function ensureLeaf(obj: Record<string, any>, keys: string[]) {
   let leaf = obj;
   for (const key of keys) {
     leaf[key] ??= {};
@@ -87,7 +101,29 @@ function ensureLeaf(
   return leaf;
 }
 
-export async function generateDescriptions(): Promise<Record<string, any>> {
+function insertComment(
+  root: Record<string, any>,
+  slug: string[],
+  summary: string,
+  types?: string[],
+) {
+  if (slug.length === 1 || !types) {
+    const iface = ensureLeaf(root, slug);
+    iface.__comment = summary;
+  } else {
+    const [ifaceName, memberName] = slug;
+    const iface = ensureLeaf(root, [ifaceName, ...types]);
+
+    const mainComment = root[ifaceName]?.__comment;
+    if (mainComment !== summary) {
+      iface[memberName] = { comment: summary };
+    }
+  }
+}
+
+export async function generateDescriptions(removedComments: string[]): Promise<{
+  interfaces: { interface: Record<string, any> };
+}> {
   const stats = await fs.stat(basePath);
   if (!stats.isDirectory()) {
     throw new Error(
@@ -99,23 +135,24 @@ export async function generateDescriptions(): Promise<Record<string, any>> {
   try {
     const indexPaths = await walkDirectory(basePath);
 
-    const promises = indexPaths.map(async (fileURL) => {
-      try {
-        const content = await fs.readFile(fileURL, "utf-8");
-        const slug = generateSlug(content);
-        const summary = extractSummary(content);
-        const leaf = ensureLeaf(results, slug);
-        leaf.__comment = summary;
-      } catch (error) {
-        console.warn(`Skipping ${fileURL.href}: ${error}`);
-      }
-    });
+    await Promise.all(
+      indexPaths.map(async (fileURL) => {
+        try {
+          const content = await fs.readFile(fileURL, "utf-8");
+          const slug = generateSlug(content);
+          const types = generateTypes(content);
 
-    // Wait for all file processing to finish
-    await Promise.all(promises);
-  } catch (error) {
-    console.error("Error generating API descriptions:", error);
+          if (removedComments.includes(slug[0])) return;
+
+          const summary = extractSummary(content);
+          insertComment(results, slug, summary, types);
+        } catch (error) {
+          console.error("Error generating API descriptions:", error);
+        }
+      }),
+    );
+  } catch (err) {
+    console.error("Error generating API descriptions:", err);
   }
-
-  return results;
+  return { interfaces: { interface: results } };
 }

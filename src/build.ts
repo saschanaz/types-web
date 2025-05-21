@@ -95,7 +95,8 @@ async function emitDom() {
   const addedItems = await readInputJSON("addedTypes.jsonc");
   const comments = await readInputJSON("comments.json");
   const deprecatedInfo = await readInputJSON("deprecatedMessage.json");
-  const documentationFromMDN = await generateDescriptions();
+  const removedComments = await readInputJSON("removedComments.json");
+  const documentationFromMDN = await generateDescriptions(removedComments);
   const removedItems = await readInputJSON("removedTypes.jsonc");
 
   async function readInputJSON(filename: string) {
@@ -129,7 +130,7 @@ async function emitDom() {
 
   function mergeApiDescriptions(
     idl: Browser.WebIdl,
-    descriptions: Record<string, any>,
+    descriptions: { interfaces: { interface: Record<string, any> } },
   ) {
     const namespaces = arrayToMap(
       idl.namespaces!,
@@ -137,7 +138,9 @@ async function emitDom() {
       (i) => i,
     );
 
-    for (const [key, descObject] of Object.entries(descriptions)) {
+    for (const [key, descObject] of Object.entries(
+      descriptions.interfaces.interface,
+    )) {
       const target = idl.interfaces?.interface?.[key] || namespaces[key];
 
       if (!target) continue;
@@ -146,30 +149,8 @@ async function emitDom() {
       if (descObject.__comment) {
         target.comment = descObject.__comment;
       }
-
-      const { properties, methods } = idl.interfaces?.interface?.[key] || {};
-
-      const propertyItems = properties?.property
-        ? Object.values(properties.property)
-        : [];
-      const methodItems = methods?.method ? Object.values(methods.method) : [];
-
-      // Add comments to properties
-      for (const prop of propertyItems) {
-        const propDesc = descObject[prop.name];
-        if (propDesc?.__comment) {
-          prop.comment = propDesc.__comment;
-        }
-      }
-
-      // Add comments to methods
-      for (const method of methodItems) {
-        const methodDesc = descObject[method.name];
-        if (methodDesc?.__comment) {
-          method.comment = methodDesc.__comment;
-        }
-      }
     }
+    idl = merge(idl, descriptions);
 
     return idl;
   }
