@@ -118,7 +118,14 @@ export function exposesTo(o: { exposed?: string }, target: string[]): boolean {
   return o.exposed.split(" ").some((e) => target.includes(e));
 }
 
-export function merge<T>(target: T, src: T, { shallow = false, optional = false }: { shallow?: boolean, optional?: boolean } = { }): T {
+export function merge<T>(
+  target: T,
+  src: T,
+  {
+    shallow = false,
+    optional = false,
+  }: { shallow?: boolean; optional?: boolean } = {},
+): T {
   if (typeof target !== "object" || typeof src !== "object") {
     return src;
   }

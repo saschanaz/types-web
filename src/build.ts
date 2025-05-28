@@ -150,7 +150,7 @@ async function emitDom() {
         target.comment = descObject.__comment;
       }
     }
-    idl = merge(idl, descriptions, {optional:true});
+    idl = merge(idl, descriptions, { optional: true });
 
     return idl;
   }
@@ -179,7 +179,7 @@ async function emitDom() {
   };
 
   for (const w of widlStandardTypes) {
-    webidl = merge(webidl, w.browser, {shallow: true});
+    webidl = merge(webidl, w.browser, { shallow: true });
   }
   for (const w of widlStandardTypes) {
     for (const partial of w.partialInterfaces) {
@@ -189,32 +189,32 @@ async function emitDom() {
         webidl.mixins!.mixin[partial.name];
       if (base) {
         if (base.exposed) resolveExposure(partial, base.exposed);
-        merge(base.constants, partial.constants, {shallow: true});
-        merge(base.methods, partial.methods, {shallow: true});
-        merge(base.properties, partial.properties, {shallow: true});
+        merge(base.constants, partial.constants, { shallow: true });
+        merge(base.methods, partial.methods, { shallow: true });
+        merge(base.properties, partial.properties, { shallow: true });
       }
     }
     for (const partial of w.partialMixins) {
       const base = webidl.mixins!.mixin[partial.name];
       if (base) {
         if (base.exposed) resolveExposure(partial, base.exposed);
-        merge(base.constants, partial.constants, {shallow: true});
-        merge(base.methods, partial.methods, {shallow: true});
-        merge(base.properties, partial.properties, {shallow: true});
+        merge(base.constants, partial.constants, { shallow: true });
+        merge(base.methods, partial.methods, { shallow: true });
+        merge(base.properties, partial.properties, { shallow: true });
       }
     }
     for (const partial of w.partialDictionaries) {
       const base = webidl.dictionaries!.dictionary[partial.name];
       if (base) {
-        merge(base.members, partial.members, {shallow: true});
+        merge(base.members, partial.members, { shallow: true });
       }
     }
     for (const partial of w.partialNamespaces) {
       const base = webidl.namespaces?.find((n) => n.name === partial.name);
       if (base) {
         if (base.exposed) resolveExposure(partial, base.exposed);
-        merge(base.methods, partial.methods, {shallow: true});
-        merge(base.properties, partial.properties, {shallow: true});
+        merge(base.methods, partial.methods, { shallow: true });
+        merge(base.properties, partial.properties, { shallow: true });
       }
     }
     for (const include of w.includes) {
