@@ -73,9 +73,7 @@ const types: Record<string, string> = {
 };
 
 function generateTypes(content: string): string[] | undefined {
-  const pageType = content.match(/page-type:\s*["']?([^"'\n]+)["']?/);
-  if (!pageType) throw new Error("pageType not found");
-
+  const pageType = content.match(/page-type:\s*["']?([^"'\n]+)["']?/)!;
   const type = pageType[1].split("-").pop()!;
   const plural = types[type];
   if (!plural) return;
@@ -84,9 +82,7 @@ function generateTypes(content: string): string[] | undefined {
 }
 
 function generateSlug(content: string): string[] {
-  const match = content.match(/slug:\s*["']?([^"'\n]+)["']?/);
-  if (!match) throw new Error("Slug not found");
-
+  const match = content.match(/slug:\s*["']?([^"'\n]+)["']?/)!;
   const url = match[1].split(":").pop()!;
   const parts = url.split("/").slice(2); // skip `/en-US/web/api/...`
   return parts; // Keep only top-level and method
