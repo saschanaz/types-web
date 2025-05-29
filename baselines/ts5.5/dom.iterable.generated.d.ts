@@ -29,167 +29,6 @@ interface BaseAudioContext {
     createPeriodicWave(real: Iterable<number>, imag: Iterable<number>, constraints?: PeriodicWaveConstraints): PeriodicWave;
 }
 
-interface Cache {
-    /**
-     * The **`addAll()`** method of the Cache interface takes an array of URLs, retrieves them, and adds the resulting response objects to the given cache.
-     *
-     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/Cache/addAll)
-     */
-    addAll(requests: Iterable<RequestInfo>): Promise<void>;
-}
-
-interface CustomStateSet extends Set<string> {
-}
-
-interface DataTransferItemList {
-    [Symbol.iterator](): IterableIterator<DataTransferItem>;
-}
-
-interface FormData {
-    [Symbol.iterator](): IterableIterator<[string, FormDataEntryValue]>;
-    /** Returns an array of key, value pairs for every entry in the list. */
-    entries(): IterableIterator<[string, FormDataEntryValue]>;
-    /** Returns a list of keys in the list. */
-    keys(): IterableIterator<string>;
-    /** Returns a list of values in the list. */
-    values(): IterableIterator<FormDataEntryValue>;
-}
-
-interface HTMLCollectionOf<T extends Element> {
-    [Symbol.iterator](): IterableIterator<T>;
-}
-
-interface ImageTrackList {
-    [Symbol.iterator](): IterableIterator<ImageTrack>;
-}
-
-interface MIDIInputMap extends ReadonlyMap<string, MIDIInput> {
-}
-
-interface MIDIOutput {
-    /**
-     * The **`send()`** method of the MIDIOutput interface queues messages for the corresponding MIDI port.
-     *
-     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/MIDIOutput/send)
-     */
-    send(data: Iterable<number>, timestamp?: DOMHighResTimeStamp): void;
-}
-
-interface MIDIOutputMap extends ReadonlyMap<string, MIDIOutput> {
-}
-
-interface MessageEvent<T = any> {
-    /** @deprecated */
-    initMessageEvent(type: string, bubbles?: boolean, cancelable?: boolean, data?: any, origin?: string, lastEventId?: string, source?: MessageEventSource | null, ports?: Iterable<MessagePort>): void;
-}
-
-interface MimeTypeArray {
-    [Symbol.iterator](): IterableIterator<MimeType>;
-}
-
-interface Navigator {
-    /**
-     * The **`requestMediaKeySystemAccess()`** method of the Navigator interface returns a Promise which delivers a MediaKeySystemAccess object that can be used to access a particular media key system, which can in turn be used to create keys for decrypting a media stream.
-     * Available only in secure contexts.
-     *
-     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/Navigator/requestMediaKeySystemAccess)
-     */
-    requestMediaKeySystemAccess(keySystem: string, supportedConfigurations: Iterable<MediaKeySystemConfiguration>): Promise<MediaKeySystemAccess>;
-    /**
-     * The **`vibrate()`** method of the Navigator interface pulses the vibration hardware on the device, if such hardware exists.
-     *
-     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/Navigator/vibrate)
-     */
-    vibrate(pattern: Iterable<number>): boolean;
-}
-
-interface NodeListOf<TNode extends Node> {
-    [Symbol.iterator](): IterableIterator<TNode>;
-    /** Returns an array of key, value pairs for every entry in the list. */
-    entries(): IterableIterator<[number, TNode]>;
-    /** Returns an list of keys in the list. */
-    keys(): IterableIterator<number>;
-    /** Returns an list of values in the list. */
-    values(): IterableIterator<TNode>;
-}
-
-interface Plugin {
-    [Symbol.iterator](): IterableIterator<MimeType>;
-}
-
-interface PluginArray {
-    [Symbol.iterator](): IterableIterator<Plugin>;
-}
-
-interface RTCRtpTransceiver {
-    /**
-     * The **`setCodecPreferences()`** method of the RTCRtpTransceiver interface is used to set the codecs that the transceiver allows for decoding _received_ data, in order of decreasing preference.
-     *
-     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/RTCRtpTransceiver/setCodecPreferences)
-     */
-    setCodecPreferences(codecs: Iterable<RTCRtpCodec>): void;
-}
-
-interface RTCStatsReport extends ReadonlyMap<string, any> {
-}
-
-interface SourceBufferList {
-    [Symbol.iterator](): IterableIterator<SourceBuffer>;
-}
-
-interface SpeechRecognitionResult {
-    [Symbol.iterator](): IterableIterator<SpeechRecognitionAlternative>;
-}
-
-interface SpeechRecognitionResultList {
-    [Symbol.iterator](): IterableIterator<SpeechRecognitionResult>;
-}
-
-interface SubtleCrypto {
-    /**
-     * The **`deriveKey()`** method of the SubtleCrypto interface can be used to derive a secret key from a master key.
-     *
-     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/SubtleCrypto/deriveKey)
-     */
-    deriveKey(algorithm: AlgorithmIdentifier | EcdhKeyDeriveParams | HkdfParams | Pbkdf2Params, baseKey: CryptoKey, derivedKeyType: AlgorithmIdentifier | AesDerivedKeyParams | HmacImportParams | HkdfParams | Pbkdf2Params, extractable: boolean, keyUsages: Iterable<KeyUsage>): Promise<CryptoKey>;
-    /**
-     * The **`generateKey()`** method of the SubtleCrypto interface is used to generate a new key (for symmetric algorithms) or key pair (for public-key algorithms).
-     *
-     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/SubtleCrypto/generateKey)
-     */
-    generateKey(algorithm: "Ed25519" | { name: "Ed25519" }, extractable: boolean, keyUsages: ReadonlyArray<"sign" | "verify">): Promise<CryptoKeyPair>;
-    generateKey(algorithm: RsaHashedKeyGenParams | EcKeyGenParams, extractable: boolean, keyUsages: ReadonlyArray<KeyUsage>): Promise<CryptoKeyPair>;
-    generateKey(algorithm: AesKeyGenParams | HmacKeyGenParams | Pbkdf2Params, extractable: boolean, keyUsages: ReadonlyArray<KeyUsage>): Promise<CryptoKey>;
-    generateKey(algorithm: AlgorithmIdentifier, extractable: boolean, keyUsages: Iterable<KeyUsage>): Promise<CryptoKeyPair | CryptoKey>;
-    /**
-     * The **`importKey()`** method of the SubtleCrypto interface imports a key: that is, it takes as input a key in an external, portable format and gives you a CryptoKey object that you can use in the Web Crypto API.
-     *
-     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/SubtleCrypto/importKey)
-     */
-    importKey(format: "jwk", keyData: JsonWebKey, algorithm: AlgorithmIdentifier | RsaHashedImportParams | EcKeyImportParams | HmacImportParams | AesKeyAlgorithm, extractable: boolean, keyUsages: ReadonlyArray<KeyUsage>): Promise<CryptoKey>;
-    importKey(format: Exclude<KeyFormat, "jwk">, keyData: BufferSource, algorithm: AlgorithmIdentifier | RsaHashedImportParams | EcKeyImportParams | HmacImportParams | AesKeyAlgorithm, extractable: boolean, keyUsages: Iterable<KeyUsage>): Promise<CryptoKey>;
-    /**
-     * The **`unwrapKey()`** method of the SubtleCrypto interface 'unwraps' a key.
-     *
-     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/SubtleCrypto/unwrapKey)
-     */
-    unwrapKey(format: KeyFormat, wrappedKey: BufferSource, unwrappingKey: CryptoKey, unwrapAlgorithm: AlgorithmIdentifier | RsaOaepParams | AesCtrParams | AesCbcParams | AesGcmParams, unwrappedKeyAlgorithm: AlgorithmIdentifier | RsaHashedImportParams | EcKeyImportParams | HmacImportParams | AesKeyAlgorithm, extractable: boolean, keyUsages: Iterable<KeyUsage>): Promise<CryptoKey>;
-}
-
-interface TouchList {
-    [Symbol.iterator](): IterableIterator<Touch>;
-}
-
-interface URLSearchParams {
-    [Symbol.iterator](): IterableIterator<[string, string]>;
-    /** Returns an array of key, value pairs for every entry in the search params. */
-    entries(): IterableIterator<[string, string]>;
-    /** Returns a list of keys in the search params. */
-    keys(): IterableIterator<string>;
-    /** Returns a list of values in the search params. */
-    values(): IterableIterator<string>;
-}
-
 interface CSSKeyframesRule {
     [Symbol.iterator](): IterableIterator<CSSKeyframeRule>;
 }
@@ -223,6 +62,15 @@ interface CSSUnparsedValue {
     values(): IterableIterator<CSSUnparsedSegment>;
 }
 
+interface Cache {
+    /**
+     * The **`addAll()`** method of the Cache interface takes an array of URLs, retrieves them, and adds the resulting response objects to the given cache.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/Cache/addAll)
+     */
+    addAll(requests: Iterable<RequestInfo>): Promise<void>;
+}
+
 interface CanvasPath {
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/roundRect) */
     roundRect(x: number, y: number, w: number, h: number, radii?: number | DOMPointInit | Iterable<number | DOMPointInit>): void;
@@ -231,6 +79,9 @@ interface CanvasPath {
 interface CanvasPathDrawingStyles {
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/setLineDash) */
     setLineDash(segments: Iterable<number>): void;
+}
+
+interface CustomStateSet extends Set<string> {
 }
 
 interface DOMRectList {
@@ -248,6 +99,10 @@ interface DOMTokenList {
     values(): IterableIterator<string>;
 }
 
+interface DataTransferItemList {
+    [Symbol.iterator](): IterableIterator<DataTransferItem>;
+}
+
 interface EventCounts extends ReadonlyMap<string, number> {
 }
 
@@ -258,12 +113,26 @@ interface FileList {
 interface FontFaceSet extends Set<FontFace> {
 }
 
+interface FormData {
+    [Symbol.iterator](): IterableIterator<[string, FormDataEntryValue]>;
+    /** Returns an array of key, value pairs for every entry in the list. */
+    entries(): IterableIterator<[string, FormDataEntryValue]>;
+    /** Returns a list of keys in the list. */
+    keys(): IterableIterator<string>;
+    /** Returns a list of values in the list. */
+    values(): IterableIterator<FormDataEntryValue>;
+}
+
 interface HTMLAllCollection {
     [Symbol.iterator](): IterableIterator<Element>;
 }
 
 interface HTMLCollectionBase {
     [Symbol.iterator](): IterableIterator<Element>;
+}
+
+interface HTMLCollectionOf<T extends Element> {
+    [Symbol.iterator](): IterableIterator<T>;
 }
 
 interface HTMLFormElement {
@@ -308,6 +177,25 @@ interface IDBObjectStore {
     createIndex(name: string, keyPath: string | Iterable<string>, options?: IDBIndexParameters): IDBIndex;
 }
 
+interface ImageTrackList {
+    [Symbol.iterator](): IterableIterator<ImageTrack>;
+}
+
+interface MIDIInputMap extends ReadonlyMap<string, MIDIInput> {
+}
+
+interface MIDIOutput {
+    /**
+     * The **`send()`** method of the MIDIOutput interface queues messages for the corresponding MIDI port.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/MIDIOutput/send)
+     */
+    send(data: Iterable<number>, timestamp?: DOMHighResTimeStamp): void;
+}
+
+interface MIDIOutputMap extends ReadonlyMap<string, MIDIOutput> {
+}
+
 interface MediaKeyStatusMap {
     [Symbol.iterator](): IterableIterator<[BufferSource, MediaKeyStatus]>;
     entries(): IterableIterator<[BufferSource, MediaKeyStatus]>;
@@ -319,8 +207,33 @@ interface MediaList {
     [Symbol.iterator](): IterableIterator<string>;
 }
 
+interface MessageEvent<T = any> {
+    /** @deprecated */
+    initMessageEvent(type: string, bubbles?: boolean, cancelable?: boolean, data?: any, origin?: string, lastEventId?: string, source?: MessageEventSource | null, ports?: Iterable<MessagePort>): void;
+}
+
+interface MimeTypeArray {
+    [Symbol.iterator](): IterableIterator<MimeType>;
+}
+
 interface NamedNodeMap {
     [Symbol.iterator](): IterableIterator<Attr>;
+}
+
+interface Navigator {
+    /**
+     * The **`requestMediaKeySystemAccess()`** method of the Navigator interface returns a Promise which delivers a MediaKeySystemAccess object that can be used to access a particular media key system, which can in turn be used to create keys for decrypting a media stream.
+     * Available only in secure contexts.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/Navigator/requestMediaKeySystemAccess)
+     */
+    requestMediaKeySystemAccess(keySystem: string, supportedConfigurations: Iterable<MediaKeySystemConfiguration>): Promise<MediaKeySystemAccess>;
+    /**
+     * The **`vibrate()`** method of the Navigator interface pulses the vibration hardware on the device, if such hardware exists.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/Navigator/vibrate)
+     */
+    vibrate(pattern: Iterable<number>): boolean;
 }
 
 interface NodeList {
@@ -331,6 +244,36 @@ interface NodeList {
     keys(): IterableIterator<number>;
     /** Returns an list of values in the list. */
     values(): IterableIterator<Node>;
+}
+
+interface NodeListOf<TNode extends Node> {
+    [Symbol.iterator](): IterableIterator<TNode>;
+    /** Returns an array of key, value pairs for every entry in the list. */
+    entries(): IterableIterator<[number, TNode]>;
+    /** Returns an list of keys in the list. */
+    keys(): IterableIterator<number>;
+    /** Returns an list of values in the list. */
+    values(): IterableIterator<TNode>;
+}
+
+interface Plugin {
+    [Symbol.iterator](): IterableIterator<MimeType>;
+}
+
+interface PluginArray {
+    [Symbol.iterator](): IterableIterator<Plugin>;
+}
+
+interface RTCRtpTransceiver {
+    /**
+     * The **`setCodecPreferences()`** method of the RTCRtpTransceiver interface is used to set the codecs that the transceiver allows for decoding _received_ data, in order of decreasing preference.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/RTCRtpTransceiver/setCodecPreferences)
+     */
+    setCodecPreferences(codecs: Iterable<RTCRtpCodec>): void;
+}
+
+interface RTCStatsReport extends ReadonlyMap<string, any> {
 }
 
 interface SVGLengthList {
@@ -353,6 +296,18 @@ interface SVGTransformList {
     [Symbol.iterator](): IterableIterator<SVGTransform>;
 }
 
+interface SourceBufferList {
+    [Symbol.iterator](): IterableIterator<SourceBuffer>;
+}
+
+interface SpeechRecognitionResult {
+    [Symbol.iterator](): IterableIterator<SpeechRecognitionAlternative>;
+}
+
+interface SpeechRecognitionResultList {
+    [Symbol.iterator](): IterableIterator<SpeechRecognitionResult>;
+}
+
 interface StylePropertyMapReadOnly {
     [Symbol.iterator](): IterableIterator<[string, Iterable<CSSStyleValue>]>;
     entries(): IterableIterator<[string, Iterable<CSSStyleValue>]>;
@@ -364,12 +319,57 @@ interface StyleSheetList {
     [Symbol.iterator](): IterableIterator<CSSStyleSheet>;
 }
 
+interface SubtleCrypto {
+    /**
+     * The **`deriveKey()`** method of the SubtleCrypto interface can be used to derive a secret key from a master key.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/SubtleCrypto/deriveKey)
+     */
+    deriveKey(algorithm: AlgorithmIdentifier | EcdhKeyDeriveParams | HkdfParams | Pbkdf2Params, baseKey: CryptoKey, derivedKeyType: AlgorithmIdentifier | AesDerivedKeyParams | HmacImportParams | HkdfParams | Pbkdf2Params, extractable: boolean, keyUsages: Iterable<KeyUsage>): Promise<CryptoKey>;
+    /**
+     * The **`generateKey()`** method of the SubtleCrypto interface is used to generate a new key (for symmetric algorithms) or key pair (for public-key algorithms).
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/SubtleCrypto/generateKey)
+     */
+    generateKey(algorithm: "Ed25519" | { name: "Ed25519" }, extractable: boolean, keyUsages: ReadonlyArray<"sign" | "verify">): Promise<CryptoKeyPair>;
+    generateKey(algorithm: RsaHashedKeyGenParams | EcKeyGenParams, extractable: boolean, keyUsages: ReadonlyArray<KeyUsage>): Promise<CryptoKeyPair>;
+    generateKey(algorithm: AesKeyGenParams | HmacKeyGenParams | Pbkdf2Params, extractable: boolean, keyUsages: ReadonlyArray<KeyUsage>): Promise<CryptoKey>;
+    generateKey(algorithm: AlgorithmIdentifier, extractable: boolean, keyUsages: Iterable<KeyUsage>): Promise<CryptoKeyPair | CryptoKey>;
+    /**
+     * The **`importKey()`** method of the SubtleCrypto interface imports a key: that is, it takes as input a key in an external, portable format and gives you a CryptoKey object that you can use in the Web Crypto API.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/SubtleCrypto/importKey)
+     */
+    importKey(format: "jwk", keyData: JsonWebKey, algorithm: AlgorithmIdentifier | RsaHashedImportParams | EcKeyImportParams | HmacImportParams | AesKeyAlgorithm, extractable: boolean, keyUsages: ReadonlyArray<KeyUsage>): Promise<CryptoKey>;
+    importKey(format: Exclude<KeyFormat, "jwk">, keyData: BufferSource, algorithm: AlgorithmIdentifier | RsaHashedImportParams | EcKeyImportParams | HmacImportParams | AesKeyAlgorithm, extractable: boolean, keyUsages: Iterable<KeyUsage>): Promise<CryptoKey>;
+    /**
+     * The **`unwrapKey()`** method of the SubtleCrypto interface 'unwraps' a key.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/SubtleCrypto/unwrapKey)
+     */
+    unwrapKey(format: KeyFormat, wrappedKey: BufferSource, unwrappingKey: CryptoKey, unwrapAlgorithm: AlgorithmIdentifier | RsaOaepParams | AesCtrParams | AesCbcParams | AesGcmParams, unwrappedKeyAlgorithm: AlgorithmIdentifier | RsaHashedImportParams | EcKeyImportParams | HmacImportParams | AesKeyAlgorithm, extractable: boolean, keyUsages: Iterable<KeyUsage>): Promise<CryptoKey>;
+}
+
 interface TextTrackCueList {
     [Symbol.iterator](): IterableIterator<TextTrackCue>;
 }
 
 interface TextTrackList {
     [Symbol.iterator](): IterableIterator<TextTrack>;
+}
+
+interface TouchList {
+    [Symbol.iterator](): IterableIterator<Touch>;
+}
+
+interface URLSearchParams {
+    [Symbol.iterator](): IterableIterator<[string, string]>;
+    /** Returns an array of key, value pairs for every entry in the search params. */
+    entries(): IterableIterator<[string, string]>;
+    /** Returns a list of keys in the search params. */
+    keys(): IterableIterator<string>;
+    /** Returns a list of values in the search params. */
+    values(): IterableIterator<string>;
 }
 
 interface ViewTransitionTypeSet extends Set<string> {
