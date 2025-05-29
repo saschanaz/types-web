@@ -2,6 +2,20 @@
 /// ServiceWorker Iterable APIs
 /////////////////////////////
 
+interface FormDataIterator<T> extends IteratorObject<T, BuiltinIteratorReturn, unknown> {
+    [Symbol.iterator](): FormDataIterator<T>;
+}
+
+interface FormData {
+    [Symbol.iterator](): FormDataIterator<[string, FormDataEntryValue]>;
+    /** Returns an array of key, value pairs for every entry in the list. */
+    entries(): FormDataIterator<[string, FormDataEntryValue]>;
+    /** Returns a list of keys in the list. */
+    keys(): FormDataIterator<string>;
+    /** Returns a list of values in the list. */
+    values(): FormDataIterator<FormDataEntryValue>;
+}
+
 interface CSSNumericArray {
     [Symbol.iterator](): ArrayIterator<CSSNumericValue>;
     entries(): ArrayIterator<[number, CSSNumericValue]>;
@@ -51,20 +65,6 @@ interface FileList {
 }
 
 interface FontFaceSet extends Set<FontFace> {
-}
-
-interface FormDataIterator<T> extends IteratorObject<T, BuiltinIteratorReturn, unknown> {
-    [Symbol.iterator](): FormDataIterator<T>;
-}
-
-interface FormData {
-    [Symbol.iterator](): FormDataIterator<[string, FormDataEntryValue]>;
-    /** Returns an array of key, value pairs for every entry in the list. */
-    entries(): FormDataIterator<[string, FormDataEntryValue]>;
-    /** Returns a list of keys in the list. */
-    keys(): FormDataIterator<string>;
-    /** Returns a list of values in the list. */
-    values(): FormDataIterator<FormDataEntryValue>;
 }
 
 interface HeadersIterator<T> extends IteratorObject<T, BuiltinIteratorReturn, unknown> {

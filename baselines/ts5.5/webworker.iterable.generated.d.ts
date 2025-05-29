@@ -32,16 +32,6 @@ interface Cache {
     addAll(requests: Iterable<RequestInfo>): Promise<void>;
 }
 
-interface CanvasPath {
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/roundRect) */
-    roundRect(x: number, y: number, w: number, h: number, radii?: number | DOMPointInit | Iterable<number | DOMPointInit>): void;
-}
-
-interface CanvasPathDrawingStyles {
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/setLineDash) */
-    setLineDash(segments: Iterable<number>): void;
-}
-
 interface DOMStringList {
     [Symbol.iterator](): IterableIterator<string>;
 }
@@ -182,6 +172,16 @@ interface WEBGL_multi_draw {
      * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WEBGL_multi_draw/multiDrawElementsWEBGL)
      */
     multiDrawElementsWEBGL(mode: GLenum, countsList: Int32Array | Iterable<GLsizei>, countsOffset: number, type: GLenum, offsetsList: Int32Array | Iterable<GLsizei>, offsetsOffset: number, drawcount: GLsizei): void;
+}
+
+interface CanvasPath {
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/roundRect) */
+    roundRect(x: number, y: number, w: number, h: number, radii?: number | DOMPointInit | Iterable<number | DOMPointInit>): void;
+}
+
+interface CanvasPathDrawingStyles {
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/setLineDash) */
+    setLineDash(segments: Iterable<number>): void;
 }
 
 interface WebGL2RenderingContextBase {

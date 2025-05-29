@@ -969,11 +969,7 @@ interface ByteLengthQueuingStrategy extends QueuingStrategy<ArrayBufferView> {
      * [MDN Reference](https://developer.mozilla.org/docs/Web/API/ByteLengthQueuingStrategy/highWaterMark)
      */
     readonly highWaterMark: number;
-    /**
-     * The **`size()`** method of the `byteLength` property.
-     *
-     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/ByteLengthQueuingStrategy/size)
-     */
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/ByteLengthQueuingStrategy/size) */
     readonly size: QueuingStrategySize<ArrayBufferView>;
 }
 
@@ -1986,11 +1982,7 @@ interface CountQueuingStrategy extends QueuingStrategy {
      * [MDN Reference](https://developer.mozilla.org/docs/Web/API/CountQueuingStrategy/highWaterMark)
      */
     readonly highWaterMark: number;
-    /**
-     * The **`size()`** method of the total queue size is a count of the number of chunks in the queue.
-     *
-     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/CountQueuingStrategy/size)
-     */
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CountQueuingStrategy/size) */
     readonly size: QueuingStrategySize;
 }
 
@@ -2017,7 +2009,7 @@ interface Crypto {
      *
      * [MDN Reference](https://developer.mozilla.org/docs/Web/API/Crypto/getRandomValues)
      */
-    getRandomValues<T extends ArrayBufferView | null>(array: T): T;
+    getRandomValues<T extends ArrayBufferView>(array: T): T;
     /**
      * The **`randomUUID()`** method of the Crypto interface is used to generate a v4 UUID using a cryptographically secure random number generator.
      * Available only in secure contexts.
@@ -10495,6 +10487,14 @@ interface XMLHttpRequestUpload extends XMLHttpRequestEventTarget {
 declare var XMLHttpRequestUpload: {
     prototype: XMLHttpRequestUpload;
     new(): XMLHttpRequestUpload;
+};
+
+interface undefined {
+}
+
+declare var undefined: {
+    prototype: undefined;
+    new(): undefined;
 };
 
 declare namespace WebAssembly {

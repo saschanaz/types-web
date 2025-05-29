@@ -2581,7 +2581,7 @@
                                     "typeParameters": [
                                         {
                                             "name": "T",
-                                            "extends": "ArrayBufferView | null"
+                                            "extends": "ArrayBufferView"
                                         }
                                     ],
                                     "param": [

@@ -1132,26 +1132,6 @@ declare var AbortSignal: {
     timeout(milliseconds: number): AbortSignal;
 };
 
-interface AbstractWorkerEventMap {
-    "error": ErrorEvent;
-}
-
-interface AbstractWorker {
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/ServiceWorker/error_event) */
-    onerror: ((this: AbstractWorker, ev: ErrorEvent) => any) | null;
-    addEventListener<K extends keyof AbstractWorkerEventMap>(type: K, listener: (this: AbstractWorker, ev: AbstractWorkerEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
-    removeEventListener<K extends keyof AbstractWorkerEventMap>(type: K, listener: (this: AbstractWorker, ev: AbstractWorkerEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
-}
-
-interface AnimationFrameProvider {
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/DedicatedWorkerGlobalScope/cancelAnimationFrame) */
-    cancelAnimationFrame(handle: number): void;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/DedicatedWorkerGlobalScope/requestAnimationFrame) */
-    requestAnimationFrame(callback: FrameRequestCallback): number;
-}
-
 /**
  * The **`AudioData`** interface of the WebCodecs API represents an audio sample.
  *
@@ -1416,25 +1396,6 @@ declare var Blob: {
     new(blobParts?: BlobPart[], options?: BlobPropertyBag): Blob;
 };
 
-interface Body {
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Request/body) */
-    readonly body: ReadableStream<Uint8Array> | null;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Request/bodyUsed) */
-    readonly bodyUsed: boolean;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Request/arrayBuffer) */
-    arrayBuffer(): Promise<ArrayBuffer>;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Request/blob) */
-    blob(): Promise<Blob>;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Request/bytes) */
-    bytes(): Promise<Uint8Array>;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Request/formData) */
-    formData(): Promise<FormData>;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Request/json) */
-    json(): Promise<any>;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Request/text) */
-    text(): Promise<string>;
-}
-
 interface BroadcastChannelEventMap {
     "message": MessageEvent;
     "messageerror": MessageEvent;
@@ -1491,11 +1452,7 @@ interface ByteLengthQueuingStrategy extends QueuingStrategy<ArrayBufferView> {
      * [MDN Reference](https://developer.mozilla.org/docs/Web/API/ByteLengthQueuingStrategy/highWaterMark)
      */
     readonly highWaterMark: number;
-    /**
-     * The **`size()`** method of the `byteLength` property.
-     *
-     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/ByteLengthQueuingStrategy/size)
-     */
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/ByteLengthQueuingStrategy/size) */
     readonly size: QueuingStrategySize<ArrayBufferView>;
 }
 
@@ -2219,60 +2176,6 @@ declare var CacheStorage: {
     new(): CacheStorage;
 };
 
-interface CanvasCompositing {
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/globalAlpha) */
-    globalAlpha: number;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/globalCompositeOperation) */
-    globalCompositeOperation: GlobalCompositeOperation;
-}
-
-interface CanvasDrawImage {
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/drawImage) */
-    drawImage(image: CanvasImageSource, dx: number, dy: number): void;
-    drawImage(image: CanvasImageSource, dx: number, dy: number, dw: number, dh: number): void;
-    drawImage(image: CanvasImageSource, sx: number, sy: number, sw: number, sh: number, dx: number, dy: number, dw: number, dh: number): void;
-}
-
-interface CanvasDrawPath {
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/beginPath) */
-    beginPath(): void;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/clip) */
-    clip(fillRule?: CanvasFillRule): void;
-    clip(path: Path2D, fillRule?: CanvasFillRule): void;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/fill) */
-    fill(fillRule?: CanvasFillRule): void;
-    fill(path: Path2D, fillRule?: CanvasFillRule): void;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/isPointInPath) */
-    isPointInPath(x: number, y: number, fillRule?: CanvasFillRule): boolean;
-    isPointInPath(path: Path2D, x: number, y: number, fillRule?: CanvasFillRule): boolean;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/isPointInStroke) */
-    isPointInStroke(x: number, y: number): boolean;
-    isPointInStroke(path: Path2D, x: number, y: number): boolean;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/stroke) */
-    stroke(): void;
-    stroke(path: Path2D): void;
-}
-
-interface CanvasFillStrokeStyles {
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/fillStyle) */
-    fillStyle: string | CanvasGradient | CanvasPattern;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/strokeStyle) */
-    strokeStyle: string | CanvasGradient | CanvasPattern;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/createConicGradient) */
-    createConicGradient(startAngle: number, x: number, y: number): CanvasGradient;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/createLinearGradient) */
-    createLinearGradient(x0: number, y0: number, x1: number, y1: number): CanvasGradient;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/createPattern) */
-    createPattern(image: CanvasImageSource, repetition: string | null): CanvasPattern | null;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/createRadialGradient) */
-    createRadialGradient(x0: number, y0: number, r0: number, x1: number, y1: number, r1: number): CanvasGradient;
-}
-
-interface CanvasFilters {
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/filter) */
-    filter: string;
-}
-
 /**
  * The **`CanvasGradient`** interface represents an opaque object describing a gradient.
  *
@@ -2292,64 +2195,6 @@ declare var CanvasGradient: {
     new(): CanvasGradient;
 };
 
-interface CanvasImageData {
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/createImageData) */
-    createImageData(sw: number, sh: number, settings?: ImageDataSettings): ImageData;
-    createImageData(imageData: ImageData): ImageData;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/getImageData) */
-    getImageData(sx: number, sy: number, sw: number, sh: number, settings?: ImageDataSettings): ImageData;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/putImageData) */
-    putImageData(imageData: ImageData, dx: number, dy: number): void;
-    putImageData(imageData: ImageData, dx: number, dy: number, dirtyX: number, dirtyY: number, dirtyWidth: number, dirtyHeight: number): void;
-}
-
-interface CanvasImageSmoothing {
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/imageSmoothingEnabled) */
-    imageSmoothingEnabled: boolean;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/imageSmoothingQuality) */
-    imageSmoothingQuality: ImageSmoothingQuality;
-}
-
-interface CanvasPath {
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/arc) */
-    arc(x: number, y: number, radius: number, startAngle: number, endAngle: number, counterclockwise?: boolean): void;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/arcTo) */
-    arcTo(x1: number, y1: number, x2: number, y2: number, radius: number): void;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/bezierCurveTo) */
-    bezierCurveTo(cp1x: number, cp1y: number, cp2x: number, cp2y: number, x: number, y: number): void;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/closePath) */
-    closePath(): void;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/ellipse) */
-    ellipse(x: number, y: number, radiusX: number, radiusY: number, rotation: number, startAngle: number, endAngle: number, counterclockwise?: boolean): void;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/lineTo) */
-    lineTo(x: number, y: number): void;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/moveTo) */
-    moveTo(x: number, y: number): void;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/quadraticCurveTo) */
-    quadraticCurveTo(cpx: number, cpy: number, x: number, y: number): void;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/rect) */
-    rect(x: number, y: number, w: number, h: number): void;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/roundRect) */
-    roundRect(x: number, y: number, w: number, h: number, radii?: number | DOMPointInit | (number | DOMPointInit)[]): void;
-}
-
-interface CanvasPathDrawingStyles {
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/lineCap) */
-    lineCap: CanvasLineCap;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/lineDashOffset) */
-    lineDashOffset: number;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/lineJoin) */
-    lineJoin: CanvasLineJoin;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/lineWidth) */
-    lineWidth: number;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/miterLimit) */
-    miterLimit: number;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/getLineDash) */
-    getLineDash(): number[];
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/setLineDash) */
-    setLineDash(segments: number[]): void;
-}
-
 /**
  * The **`CanvasPattern`** interface represents an opaque object describing a pattern, based on an image, a canvas, or a video, created by the CanvasRenderingContext2D.createPattern() method.
  *
@@ -2368,87 +2213,6 @@ declare var CanvasPattern: {
     prototype: CanvasPattern;
     new(): CanvasPattern;
 };
-
-interface CanvasRect {
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/clearRect) */
-    clearRect(x: number, y: number, w: number, h: number): void;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/fillRect) */
-    fillRect(x: number, y: number, w: number, h: number): void;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/strokeRect) */
-    strokeRect(x: number, y: number, w: number, h: number): void;
-}
-
-interface CanvasShadowStyles {
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/shadowBlur) */
-    shadowBlur: number;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/shadowColor) */
-    shadowColor: string;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/shadowOffsetX) */
-    shadowOffsetX: number;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/shadowOffsetY) */
-    shadowOffsetY: number;
-}
-
-interface CanvasState {
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/isContextLost) */
-    isContextLost(): boolean;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/reset) */
-    reset(): void;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/restore) */
-    restore(): void;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/save) */
-    save(): void;
-}
-
-interface CanvasText {
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/fillText) */
-    fillText(text: string, x: number, y: number, maxWidth?: number): void;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/measureText) */
-    measureText(text: string): TextMetrics;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/strokeText) */
-    strokeText(text: string, x: number, y: number, maxWidth?: number): void;
-}
-
-interface CanvasTextDrawingStyles {
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/direction) */
-    direction: CanvasDirection;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/font) */
-    font: string;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/fontKerning) */
-    fontKerning: CanvasFontKerning;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/fontStretch) */
-    fontStretch: CanvasFontStretch;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/fontVariantCaps) */
-    fontVariantCaps: CanvasFontVariantCaps;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/letterSpacing) */
-    letterSpacing: string;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/textAlign) */
-    textAlign: CanvasTextAlign;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/textBaseline) */
-    textBaseline: CanvasTextBaseline;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/textRendering) */
-    textRendering: CanvasTextRendering;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/wordSpacing) */
-    wordSpacing: string;
-}
-
-interface CanvasTransform {
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/getTransform) */
-    getTransform(): DOMMatrix;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/resetTransform) */
-    resetTransform(): void;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/rotate) */
-    rotate(angle: number): void;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/scale) */
-    scale(x: number, y: number): void;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/setTransform) */
-    setTransform(a: number, b: number, c: number, d: number, e: number, f: number): void;
-    setTransform(transform?: DOMMatrix2DInit): void;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/transform) */
-    transform(a: number, b: number, c: number, d: number, e: number, f: number): void;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/translate) */
-    translate(x: number, y: number): void;
-}
 
 /**
  * The `Client` interface represents an executable context such as a Worker, or a SharedWorker.
@@ -2631,11 +2395,7 @@ interface CountQueuingStrategy extends QueuingStrategy {
      * [MDN Reference](https://developer.mozilla.org/docs/Web/API/CountQueuingStrategy/highWaterMark)
      */
     readonly highWaterMark: number;
-    /**
-     * The **`size()`** method of the total queue size is a count of the number of chunks in the queue.
-     *
-     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/CountQueuingStrategy/size)
-     */
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CountQueuingStrategy/size) */
     readonly size: QueuingStrategySize;
 }
 
@@ -2662,7 +2422,7 @@ interface Crypto {
      *
      * [MDN Reference](https://developer.mozilla.org/docs/Web/API/Crypto/getRandomValues)
      */
-    getRandomValues<T extends ArrayBufferView | null>(array: T): T;
+    getRandomValues<T extends ArrayBufferView>(array: T): T;
     /**
      * The **`randomUUID()`** method of the Crypto interface is used to generate a v4 UUID using a cryptographically secure random number generator.
      * Available only in secure contexts.
@@ -4611,11 +4371,6 @@ declare var FontFaceSetLoadEvent: {
     new(type: string, eventInitDict?: FontFaceSetLoadEventInit): FontFaceSetLoadEvent;
 };
 
-interface FontFaceSource {
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Document/fonts) */
-    readonly fonts: FontFaceSet;
-}
-
 /**
  * The **`FormData`** interface provides a way to construct a set of key/value pairs representing form fields and their values, which can be sent using the Window/fetch, XMLHttpRequest.send() or navigator.sendBeacon() methods.
  *
@@ -4683,13 +4438,6 @@ interface GPUError {
      * [MDN Reference](https://developer.mozilla.org/docs/Web/API/GPUError/message)
      */
     readonly message: string;
-}
-
-interface GenericTransformStream {
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CompressionStream/readable) */
-    readonly readable: ReadableStream;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CompressionStream/writable) */
-    readonly writable: WritableStream;
 }
 
 /**
@@ -5821,22 +5569,6 @@ declare var MessageEvent: {
     new<T>(type: string, eventInitDict?: MessageEventInit<T>): MessageEvent<T>;
 };
 
-interface MessageEventTargetEventMap {
-    "message": MessageEvent;
-    "messageerror": MessageEvent;
-}
-
-interface MessageEventTarget<T> {
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/DedicatedWorkerGlobalScope/message_event) */
-    onmessage: ((this: T, ev: MessageEvent) => any) | null;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/DedicatedWorkerGlobalScope/messageerror_event) */
-    onmessageerror: ((this: T, ev: MessageEvent) => any) | null;
-    addEventListener<K extends keyof MessageEventTargetEventMap>(type: K, listener: (this: T, ev: MessageEventTargetEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
-    removeEventListener<K extends keyof MessageEventTargetEventMap>(type: K, listener: (this: T, ev: MessageEventTargetEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
-}
-
 interface MessagePortEventMap extends MessageEventTargetEventMap {
     "message": MessageEvent;
     "messageerror": MessageEvent;
@@ -5915,78 +5647,6 @@ declare var NavigationPreloadManager: {
     prototype: NavigationPreloadManager;
     new(): NavigationPreloadManager;
 };
-
-/** Available only in secure contexts. */
-interface NavigatorBadge {
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Navigator/clearAppBadge) */
-    clearAppBadge(): Promise<void>;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Navigator/setAppBadge) */
-    setAppBadge(contents?: number): Promise<void>;
-}
-
-interface NavigatorConcurrentHardware {
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Navigator/hardwareConcurrency) */
-    readonly hardwareConcurrency: number;
-}
-
-interface NavigatorID {
-    /**
-     * @deprecated
-     *
-     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/Navigator/appCodeName)
-     */
-    readonly appCodeName: string;
-    /**
-     * @deprecated
-     *
-     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/Navigator/appName)
-     */
-    readonly appName: string;
-    /**
-     * @deprecated
-     *
-     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/Navigator/appVersion)
-     */
-    readonly appVersion: string;
-    /**
-     * @deprecated
-     *
-     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/Navigator/platform)
-     */
-    readonly platform: string;
-    /**
-     * @deprecated
-     *
-     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/Navigator/product)
-     */
-    readonly product: string;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Navigator/userAgent) */
-    readonly userAgent: string;
-}
-
-interface NavigatorLanguage {
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Navigator/language) */
-    readonly language: string;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Navigator/languages) */
-    readonly languages: ReadonlyArray<string>;
-}
-
-/** Available only in secure contexts. */
-interface NavigatorLocks {
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Navigator/locks) */
-    readonly locks: LockManager;
-}
-
-interface NavigatorOnLine {
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Navigator/onLine) */
-    readonly onLine: boolean;
-}
-
-/** Available only in secure contexts. */
-interface NavigatorStorage {
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Navigator/storage) */
-    readonly storage: StorageManager;
-}
 
 interface NotificationEventMap {
     "click": Event;
@@ -7527,13 +7187,6 @@ declare var ReadableStreamDefaultReader: {
     new<R = any>(stream: ReadableStream<R>): ReadableStreamDefaultReader<R>;
 };
 
-interface ReadableStreamGenericReader {
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/ReadableStreamBYOBReader/closed) */
-    readonly closed: Promise<void>;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/ReadableStreamBYOBReader/cancel) */
-    cancel(reason?: any): Promise<void>;
-}
-
 /**
  * The `Report` interface of the Reporting API represents a single report.
  *
@@ -8362,27 +8015,6 @@ declare var TextDecoder: {
     new(label?: string, options?: TextDecoderOptions): TextDecoder;
 };
 
-interface TextDecoderCommon {
-    /**
-     * Returns encoding's name, lowercased.
-     *
-     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/TextDecoder/encoding)
-     */
-    readonly encoding: string;
-    /**
-     * Returns true if error mode is "fatal", otherwise false.
-     *
-     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/TextDecoder/fatal)
-     */
-    readonly fatal: boolean;
-    /**
-     * Returns the value of ignore BOM.
-     *
-     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/TextDecoder/ignoreBOM)
-     */
-    readonly ignoreBOM: boolean;
-}
-
 /**
  * The **`TextDecoderStream`** interface of the Encoding API converts a stream of text in a binary encoding, such as UTF-8 etc., to a stream of strings.
  *
@@ -8422,15 +8054,6 @@ declare var TextEncoder: {
     prototype: TextEncoder;
     new(): TextEncoder;
 };
-
-interface TextEncoderCommon {
-    /**
-     * Returns "utf-8".
-     *
-     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/TextEncoder/encoding)
-     */
-    readonly encoding: string;
-}
 
 /**
  * The **`TextEncoderStream`** interface of the Encoding API converts a stream of strings into bytes in the UTF-8 encoding.
@@ -9855,6 +9478,1637 @@ declare var WebGL2RenderingContext: {
     readonly BROWSER_DEFAULT_WEBGL: 0x9244;
 };
 
+/**
+ * The **WebGLActiveInfo** interface is part of the WebGL API and represents the information returned by calling the WebGLRenderingContext.getActiveAttrib() and WebGLRenderingContext.getActiveUniform() methods.
+ *
+ * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLActiveInfo)
+ */
+interface WebGLActiveInfo {
+    /**
+     * The read-only **`WebGLActiveInfo.name`** property represents the name of the requested data returned by calling the WebGLRenderingContext.getActiveAttrib() or WebGLRenderingContext.getActiveUniform() methods.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLActiveInfo/name)
+     */
+    readonly name: string;
+    /**
+     * The read-only **`WebGLActiveInfo.size`** property is a Number representing the size of the requested data returned by calling the WebGLRenderingContext.getActiveAttrib() or WebGLRenderingContext.getActiveUniform() methods.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLActiveInfo/size)
+     */
+    readonly size: GLint;
+    /**
+     * The read-only **`WebGLActiveInfo.type`** property represents the type of the requested data returned by calling the WebGLRenderingContext.getActiveAttrib() or WebGLRenderingContext.getActiveUniform() methods.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLActiveInfo/type)
+     */
+    readonly type: GLenum;
+}
+
+declare var WebGLActiveInfo: {
+    prototype: WebGLActiveInfo;
+    new(): WebGLActiveInfo;
+};
+
+/**
+ * The **WebGLBuffer** interface is part of the WebGL API and represents an opaque buffer object storing data such as vertices or colors.
+ *
+ * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLBuffer)
+ */
+interface WebGLBuffer {
+}
+
+declare var WebGLBuffer: {
+    prototype: WebGLBuffer;
+    new(): WebGLBuffer;
+};
+
+/**
+ * The **WebGLContextEvent** interface is part of the WebGL API and is an interface for an event that is generated in response to a status change to the WebGL rendering context.
+ *
+ * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLContextEvent)
+ */
+interface WebGLContextEvent extends Event {
+    /**
+     * The read-only **`WebGLContextEvent.statusMessage`** property contains additional event status information, or is an empty string if no additional information is available.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLContextEvent/statusMessage)
+     */
+    readonly statusMessage: string;
+}
+
+declare var WebGLContextEvent: {
+    prototype: WebGLContextEvent;
+    new(type: string, eventInit?: WebGLContextEventInit): WebGLContextEvent;
+};
+
+/**
+ * The **WebGLFramebuffer** interface is part of the WebGL API and represents a collection of buffers that serve as a rendering destination.
+ *
+ * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLFramebuffer)
+ */
+interface WebGLFramebuffer {
+}
+
+declare var WebGLFramebuffer: {
+    prototype: WebGLFramebuffer;
+    new(): WebGLFramebuffer;
+};
+
+/**
+ * The **`WebGLProgram`** is part of the WebGL API and is a combination of two compiled WebGLShaders consisting of a vertex shader and a fragment shader (both written in GLSL).
+ *
+ * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLProgram)
+ */
+interface WebGLProgram {
+}
+
+declare var WebGLProgram: {
+    prototype: WebGLProgram;
+    new(): WebGLProgram;
+};
+
+/**
+ * The **`WebGLQuery`** interface is part of the WebGL 2 API and provides ways to asynchronously query for information.
+ *
+ * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLQuery)
+ */
+interface WebGLQuery {
+}
+
+declare var WebGLQuery: {
+    prototype: WebGLQuery;
+    new(): WebGLQuery;
+};
+
+/**
+ * The **WebGLRenderbuffer** interface is part of the WebGL API and represents a buffer that can contain an image, or that can be a source or target of a rendering operation.
+ *
+ * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderbuffer)
+ */
+interface WebGLRenderbuffer {
+}
+
+declare var WebGLRenderbuffer: {
+    prototype: WebGLRenderbuffer;
+    new(): WebGLRenderbuffer;
+};
+
+/**
+ * The **`WebGLRenderingContext`** interface provides an interface to the OpenGL ES 2.0 graphics rendering context for the drawing surface of an HTML canvas element.
+ *
+ * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext)
+ */
+interface WebGLRenderingContext extends WebGLRenderingContextBase, WebGLRenderingContextOverloads {
+}
+
+declare var WebGLRenderingContext: {
+    prototype: WebGLRenderingContext;
+    new(): WebGLRenderingContext;
+    readonly DEPTH_BUFFER_BIT: 0x00000100;
+    readonly STENCIL_BUFFER_BIT: 0x00000400;
+    readonly COLOR_BUFFER_BIT: 0x00004000;
+    readonly POINTS: 0x0000;
+    readonly LINES: 0x0001;
+    readonly LINE_LOOP: 0x0002;
+    readonly LINE_STRIP: 0x0003;
+    readonly TRIANGLES: 0x0004;
+    readonly TRIANGLE_STRIP: 0x0005;
+    readonly TRIANGLE_FAN: 0x0006;
+    readonly ZERO: 0;
+    readonly ONE: 1;
+    readonly SRC_COLOR: 0x0300;
+    readonly ONE_MINUS_SRC_COLOR: 0x0301;
+    readonly SRC_ALPHA: 0x0302;
+    readonly ONE_MINUS_SRC_ALPHA: 0x0303;
+    readonly DST_ALPHA: 0x0304;
+    readonly ONE_MINUS_DST_ALPHA: 0x0305;
+    readonly DST_COLOR: 0x0306;
+    readonly ONE_MINUS_DST_COLOR: 0x0307;
+    readonly SRC_ALPHA_SATURATE: 0x0308;
+    readonly FUNC_ADD: 0x8006;
+    readonly BLEND_EQUATION: 0x8009;
+    readonly BLEND_EQUATION_RGB: 0x8009;
+    readonly BLEND_EQUATION_ALPHA: 0x883D;
+    readonly FUNC_SUBTRACT: 0x800A;
+    readonly FUNC_REVERSE_SUBTRACT: 0x800B;
+    readonly BLEND_DST_RGB: 0x80C8;
+    readonly BLEND_SRC_RGB: 0x80C9;
+    readonly BLEND_DST_ALPHA: 0x80CA;
+    readonly BLEND_SRC_ALPHA: 0x80CB;
+    readonly CONSTANT_COLOR: 0x8001;
+    readonly ONE_MINUS_CONSTANT_COLOR: 0x8002;
+    readonly CONSTANT_ALPHA: 0x8003;
+    readonly ONE_MINUS_CONSTANT_ALPHA: 0x8004;
+    readonly BLEND_COLOR: 0x8005;
+    readonly ARRAY_BUFFER: 0x8892;
+    readonly ELEMENT_ARRAY_BUFFER: 0x8893;
+    readonly ARRAY_BUFFER_BINDING: 0x8894;
+    readonly ELEMENT_ARRAY_BUFFER_BINDING: 0x8895;
+    readonly STREAM_DRAW: 0x88E0;
+    readonly STATIC_DRAW: 0x88E4;
+    readonly DYNAMIC_DRAW: 0x88E8;
+    readonly BUFFER_SIZE: 0x8764;
+    readonly BUFFER_USAGE: 0x8765;
+    readonly CURRENT_VERTEX_ATTRIB: 0x8626;
+    readonly FRONT: 0x0404;
+    readonly BACK: 0x0405;
+    readonly FRONT_AND_BACK: 0x0408;
+    readonly CULL_FACE: 0x0B44;
+    readonly BLEND: 0x0BE2;
+    readonly DITHER: 0x0BD0;
+    readonly STENCIL_TEST: 0x0B90;
+    readonly DEPTH_TEST: 0x0B71;
+    readonly SCISSOR_TEST: 0x0C11;
+    readonly POLYGON_OFFSET_FILL: 0x8037;
+    readonly SAMPLE_ALPHA_TO_COVERAGE: 0x809E;
+    readonly SAMPLE_COVERAGE: 0x80A0;
+    readonly NO_ERROR: 0;
+    readonly INVALID_ENUM: 0x0500;
+    readonly INVALID_VALUE: 0x0501;
+    readonly INVALID_OPERATION: 0x0502;
+    readonly OUT_OF_MEMORY: 0x0505;
+    readonly CW: 0x0900;
+    readonly CCW: 0x0901;
+    readonly LINE_WIDTH: 0x0B21;
+    readonly ALIASED_POINT_SIZE_RANGE: 0x846D;
+    readonly ALIASED_LINE_WIDTH_RANGE: 0x846E;
+    readonly CULL_FACE_MODE: 0x0B45;
+    readonly FRONT_FACE: 0x0B46;
+    readonly DEPTH_RANGE: 0x0B70;
+    readonly DEPTH_WRITEMASK: 0x0B72;
+    readonly DEPTH_CLEAR_VALUE: 0x0B73;
+    readonly DEPTH_FUNC: 0x0B74;
+    readonly STENCIL_CLEAR_VALUE: 0x0B91;
+    readonly STENCIL_FUNC: 0x0B92;
+    readonly STENCIL_FAIL: 0x0B94;
+    readonly STENCIL_PASS_DEPTH_FAIL: 0x0B95;
+    readonly STENCIL_PASS_DEPTH_PASS: 0x0B96;
+    readonly STENCIL_REF: 0x0B97;
+    readonly STENCIL_VALUE_MASK: 0x0B93;
+    readonly STENCIL_WRITEMASK: 0x0B98;
+    readonly STENCIL_BACK_FUNC: 0x8800;
+    readonly STENCIL_BACK_FAIL: 0x8801;
+    readonly STENCIL_BACK_PASS_DEPTH_FAIL: 0x8802;
+    readonly STENCIL_BACK_PASS_DEPTH_PASS: 0x8803;
+    readonly STENCIL_BACK_REF: 0x8CA3;
+    readonly STENCIL_BACK_VALUE_MASK: 0x8CA4;
+    readonly STENCIL_BACK_WRITEMASK: 0x8CA5;
+    readonly VIEWPORT: 0x0BA2;
+    readonly SCISSOR_BOX: 0x0C10;
+    readonly COLOR_CLEAR_VALUE: 0x0C22;
+    readonly COLOR_WRITEMASK: 0x0C23;
+    readonly UNPACK_ALIGNMENT: 0x0CF5;
+    readonly PACK_ALIGNMENT: 0x0D05;
+    readonly MAX_TEXTURE_SIZE: 0x0D33;
+    readonly MAX_VIEWPORT_DIMS: 0x0D3A;
+    readonly SUBPIXEL_BITS: 0x0D50;
+    readonly RED_BITS: 0x0D52;
+    readonly GREEN_BITS: 0x0D53;
+    readonly BLUE_BITS: 0x0D54;
+    readonly ALPHA_BITS: 0x0D55;
+    readonly DEPTH_BITS: 0x0D56;
+    readonly STENCIL_BITS: 0x0D57;
+    readonly POLYGON_OFFSET_UNITS: 0x2A00;
+    readonly POLYGON_OFFSET_FACTOR: 0x8038;
+    readonly TEXTURE_BINDING_2D: 0x8069;
+    readonly SAMPLE_BUFFERS: 0x80A8;
+    readonly SAMPLES: 0x80A9;
+    readonly SAMPLE_COVERAGE_VALUE: 0x80AA;
+    readonly SAMPLE_COVERAGE_INVERT: 0x80AB;
+    readonly COMPRESSED_TEXTURE_FORMATS: 0x86A3;
+    readonly DONT_CARE: 0x1100;
+    readonly FASTEST: 0x1101;
+    readonly NICEST: 0x1102;
+    readonly GENERATE_MIPMAP_HINT: 0x8192;
+    readonly BYTE: 0x1400;
+    readonly UNSIGNED_BYTE: 0x1401;
+    readonly SHORT: 0x1402;
+    readonly UNSIGNED_SHORT: 0x1403;
+    readonly INT: 0x1404;
+    readonly UNSIGNED_INT: 0x1405;
+    readonly FLOAT: 0x1406;
+    readonly DEPTH_COMPONENT: 0x1902;
+    readonly ALPHA: 0x1906;
+    readonly RGB: 0x1907;
+    readonly RGBA: 0x1908;
+    readonly LUMINANCE: 0x1909;
+    readonly LUMINANCE_ALPHA: 0x190A;
+    readonly UNSIGNED_SHORT_4_4_4_4: 0x8033;
+    readonly UNSIGNED_SHORT_5_5_5_1: 0x8034;
+    readonly UNSIGNED_SHORT_5_6_5: 0x8363;
+    readonly FRAGMENT_SHADER: 0x8B30;
+    readonly VERTEX_SHADER: 0x8B31;
+    readonly MAX_VERTEX_ATTRIBS: 0x8869;
+    readonly MAX_VERTEX_UNIFORM_VECTORS: 0x8DFB;
+    readonly MAX_VARYING_VECTORS: 0x8DFC;
+    readonly MAX_COMBINED_TEXTURE_IMAGE_UNITS: 0x8B4D;
+    readonly MAX_VERTEX_TEXTURE_IMAGE_UNITS: 0x8B4C;
+    readonly MAX_TEXTURE_IMAGE_UNITS: 0x8872;
+    readonly MAX_FRAGMENT_UNIFORM_VECTORS: 0x8DFD;
+    readonly SHADER_TYPE: 0x8B4F;
+    readonly DELETE_STATUS: 0x8B80;
+    readonly LINK_STATUS: 0x8B82;
+    readonly VALIDATE_STATUS: 0x8B83;
+    readonly ATTACHED_SHADERS: 0x8B85;
+    readonly ACTIVE_UNIFORMS: 0x8B86;
+    readonly ACTIVE_ATTRIBUTES: 0x8B89;
+    readonly SHADING_LANGUAGE_VERSION: 0x8B8C;
+    readonly CURRENT_PROGRAM: 0x8B8D;
+    readonly NEVER: 0x0200;
+    readonly LESS: 0x0201;
+    readonly EQUAL: 0x0202;
+    readonly LEQUAL: 0x0203;
+    readonly GREATER: 0x0204;
+    readonly NOTEQUAL: 0x0205;
+    readonly GEQUAL: 0x0206;
+    readonly ALWAYS: 0x0207;
+    readonly KEEP: 0x1E00;
+    readonly REPLACE: 0x1E01;
+    readonly INCR: 0x1E02;
+    readonly DECR: 0x1E03;
+    readonly INVERT: 0x150A;
+    readonly INCR_WRAP: 0x8507;
+    readonly DECR_WRAP: 0x8508;
+    readonly VENDOR: 0x1F00;
+    readonly RENDERER: 0x1F01;
+    readonly VERSION: 0x1F02;
+    readonly NEAREST: 0x2600;
+    readonly LINEAR: 0x2601;
+    readonly NEAREST_MIPMAP_NEAREST: 0x2700;
+    readonly LINEAR_MIPMAP_NEAREST: 0x2701;
+    readonly NEAREST_MIPMAP_LINEAR: 0x2702;
+    readonly LINEAR_MIPMAP_LINEAR: 0x2703;
+    readonly TEXTURE_MAG_FILTER: 0x2800;
+    readonly TEXTURE_MIN_FILTER: 0x2801;
+    readonly TEXTURE_WRAP_S: 0x2802;
+    readonly TEXTURE_WRAP_T: 0x2803;
+    readonly TEXTURE_2D: 0x0DE1;
+    readonly TEXTURE: 0x1702;
+    readonly TEXTURE_CUBE_MAP: 0x8513;
+    readonly TEXTURE_BINDING_CUBE_MAP: 0x8514;
+    readonly TEXTURE_CUBE_MAP_POSITIVE_X: 0x8515;
+    readonly TEXTURE_CUBE_MAP_NEGATIVE_X: 0x8516;
+    readonly TEXTURE_CUBE_MAP_POSITIVE_Y: 0x8517;
+    readonly TEXTURE_CUBE_MAP_NEGATIVE_Y: 0x8518;
+    readonly TEXTURE_CUBE_MAP_POSITIVE_Z: 0x8519;
+    readonly TEXTURE_CUBE_MAP_NEGATIVE_Z: 0x851A;
+    readonly MAX_CUBE_MAP_TEXTURE_SIZE: 0x851C;
+    readonly TEXTURE0: 0x84C0;
+    readonly TEXTURE1: 0x84C1;
+    readonly TEXTURE2: 0x84C2;
+    readonly TEXTURE3: 0x84C3;
+    readonly TEXTURE4: 0x84C4;
+    readonly TEXTURE5: 0x84C5;
+    readonly TEXTURE6: 0x84C6;
+    readonly TEXTURE7: 0x84C7;
+    readonly TEXTURE8: 0x84C8;
+    readonly TEXTURE9: 0x84C9;
+    readonly TEXTURE10: 0x84CA;
+    readonly TEXTURE11: 0x84CB;
+    readonly TEXTURE12: 0x84CC;
+    readonly TEXTURE13: 0x84CD;
+    readonly TEXTURE14: 0x84CE;
+    readonly TEXTURE15: 0x84CF;
+    readonly TEXTURE16: 0x84D0;
+    readonly TEXTURE17: 0x84D1;
+    readonly TEXTURE18: 0x84D2;
+    readonly TEXTURE19: 0x84D3;
+    readonly TEXTURE20: 0x84D4;
+    readonly TEXTURE21: 0x84D5;
+    readonly TEXTURE22: 0x84D6;
+    readonly TEXTURE23: 0x84D7;
+    readonly TEXTURE24: 0x84D8;
+    readonly TEXTURE25: 0x84D9;
+    readonly TEXTURE26: 0x84DA;
+    readonly TEXTURE27: 0x84DB;
+    readonly TEXTURE28: 0x84DC;
+    readonly TEXTURE29: 0x84DD;
+    readonly TEXTURE30: 0x84DE;
+    readonly TEXTURE31: 0x84DF;
+    readonly ACTIVE_TEXTURE: 0x84E0;
+    readonly REPEAT: 0x2901;
+    readonly CLAMP_TO_EDGE: 0x812F;
+    readonly MIRRORED_REPEAT: 0x8370;
+    readonly FLOAT_VEC2: 0x8B50;
+    readonly FLOAT_VEC3: 0x8B51;
+    readonly FLOAT_VEC4: 0x8B52;
+    readonly INT_VEC2: 0x8B53;
+    readonly INT_VEC3: 0x8B54;
+    readonly INT_VEC4: 0x8B55;
+    readonly BOOL: 0x8B56;
+    readonly BOOL_VEC2: 0x8B57;
+    readonly BOOL_VEC3: 0x8B58;
+    readonly BOOL_VEC4: 0x8B59;
+    readonly FLOAT_MAT2: 0x8B5A;
+    readonly FLOAT_MAT3: 0x8B5B;
+    readonly FLOAT_MAT4: 0x8B5C;
+    readonly SAMPLER_2D: 0x8B5E;
+    readonly SAMPLER_CUBE: 0x8B60;
+    readonly VERTEX_ATTRIB_ARRAY_ENABLED: 0x8622;
+    readonly VERTEX_ATTRIB_ARRAY_SIZE: 0x8623;
+    readonly VERTEX_ATTRIB_ARRAY_STRIDE: 0x8624;
+    readonly VERTEX_ATTRIB_ARRAY_TYPE: 0x8625;
+    readonly VERTEX_ATTRIB_ARRAY_NORMALIZED: 0x886A;
+    readonly VERTEX_ATTRIB_ARRAY_POINTER: 0x8645;
+    readonly VERTEX_ATTRIB_ARRAY_BUFFER_BINDING: 0x889F;
+    readonly IMPLEMENTATION_COLOR_READ_TYPE: 0x8B9A;
+    readonly IMPLEMENTATION_COLOR_READ_FORMAT: 0x8B9B;
+    readonly COMPILE_STATUS: 0x8B81;
+    readonly LOW_FLOAT: 0x8DF0;
+    readonly MEDIUM_FLOAT: 0x8DF1;
+    readonly HIGH_FLOAT: 0x8DF2;
+    readonly LOW_INT: 0x8DF3;
+    readonly MEDIUM_INT: 0x8DF4;
+    readonly HIGH_INT: 0x8DF5;
+    readonly FRAMEBUFFER: 0x8D40;
+    readonly RENDERBUFFER: 0x8D41;
+    readonly RGBA4: 0x8056;
+    readonly RGB5_A1: 0x8057;
+    readonly RGBA8: 0x8058;
+    readonly RGB565: 0x8D62;
+    readonly DEPTH_COMPONENT16: 0x81A5;
+    readonly STENCIL_INDEX8: 0x8D48;
+    readonly DEPTH_STENCIL: 0x84F9;
+    readonly RENDERBUFFER_WIDTH: 0x8D42;
+    readonly RENDERBUFFER_HEIGHT: 0x8D43;
+    readonly RENDERBUFFER_INTERNAL_FORMAT: 0x8D44;
+    readonly RENDERBUFFER_RED_SIZE: 0x8D50;
+    readonly RENDERBUFFER_GREEN_SIZE: 0x8D51;
+    readonly RENDERBUFFER_BLUE_SIZE: 0x8D52;
+    readonly RENDERBUFFER_ALPHA_SIZE: 0x8D53;
+    readonly RENDERBUFFER_DEPTH_SIZE: 0x8D54;
+    readonly RENDERBUFFER_STENCIL_SIZE: 0x8D55;
+    readonly FRAMEBUFFER_ATTACHMENT_OBJECT_TYPE: 0x8CD0;
+    readonly FRAMEBUFFER_ATTACHMENT_OBJECT_NAME: 0x8CD1;
+    readonly FRAMEBUFFER_ATTACHMENT_TEXTURE_LEVEL: 0x8CD2;
+    readonly FRAMEBUFFER_ATTACHMENT_TEXTURE_CUBE_MAP_FACE: 0x8CD3;
+    readonly COLOR_ATTACHMENT0: 0x8CE0;
+    readonly DEPTH_ATTACHMENT: 0x8D00;
+    readonly STENCIL_ATTACHMENT: 0x8D20;
+    readonly DEPTH_STENCIL_ATTACHMENT: 0x821A;
+    readonly NONE: 0;
+    readonly FRAMEBUFFER_COMPLETE: 0x8CD5;
+    readonly FRAMEBUFFER_INCOMPLETE_ATTACHMENT: 0x8CD6;
+    readonly FRAMEBUFFER_INCOMPLETE_MISSING_ATTACHMENT: 0x8CD7;
+    readonly FRAMEBUFFER_INCOMPLETE_DIMENSIONS: 0x8CD9;
+    readonly FRAMEBUFFER_UNSUPPORTED: 0x8CDD;
+    readonly FRAMEBUFFER_BINDING: 0x8CA6;
+    readonly RENDERBUFFER_BINDING: 0x8CA7;
+    readonly MAX_RENDERBUFFER_SIZE: 0x84E8;
+    readonly INVALID_FRAMEBUFFER_OPERATION: 0x0506;
+    readonly UNPACK_FLIP_Y_WEBGL: 0x9240;
+    readonly UNPACK_PREMULTIPLY_ALPHA_WEBGL: 0x9241;
+    readonly CONTEXT_LOST_WEBGL: 0x9242;
+    readonly UNPACK_COLORSPACE_CONVERSION_WEBGL: 0x9243;
+    readonly BROWSER_DEFAULT_WEBGL: 0x9244;
+};
+
+/**
+ * The **`WebGLSampler`** interface is part of the WebGL 2 API and stores sampling parameters for WebGLTexture access inside of a shader.
+ *
+ * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLSampler)
+ */
+interface WebGLSampler {
+}
+
+declare var WebGLSampler: {
+    prototype: WebGLSampler;
+    new(): WebGLSampler;
+};
+
+/**
+ * The **WebGLShader** is part of the WebGL API and can either be a vertex or a fragment shader.
+ *
+ * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLShader)
+ */
+interface WebGLShader {
+}
+
+declare var WebGLShader: {
+    prototype: WebGLShader;
+    new(): WebGLShader;
+};
+
+/**
+ * The **WebGLShaderPrecisionFormat** interface is part of the WebGL API and represents the information returned by calling the WebGLRenderingContext.getShaderPrecisionFormat() method.
+ *
+ * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLShaderPrecisionFormat)
+ */
+interface WebGLShaderPrecisionFormat {
+    /**
+     * The read-only **`WebGLShaderPrecisionFormat.precision`** property returns the number of bits of precision that can be represented.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLShaderPrecisionFormat/precision)
+     */
+    readonly precision: GLint;
+    /**
+     * The read-only **`WebGLShaderPrecisionFormat.rangeMax`** property returns the base 2 log of the absolute value of the maximum value that can be represented.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLShaderPrecisionFormat/rangeMax)
+     */
+    readonly rangeMax: GLint;
+    /**
+     * The read-only **`WebGLShaderPrecisionFormat.rangeMin`** property returns the base 2 log of the absolute value of the minimum value that can be represented.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLShaderPrecisionFormat/rangeMin)
+     */
+    readonly rangeMin: GLint;
+}
+
+declare var WebGLShaderPrecisionFormat: {
+    prototype: WebGLShaderPrecisionFormat;
+    new(): WebGLShaderPrecisionFormat;
+};
+
+/**
+ * The **`WebGLSync`** interface is part of the WebGL 2 API and is used to synchronize activities between the GPU and the application.
+ *
+ * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLSync)
+ */
+interface WebGLSync {
+}
+
+declare var WebGLSync: {
+    prototype: WebGLSync;
+    new(): WebGLSync;
+};
+
+/**
+ * The **WebGLTexture** interface is part of the WebGL API and represents an opaque texture object providing storage and state for texturing operations.
+ *
+ * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLTexture)
+ */
+interface WebGLTexture {
+}
+
+declare var WebGLTexture: {
+    prototype: WebGLTexture;
+    new(): WebGLTexture;
+};
+
+/**
+ * The **`WebGLTransformFeedback`** interface is part of the WebGL 2 API and enables transform feedback, which is the process of capturing primitives generated by vertex processing.
+ *
+ * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLTransformFeedback)
+ */
+interface WebGLTransformFeedback {
+}
+
+declare var WebGLTransformFeedback: {
+    prototype: WebGLTransformFeedback;
+    new(): WebGLTransformFeedback;
+};
+
+/**
+ * The **WebGLUniformLocation** interface is part of the WebGL API and represents the location of a uniform variable in a shader program.
+ *
+ * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLUniformLocation)
+ */
+interface WebGLUniformLocation {
+}
+
+declare var WebGLUniformLocation: {
+    prototype: WebGLUniformLocation;
+    new(): WebGLUniformLocation;
+};
+
+/**
+ * The **`WebGLVertexArrayObject`** interface is part of the WebGL 2 API, represents vertex array objects (VAOs) pointing to vertex array data, and provides names for different sets of vertex data.
+ *
+ * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLVertexArrayObject)
+ */
+interface WebGLVertexArrayObject {
+}
+
+declare var WebGLVertexArrayObject: {
+    prototype: WebGLVertexArrayObject;
+    new(): WebGLVertexArrayObject;
+};
+
+/** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLVertexArrayObject) */
+interface WebGLVertexArrayObjectOES {
+}
+
+interface WebSocketEventMap {
+    "close": CloseEvent;
+    "error": Event;
+    "message": MessageEvent;
+    "open": Event;
+}
+
+/**
+ * The `WebSocket` object provides the API for creating and managing a WebSocket connection to a server, as well as for sending and receiving data on the connection.
+ *
+ * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebSocket)
+ */
+interface WebSocket extends EventTarget {
+    /**
+     * The **`WebSocket.binaryType`** property controls the type of binary data being received over the WebSocket connection.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebSocket/binaryType)
+     */
+    binaryType: BinaryType;
+    /**
+     * The **`WebSocket.bufferedAmount`** read-only property returns the number of bytes of data that have been queued using calls to `send()` but not yet transmitted to the network.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebSocket/bufferedAmount)
+     */
+    readonly bufferedAmount: number;
+    /**
+     * The **`WebSocket.extensions`** read-only property returns the extensions selected by the server.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebSocket/extensions)
+     */
+    readonly extensions: string;
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebSocket/close_event) */
+    onclose: ((this: WebSocket, ev: CloseEvent) => any) | null;
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebSocket/error_event) */
+    onerror: ((this: WebSocket, ev: Event) => any) | null;
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebSocket/message_event) */
+    onmessage: ((this: WebSocket, ev: MessageEvent) => any) | null;
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebSocket/open_event) */
+    onopen: ((this: WebSocket, ev: Event) => any) | null;
+    /**
+     * The **`WebSocket.protocol`** read-only property returns the name of the sub-protocol the server selected; this will be one of the strings specified in the `protocols` parameter when creating the WebSocket object, or the empty string if no connection is established.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebSocket/protocol)
+     */
+    readonly protocol: string;
+    /**
+     * The **`WebSocket.readyState`** read-only property returns the current state of the WebSocket connection.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebSocket/readyState)
+     */
+    readonly readyState: number;
+    /**
+     * The **`WebSocket.url`** read-only property returns the absolute URL of the WebSocket as resolved by the constructor.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebSocket/url)
+     */
+    readonly url: string;
+    /**
+     * The **`WebSocket.close()`** method closes the already `CLOSED`, this method does nothing.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebSocket/close)
+     */
+    close(code?: number, reason?: string): void;
+    /**
+     * The **`WebSocket.send()`** method enqueues the specified data to be transmitted to the server over the WebSocket connection, increasing the value of `bufferedAmount` by the number of bytes needed to contain the data.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebSocket/send)
+     */
+    send(data: string | ArrayBufferLike | Blob | ArrayBufferView): void;
+    readonly CONNECTING: 0;
+    readonly OPEN: 1;
+    readonly CLOSING: 2;
+    readonly CLOSED: 3;
+    addEventListener<K extends keyof WebSocketEventMap>(type: K, listener: (this: WebSocket, ev: WebSocketEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener<K extends keyof WebSocketEventMap>(type: K, listener: (this: WebSocket, ev: WebSocketEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+}
+
+declare var WebSocket: {
+    prototype: WebSocket;
+    new(url: string | URL, protocols?: string | string[]): WebSocket;
+    readonly CONNECTING: 0;
+    readonly OPEN: 1;
+    readonly CLOSING: 2;
+    readonly CLOSED: 3;
+};
+
+/**
+ * The **`WebTransport`** interface of the WebTransport API provides functionality to enable a user agent to connect to an HTTP/3 server, initiate reliable and unreliable transport in either or both directions, and close the connection once it is no longer needed.
+ * Available only in secure contexts.
+ *
+ * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebTransport)
+ */
+interface WebTransport {
+    /**
+     * The **`closed`** read-only property of the WebTransport interface returns a promise that resolves when the transport is closed.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebTransport/closed)
+     */
+    readonly closed: Promise<WebTransportCloseInfo>;
+    /**
+     * The **`datagrams`** read-only property of the WebTransport interface returns a WebTransportDatagramDuplexStream instance that can be used to send and receive datagrams — unreliable data transmission.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebTransport/datagrams)
+     */
+    readonly datagrams: WebTransportDatagramDuplexStream;
+    /**
+     * The **`incomingBidirectionalStreams`** read-only property of the WebTransport interface represents one or more bidirectional streams opened by the server.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebTransport/incomingBidirectionalStreams)
+     */
+    readonly incomingBidirectionalStreams: ReadableStream;
+    /**
+     * The **`incomingUnidirectionalStreams`** read-only property of the WebTransport interface represents one or more unidirectional streams opened by the server.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebTransport/incomingUnidirectionalStreams)
+     */
+    readonly incomingUnidirectionalStreams: ReadableStream;
+    /**
+     * The **`ready`** read-only property of the WebTransport interface returns a promise that resolves when the transport is ready to use.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebTransport/ready)
+     */
+    readonly ready: Promise<void>;
+    /**
+     * The **`close()`** method of the WebTransport interface closes an ongoing WebTransport session.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebTransport/close)
+     */
+    close(closeInfo?: WebTransportCloseInfo): void;
+    /**
+     * The **`createBidirectionalStream()`** method of the WebTransport interface asynchronously opens and returns a bidirectional stream.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebTransport/createBidirectionalStream)
+     */
+    createBidirectionalStream(options?: WebTransportSendStreamOptions): Promise<WebTransportBidirectionalStream>;
+    /**
+     * The **`createUnidirectionalStream()`** method of the WebTransport interface asynchronously opens a unidirectional stream.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebTransport/createUnidirectionalStream)
+     */
+    createUnidirectionalStream(options?: WebTransportSendStreamOptions): Promise<WritableStream>;
+}
+
+declare var WebTransport: {
+    prototype: WebTransport;
+    new(url: string | URL, options?: WebTransportOptions): WebTransport;
+};
+
+/**
+ * The **`WebTransportBidirectionalStream`** interface of the WebTransport API represents a bidirectional stream created by a server or a client that can be used for reliable transport.
+ * Available only in secure contexts.
+ *
+ * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebTransportBidirectionalStream)
+ */
+interface WebTransportBidirectionalStream {
+    /**
+     * The **`readable`** read-only property of the WebTransportBidirectionalStream interface returns a WebTransportReceiveStream instance that can be used to reliably read incoming data.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebTransportBidirectionalStream/readable)
+     */
+    readonly readable: ReadableStream;
+    /**
+     * The **`writable`** read-only property of the WebTransportBidirectionalStream interface returns a WebTransportSendStream instance that can be used to write outgoing data.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebTransportBidirectionalStream/writable)
+     */
+    readonly writable: WritableStream;
+}
+
+declare var WebTransportBidirectionalStream: {
+    prototype: WebTransportBidirectionalStream;
+    new(): WebTransportBidirectionalStream;
+};
+
+/**
+ * The **`WebTransportDatagramDuplexStream`** interface of the WebTransport API represents a duplex stream that can be used for unreliable transport of datagrams between client and server.
+ * Available only in secure contexts.
+ *
+ * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebTransportDatagramDuplexStream)
+ */
+interface WebTransportDatagramDuplexStream {
+    /**
+     * The **`incomingHighWaterMark`** property of the WebTransportDatagramDuplexStream interface gets or sets the high water mark for incoming chunks of data — this is the maximum size, in chunks, that the incoming ReadableStream's internal queue can reach before it is considered full.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebTransportDatagramDuplexStream/incomingHighWaterMark)
+     */
+    incomingHighWaterMark: number;
+    /**
+     * The **`incomingMaxAge`** property of the WebTransportDatagramDuplexStream interface gets or sets the maximum age for incoming datagrams, in milliseconds.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebTransportDatagramDuplexStream/incomingMaxAge)
+     */
+    incomingMaxAge: number | null;
+    /**
+     * The **`maxDatagramSize`** read-only property of the WebTransportDatagramDuplexStream interface returns the maximum allowable size of outgoing datagrams, in bytes, that can be written to WebTransportDatagramDuplexStream.writable.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebTransportDatagramDuplexStream/maxDatagramSize)
+     */
+    readonly maxDatagramSize: number;
+    /**
+     * The **`outgoingHighWaterMark`** property of the WebTransportDatagramDuplexStream interface gets or sets the high water mark for outgoing chunks of data — this is the maximum size, in chunks, that the outgoing WritableStream's internal queue can reach before it is considered full.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebTransportDatagramDuplexStream/outgoingHighWaterMark)
+     */
+    outgoingHighWaterMark: number;
+    /**
+     * The **`outgoingMaxAge`** property of the WebTransportDatagramDuplexStream interface gets or sets the maximum age for outgoing datagrams, in milliseconds.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebTransportDatagramDuplexStream/outgoingMaxAge)
+     */
+    outgoingMaxAge: number | null;
+    /**
+     * The **`readable`** read-only property of the WebTransportDatagramDuplexStream interface returns a ReadableStream instance that can be used to unreliably read incoming datagrams from the stream.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebTransportDatagramDuplexStream/readable)
+     */
+    readonly readable: ReadableStream;
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebTransportDatagramDuplexStream/writable) */
+    readonly writable: WritableStream;
+}
+
+declare var WebTransportDatagramDuplexStream: {
+    prototype: WebTransportDatagramDuplexStream;
+    new(): WebTransportDatagramDuplexStream;
+};
+
+/**
+ * The **`WebTransportError`** interface of the WebTransport API represents an error related to the API, which can arise from server errors, network connection problems, or client-initiated abort operations (for example, arising from a WritableStream.abort() call).
+ * Available only in secure contexts.
+ *
+ * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebTransportError)
+ */
+interface WebTransportError extends DOMException {
+    /**
+     * The **`source`** read-only property of the WebTransportError interface returns an enumerated value indicating the source of the error.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebTransportError/source)
+     */
+    readonly source: WebTransportErrorSource;
+    /**
+     * The **`streamErrorCode`** read-only property of the WebTransportError interface returns a number in the range 0-255 indicating the application protocol error code for this error, or `null` if one is not available.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebTransportError/streamErrorCode)
+     */
+    readonly streamErrorCode: number | null;
+}
+
+declare var WebTransportError: {
+    prototype: WebTransportError;
+    new(message?: string, options?: WebTransportErrorOptions): WebTransportError;
+};
+
+/**
+ * The `WindowClient` interface of the ServiceWorker API represents the scope of a service worker client that is a document in a browsing context, controlled by an active worker.
+ *
+ * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WindowClient)
+ */
+interface WindowClient extends Client {
+    /**
+     * The **`focused`** read-only property of the the current client has focus.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WindowClient/focused)
+     */
+    readonly focused: boolean;
+    /**
+     * The **`visibilityState`** read-only property of the This value can be one of `'hidden'`, `'visible'`, or `'prerender'`.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WindowClient/visibilityState)
+     */
+    readonly visibilityState: DocumentVisibilityState;
+    /**
+     * The **`focus()`** method of the WindowClient interface gives user input focus to the current client and returns a ```js-nolint focus() ``` None.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WindowClient/focus)
+     */
+    focus(): Promise<WindowClient>;
+    /**
+     * The **`navigate()`** method of the WindowClient interface loads a specified URL into a controlled client page then returns a ```js-nolint navigate(url) ``` - `url` - : The location to navigate to.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WindowClient/navigate)
+     */
+    navigate(url: string | URL): Promise<WindowClient | null>;
+}
+
+declare var WindowClient: {
+    prototype: WindowClient;
+    new(): WindowClient;
+};
+
+interface WorkerEventMap extends AbstractWorkerEventMap, MessageEventTargetEventMap {
+}
+
+/**
+ * The **`Worker`** interface of the Web Workers API represents a background task that can be created via script, which can send messages back to its creator.
+ *
+ * [MDN Reference](https://developer.mozilla.org/docs/Web/API/Worker)
+ */
+interface Worker extends EventTarget, AbstractWorker, MessageEventTarget<Worker> {
+    /**
+     * The **`postMessage()`** method of the Worker interface sends a message to the worker.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/Worker/postMessage)
+     */
+    postMessage(message: any, transfer: Transferable[]): void;
+    postMessage(message: any, options?: StructuredSerializeOptions): void;
+    /**
+     * The **`terminate()`** method of the Worker interface immediately terminates the Worker.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/Worker/terminate)
+     */
+    terminate(): void;
+    addEventListener<K extends keyof WorkerEventMap>(type: K, listener: (this: Worker, ev: WorkerEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener<K extends keyof WorkerEventMap>(type: K, listener: (this: Worker, ev: WorkerEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+}
+
+declare var Worker: {
+    prototype: Worker;
+    new(scriptURL: string | URL, options?: WorkerOptions): Worker;
+};
+
+interface WorkerGlobalScopeEventMap {
+    "error": ErrorEvent;
+    "languagechange": Event;
+    "offline": Event;
+    "online": Event;
+    "rejectionhandled": PromiseRejectionEvent;
+    "unhandledrejection": PromiseRejectionEvent;
+}
+
+/**
+ * The **`WorkerGlobalScope`** interface of the Web Workers API is an interface representing the scope of any worker.
+ *
+ * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WorkerGlobalScope)
+ */
+interface WorkerGlobalScope extends EventTarget, FontFaceSource, WindowOrWorkerGlobalScope {
+    /**
+     * The **`location`** read-only property of the WorkerGlobalScope interface returns the WorkerLocation associated with the worker.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WorkerGlobalScope/location)
+     */
+    readonly location: WorkerLocation;
+    /**
+     * The **`navigator`** read-only property of the WorkerGlobalScope interface returns the WorkerNavigator associated with the worker.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WorkerGlobalScope/navigator)
+     */
+    readonly navigator: WorkerNavigator;
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WorkerGlobalScope/error_event) */
+    onerror: ((this: WorkerGlobalScope, ev: ErrorEvent) => any) | null;
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WorkerGlobalScope/languagechange_event) */
+    onlanguagechange: ((this: WorkerGlobalScope, ev: Event) => any) | null;
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WorkerGlobalScope/offline_event) */
+    onoffline: ((this: WorkerGlobalScope, ev: Event) => any) | null;
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WorkerGlobalScope/online_event) */
+    ononline: ((this: WorkerGlobalScope, ev: Event) => any) | null;
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WorkerGlobalScope/rejectionhandled_event) */
+    onrejectionhandled: ((this: WorkerGlobalScope, ev: PromiseRejectionEvent) => any) | null;
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WorkerGlobalScope/unhandledrejection_event) */
+    onunhandledrejection: ((this: WorkerGlobalScope, ev: PromiseRejectionEvent) => any) | null;
+    /**
+     * The **`self`** read-only property of the WorkerGlobalScope interface returns a reference to the `WorkerGlobalScope` itself.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WorkerGlobalScope/self)
+     */
+    readonly self: WorkerGlobalScope & typeof globalThis;
+    /**
+     * The **`importScripts()`** method of the WorkerGlobalScope interface synchronously imports one or more scripts into the worker's scope.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WorkerGlobalScope/importScripts)
+     */
+    importScripts(...urls: (string | URL)[]): void;
+    addEventListener<K extends keyof WorkerGlobalScopeEventMap>(type: K, listener: (this: WorkerGlobalScope, ev: WorkerGlobalScopeEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener<K extends keyof WorkerGlobalScopeEventMap>(type: K, listener: (this: WorkerGlobalScope, ev: WorkerGlobalScopeEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+}
+
+declare var WorkerGlobalScope: {
+    prototype: WorkerGlobalScope;
+    new(): WorkerGlobalScope;
+};
+
+/**
+ * The **`WorkerLocation`** interface defines the absolute location of the script executed by the Worker.
+ *
+ * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WorkerLocation)
+ */
+interface WorkerLocation {
+    /**
+     * The **`hash`** property of a WorkerLocation object returns the URL.hash part of the worker's location.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WorkerLocation/hash)
+     */
+    readonly hash: string;
+    /**
+     * The **`host`** property of a WorkerLocation object returns the URL.host part of the worker's location.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WorkerLocation/host)
+     */
+    readonly host: string;
+    /**
+     * The **`hostname`** property of a WorkerLocation object returns the URL.hostname part of the worker's location.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WorkerLocation/hostname)
+     */
+    readonly hostname: string;
+    /**
+     * The **`href`** property of a WorkerLocation object returns a string containing the serialized URL for the worker's location.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WorkerLocation/href)
+     */
+    readonly href: string;
+    toString(): string;
+    /**
+     * The **`origin`** property of a WorkerLocation object returns the worker's URL.origin.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WorkerLocation/origin)
+     */
+    readonly origin: string;
+    /**
+     * The **`pathname`** property of a WorkerLocation object returns the URL.pathname part of the worker's location.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WorkerLocation/pathname)
+     */
+    readonly pathname: string;
+    /**
+     * The **`port`** property of a WorkerLocation object returns the URL.port part of the worker's location.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WorkerLocation/port)
+     */
+    readonly port: string;
+    /**
+     * The **`protocol`** property of a WorkerLocation object returns the URL.protocol part of the worker's location.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WorkerLocation/protocol)
+     */
+    readonly protocol: string;
+    /**
+     * The **`search`** property of a WorkerLocation object returns the URL.search part of the worker's location.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WorkerLocation/search)
+     */
+    readonly search: string;
+}
+
+declare var WorkerLocation: {
+    prototype: WorkerLocation;
+    new(): WorkerLocation;
+};
+
+/**
+ * The **`WritableStream`** interface of the Streams API provides a standard abstraction for writing streaming data to a destination, known as a sink.
+ *
+ * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WritableStream)
+ */
+interface WritableStream<W = any> {
+    /**
+     * The **`locked`** read-only property of the WritableStream interface returns a boolean indicating whether the `WritableStream` is locked to a writer.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WritableStream/locked)
+     */
+    readonly locked: boolean;
+    /**
+     * The **`abort()`** method of the WritableStream interface aborts the stream, signaling that the producer can no longer successfully write to the stream and it is to be immediately moved to an error state, with any queued writes discarded.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WritableStream/abort)
+     */
+    abort(reason?: any): Promise<void>;
+    /**
+     * The **`close()`** method of the WritableStream interface closes the associated stream.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WritableStream/close)
+     */
+    close(): Promise<void>;
+    /**
+     * The **`getWriter()`** method of the WritableStream interface returns a new instance of WritableStreamDefaultWriter and locks the stream to that instance.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WritableStream/getWriter)
+     */
+    getWriter(): WritableStreamDefaultWriter<W>;
+}
+
+declare var WritableStream: {
+    prototype: WritableStream;
+    new<W = any>(underlyingSink?: UnderlyingSink<W>, strategy?: QueuingStrategy<W>): WritableStream<W>;
+};
+
+/**
+ * The **`WritableStreamDefaultController`** interface of the Streams API represents a controller allowing control of a WritableStream's state.
+ *
+ * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WritableStreamDefaultController)
+ */
+interface WritableStreamDefaultController {
+    /**
+     * The read-only **`signal`** property of the WritableStreamDefaultController interface returns the AbortSignal associated with the controller.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WritableStreamDefaultController/signal)
+     */
+    readonly signal: AbortSignal;
+    /**
+     * The **`error()`** method of the with the associated stream to error.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WritableStreamDefaultController/error)
+     */
+    error(e?: any): void;
+}
+
+declare var WritableStreamDefaultController: {
+    prototype: WritableStreamDefaultController;
+    new(): WritableStreamDefaultController;
+};
+
+interface XMLHttpRequestEventMap extends XMLHttpRequestEventTargetEventMap {
+    "readystatechange": Event;
+}
+
+/**
+ * `XMLHttpRequest` (XHR) objects are used to interact with servers.
+ *
+ * [MDN Reference](https://developer.mozilla.org/docs/Web/API/XMLHttpRequest)
+ */
+interface XMLHttpRequest extends XMLHttpRequestEventTarget {
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/XMLHttpRequest/readystatechange_event) */
+    onreadystatechange: ((this: XMLHttpRequest, ev: Event) => any) | null;
+    /**
+     * The **XMLHttpRequest.readyState** property returns the state an XMLHttpRequest client is in.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/XMLHttpRequest/readyState)
+     */
+    readonly readyState: number;
+    /**
+     * The XMLHttpRequest **`response`** property returns the response's body content as an ArrayBuffer, a Blob, a Document, a JavaScript Object, or a string, depending on the value of the request's XMLHttpRequest.responseType property.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/XMLHttpRequest/response)
+     */
+    readonly response: any;
+    /**
+     * The read-only XMLHttpRequest property **`responseText`** returns the text received from a server following a request being sent.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/XMLHttpRequest/responseText)
+     */
+    readonly responseText: string;
+    /**
+     * The XMLHttpRequest property **`responseType`** is an enumerated string value specifying the type of data contained in the response.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/XMLHttpRequest/responseType)
+     */
+    responseType: XMLHttpRequestResponseType;
+    /**
+     * The read-only **`XMLHttpRequest.responseURL`** property returns the serialized URL of the response or the empty string if the URL is `null`.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/XMLHttpRequest/responseURL)
+     */
+    readonly responseURL: string;
+    /**
+     * The read-only **`XMLHttpRequest.status`** property returns the numerical HTTP status code of the `XMLHttpRequest`'s response.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/XMLHttpRequest/status)
+     */
+    readonly status: number;
+    /**
+     * The read-only **`XMLHttpRequest.statusText`** property returns a string containing the response's status message as returned by the HTTP server.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/XMLHttpRequest/statusText)
+     */
+    readonly statusText: string;
+    /**
+     * The **`XMLHttpRequest.timeout`** property is an `unsigned long` representing the number of milliseconds a request can take before automatically being terminated.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/XMLHttpRequest/timeout)
+     */
+    timeout: number;
+    /**
+     * The XMLHttpRequest `upload` property returns an XMLHttpRequestUpload object that can be observed to monitor an upload's progress.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/XMLHttpRequest/upload)
+     */
+    readonly upload: XMLHttpRequestUpload;
+    /**
+     * The **`XMLHttpRequest.withCredentials`** property is a boolean value that indicates whether or not cross-site `Access-Control` requests should be made using credentials such as cookies, authentication headers or TLS client certificates.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/XMLHttpRequest/withCredentials)
+     */
+    withCredentials: boolean;
+    /**
+     * The **`XMLHttpRequest.abort()`** method aborts the request if it has already been sent.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/XMLHttpRequest/abort)
+     */
+    abort(): void;
+    /**
+     * The XMLHttpRequest method **`getAllResponseHeaders()`** returns all the response headers, separated by CRLF, as a string, or returns `null` if no response has been received.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/XMLHttpRequest/getAllResponseHeaders)
+     */
+    getAllResponseHeaders(): string;
+    /**
+     * The XMLHttpRequest method **`getResponseHeader()`** returns the string containing the text of a particular header's value.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/XMLHttpRequest/getResponseHeader)
+     */
+    getResponseHeader(name: string): string | null;
+    /**
+     * The XMLHttpRequest method **`open()`** initializes a newly-created request, or re-initializes an existing one.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/XMLHttpRequest/open)
+     */
+    open(method: string, url: string | URL): void;
+    open(method: string, url: string | URL, async: boolean, username?: string | null, password?: string | null): void;
+    /**
+     * The XMLHttpRequest method **`overrideMimeType()`** specifies a MIME type other than the one provided by the server to be used instead when interpreting the data being transferred in a request.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/XMLHttpRequest/overrideMimeType)
+     */
+    overrideMimeType(mime: string): void;
+    /**
+     * The XMLHttpRequest method **`send()`** sends the request to the server.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/XMLHttpRequest/send)
+     */
+    send(body?: XMLHttpRequestBodyInit | null): void;
+    /**
+     * The XMLHttpRequest method **`setRequestHeader()`** sets the value of an HTTP request header.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/XMLHttpRequest/setRequestHeader)
+     */
+    setRequestHeader(name: string, value: string): void;
+    readonly UNSENT: 0;
+    readonly OPENED: 1;
+    readonly HEADERS_RECEIVED: 2;
+    readonly LOADING: 3;
+    readonly DONE: 4;
+    addEventListener<K extends keyof XMLHttpRequestEventMap>(type: K, listener: (this: XMLHttpRequest, ev: XMLHttpRequestEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener<K extends keyof XMLHttpRequestEventMap>(type: K, listener: (this: XMLHttpRequest, ev: XMLHttpRequestEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+}
+
+declare var XMLHttpRequest: {
+    prototype: XMLHttpRequest;
+    new(): XMLHttpRequest;
+    readonly UNSENT: 0;
+    readonly OPENED: 1;
+    readonly HEADERS_RECEIVED: 2;
+    readonly LOADING: 3;
+    readonly DONE: 4;
+};
+
+interface XMLHttpRequestEventTargetEventMap {
+    "abort": ProgressEvent<XMLHttpRequestEventTarget>;
+    "error": ProgressEvent<XMLHttpRequestEventTarget>;
+    "load": ProgressEvent<XMLHttpRequestEventTarget>;
+    "loadend": ProgressEvent<XMLHttpRequestEventTarget>;
+    "loadstart": ProgressEvent<XMLHttpRequestEventTarget>;
+    "progress": ProgressEvent<XMLHttpRequestEventTarget>;
+    "timeout": ProgressEvent<XMLHttpRequestEventTarget>;
+}
+
+/**
+ * `XMLHttpRequestEventTarget` is the interface that describes the event handlers shared on XMLHttpRequest and XMLHttpRequestUpload.
+ *
+ * [MDN Reference](https://developer.mozilla.org/docs/Web/API/XMLHttpRequestEventTarget)
+ */
+interface XMLHttpRequestEventTarget extends EventTarget {
+    onabort: ((this: XMLHttpRequest, ev: ProgressEvent) => any) | null;
+    onerror: ((this: XMLHttpRequest, ev: ProgressEvent) => any) | null;
+    onload: ((this: XMLHttpRequest, ev: ProgressEvent) => any) | null;
+    onloadend: ((this: XMLHttpRequest, ev: ProgressEvent) => any) | null;
+    onloadstart: ((this: XMLHttpRequest, ev: ProgressEvent) => any) | null;
+    onprogress: ((this: XMLHttpRequest, ev: ProgressEvent) => any) | null;
+    ontimeout: ((this: XMLHttpRequest, ev: ProgressEvent) => any) | null;
+    addEventListener<K extends keyof XMLHttpRequestEventTargetEventMap>(type: K, listener: (this: XMLHttpRequestEventTarget, ev: XMLHttpRequestEventTargetEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener<K extends keyof XMLHttpRequestEventTargetEventMap>(type: K, listener: (this: XMLHttpRequestEventTarget, ev: XMLHttpRequestEventTargetEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+}
+
+declare var XMLHttpRequestEventTarget: {
+    prototype: XMLHttpRequestEventTarget;
+    new(): XMLHttpRequestEventTarget;
+};
+
+/**
+ * The **`XMLHttpRequestUpload`** interface represents the upload process for a specific XMLHttpRequest.
+ *
+ * [MDN Reference](https://developer.mozilla.org/docs/Web/API/XMLHttpRequestUpload)
+ */
+interface XMLHttpRequestUpload extends XMLHttpRequestEventTarget {
+    addEventListener<K extends keyof XMLHttpRequestEventTargetEventMap>(type: K, listener: (this: XMLHttpRequestUpload, ev: XMLHttpRequestEventTargetEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener<K extends keyof XMLHttpRequestEventTargetEventMap>(type: K, listener: (this: XMLHttpRequestUpload, ev: XMLHttpRequestEventTargetEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+}
+
+declare var XMLHttpRequestUpload: {
+    prototype: XMLHttpRequestUpload;
+    new(): XMLHttpRequestUpload;
+};
+
+interface undefined {
+}
+
+declare var undefined: {
+    prototype: undefined;
+    new(): undefined;
+};
+
+interface AbstractWorkerEventMap {
+    "error": ErrorEvent;
+}
+
+interface AbstractWorker {
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/ServiceWorker/error_event) */
+    onerror: ((this: AbstractWorker, ev: ErrorEvent) => any) | null;
+    addEventListener<K extends keyof AbstractWorkerEventMap>(type: K, listener: (this: AbstractWorker, ev: AbstractWorkerEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener<K extends keyof AbstractWorkerEventMap>(type: K, listener: (this: AbstractWorker, ev: AbstractWorkerEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+}
+
+interface AnimationFrameProvider {
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/DedicatedWorkerGlobalScope/cancelAnimationFrame) */
+    cancelAnimationFrame(handle: number): void;
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/DedicatedWorkerGlobalScope/requestAnimationFrame) */
+    requestAnimationFrame(callback: FrameRequestCallback): number;
+}
+
+interface Body {
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Request/body) */
+    readonly body: ReadableStream<Uint8Array> | null;
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Request/bodyUsed) */
+    readonly bodyUsed: boolean;
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Request/arrayBuffer) */
+    arrayBuffer(): Promise<ArrayBuffer>;
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Request/blob) */
+    blob(): Promise<Blob>;
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Request/bytes) */
+    bytes(): Promise<Uint8Array>;
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Request/formData) */
+    formData(): Promise<FormData>;
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Request/json) */
+    json(): Promise<any>;
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Request/text) */
+    text(): Promise<string>;
+}
+
+interface CanvasCompositing {
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/globalAlpha) */
+    globalAlpha: number;
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/globalCompositeOperation) */
+    globalCompositeOperation: GlobalCompositeOperation;
+}
+
+interface CanvasDrawImage {
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/drawImage) */
+    drawImage(image: CanvasImageSource, dx: number, dy: number): void;
+    drawImage(image: CanvasImageSource, dx: number, dy: number, dw: number, dh: number): void;
+    drawImage(image: CanvasImageSource, sx: number, sy: number, sw: number, sh: number, dx: number, dy: number, dw: number, dh: number): void;
+}
+
+interface CanvasDrawPath {
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/beginPath) */
+    beginPath(): void;
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/clip) */
+    clip(fillRule?: CanvasFillRule): void;
+    clip(path: Path2D, fillRule?: CanvasFillRule): void;
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/fill) */
+    fill(fillRule?: CanvasFillRule): void;
+    fill(path: Path2D, fillRule?: CanvasFillRule): void;
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/isPointInPath) */
+    isPointInPath(x: number, y: number, fillRule?: CanvasFillRule): boolean;
+    isPointInPath(path: Path2D, x: number, y: number, fillRule?: CanvasFillRule): boolean;
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/isPointInStroke) */
+    isPointInStroke(x: number, y: number): boolean;
+    isPointInStroke(path: Path2D, x: number, y: number): boolean;
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/stroke) */
+    stroke(): void;
+    stroke(path: Path2D): void;
+}
+
+interface CanvasFillStrokeStyles {
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/fillStyle) */
+    fillStyle: string | CanvasGradient | CanvasPattern;
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/strokeStyle) */
+    strokeStyle: string | CanvasGradient | CanvasPattern;
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/createConicGradient) */
+    createConicGradient(startAngle: number, x: number, y: number): CanvasGradient;
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/createLinearGradient) */
+    createLinearGradient(x0: number, y0: number, x1: number, y1: number): CanvasGradient;
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/createPattern) */
+    createPattern(image: CanvasImageSource, repetition: string | null): CanvasPattern | null;
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/createRadialGradient) */
+    createRadialGradient(x0: number, y0: number, r0: number, x1: number, y1: number, r1: number): CanvasGradient;
+}
+
+interface CanvasFilters {
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/filter) */
+    filter: string;
+}
+
+interface CanvasImageData {
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/createImageData) */
+    createImageData(sw: number, sh: number, settings?: ImageDataSettings): ImageData;
+    createImageData(imageData: ImageData): ImageData;
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/getImageData) */
+    getImageData(sx: number, sy: number, sw: number, sh: number, settings?: ImageDataSettings): ImageData;
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/putImageData) */
+    putImageData(imageData: ImageData, dx: number, dy: number): void;
+    putImageData(imageData: ImageData, dx: number, dy: number, dirtyX: number, dirtyY: number, dirtyWidth: number, dirtyHeight: number): void;
+}
+
+interface CanvasImageSmoothing {
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/imageSmoothingEnabled) */
+    imageSmoothingEnabled: boolean;
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/imageSmoothingQuality) */
+    imageSmoothingQuality: ImageSmoothingQuality;
+}
+
+interface CanvasPath {
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/arc) */
+    arc(x: number, y: number, radius: number, startAngle: number, endAngle: number, counterclockwise?: boolean): void;
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/arcTo) */
+    arcTo(x1: number, y1: number, x2: number, y2: number, radius: number): void;
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/bezierCurveTo) */
+    bezierCurveTo(cp1x: number, cp1y: number, cp2x: number, cp2y: number, x: number, y: number): void;
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/closePath) */
+    closePath(): void;
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/ellipse) */
+    ellipse(x: number, y: number, radiusX: number, radiusY: number, rotation: number, startAngle: number, endAngle: number, counterclockwise?: boolean): void;
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/lineTo) */
+    lineTo(x: number, y: number): void;
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/moveTo) */
+    moveTo(x: number, y: number): void;
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/quadraticCurveTo) */
+    quadraticCurveTo(cpx: number, cpy: number, x: number, y: number): void;
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/rect) */
+    rect(x: number, y: number, w: number, h: number): void;
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/roundRect) */
+    roundRect(x: number, y: number, w: number, h: number, radii?: number | DOMPointInit | (number | DOMPointInit)[]): void;
+}
+
+interface CanvasPathDrawingStyles {
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/lineCap) */
+    lineCap: CanvasLineCap;
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/lineDashOffset) */
+    lineDashOffset: number;
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/lineJoin) */
+    lineJoin: CanvasLineJoin;
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/lineWidth) */
+    lineWidth: number;
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/miterLimit) */
+    miterLimit: number;
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/getLineDash) */
+    getLineDash(): number[];
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/setLineDash) */
+    setLineDash(segments: number[]): void;
+}
+
+interface CanvasRect {
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/clearRect) */
+    clearRect(x: number, y: number, w: number, h: number): void;
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/fillRect) */
+    fillRect(x: number, y: number, w: number, h: number): void;
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/strokeRect) */
+    strokeRect(x: number, y: number, w: number, h: number): void;
+}
+
+interface CanvasShadowStyles {
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/shadowBlur) */
+    shadowBlur: number;
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/shadowColor) */
+    shadowColor: string;
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/shadowOffsetX) */
+    shadowOffsetX: number;
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/shadowOffsetY) */
+    shadowOffsetY: number;
+}
+
+interface CanvasState {
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/isContextLost) */
+    isContextLost(): boolean;
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/reset) */
+    reset(): void;
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/restore) */
+    restore(): void;
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/save) */
+    save(): void;
+}
+
+interface CanvasText {
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/fillText) */
+    fillText(text: string, x: number, y: number, maxWidth?: number): void;
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/measureText) */
+    measureText(text: string): TextMetrics;
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/strokeText) */
+    strokeText(text: string, x: number, y: number, maxWidth?: number): void;
+}
+
+interface CanvasTextDrawingStyles {
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/direction) */
+    direction: CanvasDirection;
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/font) */
+    font: string;
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/fontKerning) */
+    fontKerning: CanvasFontKerning;
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/fontStretch) */
+    fontStretch: CanvasFontStretch;
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/fontVariantCaps) */
+    fontVariantCaps: CanvasFontVariantCaps;
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/letterSpacing) */
+    letterSpacing: string;
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/textAlign) */
+    textAlign: CanvasTextAlign;
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/textBaseline) */
+    textBaseline: CanvasTextBaseline;
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/textRendering) */
+    textRendering: CanvasTextRendering;
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/wordSpacing) */
+    wordSpacing: string;
+}
+
+interface CanvasTransform {
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/getTransform) */
+    getTransform(): DOMMatrix;
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/resetTransform) */
+    resetTransform(): void;
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/rotate) */
+    rotate(angle: number): void;
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/scale) */
+    scale(x: number, y: number): void;
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/setTransform) */
+    setTransform(a: number, b: number, c: number, d: number, e: number, f: number): void;
+    setTransform(transform?: DOMMatrix2DInit): void;
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/transform) */
+    transform(a: number, b: number, c: number, d: number, e: number, f: number): void;
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/translate) */
+    translate(x: number, y: number): void;
+}
+
+interface FontFaceSource {
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Document/fonts) */
+    readonly fonts: FontFaceSet;
+}
+
+interface GenericTransformStream {
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CompressionStream/readable) */
+    readonly readable: ReadableStream;
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CompressionStream/writable) */
+    readonly writable: WritableStream;
+}
+
+interface MessageEventTargetEventMap {
+    "message": MessageEvent;
+    "messageerror": MessageEvent;
+}
+
+interface MessageEventTarget<T> {
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/DedicatedWorkerGlobalScope/message_event) */
+    onmessage: ((this: T, ev: MessageEvent) => any) | null;
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/DedicatedWorkerGlobalScope/messageerror_event) */
+    onmessageerror: ((this: T, ev: MessageEvent) => any) | null;
+    addEventListener<K extends keyof MessageEventTargetEventMap>(type: K, listener: (this: T, ev: MessageEventTargetEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener<K extends keyof MessageEventTargetEventMap>(type: K, listener: (this: T, ev: MessageEventTargetEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+}
+
+/** Available only in secure contexts. */
+interface NavigatorBadge {
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Navigator/clearAppBadge) */
+    clearAppBadge(): Promise<void>;
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Navigator/setAppBadge) */
+    setAppBadge(contents?: number): Promise<void>;
+}
+
+interface NavigatorConcurrentHardware {
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Navigator/hardwareConcurrency) */
+    readonly hardwareConcurrency: number;
+}
+
+interface NavigatorID {
+    /**
+     * @deprecated
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/Navigator/appCodeName)
+     */
+    readonly appCodeName: string;
+    /**
+     * @deprecated
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/Navigator/appName)
+     */
+    readonly appName: string;
+    /**
+     * @deprecated
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/Navigator/appVersion)
+     */
+    readonly appVersion: string;
+    /**
+     * @deprecated
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/Navigator/platform)
+     */
+    readonly platform: string;
+    /**
+     * @deprecated
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/Navigator/product)
+     */
+    readonly product: string;
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Navigator/userAgent) */
+    readonly userAgent: string;
+}
+
+interface NavigatorLanguage {
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Navigator/language) */
+    readonly language: string;
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Navigator/languages) */
+    readonly languages: ReadonlyArray<string>;
+}
+
+/** Available only in secure contexts. */
+interface NavigatorLocks {
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Navigator/locks) */
+    readonly locks: LockManager;
+}
+
+interface NavigatorOnLine {
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Navigator/onLine) */
+    readonly onLine: boolean;
+}
+
+/** Available only in secure contexts. */
+interface NavigatorStorage {
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Navigator/storage) */
+    readonly storage: StorageManager;
+}
+
+interface ReadableStreamGenericReader {
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/ReadableStreamBYOBReader/closed) */
+    readonly closed: Promise<void>;
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/ReadableStreamBYOBReader/cancel) */
+    cancel(reason?: any): Promise<void>;
+}
+
+interface TextDecoderCommon {
+    /**
+     * Returns encoding's name, lowercased.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/TextDecoder/encoding)
+     */
+    readonly encoding: string;
+    /**
+     * Returns true if error mode is "fatal", otherwise false.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/TextDecoder/fatal)
+     */
+    readonly fatal: boolean;
+    /**
+     * Returns the value of ignore BOM.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/TextDecoder/ignoreBOM)
+     */
+    readonly ignoreBOM: boolean;
+}
+
+interface TextEncoderCommon {
+    /**
+     * Returns "utf-8".
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/TextEncoder/encoding)
+     */
+    readonly encoding: string;
+}
+
 interface WebGL2RenderingContextBase {
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGL2RenderingContext/beginQuery) */
     beginQuery(target: GLenum, query: WebGLQuery): void;
@@ -10356,431 +11610,6 @@ interface WebGL2RenderingContextOverloads {
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/uniformMatrix) */
     uniformMatrix4fv(location: WebGLUniformLocation | null, transpose: GLboolean, data: Float32List, srcOffset?: number, srcLength?: GLuint): void;
 }
-
-/**
- * The **WebGLActiveInfo** interface is part of the WebGL API and represents the information returned by calling the WebGLRenderingContext.getActiveAttrib() and WebGLRenderingContext.getActiveUniform() methods.
- *
- * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLActiveInfo)
- */
-interface WebGLActiveInfo {
-    /**
-     * The read-only **`WebGLActiveInfo.name`** property represents the name of the requested data returned by calling the WebGLRenderingContext.getActiveAttrib() or WebGLRenderingContext.getActiveUniform() methods.
-     *
-     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLActiveInfo/name)
-     */
-    readonly name: string;
-    /**
-     * The read-only **`WebGLActiveInfo.size`** property is a Number representing the size of the requested data returned by calling the WebGLRenderingContext.getActiveAttrib() or WebGLRenderingContext.getActiveUniform() methods.
-     *
-     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLActiveInfo/size)
-     */
-    readonly size: GLint;
-    /**
-     * The read-only **`WebGLActiveInfo.type`** property represents the type of the requested data returned by calling the WebGLRenderingContext.getActiveAttrib() or WebGLRenderingContext.getActiveUniform() methods.
-     *
-     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLActiveInfo/type)
-     */
-    readonly type: GLenum;
-}
-
-declare var WebGLActiveInfo: {
-    prototype: WebGLActiveInfo;
-    new(): WebGLActiveInfo;
-};
-
-/**
- * The **WebGLBuffer** interface is part of the WebGL API and represents an opaque buffer object storing data such as vertices or colors.
- *
- * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLBuffer)
- */
-interface WebGLBuffer {
-}
-
-declare var WebGLBuffer: {
-    prototype: WebGLBuffer;
-    new(): WebGLBuffer;
-};
-
-/**
- * The **WebGLContextEvent** interface is part of the WebGL API and is an interface for an event that is generated in response to a status change to the WebGL rendering context.
- *
- * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLContextEvent)
- */
-interface WebGLContextEvent extends Event {
-    /**
-     * The read-only **`WebGLContextEvent.statusMessage`** property contains additional event status information, or is an empty string if no additional information is available.
-     *
-     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLContextEvent/statusMessage)
-     */
-    readonly statusMessage: string;
-}
-
-declare var WebGLContextEvent: {
-    prototype: WebGLContextEvent;
-    new(type: string, eventInit?: WebGLContextEventInit): WebGLContextEvent;
-};
-
-/**
- * The **WebGLFramebuffer** interface is part of the WebGL API and represents a collection of buffers that serve as a rendering destination.
- *
- * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLFramebuffer)
- */
-interface WebGLFramebuffer {
-}
-
-declare var WebGLFramebuffer: {
-    prototype: WebGLFramebuffer;
-    new(): WebGLFramebuffer;
-};
-
-/**
- * The **`WebGLProgram`** is part of the WebGL API and is a combination of two compiled WebGLShaders consisting of a vertex shader and a fragment shader (both written in GLSL).
- *
- * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLProgram)
- */
-interface WebGLProgram {
-}
-
-declare var WebGLProgram: {
-    prototype: WebGLProgram;
-    new(): WebGLProgram;
-};
-
-/**
- * The **`WebGLQuery`** interface is part of the WebGL 2 API and provides ways to asynchronously query for information.
- *
- * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLQuery)
- */
-interface WebGLQuery {
-}
-
-declare var WebGLQuery: {
-    prototype: WebGLQuery;
-    new(): WebGLQuery;
-};
-
-/**
- * The **WebGLRenderbuffer** interface is part of the WebGL API and represents a buffer that can contain an image, or that can be a source or target of a rendering operation.
- *
- * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderbuffer)
- */
-interface WebGLRenderbuffer {
-}
-
-declare var WebGLRenderbuffer: {
-    prototype: WebGLRenderbuffer;
-    new(): WebGLRenderbuffer;
-};
-
-/**
- * The **`WebGLRenderingContext`** interface provides an interface to the OpenGL ES 2.0 graphics rendering context for the drawing surface of an HTML canvas element.
- *
- * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext)
- */
-interface WebGLRenderingContext extends WebGLRenderingContextBase, WebGLRenderingContextOverloads {
-}
-
-declare var WebGLRenderingContext: {
-    prototype: WebGLRenderingContext;
-    new(): WebGLRenderingContext;
-    readonly DEPTH_BUFFER_BIT: 0x00000100;
-    readonly STENCIL_BUFFER_BIT: 0x00000400;
-    readonly COLOR_BUFFER_BIT: 0x00004000;
-    readonly POINTS: 0x0000;
-    readonly LINES: 0x0001;
-    readonly LINE_LOOP: 0x0002;
-    readonly LINE_STRIP: 0x0003;
-    readonly TRIANGLES: 0x0004;
-    readonly TRIANGLE_STRIP: 0x0005;
-    readonly TRIANGLE_FAN: 0x0006;
-    readonly ZERO: 0;
-    readonly ONE: 1;
-    readonly SRC_COLOR: 0x0300;
-    readonly ONE_MINUS_SRC_COLOR: 0x0301;
-    readonly SRC_ALPHA: 0x0302;
-    readonly ONE_MINUS_SRC_ALPHA: 0x0303;
-    readonly DST_ALPHA: 0x0304;
-    readonly ONE_MINUS_DST_ALPHA: 0x0305;
-    readonly DST_COLOR: 0x0306;
-    readonly ONE_MINUS_DST_COLOR: 0x0307;
-    readonly SRC_ALPHA_SATURATE: 0x0308;
-    readonly FUNC_ADD: 0x8006;
-    readonly BLEND_EQUATION: 0x8009;
-    readonly BLEND_EQUATION_RGB: 0x8009;
-    readonly BLEND_EQUATION_ALPHA: 0x883D;
-    readonly FUNC_SUBTRACT: 0x800A;
-    readonly FUNC_REVERSE_SUBTRACT: 0x800B;
-    readonly BLEND_DST_RGB: 0x80C8;
-    readonly BLEND_SRC_RGB: 0x80C9;
-    readonly BLEND_DST_ALPHA: 0x80CA;
-    readonly BLEND_SRC_ALPHA: 0x80CB;
-    readonly CONSTANT_COLOR: 0x8001;
-    readonly ONE_MINUS_CONSTANT_COLOR: 0x8002;
-    readonly CONSTANT_ALPHA: 0x8003;
-    readonly ONE_MINUS_CONSTANT_ALPHA: 0x8004;
-    readonly BLEND_COLOR: 0x8005;
-    readonly ARRAY_BUFFER: 0x8892;
-    readonly ELEMENT_ARRAY_BUFFER: 0x8893;
-    readonly ARRAY_BUFFER_BINDING: 0x8894;
-    readonly ELEMENT_ARRAY_BUFFER_BINDING: 0x8895;
-    readonly STREAM_DRAW: 0x88E0;
-    readonly STATIC_DRAW: 0x88E4;
-    readonly DYNAMIC_DRAW: 0x88E8;
-    readonly BUFFER_SIZE: 0x8764;
-    readonly BUFFER_USAGE: 0x8765;
-    readonly CURRENT_VERTEX_ATTRIB: 0x8626;
-    readonly FRONT: 0x0404;
-    readonly BACK: 0x0405;
-    readonly FRONT_AND_BACK: 0x0408;
-    readonly CULL_FACE: 0x0B44;
-    readonly BLEND: 0x0BE2;
-    readonly DITHER: 0x0BD0;
-    readonly STENCIL_TEST: 0x0B90;
-    readonly DEPTH_TEST: 0x0B71;
-    readonly SCISSOR_TEST: 0x0C11;
-    readonly POLYGON_OFFSET_FILL: 0x8037;
-    readonly SAMPLE_ALPHA_TO_COVERAGE: 0x809E;
-    readonly SAMPLE_COVERAGE: 0x80A0;
-    readonly NO_ERROR: 0;
-    readonly INVALID_ENUM: 0x0500;
-    readonly INVALID_VALUE: 0x0501;
-    readonly INVALID_OPERATION: 0x0502;
-    readonly OUT_OF_MEMORY: 0x0505;
-    readonly CW: 0x0900;
-    readonly CCW: 0x0901;
-    readonly LINE_WIDTH: 0x0B21;
-    readonly ALIASED_POINT_SIZE_RANGE: 0x846D;
-    readonly ALIASED_LINE_WIDTH_RANGE: 0x846E;
-    readonly CULL_FACE_MODE: 0x0B45;
-    readonly FRONT_FACE: 0x0B46;
-    readonly DEPTH_RANGE: 0x0B70;
-    readonly DEPTH_WRITEMASK: 0x0B72;
-    readonly DEPTH_CLEAR_VALUE: 0x0B73;
-    readonly DEPTH_FUNC: 0x0B74;
-    readonly STENCIL_CLEAR_VALUE: 0x0B91;
-    readonly STENCIL_FUNC: 0x0B92;
-    readonly STENCIL_FAIL: 0x0B94;
-    readonly STENCIL_PASS_DEPTH_FAIL: 0x0B95;
-    readonly STENCIL_PASS_DEPTH_PASS: 0x0B96;
-    readonly STENCIL_REF: 0x0B97;
-    readonly STENCIL_VALUE_MASK: 0x0B93;
-    readonly STENCIL_WRITEMASK: 0x0B98;
-    readonly STENCIL_BACK_FUNC: 0x8800;
-    readonly STENCIL_BACK_FAIL: 0x8801;
-    readonly STENCIL_BACK_PASS_DEPTH_FAIL: 0x8802;
-    readonly STENCIL_BACK_PASS_DEPTH_PASS: 0x8803;
-    readonly STENCIL_BACK_REF: 0x8CA3;
-    readonly STENCIL_BACK_VALUE_MASK: 0x8CA4;
-    readonly STENCIL_BACK_WRITEMASK: 0x8CA5;
-    readonly VIEWPORT: 0x0BA2;
-    readonly SCISSOR_BOX: 0x0C10;
-    readonly COLOR_CLEAR_VALUE: 0x0C22;
-    readonly COLOR_WRITEMASK: 0x0C23;
-    readonly UNPACK_ALIGNMENT: 0x0CF5;
-    readonly PACK_ALIGNMENT: 0x0D05;
-    readonly MAX_TEXTURE_SIZE: 0x0D33;
-    readonly MAX_VIEWPORT_DIMS: 0x0D3A;
-    readonly SUBPIXEL_BITS: 0x0D50;
-    readonly RED_BITS: 0x0D52;
-    readonly GREEN_BITS: 0x0D53;
-    readonly BLUE_BITS: 0x0D54;
-    readonly ALPHA_BITS: 0x0D55;
-    readonly DEPTH_BITS: 0x0D56;
-    readonly STENCIL_BITS: 0x0D57;
-    readonly POLYGON_OFFSET_UNITS: 0x2A00;
-    readonly POLYGON_OFFSET_FACTOR: 0x8038;
-    readonly TEXTURE_BINDING_2D: 0x8069;
-    readonly SAMPLE_BUFFERS: 0x80A8;
-    readonly SAMPLES: 0x80A9;
-    readonly SAMPLE_COVERAGE_VALUE: 0x80AA;
-    readonly SAMPLE_COVERAGE_INVERT: 0x80AB;
-    readonly COMPRESSED_TEXTURE_FORMATS: 0x86A3;
-    readonly DONT_CARE: 0x1100;
-    readonly FASTEST: 0x1101;
-    readonly NICEST: 0x1102;
-    readonly GENERATE_MIPMAP_HINT: 0x8192;
-    readonly BYTE: 0x1400;
-    readonly UNSIGNED_BYTE: 0x1401;
-    readonly SHORT: 0x1402;
-    readonly UNSIGNED_SHORT: 0x1403;
-    readonly INT: 0x1404;
-    readonly UNSIGNED_INT: 0x1405;
-    readonly FLOAT: 0x1406;
-    readonly DEPTH_COMPONENT: 0x1902;
-    readonly ALPHA: 0x1906;
-    readonly RGB: 0x1907;
-    readonly RGBA: 0x1908;
-    readonly LUMINANCE: 0x1909;
-    readonly LUMINANCE_ALPHA: 0x190A;
-    readonly UNSIGNED_SHORT_4_4_4_4: 0x8033;
-    readonly UNSIGNED_SHORT_5_5_5_1: 0x8034;
-    readonly UNSIGNED_SHORT_5_6_5: 0x8363;
-    readonly FRAGMENT_SHADER: 0x8B30;
-    readonly VERTEX_SHADER: 0x8B31;
-    readonly MAX_VERTEX_ATTRIBS: 0x8869;
-    readonly MAX_VERTEX_UNIFORM_VECTORS: 0x8DFB;
-    readonly MAX_VARYING_VECTORS: 0x8DFC;
-    readonly MAX_COMBINED_TEXTURE_IMAGE_UNITS: 0x8B4D;
-    readonly MAX_VERTEX_TEXTURE_IMAGE_UNITS: 0x8B4C;
-    readonly MAX_TEXTURE_IMAGE_UNITS: 0x8872;
-    readonly MAX_FRAGMENT_UNIFORM_VECTORS: 0x8DFD;
-    readonly SHADER_TYPE: 0x8B4F;
-    readonly DELETE_STATUS: 0x8B80;
-    readonly LINK_STATUS: 0x8B82;
-    readonly VALIDATE_STATUS: 0x8B83;
-    readonly ATTACHED_SHADERS: 0x8B85;
-    readonly ACTIVE_UNIFORMS: 0x8B86;
-    readonly ACTIVE_ATTRIBUTES: 0x8B89;
-    readonly SHADING_LANGUAGE_VERSION: 0x8B8C;
-    readonly CURRENT_PROGRAM: 0x8B8D;
-    readonly NEVER: 0x0200;
-    readonly LESS: 0x0201;
-    readonly EQUAL: 0x0202;
-    readonly LEQUAL: 0x0203;
-    readonly GREATER: 0x0204;
-    readonly NOTEQUAL: 0x0205;
-    readonly GEQUAL: 0x0206;
-    readonly ALWAYS: 0x0207;
-    readonly KEEP: 0x1E00;
-    readonly REPLACE: 0x1E01;
-    readonly INCR: 0x1E02;
-    readonly DECR: 0x1E03;
-    readonly INVERT: 0x150A;
-    readonly INCR_WRAP: 0x8507;
-    readonly DECR_WRAP: 0x8508;
-    readonly VENDOR: 0x1F00;
-    readonly RENDERER: 0x1F01;
-    readonly VERSION: 0x1F02;
-    readonly NEAREST: 0x2600;
-    readonly LINEAR: 0x2601;
-    readonly NEAREST_MIPMAP_NEAREST: 0x2700;
-    readonly LINEAR_MIPMAP_NEAREST: 0x2701;
-    readonly NEAREST_MIPMAP_LINEAR: 0x2702;
-    readonly LINEAR_MIPMAP_LINEAR: 0x2703;
-    readonly TEXTURE_MAG_FILTER: 0x2800;
-    readonly TEXTURE_MIN_FILTER: 0x2801;
-    readonly TEXTURE_WRAP_S: 0x2802;
-    readonly TEXTURE_WRAP_T: 0x2803;
-    readonly TEXTURE_2D: 0x0DE1;
-    readonly TEXTURE: 0x1702;
-    readonly TEXTURE_CUBE_MAP: 0x8513;
-    readonly TEXTURE_BINDING_CUBE_MAP: 0x8514;
-    readonly TEXTURE_CUBE_MAP_POSITIVE_X: 0x8515;
-    readonly TEXTURE_CUBE_MAP_NEGATIVE_X: 0x8516;
-    readonly TEXTURE_CUBE_MAP_POSITIVE_Y: 0x8517;
-    readonly TEXTURE_CUBE_MAP_NEGATIVE_Y: 0x8518;
-    readonly TEXTURE_CUBE_MAP_POSITIVE_Z: 0x8519;
-    readonly TEXTURE_CUBE_MAP_NEGATIVE_Z: 0x851A;
-    readonly MAX_CUBE_MAP_TEXTURE_SIZE: 0x851C;
-    readonly TEXTURE0: 0x84C0;
-    readonly TEXTURE1: 0x84C1;
-    readonly TEXTURE2: 0x84C2;
-    readonly TEXTURE3: 0x84C3;
-    readonly TEXTURE4: 0x84C4;
-    readonly TEXTURE5: 0x84C5;
-    readonly TEXTURE6: 0x84C6;
-    readonly TEXTURE7: 0x84C7;
-    readonly TEXTURE8: 0x84C8;
-    readonly TEXTURE9: 0x84C9;
-    readonly TEXTURE10: 0x84CA;
-    readonly TEXTURE11: 0x84CB;
-    readonly TEXTURE12: 0x84CC;
-    readonly TEXTURE13: 0x84CD;
-    readonly TEXTURE14: 0x84CE;
-    readonly TEXTURE15: 0x84CF;
-    readonly TEXTURE16: 0x84D0;
-    readonly TEXTURE17: 0x84D1;
-    readonly TEXTURE18: 0x84D2;
-    readonly TEXTURE19: 0x84D3;
-    readonly TEXTURE20: 0x84D4;
-    readonly TEXTURE21: 0x84D5;
-    readonly TEXTURE22: 0x84D6;
-    readonly TEXTURE23: 0x84D7;
-    readonly TEXTURE24: 0x84D8;
-    readonly TEXTURE25: 0x84D9;
-    readonly TEXTURE26: 0x84DA;
-    readonly TEXTURE27: 0x84DB;
-    readonly TEXTURE28: 0x84DC;
-    readonly TEXTURE29: 0x84DD;
-    readonly TEXTURE30: 0x84DE;
-    readonly TEXTURE31: 0x84DF;
-    readonly ACTIVE_TEXTURE: 0x84E0;
-    readonly REPEAT: 0x2901;
-    readonly CLAMP_TO_EDGE: 0x812F;
-    readonly MIRRORED_REPEAT: 0x8370;
-    readonly FLOAT_VEC2: 0x8B50;
-    readonly FLOAT_VEC3: 0x8B51;
-    readonly FLOAT_VEC4: 0x8B52;
-    readonly INT_VEC2: 0x8B53;
-    readonly INT_VEC3: 0x8B54;
-    readonly INT_VEC4: 0x8B55;
-    readonly BOOL: 0x8B56;
-    readonly BOOL_VEC2: 0x8B57;
-    readonly BOOL_VEC3: 0x8B58;
-    readonly BOOL_VEC4: 0x8B59;
-    readonly FLOAT_MAT2: 0x8B5A;
-    readonly FLOAT_MAT3: 0x8B5B;
-    readonly FLOAT_MAT4: 0x8B5C;
-    readonly SAMPLER_2D: 0x8B5E;
-    readonly SAMPLER_CUBE: 0x8B60;
-    readonly VERTEX_ATTRIB_ARRAY_ENABLED: 0x8622;
-    readonly VERTEX_ATTRIB_ARRAY_SIZE: 0x8623;
-    readonly VERTEX_ATTRIB_ARRAY_STRIDE: 0x8624;
-    readonly VERTEX_ATTRIB_ARRAY_TYPE: 0x8625;
-    readonly VERTEX_ATTRIB_ARRAY_NORMALIZED: 0x886A;
-    readonly VERTEX_ATTRIB_ARRAY_POINTER: 0x8645;
-    readonly VERTEX_ATTRIB_ARRAY_BUFFER_BINDING: 0x889F;
-    readonly IMPLEMENTATION_COLOR_READ_TYPE: 0x8B9A;
-    readonly IMPLEMENTATION_COLOR_READ_FORMAT: 0x8B9B;
-    readonly COMPILE_STATUS: 0x8B81;
-    readonly LOW_FLOAT: 0x8DF0;
-    readonly MEDIUM_FLOAT: 0x8DF1;
-    readonly HIGH_FLOAT: 0x8DF2;
-    readonly LOW_INT: 0x8DF3;
-    readonly MEDIUM_INT: 0x8DF4;
-    readonly HIGH_INT: 0x8DF5;
-    readonly FRAMEBUFFER: 0x8D40;
-    readonly RENDERBUFFER: 0x8D41;
-    readonly RGBA4: 0x8056;
-    readonly RGB5_A1: 0x8057;
-    readonly RGBA8: 0x8058;
-    readonly RGB565: 0x8D62;
-    readonly DEPTH_COMPONENT16: 0x81A5;
-    readonly STENCIL_INDEX8: 0x8D48;
-    readonly DEPTH_STENCIL: 0x84F9;
-    readonly RENDERBUFFER_WIDTH: 0x8D42;
-    readonly RENDERBUFFER_HEIGHT: 0x8D43;
-    readonly RENDERBUFFER_INTERNAL_FORMAT: 0x8D44;
-    readonly RENDERBUFFER_RED_SIZE: 0x8D50;
-    readonly RENDERBUFFER_GREEN_SIZE: 0x8D51;
-    readonly RENDERBUFFER_BLUE_SIZE: 0x8D52;
-    readonly RENDERBUFFER_ALPHA_SIZE: 0x8D53;
-    readonly RENDERBUFFER_DEPTH_SIZE: 0x8D54;
-    readonly RENDERBUFFER_STENCIL_SIZE: 0x8D55;
-    readonly FRAMEBUFFER_ATTACHMENT_OBJECT_TYPE: 0x8CD0;
-    readonly FRAMEBUFFER_ATTACHMENT_OBJECT_NAME: 0x8CD1;
-    readonly FRAMEBUFFER_ATTACHMENT_TEXTURE_LEVEL: 0x8CD2;
-    readonly FRAMEBUFFER_ATTACHMENT_TEXTURE_CUBE_MAP_FACE: 0x8CD3;
-    readonly COLOR_ATTACHMENT0: 0x8CE0;
-    readonly DEPTH_ATTACHMENT: 0x8D00;
-    readonly STENCIL_ATTACHMENT: 0x8D20;
-    readonly DEPTH_STENCIL_ATTACHMENT: 0x821A;
-    readonly NONE: 0;
-    readonly FRAMEBUFFER_COMPLETE: 0x8CD5;
-    readonly FRAMEBUFFER_INCOMPLETE_ATTACHMENT: 0x8CD6;
-    readonly FRAMEBUFFER_INCOMPLETE_MISSING_ATTACHMENT: 0x8CD7;
-    readonly FRAMEBUFFER_INCOMPLETE_DIMENSIONS: 0x8CD9;
-    readonly FRAMEBUFFER_UNSUPPORTED: 0x8CDD;
-    readonly FRAMEBUFFER_BINDING: 0x8CA6;
-    readonly RENDERBUFFER_BINDING: 0x8CA7;
-    readonly MAX_RENDERBUFFER_SIZE: 0x84E8;
-    readonly INVALID_FRAMEBUFFER_OPERATION: 0x0506;
-    readonly UNPACK_FLIP_Y_WEBGL: 0x9240;
-    readonly UNPACK_PREMULTIPLY_ALPHA_WEBGL: 0x9241;
-    readonly CONTEXT_LOST_WEBGL: 0x9242;
-    readonly UNPACK_COLORSPACE_CONVERSION_WEBGL: 0x9243;
-    readonly BROWSER_DEFAULT_WEBGL: 0x9244;
-};
 
 interface WebGLRenderingContextBase {
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGL2RenderingContext/drawingBufferColorSpace) */
@@ -11402,423 +12231,6 @@ interface WebGLRenderingContextOverloads {
     uniformMatrix4fv(location: WebGLUniformLocation | null, transpose: GLboolean, value: Float32List): void;
 }
 
-/**
- * The **`WebGLSampler`** interface is part of the WebGL 2 API and stores sampling parameters for WebGLTexture access inside of a shader.
- *
- * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLSampler)
- */
-interface WebGLSampler {
-}
-
-declare var WebGLSampler: {
-    prototype: WebGLSampler;
-    new(): WebGLSampler;
-};
-
-/**
- * The **WebGLShader** is part of the WebGL API and can either be a vertex or a fragment shader.
- *
- * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLShader)
- */
-interface WebGLShader {
-}
-
-declare var WebGLShader: {
-    prototype: WebGLShader;
-    new(): WebGLShader;
-};
-
-/**
- * The **WebGLShaderPrecisionFormat** interface is part of the WebGL API and represents the information returned by calling the WebGLRenderingContext.getShaderPrecisionFormat() method.
- *
- * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLShaderPrecisionFormat)
- */
-interface WebGLShaderPrecisionFormat {
-    /**
-     * The read-only **`WebGLShaderPrecisionFormat.precision`** property returns the number of bits of precision that can be represented.
-     *
-     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLShaderPrecisionFormat/precision)
-     */
-    readonly precision: GLint;
-    /**
-     * The read-only **`WebGLShaderPrecisionFormat.rangeMax`** property returns the base 2 log of the absolute value of the maximum value that can be represented.
-     *
-     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLShaderPrecisionFormat/rangeMax)
-     */
-    readonly rangeMax: GLint;
-    /**
-     * The read-only **`WebGLShaderPrecisionFormat.rangeMin`** property returns the base 2 log of the absolute value of the minimum value that can be represented.
-     *
-     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLShaderPrecisionFormat/rangeMin)
-     */
-    readonly rangeMin: GLint;
-}
-
-declare var WebGLShaderPrecisionFormat: {
-    prototype: WebGLShaderPrecisionFormat;
-    new(): WebGLShaderPrecisionFormat;
-};
-
-/**
- * The **`WebGLSync`** interface is part of the WebGL 2 API and is used to synchronize activities between the GPU and the application.
- *
- * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLSync)
- */
-interface WebGLSync {
-}
-
-declare var WebGLSync: {
-    prototype: WebGLSync;
-    new(): WebGLSync;
-};
-
-/**
- * The **WebGLTexture** interface is part of the WebGL API and represents an opaque texture object providing storage and state for texturing operations.
- *
- * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLTexture)
- */
-interface WebGLTexture {
-}
-
-declare var WebGLTexture: {
-    prototype: WebGLTexture;
-    new(): WebGLTexture;
-};
-
-/**
- * The **`WebGLTransformFeedback`** interface is part of the WebGL 2 API and enables transform feedback, which is the process of capturing primitives generated by vertex processing.
- *
- * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLTransformFeedback)
- */
-interface WebGLTransformFeedback {
-}
-
-declare var WebGLTransformFeedback: {
-    prototype: WebGLTransformFeedback;
-    new(): WebGLTransformFeedback;
-};
-
-/**
- * The **WebGLUniformLocation** interface is part of the WebGL API and represents the location of a uniform variable in a shader program.
- *
- * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLUniformLocation)
- */
-interface WebGLUniformLocation {
-}
-
-declare var WebGLUniformLocation: {
-    prototype: WebGLUniformLocation;
-    new(): WebGLUniformLocation;
-};
-
-/**
- * The **`WebGLVertexArrayObject`** interface is part of the WebGL 2 API, represents vertex array objects (VAOs) pointing to vertex array data, and provides names for different sets of vertex data.
- *
- * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLVertexArrayObject)
- */
-interface WebGLVertexArrayObject {
-}
-
-declare var WebGLVertexArrayObject: {
-    prototype: WebGLVertexArrayObject;
-    new(): WebGLVertexArrayObject;
-};
-
-/** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLVertexArrayObject) */
-interface WebGLVertexArrayObjectOES {
-}
-
-interface WebSocketEventMap {
-    "close": CloseEvent;
-    "error": Event;
-    "message": MessageEvent;
-    "open": Event;
-}
-
-/**
- * The `WebSocket` object provides the API for creating and managing a WebSocket connection to a server, as well as for sending and receiving data on the connection.
- *
- * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebSocket)
- */
-interface WebSocket extends EventTarget {
-    /**
-     * The **`WebSocket.binaryType`** property controls the type of binary data being received over the WebSocket connection.
-     *
-     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebSocket/binaryType)
-     */
-    binaryType: BinaryType;
-    /**
-     * The **`WebSocket.bufferedAmount`** read-only property returns the number of bytes of data that have been queued using calls to `send()` but not yet transmitted to the network.
-     *
-     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebSocket/bufferedAmount)
-     */
-    readonly bufferedAmount: number;
-    /**
-     * The **`WebSocket.extensions`** read-only property returns the extensions selected by the server.
-     *
-     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebSocket/extensions)
-     */
-    readonly extensions: string;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebSocket/close_event) */
-    onclose: ((this: WebSocket, ev: CloseEvent) => any) | null;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebSocket/error_event) */
-    onerror: ((this: WebSocket, ev: Event) => any) | null;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebSocket/message_event) */
-    onmessage: ((this: WebSocket, ev: MessageEvent) => any) | null;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebSocket/open_event) */
-    onopen: ((this: WebSocket, ev: Event) => any) | null;
-    /**
-     * The **`WebSocket.protocol`** read-only property returns the name of the sub-protocol the server selected; this will be one of the strings specified in the `protocols` parameter when creating the WebSocket object, or the empty string if no connection is established.
-     *
-     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebSocket/protocol)
-     */
-    readonly protocol: string;
-    /**
-     * The **`WebSocket.readyState`** read-only property returns the current state of the WebSocket connection.
-     *
-     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebSocket/readyState)
-     */
-    readonly readyState: number;
-    /**
-     * The **`WebSocket.url`** read-only property returns the absolute URL of the WebSocket as resolved by the constructor.
-     *
-     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebSocket/url)
-     */
-    readonly url: string;
-    /**
-     * The **`WebSocket.close()`** method closes the already `CLOSED`, this method does nothing.
-     *
-     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebSocket/close)
-     */
-    close(code?: number, reason?: string): void;
-    /**
-     * The **`WebSocket.send()`** method enqueues the specified data to be transmitted to the server over the WebSocket connection, increasing the value of `bufferedAmount` by the number of bytes needed to contain the data.
-     *
-     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebSocket/send)
-     */
-    send(data: string | ArrayBufferLike | Blob | ArrayBufferView): void;
-    readonly CONNECTING: 0;
-    readonly OPEN: 1;
-    readonly CLOSING: 2;
-    readonly CLOSED: 3;
-    addEventListener<K extends keyof WebSocketEventMap>(type: K, listener: (this: WebSocket, ev: WebSocketEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
-    removeEventListener<K extends keyof WebSocketEventMap>(type: K, listener: (this: WebSocket, ev: WebSocketEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
-}
-
-declare var WebSocket: {
-    prototype: WebSocket;
-    new(url: string | URL, protocols?: string | string[]): WebSocket;
-    readonly CONNECTING: 0;
-    readonly OPEN: 1;
-    readonly CLOSING: 2;
-    readonly CLOSED: 3;
-};
-
-/**
- * The **`WebTransport`** interface of the WebTransport API provides functionality to enable a user agent to connect to an HTTP/3 server, initiate reliable and unreliable transport in either or both directions, and close the connection once it is no longer needed.
- * Available only in secure contexts.
- *
- * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebTransport)
- */
-interface WebTransport {
-    /**
-     * The **`closed`** read-only property of the WebTransport interface returns a promise that resolves when the transport is closed.
-     *
-     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebTransport/closed)
-     */
-    readonly closed: Promise<WebTransportCloseInfo>;
-    /**
-     * The **`datagrams`** read-only property of the WebTransport interface returns a WebTransportDatagramDuplexStream instance that can be used to send and receive datagrams — unreliable data transmission.
-     *
-     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebTransport/datagrams)
-     */
-    readonly datagrams: WebTransportDatagramDuplexStream;
-    /**
-     * The **`incomingBidirectionalStreams`** read-only property of the WebTransport interface represents one or more bidirectional streams opened by the server.
-     *
-     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebTransport/incomingBidirectionalStreams)
-     */
-    readonly incomingBidirectionalStreams: ReadableStream;
-    /**
-     * The **`incomingUnidirectionalStreams`** read-only property of the WebTransport interface represents one or more unidirectional streams opened by the server.
-     *
-     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebTransport/incomingUnidirectionalStreams)
-     */
-    readonly incomingUnidirectionalStreams: ReadableStream;
-    /**
-     * The **`ready`** read-only property of the WebTransport interface returns a promise that resolves when the transport is ready to use.
-     *
-     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebTransport/ready)
-     */
-    readonly ready: Promise<void>;
-    /**
-     * The **`close()`** method of the WebTransport interface closes an ongoing WebTransport session.
-     *
-     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebTransport/close)
-     */
-    close(closeInfo?: WebTransportCloseInfo): void;
-    /**
-     * The **`createBidirectionalStream()`** method of the WebTransport interface asynchronously opens and returns a bidirectional stream.
-     *
-     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebTransport/createBidirectionalStream)
-     */
-    createBidirectionalStream(options?: WebTransportSendStreamOptions): Promise<WebTransportBidirectionalStream>;
-    /**
-     * The **`createUnidirectionalStream()`** method of the WebTransport interface asynchronously opens a unidirectional stream.
-     *
-     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebTransport/createUnidirectionalStream)
-     */
-    createUnidirectionalStream(options?: WebTransportSendStreamOptions): Promise<WritableStream>;
-}
-
-declare var WebTransport: {
-    prototype: WebTransport;
-    new(url: string | URL, options?: WebTransportOptions): WebTransport;
-};
-
-/**
- * The **`WebTransportBidirectionalStream`** interface of the WebTransport API represents a bidirectional stream created by a server or a client that can be used for reliable transport.
- * Available only in secure contexts.
- *
- * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebTransportBidirectionalStream)
- */
-interface WebTransportBidirectionalStream {
-    /**
-     * The **`readable`** read-only property of the WebTransportBidirectionalStream interface returns a WebTransportReceiveStream instance that can be used to reliably read incoming data.
-     *
-     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebTransportBidirectionalStream/readable)
-     */
-    readonly readable: ReadableStream;
-    /**
-     * The **`writable`** read-only property of the WebTransportBidirectionalStream interface returns a WebTransportSendStream instance that can be used to write outgoing data.
-     *
-     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebTransportBidirectionalStream/writable)
-     */
-    readonly writable: WritableStream;
-}
-
-declare var WebTransportBidirectionalStream: {
-    prototype: WebTransportBidirectionalStream;
-    new(): WebTransportBidirectionalStream;
-};
-
-/**
- * The **`WebTransportDatagramDuplexStream`** interface of the WebTransport API represents a duplex stream that can be used for unreliable transport of datagrams between client and server.
- * Available only in secure contexts.
- *
- * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebTransportDatagramDuplexStream)
- */
-interface WebTransportDatagramDuplexStream {
-    /**
-     * The **`incomingHighWaterMark`** property of the WebTransportDatagramDuplexStream interface gets or sets the high water mark for incoming chunks of data — this is the maximum size, in chunks, that the incoming ReadableStream's internal queue can reach before it is considered full.
-     *
-     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebTransportDatagramDuplexStream/incomingHighWaterMark)
-     */
-    incomingHighWaterMark: number;
-    /**
-     * The **`incomingMaxAge`** property of the WebTransportDatagramDuplexStream interface gets or sets the maximum age for incoming datagrams, in milliseconds.
-     *
-     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebTransportDatagramDuplexStream/incomingMaxAge)
-     */
-    incomingMaxAge: number | null;
-    /**
-     * The **`maxDatagramSize`** read-only property of the WebTransportDatagramDuplexStream interface returns the maximum allowable size of outgoing datagrams, in bytes, that can be written to WebTransportDatagramDuplexStream.writable.
-     *
-     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebTransportDatagramDuplexStream/maxDatagramSize)
-     */
-    readonly maxDatagramSize: number;
-    /**
-     * The **`outgoingHighWaterMark`** property of the WebTransportDatagramDuplexStream interface gets or sets the high water mark for outgoing chunks of data — this is the maximum size, in chunks, that the outgoing WritableStream's internal queue can reach before it is considered full.
-     *
-     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebTransportDatagramDuplexStream/outgoingHighWaterMark)
-     */
-    outgoingHighWaterMark: number;
-    /**
-     * The **`outgoingMaxAge`** property of the WebTransportDatagramDuplexStream interface gets or sets the maximum age for outgoing datagrams, in milliseconds.
-     *
-     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebTransportDatagramDuplexStream/outgoingMaxAge)
-     */
-    outgoingMaxAge: number | null;
-    /**
-     * The **`readable`** read-only property of the WebTransportDatagramDuplexStream interface returns a ReadableStream instance that can be used to unreliably read incoming datagrams from the stream.
-     *
-     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebTransportDatagramDuplexStream/readable)
-     */
-    readonly readable: ReadableStream;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebTransportDatagramDuplexStream/writable) */
-    readonly writable: WritableStream;
-}
-
-declare var WebTransportDatagramDuplexStream: {
-    prototype: WebTransportDatagramDuplexStream;
-    new(): WebTransportDatagramDuplexStream;
-};
-
-/**
- * The **`WebTransportError`** interface of the WebTransport API represents an error related to the API, which can arise from server errors, network connection problems, or client-initiated abort operations (for example, arising from a WritableStream.abort() call).
- * Available only in secure contexts.
- *
- * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebTransportError)
- */
-interface WebTransportError extends DOMException {
-    /**
-     * The **`source`** read-only property of the WebTransportError interface returns an enumerated value indicating the source of the error.
-     *
-     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebTransportError/source)
-     */
-    readonly source: WebTransportErrorSource;
-    /**
-     * The **`streamErrorCode`** read-only property of the WebTransportError interface returns a number in the range 0-255 indicating the application protocol error code for this error, or `null` if one is not available.
-     *
-     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebTransportError/streamErrorCode)
-     */
-    readonly streamErrorCode: number | null;
-}
-
-declare var WebTransportError: {
-    prototype: WebTransportError;
-    new(message?: string, options?: WebTransportErrorOptions): WebTransportError;
-};
-
-/**
- * The `WindowClient` interface of the ServiceWorker API represents the scope of a service worker client that is a document in a browsing context, controlled by an active worker.
- *
- * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WindowClient)
- */
-interface WindowClient extends Client {
-    /**
-     * The **`focused`** read-only property of the the current client has focus.
-     *
-     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WindowClient/focused)
-     */
-    readonly focused: boolean;
-    /**
-     * The **`visibilityState`** read-only property of the This value can be one of `'hidden'`, `'visible'`, or `'prerender'`.
-     *
-     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WindowClient/visibilityState)
-     */
-    readonly visibilityState: DocumentVisibilityState;
-    /**
-     * The **`focus()`** method of the WindowClient interface gives user input focus to the current client and returns a ```js-nolint focus() ``` None.
-     *
-     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WindowClient/focus)
-     */
-    focus(): Promise<WindowClient>;
-    /**
-     * The **`navigate()`** method of the WindowClient interface loads a specified URL into a controlled client page then returns a ```js-nolint navigate(url) ``` - `url` - : The location to navigate to.
-     *
-     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WindowClient/navigate)
-     */
-    navigate(url: string | URL): Promise<WindowClient | null>;
-}
-
-declare var WindowClient: {
-    prototype: WindowClient;
-    new(): WindowClient;
-};
-
 interface WindowOrWorkerGlobalScope {
     /**
      * Available only in secure contexts.
@@ -11863,169 +12275,6 @@ interface WindowOrWorkerGlobalScope {
     structuredClone<T = any>(value: T, options?: StructuredSerializeOptions): T;
 }
 
-interface WorkerEventMap extends AbstractWorkerEventMap, MessageEventTargetEventMap {
-}
-
-/**
- * The **`Worker`** interface of the Web Workers API represents a background task that can be created via script, which can send messages back to its creator.
- *
- * [MDN Reference](https://developer.mozilla.org/docs/Web/API/Worker)
- */
-interface Worker extends EventTarget, AbstractWorker, MessageEventTarget<Worker> {
-    /**
-     * The **`postMessage()`** method of the Worker interface sends a message to the worker.
-     *
-     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/Worker/postMessage)
-     */
-    postMessage(message: any, transfer: Transferable[]): void;
-    postMessage(message: any, options?: StructuredSerializeOptions): void;
-    /**
-     * The **`terminate()`** method of the Worker interface immediately terminates the Worker.
-     *
-     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/Worker/terminate)
-     */
-    terminate(): void;
-    addEventListener<K extends keyof WorkerEventMap>(type: K, listener: (this: Worker, ev: WorkerEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
-    removeEventListener<K extends keyof WorkerEventMap>(type: K, listener: (this: Worker, ev: WorkerEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
-}
-
-declare var Worker: {
-    prototype: Worker;
-    new(scriptURL: string | URL, options?: WorkerOptions): Worker;
-};
-
-interface WorkerGlobalScopeEventMap {
-    "error": ErrorEvent;
-    "languagechange": Event;
-    "offline": Event;
-    "online": Event;
-    "rejectionhandled": PromiseRejectionEvent;
-    "unhandledrejection": PromiseRejectionEvent;
-}
-
-/**
- * The **`WorkerGlobalScope`** interface of the Web Workers API is an interface representing the scope of any worker.
- *
- * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WorkerGlobalScope)
- */
-interface WorkerGlobalScope extends EventTarget, FontFaceSource, WindowOrWorkerGlobalScope {
-    /**
-     * The **`location`** read-only property of the WorkerGlobalScope interface returns the WorkerLocation associated with the worker.
-     *
-     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WorkerGlobalScope/location)
-     */
-    readonly location: WorkerLocation;
-    /**
-     * The **`navigator`** read-only property of the WorkerGlobalScope interface returns the WorkerNavigator associated with the worker.
-     *
-     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WorkerGlobalScope/navigator)
-     */
-    readonly navigator: WorkerNavigator;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WorkerGlobalScope/error_event) */
-    onerror: ((this: WorkerGlobalScope, ev: ErrorEvent) => any) | null;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WorkerGlobalScope/languagechange_event) */
-    onlanguagechange: ((this: WorkerGlobalScope, ev: Event) => any) | null;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WorkerGlobalScope/offline_event) */
-    onoffline: ((this: WorkerGlobalScope, ev: Event) => any) | null;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WorkerGlobalScope/online_event) */
-    ononline: ((this: WorkerGlobalScope, ev: Event) => any) | null;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WorkerGlobalScope/rejectionhandled_event) */
-    onrejectionhandled: ((this: WorkerGlobalScope, ev: PromiseRejectionEvent) => any) | null;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WorkerGlobalScope/unhandledrejection_event) */
-    onunhandledrejection: ((this: WorkerGlobalScope, ev: PromiseRejectionEvent) => any) | null;
-    /**
-     * The **`self`** read-only property of the WorkerGlobalScope interface returns a reference to the `WorkerGlobalScope` itself.
-     *
-     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WorkerGlobalScope/self)
-     */
-    readonly self: WorkerGlobalScope & typeof globalThis;
-    /**
-     * The **`importScripts()`** method of the WorkerGlobalScope interface synchronously imports one or more scripts into the worker's scope.
-     *
-     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WorkerGlobalScope/importScripts)
-     */
-    importScripts(...urls: (string | URL)[]): void;
-    addEventListener<K extends keyof WorkerGlobalScopeEventMap>(type: K, listener: (this: WorkerGlobalScope, ev: WorkerGlobalScopeEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
-    removeEventListener<K extends keyof WorkerGlobalScopeEventMap>(type: K, listener: (this: WorkerGlobalScope, ev: WorkerGlobalScopeEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
-}
-
-declare var WorkerGlobalScope: {
-    prototype: WorkerGlobalScope;
-    new(): WorkerGlobalScope;
-};
-
-/**
- * The **`WorkerLocation`** interface defines the absolute location of the script executed by the Worker.
- *
- * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WorkerLocation)
- */
-interface WorkerLocation {
-    /**
-     * The **`hash`** property of a WorkerLocation object returns the URL.hash part of the worker's location.
-     *
-     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WorkerLocation/hash)
-     */
-    readonly hash: string;
-    /**
-     * The **`host`** property of a WorkerLocation object returns the URL.host part of the worker's location.
-     *
-     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WorkerLocation/host)
-     */
-    readonly host: string;
-    /**
-     * The **`hostname`** property of a WorkerLocation object returns the URL.hostname part of the worker's location.
-     *
-     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WorkerLocation/hostname)
-     */
-    readonly hostname: string;
-    /**
-     * The **`href`** property of a WorkerLocation object returns a string containing the serialized URL for the worker's location.
-     *
-     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WorkerLocation/href)
-     */
-    readonly href: string;
-    toString(): string;
-    /**
-     * The **`origin`** property of a WorkerLocation object returns the worker's URL.origin.
-     *
-     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WorkerLocation/origin)
-     */
-    readonly origin: string;
-    /**
-     * The **`pathname`** property of a WorkerLocation object returns the URL.pathname part of the worker's location.
-     *
-     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WorkerLocation/pathname)
-     */
-    readonly pathname: string;
-    /**
-     * The **`port`** property of a WorkerLocation object returns the URL.port part of the worker's location.
-     *
-     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WorkerLocation/port)
-     */
-    readonly port: string;
-    /**
-     * The **`protocol`** property of a WorkerLocation object returns the URL.protocol part of the worker's location.
-     *
-     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WorkerLocation/protocol)
-     */
-    readonly protocol: string;
-    /**
-     * The **`search`** property of a WorkerLocation object returns the URL.search part of the worker's location.
-     *
-     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WorkerLocation/search)
-     */
-    readonly search: string;
-}
-
-declare var WorkerLocation: {
-    prototype: WorkerLocation;
-    new(): WorkerLocation;
-};
-
 /**
  * The **`WorkerNavigator`** interface represents a subset of the Navigator interface allowed to be accessed from a Worker.
  *
@@ -12056,68 +12305,6 @@ interface WorkerNavigator extends NavigatorBadge, NavigatorConcurrentHardware, N
 declare var WorkerNavigator: {
     prototype: WorkerNavigator;
     new(): WorkerNavigator;
-};
-
-/**
- * The **`WritableStream`** interface of the Streams API provides a standard abstraction for writing streaming data to a destination, known as a sink.
- *
- * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WritableStream)
- */
-interface WritableStream<W = any> {
-    /**
-     * The **`locked`** read-only property of the WritableStream interface returns a boolean indicating whether the `WritableStream` is locked to a writer.
-     *
-     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WritableStream/locked)
-     */
-    readonly locked: boolean;
-    /**
-     * The **`abort()`** method of the WritableStream interface aborts the stream, signaling that the producer can no longer successfully write to the stream and it is to be immediately moved to an error state, with any queued writes discarded.
-     *
-     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WritableStream/abort)
-     */
-    abort(reason?: any): Promise<void>;
-    /**
-     * The **`close()`** method of the WritableStream interface closes the associated stream.
-     *
-     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WritableStream/close)
-     */
-    close(): Promise<void>;
-    /**
-     * The **`getWriter()`** method of the WritableStream interface returns a new instance of WritableStreamDefaultWriter and locks the stream to that instance.
-     *
-     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WritableStream/getWriter)
-     */
-    getWriter(): WritableStreamDefaultWriter<W>;
-}
-
-declare var WritableStream: {
-    prototype: WritableStream;
-    new<W = any>(underlyingSink?: UnderlyingSink<W>, strategy?: QueuingStrategy<W>): WritableStream<W>;
-};
-
-/**
- * The **`WritableStreamDefaultController`** interface of the Streams API represents a controller allowing control of a WritableStream's state.
- *
- * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WritableStreamDefaultController)
- */
-interface WritableStreamDefaultController {
-    /**
-     * The read-only **`signal`** property of the WritableStreamDefaultController interface returns the AbortSignal associated with the controller.
-     *
-     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WritableStreamDefaultController/signal)
-     */
-    readonly signal: AbortSignal;
-    /**
-     * The **`error()`** method of the with the associated stream to error.
-     *
-     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WritableStreamDefaultController/error)
-     */
-    error(e?: any): void;
-}
-
-declare var WritableStreamDefaultController: {
-    prototype: WritableStreamDefaultController;
-    new(): WritableStreamDefaultController;
 };
 
 /**
@@ -12173,193 +12360,6 @@ interface WritableStreamDefaultWriter<W = any> {
 declare var WritableStreamDefaultWriter: {
     prototype: WritableStreamDefaultWriter;
     new<W = any>(stream: WritableStream<W>): WritableStreamDefaultWriter<W>;
-};
-
-interface XMLHttpRequestEventMap extends XMLHttpRequestEventTargetEventMap {
-    "readystatechange": Event;
-}
-
-/**
- * `XMLHttpRequest` (XHR) objects are used to interact with servers.
- *
- * [MDN Reference](https://developer.mozilla.org/docs/Web/API/XMLHttpRequest)
- */
-interface XMLHttpRequest extends XMLHttpRequestEventTarget {
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/XMLHttpRequest/readystatechange_event) */
-    onreadystatechange: ((this: XMLHttpRequest, ev: Event) => any) | null;
-    /**
-     * The **XMLHttpRequest.readyState** property returns the state an XMLHttpRequest client is in.
-     *
-     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/XMLHttpRequest/readyState)
-     */
-    readonly readyState: number;
-    /**
-     * The XMLHttpRequest **`response`** property returns the response's body content as an ArrayBuffer, a Blob, a Document, a JavaScript Object, or a string, depending on the value of the request's XMLHttpRequest.responseType property.
-     *
-     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/XMLHttpRequest/response)
-     */
-    readonly response: any;
-    /**
-     * The read-only XMLHttpRequest property **`responseText`** returns the text received from a server following a request being sent.
-     *
-     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/XMLHttpRequest/responseText)
-     */
-    readonly responseText: string;
-    /**
-     * The XMLHttpRequest property **`responseType`** is an enumerated string value specifying the type of data contained in the response.
-     *
-     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/XMLHttpRequest/responseType)
-     */
-    responseType: XMLHttpRequestResponseType;
-    /**
-     * The read-only **`XMLHttpRequest.responseURL`** property returns the serialized URL of the response or the empty string if the URL is `null`.
-     *
-     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/XMLHttpRequest/responseURL)
-     */
-    readonly responseURL: string;
-    /**
-     * The read-only **`XMLHttpRequest.status`** property returns the numerical HTTP status code of the `XMLHttpRequest`'s response.
-     *
-     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/XMLHttpRequest/status)
-     */
-    readonly status: number;
-    /**
-     * The read-only **`XMLHttpRequest.statusText`** property returns a string containing the response's status message as returned by the HTTP server.
-     *
-     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/XMLHttpRequest/statusText)
-     */
-    readonly statusText: string;
-    /**
-     * The **`XMLHttpRequest.timeout`** property is an `unsigned long` representing the number of milliseconds a request can take before automatically being terminated.
-     *
-     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/XMLHttpRequest/timeout)
-     */
-    timeout: number;
-    /**
-     * The XMLHttpRequest `upload` property returns an XMLHttpRequestUpload object that can be observed to monitor an upload's progress.
-     *
-     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/XMLHttpRequest/upload)
-     */
-    readonly upload: XMLHttpRequestUpload;
-    /**
-     * The **`XMLHttpRequest.withCredentials`** property is a boolean value that indicates whether or not cross-site `Access-Control` requests should be made using credentials such as cookies, authentication headers or TLS client certificates.
-     *
-     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/XMLHttpRequest/withCredentials)
-     */
-    withCredentials: boolean;
-    /**
-     * The **`XMLHttpRequest.abort()`** method aborts the request if it has already been sent.
-     *
-     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/XMLHttpRequest/abort)
-     */
-    abort(): void;
-    /**
-     * The XMLHttpRequest method **`getAllResponseHeaders()`** returns all the response headers, separated by CRLF, as a string, or returns `null` if no response has been received.
-     *
-     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/XMLHttpRequest/getAllResponseHeaders)
-     */
-    getAllResponseHeaders(): string;
-    /**
-     * The XMLHttpRequest method **`getResponseHeader()`** returns the string containing the text of a particular header's value.
-     *
-     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/XMLHttpRequest/getResponseHeader)
-     */
-    getResponseHeader(name: string): string | null;
-    /**
-     * The XMLHttpRequest method **`open()`** initializes a newly-created request, or re-initializes an existing one.
-     *
-     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/XMLHttpRequest/open)
-     */
-    open(method: string, url: string | URL): void;
-    open(method: string, url: string | URL, async: boolean, username?: string | null, password?: string | null): void;
-    /**
-     * The XMLHttpRequest method **`overrideMimeType()`** specifies a MIME type other than the one provided by the server to be used instead when interpreting the data being transferred in a request.
-     *
-     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/XMLHttpRequest/overrideMimeType)
-     */
-    overrideMimeType(mime: string): void;
-    /**
-     * The XMLHttpRequest method **`send()`** sends the request to the server.
-     *
-     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/XMLHttpRequest/send)
-     */
-    send(body?: XMLHttpRequestBodyInit | null): void;
-    /**
-     * The XMLHttpRequest method **`setRequestHeader()`** sets the value of an HTTP request header.
-     *
-     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/XMLHttpRequest/setRequestHeader)
-     */
-    setRequestHeader(name: string, value: string): void;
-    readonly UNSENT: 0;
-    readonly OPENED: 1;
-    readonly HEADERS_RECEIVED: 2;
-    readonly LOADING: 3;
-    readonly DONE: 4;
-    addEventListener<K extends keyof XMLHttpRequestEventMap>(type: K, listener: (this: XMLHttpRequest, ev: XMLHttpRequestEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
-    removeEventListener<K extends keyof XMLHttpRequestEventMap>(type: K, listener: (this: XMLHttpRequest, ev: XMLHttpRequestEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
-}
-
-declare var XMLHttpRequest: {
-    prototype: XMLHttpRequest;
-    new(): XMLHttpRequest;
-    readonly UNSENT: 0;
-    readonly OPENED: 1;
-    readonly HEADERS_RECEIVED: 2;
-    readonly LOADING: 3;
-    readonly DONE: 4;
-};
-
-interface XMLHttpRequestEventTargetEventMap {
-    "abort": ProgressEvent<XMLHttpRequestEventTarget>;
-    "error": ProgressEvent<XMLHttpRequestEventTarget>;
-    "load": ProgressEvent<XMLHttpRequestEventTarget>;
-    "loadend": ProgressEvent<XMLHttpRequestEventTarget>;
-    "loadstart": ProgressEvent<XMLHttpRequestEventTarget>;
-    "progress": ProgressEvent<XMLHttpRequestEventTarget>;
-    "timeout": ProgressEvent<XMLHttpRequestEventTarget>;
-}
-
-/**
- * `XMLHttpRequestEventTarget` is the interface that describes the event handlers shared on XMLHttpRequest and XMLHttpRequestUpload.
- *
- * [MDN Reference](https://developer.mozilla.org/docs/Web/API/XMLHttpRequestEventTarget)
- */
-interface XMLHttpRequestEventTarget extends EventTarget {
-    onabort: ((this: XMLHttpRequest, ev: ProgressEvent) => any) | null;
-    onerror: ((this: XMLHttpRequest, ev: ProgressEvent) => any) | null;
-    onload: ((this: XMLHttpRequest, ev: ProgressEvent) => any) | null;
-    onloadend: ((this: XMLHttpRequest, ev: ProgressEvent) => any) | null;
-    onloadstart: ((this: XMLHttpRequest, ev: ProgressEvent) => any) | null;
-    onprogress: ((this: XMLHttpRequest, ev: ProgressEvent) => any) | null;
-    ontimeout: ((this: XMLHttpRequest, ev: ProgressEvent) => any) | null;
-    addEventListener<K extends keyof XMLHttpRequestEventTargetEventMap>(type: K, listener: (this: XMLHttpRequestEventTarget, ev: XMLHttpRequestEventTargetEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
-    removeEventListener<K extends keyof XMLHttpRequestEventTargetEventMap>(type: K, listener: (this: XMLHttpRequestEventTarget, ev: XMLHttpRequestEventTargetEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
-}
-
-declare var XMLHttpRequestEventTarget: {
-    prototype: XMLHttpRequestEventTarget;
-    new(): XMLHttpRequestEventTarget;
-};
-
-/**
- * The **`XMLHttpRequestUpload`** interface represents the upload process for a specific XMLHttpRequest.
- *
- * [MDN Reference](https://developer.mozilla.org/docs/Web/API/XMLHttpRequestUpload)
- */
-interface XMLHttpRequestUpload extends XMLHttpRequestEventTarget {
-    addEventListener<K extends keyof XMLHttpRequestEventTargetEventMap>(type: K, listener: (this: XMLHttpRequestUpload, ev: XMLHttpRequestEventTargetEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
-    removeEventListener<K extends keyof XMLHttpRequestEventTargetEventMap>(type: K, listener: (this: XMLHttpRequestUpload, ev: XMLHttpRequestEventTargetEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
-}
-
-declare var XMLHttpRequestUpload: {
-    prototype: XMLHttpRequestUpload;
-    new(): XMLHttpRequestUpload;
 };
 
 declare namespace WebAssembly {

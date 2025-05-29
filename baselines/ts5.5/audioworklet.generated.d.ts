@@ -320,11 +320,7 @@ interface ByteLengthQueuingStrategy extends QueuingStrategy<ArrayBufferView> {
      * [MDN Reference](https://developer.mozilla.org/docs/Web/API/ByteLengthQueuingStrategy/highWaterMark)
      */
     readonly highWaterMark: number;
-    /**
-     * The **`size()`** method of the `byteLength` property.
-     *
-     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/ByteLengthQueuingStrategy/size)
-     */
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/ByteLengthQueuingStrategy/size) */
     readonly size: QueuingStrategySize<ArrayBufferView>;
 }
 
@@ -360,11 +356,7 @@ interface CountQueuingStrategy extends QueuingStrategy {
      * [MDN Reference](https://developer.mozilla.org/docs/Web/API/CountQueuingStrategy/highWaterMark)
      */
     readonly highWaterMark: number;
-    /**
-     * The **`size()`** method of the total queue size is a count of the number of chunks in the queue.
-     *
-     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/CountQueuingStrategy/size)
-     */
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CountQueuingStrategy/size) */
     readonly size: QueuingStrategySize;
 }
 
@@ -1520,6 +1512,14 @@ interface WritableStreamDefaultWriter<W = any> {
 declare var WritableStreamDefaultWriter: {
     prototype: WritableStreamDefaultWriter;
     new<W = any>(stream: WritableStream<W>): WritableStreamDefaultWriter<W>;
+};
+
+interface undefined {
+}
+
+declare var undefined: {
+    prototype: undefined;
+    new(): undefined;
 };
 
 declare namespace WebAssembly {
