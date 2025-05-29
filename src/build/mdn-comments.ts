@@ -71,10 +71,9 @@ const types: Record<string, string> = {
   property: "properties",
   method: "methods",
   "landing-page": "ignore",
-  "interface": "interfaces",
-  "overview": "ignore",
-  "event": "events",
-
+  interface: "interfaces",
+  overview: "ignore",
+  event: "events",
 };
 
 function generateTypes(content: string): string[] | undefined {
@@ -142,10 +141,20 @@ export async function generateDescriptions(removedComments: string[]): Promise<{
           const content = await fs.readFile(fileURL, "utf-8");
           const slug = generateSlug(content);
           const types = generateTypes(content);
-          if (!slug || slug.length === 0 || removedComments.includes(slug[0]) || (types && types[0] === "ignore")) return;
+          if (
+            !slug ||
+            slug.length === 0 ||
+            removedComments.includes(slug[0]) ||
+            (types && types[0] === "ignore")
+          )
+            return;
 
           const summary = extractSummary(content);
-          if(summary === "When writing code for the Web, there are a large number of Web APIs available.") console.log(types, slug, summary);
+          if (
+            summary ===
+            "When writing code for the Web, there are a large number of Web APIs available."
+          )
+            console.log(types, slug, summary);
           insertComment(results, slug, summary, types);
         } catch (error) {
           console.error("Error generating API descriptions:", error);
