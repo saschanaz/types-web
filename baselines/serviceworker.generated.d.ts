@@ -2527,14 +2527,6 @@ declare var WebTransportError: {
     new(message?: string, options?: WebTransportErrorOptions): WebTransportError;
 };
 
-interface undefined {
-}
-
-declare var undefined: {
-    prototype: undefined;
-    new(): undefined;
-};
-
 interface AbstractWorkerEventMap {
     "error": ErrorEvent;
 }

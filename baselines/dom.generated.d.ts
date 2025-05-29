@@ -12730,14 +12730,6 @@ declare var XMLHttpRequestUpload: {
     new(): XMLHttpRequestUpload;
 };
 
-interface undefined {
-}
-
-declare var undefined: {
-    prototype: undefined;
-    new(): undefined;
-};
-
 interface ARIAMixin {
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Element/ariaActiveDescendantElement) */
     ariaActiveDescendantElement: Element | null;

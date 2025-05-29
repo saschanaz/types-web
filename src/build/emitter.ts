@@ -1432,7 +1432,7 @@ export function emitWebIdl(
 
   function emitNonCallbackInterfaces() {
     for (const i of allNonCallbackInterfaces.sort(compareName)) {
-      if (i.legacyNamespace) {
+      if (i.legacyNamespace || !i.name) {
         continue;
       } else if (i.noInterfaceObject) {
         emitInterface(i);

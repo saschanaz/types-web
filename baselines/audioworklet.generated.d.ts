@@ -1514,14 +1514,6 @@ declare var WritableStreamDefaultWriter: {
     new<W = any>(stream: WritableStream<W>): WritableStreamDefaultWriter<W>;
 };
 
-interface undefined {
-}
-
-declare var undefined: {
-    prototype: undefined;
-    new(): undefined;
-};
-
 declare namespace WebAssembly {
     interface CompileError extends Error {
     }

@@ -10489,14 +10489,6 @@ declare var XMLHttpRequestUpload: {
     new(): XMLHttpRequestUpload;
 };
 
-interface undefined {
-}
-
-declare var undefined: {
-    prototype: undefined;
-    new(): undefined;
-};
-
 declare namespace WebAssembly {
     interface CompileError extends Error {
     }

@@ -10732,14 +10732,6 @@ declare var XMLHttpRequestUpload: {
     new(): XMLHttpRequestUpload;
 };
 
-interface undefined {
-}
-
-declare var undefined: {
-    prototype: undefined;
-    new(): undefined;
-};
-
 interface AbstractWorkerEventMap {
     "error": ErrorEvent;
 }
