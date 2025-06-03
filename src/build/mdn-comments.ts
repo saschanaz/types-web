@@ -132,32 +132,24 @@ export async function generateDescriptions(): Promise<{
   }
 
   const results: Record<string, any> = {};
-  try {
-    const indexPaths = await walkDirectory(basePath);
+  const indexPaths = await walkDirectory(basePath);
 
-    await Promise.all(
-      indexPaths.map(async (fileURL) => {
-        try {
-          const content = await fs.readFile(fileURL, "utf-8");
-          const slug = generateSlug(content);
-          const types = generateTypes(content);
-          if (!slug || slug.length === 0 || (types && types[0] === "ignore"))
-            return;
+  await Promise.all(
+    indexPaths.map(async (fileURL) => {
+      const content = await fs.readFile(fileURL, "utf-8");
+      const slug = generateSlug(content);
+      const types = generateTypes(content);
+      if (!slug || slug.length === 0 || (types && types[0] === "ignore"))
+        return;
 
-          const summary = extractSummary(content);
-          if (
-            summary ===
-            "When writing code for the Web, there are a large number of Web APIs available."
-          )
-            console.log(types, slug, summary);
-          insertComment(results, slug, summary, types);
-        } catch (error) {
-          console.error("Error generating API descriptions:", error);
-        }
-      }),
-    );
-  } catch (err) {
-    console.error("Error generating API descriptions:", err);
-  }
+      const summary = extractSummary(content);
+      if (
+        summary ===
+        "When writing code for the Web, there are a large number of Web APIs available."
+      )
+        console.log(types, slug, summary);
+      insertComment(results, slug, summary, types);
+    }),
+  );
   return { interfaces: { interface: results } };
 }
