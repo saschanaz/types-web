@@ -139,7 +139,7 @@ async function emitDom() {
 
     for (const [key, target] of Object.entries(namespaces)) {
       const descObject = descriptions.interfaces.interface[key];
-      if (!target) continue;
+      if (!descObject) continue;
 
       merge(target, descObject, { optional: true });
     }
