@@ -141,11 +141,7 @@ export async function generateDescriptions(): Promise<{
           const content = await fs.readFile(fileURL, "utf-8");
           const slug = generateSlug(content);
           const types = generateTypes(content);
-          if (
-            !slug ||
-            slug.length === 0 ||
-            (types && types[0] === "ignore")
-          )
+          if (!slug || slug.length === 0 || (types && types[0] === "ignore"))
             return;
 
           const summary = extractSummary(content);
