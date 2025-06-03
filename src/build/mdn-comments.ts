@@ -133,8 +133,8 @@ export async function generateDescriptions(): Promise<{
     indexPaths.map(async (fileURL) => {
       const content = await fs.readFile(fileURL, "utf-8");
       const slug = extractSlug(content);
-      const generatedPatch = generatePath(content);
-      if (!slug || slug.length === 0 || !generatedPatch) return;
+      const generatedPath = generatePath(content);
+      if (!slug || slug.length === 0 || !generatedPath) return;
 
       const summary = extractSummary(content);
       insertComment(results, slug, summary, generatedPatch);
