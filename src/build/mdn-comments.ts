@@ -78,7 +78,7 @@ const paths: Record<string, string[]> = {
 };
 
 function generatePath(content: string): string[] | undefined {
-  const pageType = content.match(/page-type:\s*["']?([^"'\n]+)["']?/)!;
+  const pageType = content.match(/\npage-type: (.+)\n/)!;
   const type = pageType[1];
   return paths[type];
 }
