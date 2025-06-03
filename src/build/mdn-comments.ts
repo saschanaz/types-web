@@ -106,7 +106,7 @@ function insertComment(
   summary: string,
   path: string[],
 ) {
-  if (!paths.length) {
+  if (!path.length) {
     const iface = ensureLeaf(root, slug);
     iface.comment = summary;
   } else {
@@ -131,6 +131,10 @@ export async function generateDescriptions(): Promise<{
 
   await Promise.all(
     indexPaths.map(async (fileURL) => {
+      // XXX: Response.json currently causes racy collision
+      if (fileURL.pathname.endsWith("web/api/response/json/index.md")) {
+        return;
+      }
       const content = await fs.readFile(fileURL, "utf-8");
       const slug = extractSlug(content);
       const generatedPath = generatePath(content);
