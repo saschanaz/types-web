@@ -84,7 +84,7 @@ function generatePath(content: string): string[] | undefined {
 }
 
 function extractSlug(content: string): string[] {
-  const match = content.match(/slug:\s*["']?([^"'\n]+)["']?/)!;
+  const match = content.match(/\nslug: (.+)\n/)!;
   const url = match[1].split(":").pop()!;
   const normalized = url.endsWith("_static") ? url.slice(0, -7) : url;
   const parts = normalized.split("/").slice(2); // skip `/en-US/web/api/...`
