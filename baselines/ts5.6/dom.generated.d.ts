@@ -36555,7 +36555,11 @@ interface Window extends EventTarget, AnimationFrameProvider, GlobalEventHandler
      * [MDN Reference](https://developer.mozilla.org/docs/Web/API/Window/visualViewport)
      */
     readonly visualViewport: VisualViewport | null;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Window/window) */
+    /**
+     * The **`window`** property of a Window object points to the window object itself.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/Window/window)
+     */
     readonly window: Window & typeof globalThis;
     /**
      * `window.alert()` instructs the browser to display a dialog with an optional message, and to wait until the user dismisses the dialog.
@@ -38587,7 +38591,11 @@ declare var top: WindowProxy | null;
  * [MDN Reference](https://developer.mozilla.org/docs/Web/API/Window/visualViewport)
  */
 declare var visualViewport: VisualViewport | null;
-/** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Window/window) */
+/**
+ * The **`window`** property of a Window object points to the window object itself.
+ *
+ * [MDN Reference](https://developer.mozilla.org/docs/Web/API/Window/window)
+ */
 declare var window: Window & typeof globalThis;
 /**
  * `window.alert()` instructs the browser to display a dialog with an optional message, and to wait until the user dismisses the dialog.
