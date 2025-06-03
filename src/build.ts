@@ -137,17 +137,11 @@ async function emitDom() {
       (i) => i,
     );
 
-    for (const [key, descObject] of Object.entries(
-      descriptions.interfaces.interface,
-    )) {
-      const target = idl.interfaces?.interface?.[key] || namespaces[key];
-
+     for (const [key, target] of Object.entries(namespaces)) {
+      const descObject = descriptions.interfaces.interface[key];
       if (!target) continue;
 
-      // Set interface/class-level comment
-      if (descObject.__comment) {
-        target.comment = descObject.__comment;
-      }
+      merge(target, descObject, { optional: true });
     }
     idl = merge(idl, descriptions, { optional: true });
 
