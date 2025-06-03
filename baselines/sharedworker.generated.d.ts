@@ -6351,7 +6351,7 @@ declare var Response: {
      */
     error(): Response;
     /**
-     * The **`json()`** static method of the Response interface returns a `Response` that contains the provided JSON data as body, and a Content-Type header which is set to `application/json`.
+     * The **`json()`** method of the Response interface takes a Response stream and reads it to completion.
      *
      * [MDN Reference](https://developer.mozilla.org/docs/Web/API/Response/json_static)
      */

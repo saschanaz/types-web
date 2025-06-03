@@ -77,7 +77,7 @@ const paths: Record<string, string[]> = {
   "webgl-extension-method": ["methods", "method"],
 };
 
-function generateTypes(content: string): string[] | undefined {
+function generatePath(content: string): string[] | undefined {
   const pageType = content.match(/page-type:\s*["']?([^"'\n]+)["']?/)!;
   const type = pageType[1];
   const plural = paths[type];
@@ -136,11 +136,11 @@ export async function generateDescriptions(): Promise<{
     indexPaths.map(async (fileURL) => {
       const content = await fs.readFile(fileURL, "utf-8");
       const slug = generateSlug(content);
-      const types = generateTypes(content);
-      if (!slug || slug.length === 0 || !types) return;
+      const generatedPatch = generatePath(content);
+      if (!slug || slug.length === 0 || !generatedPatch) return;
 
       const summary = extractSummary(content);
-      insertComment(results, slug, summary, types);
+      insertComment(results, slug, summary, generatedPatch);
     }),
   );
   return { interfaces: { interface: results } };
