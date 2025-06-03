@@ -80,10 +80,7 @@ const paths: Record<string, string[]> = {
 function generatePath(content: string): string[] | undefined {
   const pageType = content.match(/page-type:\s*["']?([^"'\n]+)["']?/)!;
   const type = pageType[1];
-  const plural = paths[type];
-  if (!plural) return;
-
-  return plural;
+  return paths[type];
 }
 
 function extractSlug(content: string): string[] {
