@@ -88,7 +88,7 @@ function extractSlug(content: string): string[] {
   const url = match[1].split(":").pop()!;
   const normalized = url.endsWith("_static") ? url.slice(0, -7) : url;
   const parts = normalized.split("/").slice(2); // skip `Web/API/...`
-  return parts; // Keep only top-level and method
+  return parts; // Keep only top-level and member name
 }
 
 function ensureLeaf(obj: Record<string, any>, keys: string[]) {
