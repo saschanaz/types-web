@@ -141,11 +141,6 @@ export async function generateDescriptions(): Promise<{
         return;
 
       const summary = extractSummary(content);
-      if (
-        summary ===
-        "When writing code for the Web, there are a large number of Web APIs available."
-      )
-        console.log(types, slug, summary);
       insertComment(results, slug, summary, types || []);
     }),
   );
