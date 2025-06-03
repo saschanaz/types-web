@@ -86,7 +86,7 @@ function generatePath(content: string): string[] | undefined {
   return plural;
 }
 
-function generateSlug(content: string): string[] {
+function extractSlug(content: string): string[] {
   const match = content.match(/slug:\s*["']?([^"'\n]+)["']?/)!;
   const url = match[1].split(":").pop()!;
   const normalized = url.endsWith("_static") ? url.slice(0, -7) : url;
@@ -135,7 +135,7 @@ export async function generateDescriptions(): Promise<{
   await Promise.all(
     indexPaths.map(async (fileURL) => {
       const content = await fs.readFile(fileURL, "utf-8");
-      const slug = generateSlug(content);
+      const slug = extractSlug(content);
       const generatedPatch = generatePath(content);
       if (!slug || slug.length === 0 || !generatedPatch) return;
 
