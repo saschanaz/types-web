@@ -146,7 +146,7 @@ export async function generateDescriptions(): Promise<{
         "When writing code for the Web, there are a large number of Web APIs available."
       )
         console.log(types, slug, summary);
-      insertComment(results, slug, summary, types);
+      insertComment(results, slug, summary, types || []);
     }),
   );
   return { interfaces: { interface: results } };

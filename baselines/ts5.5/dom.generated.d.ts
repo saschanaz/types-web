@@ -37404,7 +37404,11 @@ declare var XSLTProcessor: {
 
 /** The **`CSS`** interface holds useful CSS-related methods. */
 declare namespace CSS {
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CSS/highlights_static) */
+    /**
+     * The static, read-only **`highlights`** property of the CSS interface provides access to the `HighlightRegistry` used to style arbitrary text ranges using the css_custom_highlight_api.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/CSS/highlights_static)
+     */
     var highlights: HighlightRegistry;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CSS/factory_functions_static) */
     function Hz(value: number): CSSUnitValue;
@@ -37449,7 +37453,11 @@ declare namespace CSS {
     function dvw(value: number): CSSUnitValue;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CSS/factory_functions_static) */
     function em(value: number): CSSUnitValue;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CSS/escape_static) */
+    /**
+     * The **`CSS.escape()`** static method returns a string containing the escaped string passed as parameter, mostly for use as part of a CSS selector.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/CSS/escape_static)
+     */
     function escape(ident: string): string;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CSS/factory_functions_static) */
     function ex(value: number): CSSUnitValue;
@@ -37491,7 +37499,11 @@ declare namespace CSS {
     function rad(value: number): CSSUnitValue;
     function rcap(value: number): CSSUnitValue;
     function rch(value: number): CSSUnitValue;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CSS/registerProperty_static) */
+    /**
+     * The **`CSS.registerProperty()`** static method registers custom properties, allowing for property type checking, default values, and properties that do or do not inherit their value.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/CSS/registerProperty_static)
+     */
     function registerProperty(definition: PropertyDefinition): void;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CSS/factory_functions_static) */
     function rem(value: number): CSSUnitValue;
@@ -37500,7 +37512,11 @@ declare namespace CSS {
     function rlh(value: number): CSSUnitValue;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CSS/factory_functions_static) */
     function s(value: number): CSSUnitValue;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CSS/supports_static) */
+    /**
+     * The **`CSS.supports()`** static method returns a boolean value indicating if the browser supports a given CSS feature, or not.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/CSS/supports_static)
+     */
     function supports(property: string, value: string): boolean;
     function supports(conditionText: string): boolean;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CSS/factory_functions_static) */
@@ -37697,44 +37713,120 @@ declare namespace WebAssembly {
  * [MDN Reference](https://developer.mozilla.org/docs/Web/API/console)
  */
 interface Console {
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/console/assert_static) */
+    /**
+     * The **`console.assert()`** static method writes an error message to the console if the assertion is false.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/console/assert_static)
+     */
     assert(condition?: boolean, ...data: any[]): void;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/console/clear_static) */
+    /**
+     * The **`console.clear()`** static method clears the console if possible.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/console/clear_static)
+     */
     clear(): void;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/console/count_static) */
+    /**
+     * The **`console.count()`** static method logs the number of times that this particular call to `count()` has been called.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/console/count_static)
+     */
     count(label?: string): void;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/console/countReset_static) */
+    /**
+     * The **`console.countReset()`** static method resets counter used with console/count_static.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/console/countReset_static)
+     */
     countReset(label?: string): void;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/console/debug_static) */
+    /**
+     * The **`console.debug()`** static method outputs a message to the console at the 'debug' log level.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/console/debug_static)
+     */
     debug(...data: any[]): void;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/console/dir_static) */
+    /**
+     * The **`console.dir()`** static method displays a list of the properties of the specified JavaScript object.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/console/dir_static)
+     */
     dir(item?: any, options?: any): void;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/console/dirxml_static) */
+    /**
+     * The **`console.dirxml()`** static method displays an interactive tree of the descendant elements of the specified XML/HTML element.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/console/dirxml_static)
+     */
     dirxml(...data: any[]): void;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/console/error_static) */
+    /**
+     * The **`console.error()`** static method outputs a message to the console at the 'error' log level.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/console/error_static)
+     */
     error(...data: any[]): void;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/console/group_static) */
+    /**
+     * The **`console.group()`** static method creates a new inline group in the Web console log, causing any subsequent console messages to be indented by an additional level, until console/groupEnd_static is called.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/console/group_static)
+     */
     group(...data: any[]): void;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/console/groupCollapsed_static) */
+    /**
+     * The **`console.groupCollapsed()`** static method creates a new inline group in the console.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/console/groupCollapsed_static)
+     */
     groupCollapsed(...data: any[]): void;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/console/groupEnd_static) */
+    /**
+     * The **`console.groupEnd()`** static method exits the current inline group in the console.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/console/groupEnd_static)
+     */
     groupEnd(): void;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/console/info_static) */
+    /**
+     * The **`console.info()`** static method outputs a message to the console at the 'info' log level.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/console/info_static)
+     */
     info(...data: any[]): void;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/console/log_static) */
+    /**
+     * The **`console.log()`** static method outputs a message to the console.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/console/log_static)
+     */
     log(...data: any[]): void;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/console/table_static) */
+    /**
+     * The **`console.table()`** static method displays tabular data as a table.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/console/table_static)
+     */
     table(tabularData?: any, properties?: string[]): void;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/console/time_static) */
+    /**
+     * The **`console.time()`** static method starts a timer you can use to track how long an operation takes.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/console/time_static)
+     */
     time(label?: string): void;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/console/timeEnd_static) */
+    /**
+     * The **`console.timeEnd()`** static method stops a timer that was previously started by calling console/time_static.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/console/timeEnd_static)
+     */
     timeEnd(label?: string): void;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/console/timeLog_static) */
+    /**
+     * The **`console.timeLog()`** static method logs the current value of a timer that was previously started by calling console/time_static.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/console/timeLog_static)
+     */
     timeLog(label?: string, ...data: any[]): void;
     timeStamp(label?: string): void;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/console/trace_static) */
+    /**
+     * The **`console.trace()`** static method outputs a stack trace to the console.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/console/trace_static)
+     */
     trace(...data: any[]): void;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/console/warn_static) */
+    /**
+     * The **`console.warn()`** static method outputs a warning message to the console at the 'warning' log level.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/console/warn_static)
+     */
     warn(...data: any[]): void;
 }
 
