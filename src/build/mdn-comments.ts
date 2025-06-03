@@ -67,13 +67,14 @@ async function walkDirectory(dir: URL): Promise<URL[]> {
   return results;
 }
 
-const types: Record<string, string> = {
-  property: "properties",
-  method: "methods",
-  "landing-page": "ignore",
-  interface: "interfaces",
-  overview: "ignore",
-  event: "events",
+const paths: Record<string, string[]> = {
+  "web-api-instance-property": ["properties", "property"],
+  "web-api-static-property": ["properties", "property"],
+  "web-api-instance-method": ["methods", "method"],
+  "web-api-static-method": ["methods", "method"],
+  "web-api-interface": [],
+  "webgl-extension": [],
+  "webgl-extension-method": ["methods", "method"],
 };
 
 function generateTypes(content: string): string[] | undefined {
