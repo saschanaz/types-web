@@ -141,7 +141,7 @@ export async function generateDescriptions(): Promise<{
         return;
 
       const summary = extractSummary(content);
-      insertComment(results, slug, summary, types || []);
+      insertComment(results, slug, summary, types);
     }),
   );
   return { interfaces: { interface: results } };
