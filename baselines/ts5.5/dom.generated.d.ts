@@ -26280,7 +26280,7 @@ declare var Response: {
      */
     error(): Response;
     /**
-     * The **`json()`** static method of the Response interface returns a `Response` that contains the provided JSON data as body, and a Content-Type header which is set to `application/json`.
+     * The **`json()`** method of the Response interface takes a Response stream and reads it to completion.
      *
      * [MDN Reference](https://developer.mozilla.org/docs/Web/API/Response/json_static)
      */
@@ -30271,7 +30271,7 @@ declare var SecurityPolicyViolationEvent: {
  */
 interface Selection {
     /**
-     * The **`Selection.anchorNode`** read-only property returns the A user may make a selection from left to right (in document order) or right to left (reverse of document order).
+     * The **`Selection.anchorNode`** read-only property returns the Node in which the selection begins.
      *
      * [MDN Reference](https://developer.mozilla.org/docs/Web/API/Selection/anchorNode)
      */
@@ -30289,7 +30289,7 @@ interface Selection {
      */
     readonly direction: string;
     /**
-     * The **`Selection.focusNode`** read-only property returns the A user may make a selection from left to right (in document order) or right to left (reverse of document order).
+     * The **`Selection.focusNode`** read-only property returns the Node in which the selection ends.
      *
      * [MDN Reference](https://developer.mozilla.org/docs/Web/API/Selection/focusNode)
      */
