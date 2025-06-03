@@ -89,7 +89,8 @@ function generateTypes(content: string): string[] | undefined {
 function generateSlug(content: string): string[] {
   const match = content.match(/slug:\s*["']?([^"'\n]+)["']?/)!;
   const url = match[1].split(":").pop()!;
-  const parts = url.split("/").slice(2); // skip `/en-US/web/api/...`
+  const normalized = url.endsWith("_static") ? url.slice(0, -7) : url;
+  const parts = normalized.split("/").slice(2); // skip `/en-US/web/api/...`
   return parts; // Keep only top-level and method
 }
 
