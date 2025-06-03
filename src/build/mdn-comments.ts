@@ -121,7 +121,7 @@ function insertComment(
   }
 }
 
-export async function generateDescriptions(removedComments: string[]): Promise<{
+export async function generateDescriptions(): Promise<{
   interfaces: { interface: Record<string, any> };
 }> {
   const stats = await fs.stat(basePath);
@@ -144,7 +144,6 @@ export async function generateDescriptions(removedComments: string[]): Promise<{
           if (
             !slug ||
             slug.length === 0 ||
-            removedComments.includes(slug[0]) ||
             (types && types[0] === "ignore")
           )
             return;
