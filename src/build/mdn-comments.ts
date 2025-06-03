@@ -51,7 +51,7 @@ function extractSummary(markdown: string): string {
 
 async function walkDirectory(dir: URL): Promise<URL[]> {
   const entries = await fs.readdir(dir, { withFileTypes: true });
-  const parentDirName = dir.pathname.split("/").filter(Boolean).slice(-1)[0];
+  const parentDirName = dir.pathname.split("/").at(-1);
   let results: URL[] = [];
 
   for (const entry of entries) {
