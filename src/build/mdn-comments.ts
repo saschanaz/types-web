@@ -79,11 +79,11 @@ const paths: Record<string, string[]> = {
 
 function generateTypes(content: string): string[] | undefined {
   const pageType = content.match(/page-type:\s*["']?([^"'\n]+)["']?/)!;
-  const type = pageType[1].split("-").pop()!;
-  const plural = types[type];
+  const type = pageType[1];
+  const plural = paths[type];
   if (!plural) return;
 
-  return [plural, type];
+  return plural;
 }
 
 function generateSlug(content: string): string[] {
