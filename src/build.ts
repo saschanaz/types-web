@@ -137,7 +137,7 @@ async function emitDom() {
       (i) => i,
     );
 
-     for (const [key, target] of Object.entries(namespaces)) {
+    for (const [key, target] of Object.entries(namespaces)) {
       const descObject = descriptions.interfaces.interface[key];
       if (!target) continue;
 
