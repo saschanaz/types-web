@@ -137,7 +137,7 @@ export async function generateDescriptions(): Promise<{
       if (!slug || slug.length === 0 || !generatedPath) return;
 
       const summary = extractSummary(content);
-      insertComment(results, slug, summary, generatedPatch);
+      insertComment(results, slug, summary, generatedPath);
     }),
   );
   return { interfaces: { interface: results } };
