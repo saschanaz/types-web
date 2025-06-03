@@ -104,14 +104,14 @@ function insertComment(
   root: Record<string, any>,
   slug: string[],
   summary: string,
-  paths: string[],
+  path: string[],
 ) {
   if (!paths.length) {
     const iface = ensureLeaf(root, slug);
     iface.comment = summary;
   } else {
     const [ifaceName, memberName] = slug;
-    const target = ensureLeaf(root, [ifaceName, ...paths, memberName]);
+    const target = ensureLeaf(root, [ifaceName, ...path, memberName]);
     target.comment = summary;
   }
 }
