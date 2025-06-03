@@ -2739,11 +2739,23 @@ interface AbortSignal extends EventTarget {
 declare var AbortSignal: {
     prototype: AbortSignal;
     new(): AbortSignal;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/AbortSignal/abort_static) */
+    /**
+     * The **`AbortSignal.abort()`** static method returns an AbortSignal that is already set as aborted (and which does not trigger an AbortSignal/abort_event event).
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/AbortSignal/abort_static)
+     */
     abort(reason?: any): AbortSignal;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/AbortSignal/any_static) */
+    /**
+     * The **`AbortSignal.any()`** static method takes an iterable of abort signals and returns an AbortSignal.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/AbortSignal/any_static)
+     */
     any(signals: AbortSignal[]): AbortSignal;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/AbortSignal/timeout_static) */
+    /**
+     * The **`AbortSignal.timeout()`** static method returns an AbortSignal that will automatically abort after a specified time.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/AbortSignal/timeout_static)
+     */
     timeout(milliseconds: number): AbortSignal;
 };
 
@@ -3512,7 +3524,11 @@ interface AudioDecoder extends EventTarget {
 declare var AudioDecoder: {
     prototype: AudioDecoder;
     new(init: AudioDecoderInit): AudioDecoder;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/AudioDecoder/isConfigSupported_static) */
+    /**
+     * The **`isConfigSupported()`** static method of the AudioDecoder interface checks if the given config is supported (that is, if AudioDecoder objects can be successfully configured with the given config).
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/AudioDecoder/isConfigSupported_static)
+     */
     isConfigSupported(config: AudioDecoderConfig): Promise<AudioDecoderSupport>;
 };
 
@@ -3599,7 +3615,11 @@ interface AudioEncoder extends EventTarget {
 declare var AudioEncoder: {
     prototype: AudioEncoder;
     new(init: AudioEncoderInit): AudioEncoder;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/AudioEncoder/isConfigSupported_static) */
+    /**
+     * The **`isConfigSupported()`** static method of the AudioEncoder interface checks if the given config is supported (that is, if AudioEncoder objects can be successfully configured with the given config).
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/AudioEncoder/isConfigSupported_static)
+     */
     isConfigSupported(config: AudioEncoderConfig): Promise<AudioEncoderSupport>;
 };
 
@@ -5351,7 +5371,11 @@ interface CSSNumericValue extends CSSStyleValue {
 declare var CSSNumericValue: {
     prototype: CSSNumericValue;
     new(): CSSNumericValue;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CSSNumericValue/parse_static) */
+    /**
+     * The **`parse()`** static method of the members are value and the units.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/CSSNumericValue/parse_static)
+     */
     parse(cssText: string): CSSNumericValue;
 };
 
@@ -7168,9 +7192,17 @@ interface CSSStyleValue {
 declare var CSSStyleValue: {
     prototype: CSSStyleValue;
     new(): CSSStyleValue;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CSSStyleValue/parse_static) */
+    /**
+     * The **`parse()`** static method of the CSSStyleValue interface sets a specific CSS property to the specified values and returns the first value as a CSSStyleValue object.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/CSSStyleValue/parse_static)
+     */
     parse(property: string, cssText: string): CSSStyleValue;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CSSStyleValue/parseAll_static) */
+    /**
+     * The **`parseAll()`** static method of the CSSStyleValue interface sets all occurrences of a specific CSS property to the specified value and returns an array of CSSStyleValue objects, each containing one of the supplied values.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/CSSStyleValue/parseAll_static)
+     */
     parseAll(property: string, cssText: string): CSSStyleValue[];
 };
 
@@ -7993,7 +8025,11 @@ interface ClipboardItem {
 declare var ClipboardItem: {
     prototype: ClipboardItem;
     new(items: Record<string, string | Blob | PromiseLike<string | Blob>>, options?: ClipboardItemOptions): ClipboardItem;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/ClipboardItem/supports_static) */
+    /**
+     * The **`supports()`** static method of the ClipboardItem interface returns `true` if the given MIME type is supported by the clipboard, and `false` otherwise.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/ClipboardItem/supports_static)
+     */
     supports(type: string): boolean;
 };
 
@@ -8949,7 +8985,11 @@ interface DOMPoint extends DOMPointReadOnly {
 declare var DOMPoint: {
     prototype: DOMPoint;
     new(x?: number, y?: number, z?: number, w?: number): DOMPoint;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/DOMPoint/fromPoint_static) */
+    /**
+     * The **`fromPoint()`** static method of the DOMPoint interface creates and returns a new mutable `DOMPoint` object given a source point.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/DOMPoint/fromPoint_static)
+     */
     fromPoint(other?: DOMPointInit): DOMPoint;
 };
 
@@ -9003,7 +9043,11 @@ interface DOMPointReadOnly {
 declare var DOMPointReadOnly: {
     prototype: DOMPointReadOnly;
     new(x?: number, y?: number, z?: number, w?: number): DOMPointReadOnly;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/DOMPointReadOnly/fromPoint_static) */
+    /**
+     * The static **DOMPointReadOnly** method `fromPoint()` creates and returns a new `DOMPointReadOnly` object given a source point.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/DOMPointReadOnly/fromPoint_static)
+     */
     fromPoint(other?: DOMPointInit): DOMPointReadOnly;
 };
 
@@ -9093,7 +9137,11 @@ interface DOMRect extends DOMRectReadOnly {
 declare var DOMRect: {
     prototype: DOMRect;
     new(x?: number, y?: number, width?: number, height?: number): DOMRect;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/DOMRect/fromRect_static) */
+    /**
+     * The **`fromRect()`** static method of the object with a given location and dimensions.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/DOMRect/fromRect_static)
+     */
     fromRect(other?: DOMRectInit): DOMRect;
 };
 
@@ -9191,7 +9239,11 @@ interface DOMRectReadOnly {
 declare var DOMRectReadOnly: {
     prototype: DOMRectReadOnly;
     new(x?: number, y?: number, width?: number, height?: number): DOMRectReadOnly;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/DOMRectReadOnly/fromRect_static) */
+    /**
+     * The **`fromRect()`** static method of the object with a given location and dimensions.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/DOMRectReadOnly/fromRect_static)
+     */
     fromRect(other?: DOMRectInit): DOMRectReadOnly;
 };
 
@@ -10273,7 +10325,11 @@ interface Document extends Node, DocumentOrShadowRoot, FontFaceSource, GlobalEve
 declare var Document: {
     prototype: Document;
     new(): Document;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Document/parseHTMLUnsafe_static) */
+    /**
+     * The **`parseHTMLUnsafe()`** static method of the Document object is used to parse a string of HTML, which may contain declarative shadow roots, in order to create a new Document instance.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/Document/parseHTMLUnsafe_static)
+     */
     parseHTMLUnsafe(html: string): Document;
 };
 
@@ -16259,7 +16315,11 @@ interface HTMLScriptElement extends HTMLElement {
 declare var HTMLScriptElement: {
     prototype: HTMLScriptElement;
     new(): HTMLScriptElement;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/HTMLScriptElement/supports_static) */
+    /**
+     * The **`supports()`** static method of the HTMLScriptElement interface provides a simple and consistent method to feature-detect what types of scripts are supported by the user agent.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/HTMLScriptElement/supports_static)
+     */
     supports(type: string): boolean;
 };
 
@@ -18082,25 +18142,25 @@ declare var IDBKeyRange: {
     prototype: IDBKeyRange;
     new(): IDBKeyRange;
     /**
-     * Returns a new IDBKeyRange spanning from lower to upper. If lowerOpen is true, lower is not included in the range. If upperOpen is true, upper is not included in the range.
+     * The **`bound()`** static method of the IDBKeyRange interface creates a new key range with the specified upper and lower bounds.
      *
      * [MDN Reference](https://developer.mozilla.org/docs/Web/API/IDBKeyRange/bound_static)
      */
     bound(lower: any, upper: any, lowerOpen?: boolean, upperOpen?: boolean): IDBKeyRange;
     /**
-     * Returns a new IDBKeyRange starting at key with no upper bound. If open is true, key is not included in the range.
+     * The **`lowerBound()`** static method of the By default, it includes the lower endpoint value and is closed.
      *
      * [MDN Reference](https://developer.mozilla.org/docs/Web/API/IDBKeyRange/lowerBound_static)
      */
     lowerBound(lower: any, open?: boolean): IDBKeyRange;
     /**
-     * Returns a new IDBKeyRange spanning only key.
+     * The **`only()`** static method of the IDBKeyRange interface creates a new key range containing a single value.
      *
      * [MDN Reference](https://developer.mozilla.org/docs/Web/API/IDBKeyRange/only_static)
      */
     only(value: any): IDBKeyRange;
     /**
-     * Returns a new IDBKeyRange with no lower bound and ending at key. If open is true, key is not included in the range.
+     * The **`upperBound()`** static method of the it includes the upper endpoint value and is closed.
      *
      * [MDN Reference](https://developer.mozilla.org/docs/Web/API/IDBKeyRange/upperBound_static)
      */
@@ -18648,7 +18708,11 @@ interface ImageDecoder {
 declare var ImageDecoder: {
     prototype: ImageDecoder;
     new(init: ImageDecoderInit): ImageDecoder;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/ImageDecoder/isTypeSupported_static) */
+    /**
+     * The **`ImageDecoder.isTypeSupported()`** static method checks if a given MIME type can be decoded by the user agent.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/ImageDecoder/isTypeSupported_static)
+     */
     isTypeSupported(type: string): Promise<boolean>;
 };
 
@@ -20175,7 +20239,11 @@ interface MediaRecorder extends EventTarget {
 declare var MediaRecorder: {
     prototype: MediaRecorder;
     new(stream: MediaStream, options?: MediaRecorderOptions): MediaRecorder;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/MediaRecorder/isTypeSupported_static) */
+    /**
+     * The **`isTypeSupported()`** static method of the MediaRecorder interface returns a Boolean which is `true` if the MIME media type specified is one the user agent should be able to successfully record.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/MediaRecorder/isTypeSupported_static)
+     */
     isTypeSupported(type: string): boolean;
 };
 
@@ -20306,9 +20374,17 @@ interface MediaSource extends EventTarget {
 declare var MediaSource: {
     prototype: MediaSource;
     new(): MediaSource;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/MediaSource/canConstructInDedicatedWorker_static) */
+    /**
+     * The **`canConstructInDedicatedWorker`** static property of the MediaSource interface returns `true` if `MediaSource` worker support is implemented, providing a low-latency feature detection mechanism.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/MediaSource/canConstructInDedicatedWorker_static)
+     */
     readonly canConstructInDedicatedWorker: boolean;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/MediaSource/isTypeSupported_static) */
+    /**
+     * The **`MediaSource.isTypeSupported()`** static method returns a boolean value which is `true` if the given MIME type and (optional) codec are _likely_ to be supported by the current user agent.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/MediaSource/isTypeSupported_static)
+     */
     isTypeSupported(type: string): boolean;
 };
 
@@ -21948,9 +22024,17 @@ interface Notification extends EventTarget {
 declare var Notification: {
     prototype: Notification;
     new(title: string, options?: NotificationOptions): Notification;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Notification/permission_static) */
+    /**
+     * The **`permission`** read-only static property of the Notification interface indicates the current permission granted by the user for the current origin to display web notifications.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/Notification/permission_static)
+     */
     readonly permission: NotificationPermission;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Notification/requestPermission_static) */
+    /**
+     * The **`requestPermission()`** static method of the Notification interface requests permission from the user for the current origin to display notifications.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/Notification/requestPermission_static)
+     */
     requestPermission(deprecatedCallback?: NotificationPermissionCallback): Promise<NotificationPermission>;
 };
 
@@ -23266,7 +23350,11 @@ interface PerformanceObserver {
 declare var PerformanceObserver: {
     prototype: PerformanceObserver;
     new(callback: PerformanceObserverCallback): PerformanceObserver;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/PerformanceObserver/supportedEntryTypes_static) */
+    /**
+     * The static **`supportedEntryTypes`** read-only property of the PerformanceObserver interface returns an array of the PerformanceEntry.entryType values supported by the user agent.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/PerformanceObserver/supportedEntryTypes_static)
+     */
     readonly supportedEntryTypes: ReadonlyArray<string>;
 };
 
@@ -24090,15 +24178,35 @@ interface PublicKeyCredential extends Credential {
 declare var PublicKeyCredential: {
     prototype: PublicKeyCredential;
     new(): PublicKeyCredential;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/PublicKeyCredential/getClientCapabilities_static) */
+    /**
+     * The **`getClientCapabilities()`** static method of the PublicKeyCredential interface returns a Promise that resolves with an object that can be used to check whether or not particular WebAuthn client capabilities and extensions are supported.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/PublicKeyCredential/getClientCapabilities_static)
+     */
     getClientCapabilities(): Promise<PublicKeyCredentialClientCapabilities>;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/PublicKeyCredential/isConditionalMediationAvailable_static) */
+    /**
+     * The **`isConditionalMediationAvailable()`** static method of the PublicKeyCredential interface returns a Promise which resolves to `true` if conditional mediation is available.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/PublicKeyCredential/isConditionalMediationAvailable_static)
+     */
     isConditionalMediationAvailable(): Promise<boolean>;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/PublicKeyCredential/isUserVerifyingPlatformAuthenticatorAvailable_static) */
+    /**
+     * The **`isUserVerifyingPlatformAuthenticatorAvailable()`** static method of the PublicKeyCredential interface returns a Promise which resolves to `true` if a user-verifying platform authenticator is present.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/PublicKeyCredential/isUserVerifyingPlatformAuthenticatorAvailable_static)
+     */
     isUserVerifyingPlatformAuthenticatorAvailable(): Promise<boolean>;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/PublicKeyCredential/parseCreationOptionsFromJSON_static) */
+    /**
+     * The **`parseCreationOptionsFromJSON()`** static method of the PublicKeyCredential interface creates a PublicKeyCredentialCreationOptions object from a JSON representation of its properties.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/PublicKeyCredential/parseCreationOptionsFromJSON_static)
+     */
     parseCreationOptionsFromJSON(options: PublicKeyCredentialCreationOptionsJSON): PublicKeyCredentialCreationOptions;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/PublicKeyCredential/parseRequestOptionsFromJSON_static) */
+    /**
+     * The **`parseRequestOptionsFromJSON()`** static method of the PublicKeyCredential interface converts a JSON type representation into a PublicKeyCredentialRequestOptions instance.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/PublicKeyCredential/parseRequestOptionsFromJSON_static)
+     */
     parseRequestOptionsFromJSON(options: PublicKeyCredentialRequestOptionsJSON): PublicKeyCredentialRequestOptions;
 };
 
@@ -24132,7 +24240,11 @@ interface PushManager {
 declare var PushManager: {
     prototype: PushManager;
     new(): PushManager;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/PushManager/supportedContentEncodings_static) */
+    /**
+     * The **`supportedContentEncodings`** read-only static property of the PushManager interface returns an array of supported content codings that can be used to encrypt the payload of a push message.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/PushManager/supportedContentEncodings_static)
+     */
     readonly supportedContentEncodings: ReadonlyArray<string>;
 };
 
@@ -24982,7 +25094,11 @@ interface RTCPeerConnection extends EventTarget {
 declare var RTCPeerConnection: {
     prototype: RTCPeerConnection;
     new(configuration?: RTCConfiguration): RTCPeerConnection;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/RTCPeerConnection/generateCertificate_static) */
+    /**
+     * The **`generateCertificate()`** static function of the RTCPeerConnection interface creates an X.509 certificate and corresponding private key, returning a promise that resolves with the new RTCCertificate once it's generated.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/RTCPeerConnection/generateCertificate_static)
+     */
     generateCertificate(keygenAlgorithm: AlgorithmIdentifier): Promise<RTCCertificate>;
 };
 
@@ -25087,7 +25203,11 @@ interface RTCRtpReceiver {
 declare var RTCRtpReceiver: {
     prototype: RTCRtpReceiver;
     new(): RTCRtpReceiver;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/RTCRtpReceiver/getCapabilities_static) */
+    /**
+     * The _static method_ **`RTCRtpReceiver.getCapabilities()`** returns an object describing the codec and header extension capabilities supported by RTCRtpReceiver objects on the current device.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/RTCRtpReceiver/getCapabilities_static)
+     */
     getCapabilities(kind: string): RTCRtpCapabilities | null;
 };
 
@@ -25169,7 +25289,11 @@ interface RTCRtpSender {
 declare var RTCRtpSender: {
     prototype: RTCRtpSender;
     new(): RTCRtpSender;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/RTCRtpSender/getCapabilities_static) */
+    /**
+     * The _static method_ **`RTCRtpSender.getCapabilities()`** returns an object describing the codec and header extension capabilities supported by the RTCRtpSender.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/RTCRtpSender/getCapabilities_static)
+     */
     getCapabilities(kind: string): RTCRtpCapabilities | null;
 };
 
@@ -26153,15 +26277,23 @@ interface Response extends Body {
 declare var Response: {
     prototype: Response;
     new(body?: BodyInit | null, init?: ResponseInit): Response;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Response/error_static) */
+    /**
+     * The **`error()`** static method of the Response interface returns a new `Response` object associated with a network error.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/Response/error_static)
+     */
     error(): Response;
     /**
-     * The **`json()`** method of the Response interface takes a Response stream and reads it to completion.
+     * The **`json()`** static method of the Response interface returns a `Response` that contains the provided JSON data as body, and a Content-Type header which is set to `application/json`.
      *
      * [MDN Reference](https://developer.mozilla.org/docs/Web/API/Response/json_static)
      */
     json(data: any, init?: ResponseInit): Response;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Response/redirect_static) */
+    /**
+     * The **`redirect()`** static method of the Response interface returns a `Response` resulting in a redirect to the specified URL.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/Response/redirect_static)
+     */
     redirect(url: string | URL, status?: number): Response;
 };
 
@@ -32494,13 +32626,29 @@ interface URL {
 declare var URL: {
     prototype: URL;
     new(url: string | URL, base?: string | URL): URL;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/URL/canParse_static) */
+    /**
+     * The **`URL.canParse()`** static method of the URL interface returns a boolean indicating whether or not an absolute URL, or a relative URL combined with a base URL, are parsable and valid.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/URL/canParse_static)
+     */
     canParse(url: string | URL, base?: string | URL): boolean;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/URL/createObjectURL_static) */
+    /**
+     * The **`createObjectURL()`** static method of the URL interface creates a string containing a URL representing the object given in the parameter.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/URL/createObjectURL_static)
+     */
     createObjectURL(obj: Blob | MediaSource): string;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/URL/parse_static) */
+    /**
+     * The **`URL.parse()`** static method of the URL interface returns a newly created URL object representing the URL defined by the parameters.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/URL/parse_static)
+     */
     parse(url: string | URL, base?: string | URL): URL | null;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/URL/revokeObjectURL_static) */
+    /**
+     * The **`revokeObjectURL()`** static method of the URL interface releases an existing object URL which was previously created by calling Call this method when you've finished using an object URL to let the browser know not to keep the reference to the file any longer.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/URL/revokeObjectURL_static)
+     */
     revokeObjectURL(url: string): void;
 };
 
@@ -32885,7 +33033,11 @@ interface VideoDecoder extends EventTarget {
 declare var VideoDecoder: {
     prototype: VideoDecoder;
     new(init: VideoDecoderInit): VideoDecoder;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/VideoDecoder/isConfigSupported_static) */
+    /**
+     * The **`isConfigSupported()`** static method of the VideoDecoder interface checks if the given config is supported (that is, if VideoDecoder objects can be successfully configured with the given config).
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/VideoDecoder/isConfigSupported_static)
+     */
     isConfigSupported(config: VideoDecoderConfig): Promise<VideoDecoderSupport>;
 };
 
@@ -32953,7 +33105,11 @@ interface VideoEncoder extends EventTarget {
 declare var VideoEncoder: {
     prototype: VideoEncoder;
     new(init: VideoEncoderInit): VideoEncoder;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/VideoEncoder/isConfigSupported_static) */
+    /**
+     * The **`isConfigSupported()`** static method of the VideoEncoder interface checks if VideoEncoder can be successfully configured with the given config.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/VideoEncoder/isConfigSupported_static)
+     */
     isConfigSupported(config: VideoEncoderConfig): Promise<VideoEncoderSupport>;
 };
 

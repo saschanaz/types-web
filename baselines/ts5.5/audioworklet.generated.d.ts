@@ -242,9 +242,17 @@ interface AbortSignal extends EventTarget {
 declare var AbortSignal: {
     prototype: AbortSignal;
     new(): AbortSignal;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/AbortSignal/abort_static) */
+    /**
+     * The **`AbortSignal.abort()`** static method returns an AbortSignal that is already set as aborted (and which does not trigger an AbortSignal/abort_event event).
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/AbortSignal/abort_static)
+     */
     abort(reason?: any): AbortSignal;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/AbortSignal/any_static) */
+    /**
+     * The **`AbortSignal.any()`** static method takes an iterable of abort signals and returns an AbortSignal.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/AbortSignal/any_static)
+     */
     any(signals: AbortSignal[]): AbortSignal;
 };
 
@@ -1314,9 +1322,17 @@ interface URL {
 declare var URL: {
     prototype: URL;
     new(url: string | URL, base?: string | URL): URL;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/URL/canParse_static) */
+    /**
+     * The **`URL.canParse()`** static method of the URL interface returns a boolean indicating whether or not an absolute URL, or a relative URL combined with a base URL, are parsable and valid.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/URL/canParse_static)
+     */
     canParse(url: string | URL, base?: string | URL): boolean;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/URL/parse_static) */
+    /**
+     * The **`URL.parse()`** static method of the URL interface returns a newly created URL object representing the URL defined by the parameters.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/URL/parse_static)
+     */
     parse(url: string | URL, base?: string | URL): URL | null;
 };
 

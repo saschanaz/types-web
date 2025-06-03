@@ -1124,11 +1124,23 @@ interface AbortSignal extends EventTarget {
 declare var AbortSignal: {
     prototype: AbortSignal;
     new(): AbortSignal;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/AbortSignal/abort_static) */
+    /**
+     * The **`AbortSignal.abort()`** static method returns an AbortSignal that is already set as aborted (and which does not trigger an AbortSignal/abort_event event).
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/AbortSignal/abort_static)
+     */
     abort(reason?: any): AbortSignal;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/AbortSignal/any_static) */
+    /**
+     * The **`AbortSignal.any()`** static method takes an iterable of abort signals and returns an AbortSignal.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/AbortSignal/any_static)
+     */
     any(signals: AbortSignal[]): AbortSignal;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/AbortSignal/timeout_static) */
+    /**
+     * The **`AbortSignal.timeout()`** static method returns an AbortSignal that will automatically abort after a specified time.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/AbortSignal/timeout_static)
+     */
     timeout(milliseconds: number): AbortSignal;
 };
 
@@ -1289,7 +1301,11 @@ interface AudioDecoder extends EventTarget {
 declare var AudioDecoder: {
     prototype: AudioDecoder;
     new(init: AudioDecoderInit): AudioDecoder;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/AudioDecoder/isConfigSupported_static) */
+    /**
+     * The **`isConfigSupported()`** static method of the AudioDecoder interface checks if the given config is supported (that is, if AudioDecoder objects can be successfully configured with the given config).
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/AudioDecoder/isConfigSupported_static)
+     */
     isConfigSupported(config: AudioDecoderConfig): Promise<AudioDecoderSupport>;
 };
 
@@ -1357,7 +1373,11 @@ interface AudioEncoder extends EventTarget {
 declare var AudioEncoder: {
     prototype: AudioEncoder;
     new(init: AudioEncoderInit): AudioEncoder;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/AudioEncoder/isConfigSupported_static) */
+    /**
+     * The **`isConfigSupported()`** static method of the AudioEncoder interface checks if the given config is supported (that is, if AudioEncoder objects can be successfully configured with the given config).
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/AudioEncoder/isConfigSupported_static)
+     */
     isConfigSupported(config: AudioEncoderConfig): Promise<AudioEncoderSupport>;
 };
 
@@ -3146,7 +3166,11 @@ interface DOMPoint extends DOMPointReadOnly {
 declare var DOMPoint: {
     prototype: DOMPoint;
     new(x?: number, y?: number, z?: number, w?: number): DOMPoint;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/DOMPoint/fromPoint_static) */
+    /**
+     * The **`fromPoint()`** static method of the DOMPoint interface creates and returns a new mutable `DOMPoint` object given a source point.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/DOMPoint/fromPoint_static)
+     */
     fromPoint(other?: DOMPointInit): DOMPoint;
 };
 
@@ -3197,7 +3221,11 @@ interface DOMPointReadOnly {
 declare var DOMPointReadOnly: {
     prototype: DOMPointReadOnly;
     new(x?: number, y?: number, z?: number, w?: number): DOMPointReadOnly;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/DOMPointReadOnly/fromPoint_static) */
+    /**
+     * The static **DOMPointReadOnly** method `fromPoint()` creates and returns a new `DOMPointReadOnly` object given a source point.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/DOMPointReadOnly/fromPoint_static)
+     */
     fromPoint(other?: DOMPointInit): DOMPointReadOnly;
 };
 
@@ -3287,7 +3315,11 @@ interface DOMRect extends DOMRectReadOnly {
 declare var DOMRect: {
     prototype: DOMRect;
     new(x?: number, y?: number, width?: number, height?: number): DOMRect;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/DOMRect/fromRect_static) */
+    /**
+     * The **`fromRect()`** static method of the object with a given location and dimensions.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/DOMRect/fromRect_static)
+     */
     fromRect(other?: DOMRectInit): DOMRect;
 };
 
@@ -3356,7 +3388,11 @@ interface DOMRectReadOnly {
 declare var DOMRectReadOnly: {
     prototype: DOMRectReadOnly;
     new(x?: number, y?: number, width?: number, height?: number): DOMRectReadOnly;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/DOMRectReadOnly/fromRect_static) */
+    /**
+     * The **`fromRect()`** static method of the object with a given location and dimensions.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/DOMRectReadOnly/fromRect_static)
+     */
     fromRect(other?: DOMRectInit): DOMRectReadOnly;
 };
 
@@ -5062,25 +5098,25 @@ declare var IDBKeyRange: {
     prototype: IDBKeyRange;
     new(): IDBKeyRange;
     /**
-     * Returns a new IDBKeyRange spanning from lower to upper. If lowerOpen is true, lower is not included in the range. If upperOpen is true, upper is not included in the range.
+     * The **`bound()`** static method of the IDBKeyRange interface creates a new key range with the specified upper and lower bounds.
      *
      * [MDN Reference](https://developer.mozilla.org/docs/Web/API/IDBKeyRange/bound_static)
      */
     bound(lower: any, upper: any, lowerOpen?: boolean, upperOpen?: boolean): IDBKeyRange;
     /**
-     * Returns a new IDBKeyRange starting at key with no upper bound. If open is true, key is not included in the range.
+     * The **`lowerBound()`** static method of the By default, it includes the lower endpoint value and is closed.
      *
      * [MDN Reference](https://developer.mozilla.org/docs/Web/API/IDBKeyRange/lowerBound_static)
      */
     lowerBound(lower: any, open?: boolean): IDBKeyRange;
     /**
-     * Returns a new IDBKeyRange spanning only key.
+     * The **`only()`** static method of the IDBKeyRange interface creates a new key range containing a single value.
      *
      * [MDN Reference](https://developer.mozilla.org/docs/Web/API/IDBKeyRange/only_static)
      */
     only(value: any): IDBKeyRange;
     /**
-     * Returns a new IDBKeyRange with no lower bound and ending at key. If open is true, key is not included in the range.
+     * The **`upperBound()`** static method of the it includes the upper endpoint value and is closed.
      *
      * [MDN Reference](https://developer.mozilla.org/docs/Web/API/IDBKeyRange/upperBound_static)
      */
@@ -5540,7 +5576,11 @@ interface ImageDecoder {
 declare var ImageDecoder: {
     prototype: ImageDecoder;
     new(init: ImageDecoderInit): ImageDecoder;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/ImageDecoder/isTypeSupported_static) */
+    /**
+     * The **`ImageDecoder.isTypeSupported()`** static method checks if a given MIME type can be decoded by the user agent.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/ImageDecoder/isTypeSupported_static)
+     */
     isTypeSupported(type: string): Promise<boolean>;
 };
 
@@ -6076,7 +6116,11 @@ interface Notification extends EventTarget {
 declare var Notification: {
     prototype: Notification;
     new(title: string, options?: NotificationOptions): Notification;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Notification/permission_static) */
+    /**
+     * The **`permission`** read-only static property of the Notification interface indicates the current permission granted by the user for the current origin to display web notifications.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/Notification/permission_static)
+     */
     readonly permission: NotificationPermission;
 };
 
@@ -6563,7 +6607,11 @@ interface PerformanceObserver {
 declare var PerformanceObserver: {
     prototype: PerformanceObserver;
     new(callback: PerformanceObserverCallback): PerformanceObserver;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/PerformanceObserver/supportedEntryTypes_static) */
+    /**
+     * The static **`supportedEntryTypes`** read-only property of the PerformanceObserver interface returns an array of the PerformanceEntry.entryType values supported by the user agent.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/PerformanceObserver/supportedEntryTypes_static)
+     */
     readonly supportedEntryTypes: ReadonlyArray<string>;
 };
 
@@ -6929,7 +6977,11 @@ interface PushManager {
 declare var PushManager: {
     prototype: PushManager;
     new(): PushManager;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/PushManager/supportedContentEncodings_static) */
+    /**
+     * The **`supportedContentEncodings`** read-only static property of the PushManager interface returns an array of supported content codings that can be used to encrypt the payload of a push message.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/PushManager/supportedContentEncodings_static)
+     */
     readonly supportedContentEncodings: ReadonlyArray<string>;
 };
 
@@ -7764,15 +7816,23 @@ interface Response extends Body {
 declare var Response: {
     prototype: Response;
     new(body?: BodyInit | null, init?: ResponseInit): Response;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Response/error_static) */
+    /**
+     * The **`error()`** static method of the Response interface returns a new `Response` object associated with a network error.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/Response/error_static)
+     */
     error(): Response;
     /**
-     * The **`json()`** method of the Response interface takes a Response stream and reads it to completion.
+     * The **`json()`** static method of the Response interface returns a `Response` that contains the provided JSON data as body, and a Content-Type header which is set to `application/json`.
      *
      * [MDN Reference](https://developer.mozilla.org/docs/Web/API/Response/json_static)
      */
     json(data: any, init?: ResponseInit): Response;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Response/redirect_static) */
+    /**
+     * The **`redirect()`** static method of the Response interface returns a `Response` resulting in a redirect to the specified URL.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/Response/redirect_static)
+     */
     redirect(url: string | URL, status?: number): Response;
 };
 
@@ -8676,13 +8736,29 @@ interface URL {
 declare var URL: {
     prototype: URL;
     new(url: string | URL, base?: string | URL): URL;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/URL/canParse_static) */
+    /**
+     * The **`URL.canParse()`** static method of the URL interface returns a boolean indicating whether or not an absolute URL, or a relative URL combined with a base URL, are parsable and valid.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/URL/canParse_static)
+     */
     canParse(url: string | URL, base?: string | URL): boolean;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/URL/createObjectURL_static) */
+    /**
+     * The **`createObjectURL()`** static method of the URL interface creates a string containing a URL representing the object given in the parameter.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/URL/createObjectURL_static)
+     */
     createObjectURL(obj: Blob): string;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/URL/parse_static) */
+    /**
+     * The **`URL.parse()`** static method of the URL interface returns a newly created URL object representing the URL defined by the parameters.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/URL/parse_static)
+     */
     parse(url: string | URL, base?: string | URL): URL | null;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/URL/revokeObjectURL_static) */
+    /**
+     * The **`revokeObjectURL()`** static method of the URL interface releases an existing object URL which was previously created by calling Call this method when you've finished using an object URL to let the browser know not to keep the reference to the file any longer.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/URL/revokeObjectURL_static)
+     */
     revokeObjectURL(url: string): void;
 };
 
@@ -8856,7 +8932,11 @@ interface VideoDecoder extends EventTarget {
 declare var VideoDecoder: {
     prototype: VideoDecoder;
     new(init: VideoDecoderInit): VideoDecoder;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/VideoDecoder/isConfigSupported_static) */
+    /**
+     * The **`isConfigSupported()`** static method of the VideoDecoder interface checks if the given config is supported (that is, if VideoDecoder objects can be successfully configured with the given config).
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/VideoDecoder/isConfigSupported_static)
+     */
     isConfigSupported(config: VideoDecoderConfig): Promise<VideoDecoderSupport>;
 };
 
@@ -8924,7 +9004,11 @@ interface VideoEncoder extends EventTarget {
 declare var VideoEncoder: {
     prototype: VideoEncoder;
     new(init: VideoEncoderInit): VideoEncoder;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/VideoEncoder/isConfigSupported_static) */
+    /**
+     * The **`isConfigSupported()`** static method of the VideoEncoder interface checks if VideoEncoder can be successfully configured with the given config.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/VideoEncoder/isConfigSupported_static)
+     */
     isConfigSupported(config: VideoEncoderConfig): Promise<VideoEncoderSupport>;
 };
 
