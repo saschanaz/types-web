@@ -107,19 +107,15 @@ function insertComment(
   root: Record<string, any>,
   slug: string[],
   summary: string,
-  types?: string[],
+  paths: string[],
 ) {
-  if (slug.length === 1 || !types) {
+  if (!paths.length) {
     const iface = ensureLeaf(root, slug);
-    iface.__comment = summary;
+    iface.comment = summary;
   } else {
     const [ifaceName, memberName] = slug;
-    const iface = ensureLeaf(root, [ifaceName, ...types]);
-
-    const mainComment = root[ifaceName]?.__comment;
-    if (mainComment !== summary) {
-      iface[memberName] = { comment: summary };
-    }
+    const target = ensureLeaf(root, [ifaceName, ...paths, memberName]);
+    target.comment = summary;
   }
 }
 
