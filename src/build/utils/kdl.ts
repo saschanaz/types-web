@@ -105,7 +105,7 @@ export function parseKDL(kdlText: string) {
 }
 export default async function readInputKDL(
   path: string,
-  inputFolder: string,
+  inputFolder: URL,
 ): Promise<any> {
   const text = await readFile(new URL(path, inputFolder), "utf8");
   return parseKDL(text);
