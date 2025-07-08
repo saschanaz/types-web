@@ -14,6 +14,7 @@ import { getInterfaceToEventMap } from "./build/webref/events.js";
 import { getWebidls } from "./build/webref/idl.js";
 import jsonc from "jsonc-parser";
 import { generateDescriptions } from "./build/mdn-comments.js";
+import readKDL from "./build/utils/kdl.js";
 
 function mergeNamesakes(filtered: Browser.WebIdl) {
   const targets = [
@@ -97,6 +98,7 @@ async function emitDom() {
   const deprecatedInfo = await readInputJSON("deprecatedMessage.json");
   const documentationFromMDN = await generateDescriptions();
   const removedItems = await readInputJSON("removedTypes.jsonc");
+  const addedItemsKDL = await readKDL(inputFolder, "addedTypes.kdl");
 
   async function readInputJSON(filename: string) {
     const content = await fs.readFile(new URL(filename, inputFolder), "utf8");
@@ -229,6 +231,7 @@ async function emitDom() {
   webidl = prune(webidl, removedItems);
   webidl = mergeApiDescriptions(webidl, documentationFromMDN);
   webidl = merge(webidl, addedItems);
+  webidl = merge(webidl, addedItemsKDL);
   webidl = merge(webidl, overriddenItems);
   webidl = merge(webidl, comments);
   webidl = mergeDeprecatedMessage(webidl, deprecatedInfo);

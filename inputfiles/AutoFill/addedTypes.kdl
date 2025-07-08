@@ -1,0 +1,70 @@
+enum AutoFillBase {
+  // Off
+  value "off"
+  // Automatic
+  value "on"
+  value ""
+}
+enum AutoFillAddressKind {
+  value "shipping"
+  value "billing"
+}
+enum AutoFillNormalField {
+  value "name"
+  value "honorific-prefix"
+  value "given-name"
+  value "additional-name"
+  value "family-name"
+  value "honorific-suffix"
+  value "username"
+  value "new-password"
+  value "current-password"
+  // Supported in iOS Safari too even though WPT tests
+  // for Safari currently fail as of 2023-06.
+  value "one-time-code"
+  value "organization"
+  value "street-address"
+  value "address-line1"
+  value "address-line2"
+  value "address-line3"
+  value "address-level4"
+  value "address-level3"
+  value "address-level2"
+  value "address-level1"
+  value "country"
+  value "country-name"
+  value "postal-code"
+  value "cc-name"
+  value "cc-given-name"
+  value "cc-family-name"
+  value "cc-number"
+  value "cc-exp"
+  value "cc-exp-month"
+  value "cc-exp-year"
+  value "cc-csc"
+  value "cc-type"
+  value "transaction-currency"
+  value "transaction-amount"
+  value "bday-day"
+  value "bday-month"
+  value "bday-year"
+}
+enum AutoFillContactKind {
+  value "home"
+  value "work"
+  value "mobile"
+}
+enum AutoFillContactField {
+  value "tel"
+  value "tel-country-code"
+  value "tel-national"
+  value "tel-area-code"
+  value "tel-local"
+  value "tel-local-prefix"
+  value "tel-local-suffix"
+  value "tel-extension"
+  value "email"
+}
+enum AutoFillCredentialField {
+  value "webauthn"
+}

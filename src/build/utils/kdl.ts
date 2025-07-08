@@ -1,6 +1,7 @@
 import { parse } from "kdljs";
 import { Enum, Event, Method, Property } from "../types";
-import { readFile } from "fs/promises";
+import { readdir, readFile } from "fs/promises";
+import { merge } from "../helpers.js";
 
 interface MethodDescriptor {
   [x: string]: Omit<Method, "signature">;
@@ -103,10 +104,46 @@ export function parseKDL(kdlText: string) {
 
   return { mixins: { mixin: interfaces }, enums: { enum: enums } };
 }
-export default async function readInputKDL(
-  path: string,
-  inputFolder: URL,
-): Promise<any> {
-  const text = await readFile(new URL(path, inputFolder), "utf8");
+
+/**
+ * Recursively collect all KDL file URLs in a directory.
+ */
+async function getAllKDLFileURLs(folder: URL, file: string): Promise<URL[]> {
+  const entries = await readdir(folder, { withFileTypes: true });
+
+  const results: URL[] = [];
+
+  for (const entry of entries) {
+    const child = new URL(entry.name + "/", folder);
+
+    if (entry.isDirectory()) {
+      results.push(...(await getAllKDLFileURLs(child, file)));
+    } else if (entry.isFile() && entry.name == file) {
+      results.push(new URL(entry.name, folder));
+    }
+  }
+
+  return results;
+}
+
+/**
+ * Read and parse a single KDL file.
+ */
+export async function readInputKDL(fileUrl: URL): Promise<any> {
+  const text = await readFile(fileUrl, "utf8");
   return parseKDL(text);
+}
+
+/**
+ * Read, parse, and merge all KDL files under the input folder.
+ */
+export default async function readKDL(
+  inputFolder: URL,
+  file: string,
+): Promise<any> {
+  const fileUrls = await getAllKDLFileURLs(inputFolder, file);
+
+  const parsedContents = await Promise.all(fileUrls.map(readInputKDL));
+
+  return parsedContents.reduce((acc, current) => merge(acc, current), {});
 }
