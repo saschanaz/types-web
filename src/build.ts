@@ -14,7 +14,7 @@ import { getInterfaceToEventMap } from "./build/webref/events.js";
 import { getWebidls } from "./build/webref/idl.js";
 import jsonc from "jsonc-parser";
 import { generateDescriptions } from "./build/mdn-comments.js";
-import readKDL from "./build/utils/kdl.js";
+import readKDL from "./build/patches.js";
 
 function mergeNamesakes(filtered: Browser.WebIdl) {
   const targets = [

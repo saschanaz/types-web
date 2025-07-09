@@ -1,7 +1,7 @@
 import { parse } from "kdljs";
-import { Enum, Event, Method, Property } from "../types";
+import { Enum, Event, Method, Property } from "./types";
 import { readdir, readFile } from "fs/promises";
-import { merge } from "../helpers.js";
+import { merge } from "./helpers.js";
 
 interface MethodDescriptor {
   [x: string]: Omit<Method, "signature">;
