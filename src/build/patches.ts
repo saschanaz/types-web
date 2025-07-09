@@ -55,47 +55,6 @@ export function parseKDL(kdlText: string) {
       }
 
       enums[enumName] = { name, value: values };
-    } else {
-      // Handle interface-mixin
-      const name = node.values?.[0]?.toString() ?? "";
-      const iface: {
-        events?: { event: Event[] };
-        methods?: { method: MethodDescriptor };
-        properties?: { property: PropertyDescriptor };
-      } = {};
-
-      const events: Event[] = [];
-      const methods: MethodDescriptor = {};
-      const properties: PropertyDescriptor = {};
-
-      for (const child of node.children ?? []) {
-        const name = child.values?.[0]?.toString() ?? "";
-        if (child.name === "event") {
-          events.push({
-            name,
-            type: child.properties?.type?.toString() ?? "",
-          });
-        } else if (child.name === "method") {
-          methods[name] = {
-            name,
-            overrideSignatures: [
-              child.properties?.overrideSignatures?.toString() ?? "",
-            ],
-          };
-        } else if (child.name === "property") {
-          properties[name] = {
-            name,
-            exposed: child.properties?.exposed?.toString(),
-          };
-        }
-      }
-
-      if (events.length) iface.events = { event: events };
-      if (Object.keys(methods).length) iface.methods = { method: methods };
-      if (Object.keys(properties).length)
-        iface.properties = { property: properties };
-
-      interfaces[name] = iface;
     }
   }
 
