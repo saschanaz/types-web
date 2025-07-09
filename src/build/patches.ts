@@ -49,22 +49,9 @@ export function parseKDL(kdlText: string) {
 /**
  * Recursively collect all KDL file URLs in a directory.
  */
-async function getAllKDLFileURLs(folder: URL, file: string): Promise<URL[]> {
+async function getAllKDLFileURLs(folder: URL): Promise<URL[]> {
   const entries = await readdir(folder, { withFileTypes: true });
-
-  const results: URL[] = [];
-
-  for (const entry of entries) {
-    const child = new URL(entry.name + "/", folder);
-
-    if (entry.isDirectory()) {
-      results.push(...(await getAllKDLFileURLs(child, file)));
-    } else if (entry.isFile() && entry.name == file) {
-      results.push(new URL(entry.name, folder));
-    }
-  }
-
-  return results;
+  return entries.map((entry) => new URL(entry.name, folder));
 }
 
 /**
@@ -78,9 +65,9 @@ export async function readInputKDL(fileUrl: URL): Promise<any> {
 /**
  * Read, parse, and merge all KDL files under the input folder.
  */
-export default async function readKDL(file: string): Promise<any> {
-  const inputFolder = new URL("../../inputfiles/patches/", import.meta.url);
-  const fileUrls = await getAllKDLFileURLs(inputFolder, file);
+export default async function readKDL(folder: string): Promise<any> {
+  const inputFolder = new URL(`../../inputfiles/${folder}/`, import.meta.url);
+  const fileUrls = await getAllKDLFileURLs(inputFolder);
 
   const parsedContents = await Promise.all(fileUrls.map(readInputKDL));
 

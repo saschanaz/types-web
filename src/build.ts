@@ -98,7 +98,7 @@ async function emitDom() {
   const deprecatedInfo = await readInputJSON("deprecatedMessage.json");
   const documentationFromMDN = await generateDescriptions();
   const removedItems = await readInputJSON("removedTypes.jsonc");
-  const addedItemsKDL = await readKDL("addedTypes.kdl");
+  const addedItemsKDL = await readKDL("patches");
 
   async function readInputJSON(filename: string) {
     const content = await fs.readFile(new URL(filename, inputFolder), "utf8");
