@@ -41,7 +41,10 @@ export function parseKDL(kdlText: string) {
   for (const node of nodes) {
     if (node.name === "enum") {
       // Handle enum
-      const enumName = node.values?.[0]?.toString() ?? "";
+      const enumName = node.values[0];
+      if (typeof enumName !== "string") {
+        throw new Error("Missing enum name");
+      }
       let name = enumName;
       const values: string[] = [];
 
