@@ -42,12 +42,14 @@ export function parseKDL(kdlText: string) {
       if (typeof enumName !== "string") {
         throw new Error("Missing enum name");
       }
-      let name = enumName;
+      const name = enumName;
       const values: string[] = [];
 
       for (const child of node.children ?? []) {
         if (child.name !== "value" || typeof child.values[0] !== "string") {
-          throw new Error("enum values should be in the form of `value {name}`");
+          throw new Error(
+            "enum values should be in the form of `value {name}`",
+          );
         }
         values.push(child.values[0]);
       }
@@ -144,5 +146,5 @@ export default async function readKDL(
 
   const parsedContents = await Promise.all(fileUrls.map(readInputKDL));
 
-  return parsedContents.reduce(merge, {});
+  return parsedContents.reduce((acc, current) => merge(acc, current), {});
 }
