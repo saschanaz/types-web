@@ -135,7 +135,7 @@ export async function readInputKDL(fileUrl: URL): Promise<any> {
  * Read, parse, and merge all KDL files under the input folder.
  */
 export default async function readKDL(file: string): Promise<any> {
-  const inputFolder = new URL("../inputfiles/patches/", import.meta.url);
+  const inputFolder = new URL("../../inputfiles/patches/", import.meta.url);
   const fileUrls = await getAllKDLFileURLs(inputFolder, file);
 
   const parsedContents = await Promise.all(fileUrls.map(readInputKDL));
