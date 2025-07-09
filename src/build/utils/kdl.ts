@@ -149,5 +149,5 @@ export default async function readKDL(
 
   const parsedContents = await Promise.all(fileUrls.map(readInputKDL));
 
-  return parsedContents.reduce((acc, current) => merge(acc, current), {});
+  return parsedContents.reduce(merge, {});
 }
