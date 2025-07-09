@@ -1,24 +1,10 @@
 import { parse } from "kdljs";
-import { Enum, Event, Method, Property } from "./types";
+import { Enum } from "./types";
 import { readdir, readFile } from "fs/promises";
 import { merge } from "./helpers.js";
 
-interface MethodDescriptor {
-  [x: string]: Omit<Method, "signature">;
-}
-
 interface EnumDescriptor {
   [x: string]: Enum;
-}
-interface PropertyDescriptor {
-  [x: string]: Omit<Property, "type">;
-}
-
-interface InterfaceMixin {
-  [x: string]: {
-    events?: { event: Event[] };
-    methods?: { method: MethodDescriptor };
-  };
 }
 
 /**
@@ -33,7 +19,6 @@ export function parseKDL(kdlText: string) {
 
   const nodes = output!;
   const enums: EnumDescriptor = {};
-  const interfaces: InterfaceMixin = {};
 
   for (const node of nodes) {
     if (node.name === "enum") {
@@ -58,7 +43,7 @@ export function parseKDL(kdlText: string) {
     }
   }
 
-  return { mixins: { mixin: interfaces }, enums: { enum: enums } };
+  return { enums: { enum: enums } };
 }
 
 /**
