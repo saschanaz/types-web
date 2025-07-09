@@ -22,8 +22,7 @@ interface InterfaceMixin {
 }
 
 /**
- * Converts KDL text describing interface-mixins into JSON format.
- * Uses kdljs v3.
+ * Converts patch files in KDL to match the [types](types.d.ts).
  */
 export function parseKDL(kdlText: string) {
   const { output, errors } = parse(kdlText);
