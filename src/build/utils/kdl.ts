@@ -29,9 +29,7 @@ export function parseKDL(kdlText: string) {
   const { output, errors } = parse(kdlText);
 
   if (errors.length) {
-    throw new Error(
-      `KDL parse errors:\n${errors.map((e) => e.message).join("\n")}`,
-    );
+    throw new Error("KDL parse errors", { cause: errors });
   }
 
   const nodes = output!;
