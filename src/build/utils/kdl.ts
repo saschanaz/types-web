@@ -46,15 +46,10 @@ export function parseKDL(kdlText: string) {
       const values: string[] = [];
 
       for (const child of node.children ?? []) {
-        if (
-          child.name === "value" &&
-          child.values &&
-          child.values[0] !== undefined
-        ) {
-          values.push(child.values[0]!.toString());
-        } else if (child.name === "name") {
-          name = child.values?.[0]?.toString() ?? enumName;
+        if (child.name !== "value" || typeof child.values[0] !== "string") {
+          throw new Error("enum values should be in the form of `value {name}`");
         }
+        values.push(child.values[0]);
       }
 
       enums[enumName] = { name, value: values };
