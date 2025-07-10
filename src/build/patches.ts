@@ -23,7 +23,6 @@ export function parseKDL(kdlText: string) {
       if (typeof enumName !== "string") {
         throw new Error("Missing enum name");
       }
-      const name = enumName;
       const values: string[] = [];
 
       for (const child of node.children ?? []) {
@@ -35,7 +34,7 @@ export function parseKDL(kdlText: string) {
         values.push(child.values[0]);
       }
 
-      enums[enumName] = { name, value: values };
+      enums[enumName] = { name:enumName, value: values };
     }
   }
 
