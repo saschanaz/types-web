@@ -6,7 +6,7 @@ import { merge } from "./helpers.js";
 /**
  * Converts patch files in KDL to match the [types](types.d.ts).
  */
-export function parseKDL(kdlText: string) {
+function parseKDL(kdlText: string) {
   const { output, errors } = parse(kdlText);
 
   if (errors.length) {
