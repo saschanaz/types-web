@@ -1,0 +1,3 @@
+enum ImageOrientation {
+    value "none"
+}

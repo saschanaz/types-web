@@ -1,0 +1,6 @@
+enum InsertPosition {
+  value "beforebegin"
+  value "beforeend"
+  value "afterbegin"
+  value "afterend"
+}
