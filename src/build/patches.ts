@@ -42,7 +42,7 @@ export function parseKDL(kdlText: string) {
 }
 
 /**
- * Recursively collect all KDL file URLs in a directory.
+ * Collect all file URLs in a directory.
  */
 async function getAllKDLFileURLs(folder: URL): Promise<URL[]> {
   const entries = await readdir(folder, { withFileTypes: true });
