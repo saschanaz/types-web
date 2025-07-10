@@ -34,7 +34,7 @@ export function parseKDL(kdlText: string) {
         values.push(child.values[0]);
       }
 
-      enums[enumName] = { name:enumName, value: values };
+      enums[enumName] = { name: enumName, value: values };
     }
   }
 
