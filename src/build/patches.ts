@@ -1,5 +1,5 @@
 import { parse } from "kdljs";
-import { Enum } from "./types";
+import type { Enum } from "./types";
 import { readdir, readFile } from "fs/promises";
 import { merge } from "./helpers.js";
 
