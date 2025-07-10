@@ -3,10 +3,6 @@ import { Enum } from "./types";
 import { readdir, readFile } from "fs/promises";
 import { merge } from "./helpers.js";
 
-interface EnumDescriptor {
-  [x: string]: Enum;
-}
-
 /**
  * Converts patch files in KDL to match the [types](types.d.ts).
  */
@@ -18,7 +14,7 @@ export function parseKDL(kdlText: string) {
   }
 
   const nodes = output!;
-  const enums: EnumDescriptor = {};
+  const enums: Record<string, Enum> = {};
 
   for (const node of nodes) {
     if (node.name === "enum") {
