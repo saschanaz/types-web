@@ -18,27 +18,34 @@ export function parseKDL(kdlText: string) {
 
   for (const node of nodes) {
     if (node.name === "enum") {
-      // Handle enum
-      const name = node.values[0];
-      if (typeof name !== "string") {
-        throw new Error("Missing enum name");
-      }
-      const values: string[] = [];
-
-      for (const child of node.children ?? []) {
-        if (child.name !== "value" || typeof child.values[0] !== "string") {
-          throw new Error(
-            "enum values should be in the form of `value {name}`",
-          );
-        }
-        values.push(child.values[0]);
-      }
-
-      enums[name] = { name, value: values };
+      handleEnum(node, enums);
     }
   }
 
   return { enums: { enum: enums } };
+}
+
+/**
+ * Handles an enum node by extracting its name and values.
+ * Throws an error if the enum name is missing or if the values are not in the correct format.
+ * @param node The enum node to handle.
+ * @param enums The record of enums to update.
+ */
+function handleEnum(node: any, enums: Record<string, Enum>) {
+  const name = node.values[0];
+  if (typeof name !== "string") {
+    throw new Error("Missing enum name");
+  }
+  const values: string[] = [];
+
+  for (const child of node.children ?? []) {
+    if (child.name !== "value" || typeof child.values[0] !== "string") {
+      throw new Error("enum values should be in the form of `value {name}`");
+    }
+    values.push(child.values[0]);
+  }
+
+  enums[name] = { name, value: values };
 }
 
 /**
