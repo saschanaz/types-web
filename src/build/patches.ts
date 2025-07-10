@@ -57,7 +57,7 @@ async function getAllKDLFileURLs(folder: URL): Promise<URL[]> {
 /**
  * Read and parse a single KDL file.
  */
-export async function readInputKDL(fileUrl: URL): Promise<any> {
+export async function readPatch(fileUrl: URL): Promise<any> {
   const text = await readFile(fileUrl, "utf8");
   return parseKDL(text);
 }
@@ -65,11 +65,11 @@ export async function readInputKDL(fileUrl: URL): Promise<any> {
 /**
  * Read, parse, and merge all KDL files under the input folder.
  */
-export default async function readKDL(folder: string): Promise<any> {
-  const inputFolder = new URL(`../../inputfiles/${folder}/`, import.meta.url);
+export default async function readPatches(): Promise<any> {
+  const inputFolder = new URL("../../inputfiles/patches/", import.meta.url);
   const fileUrls = await getAllKDLFileURLs(inputFolder);
 
-  const parsedContents = await Promise.all(fileUrls.map(readInputKDL));
+  const parsedContents = await Promise.all(fileUrls.map(readPatch));
 
   return parsedContents.reduce((acc, current) => merge(acc, current), {});
 }
