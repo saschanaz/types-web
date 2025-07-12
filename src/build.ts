@@ -94,11 +94,11 @@ async function emitDom() {
 
   const overriddenItems = await readInputJSON("overridingTypes.jsonc");
   const addedItems = await readInputJSON("addedTypes.jsonc");
+  const patches = await readPatches();
   const comments = await readInputJSON("comments.json");
   const deprecatedInfo = await readInputJSON("deprecatedMessage.json");
   const documentationFromMDN = await generateDescriptions();
   const removedItems = await readInputJSON("removedTypes.jsonc");
-  const addedItemsKDL = await readPatches();
 
   async function readInputJSON(filename: string) {
     const content = await fs.readFile(new URL(filename, inputFolder), "utf8");
@@ -231,8 +231,8 @@ async function emitDom() {
   webidl = prune(webidl, removedItems);
   webidl = mergeApiDescriptions(webidl, documentationFromMDN);
   webidl = merge(webidl, addedItems);
-  webidl = merge(webidl, addedItemsKDL);
   webidl = merge(webidl, overriddenItems);
+  webidl = merge(webidl, patches);
   webidl = merge(webidl, comments);
   webidl = mergeDeprecatedMessage(webidl, deprecatedInfo);
   for (const name in webidl.interfaces!.interface) {
