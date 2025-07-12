@@ -39,10 +39,7 @@ function handleEnum(node: any, enums: Record<string, Enum>) {
   const values: string[] = [];
 
   for (const child of node.children ?? []) {
-    if (child.name !== "value" || typeof child.values[0] !== "string") {
-      throw new Error("enum values should be in the form of `value {name}`");
-    }
-    values.push(child.values[0]);
+    values.push(child.name);
   }
 
   enums[name] = { name, value: values };
@@ -51,7 +48,7 @@ function handleEnum(node: any, enums: Record<string, Enum>) {
 /**
  * Collect all file URLs in a directory.
  */
-async function getAllKDLFileURLs(folder: URL): Promise<URL[]> {
+async function getAllFileURLs(folder: URL): Promise<URL[]> {
   const entries = await readdir(folder, { withFileTypes: true });
   return entries.map((entry) => new URL(entry.name, folder));
 }
@@ -69,7 +66,7 @@ export async function readPatch(fileUrl: URL): Promise<any> {
  */
 export default async function readPatches(): Promise<any> {
   const patchDirectory = new URL("../../inputfiles/patches/", import.meta.url);
-  const fileUrls = await getAllKDLFileURLs(patchDirectory);
+  const fileUrls = await getAllFileURLs(patchDirectory);
 
   const parsedContents = await Promise.all(fileUrls.map(readPatch));
 
