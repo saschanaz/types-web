@@ -1,8 +1,6 @@
 import fs from "fs/promises";
-const basePath = new URL(
-  "../../inputfiles/mdn/files/en-us/web/api/",
-  import.meta.url,
-);
+const basePath = new URL("../../inputfiles/mdn/files/en-us/", import.meta.url);
+const inputPaths = ["web/api/", "webassembly/reference/javascript_interface/"];
 
 function extractSummary(markdown: string): string {
   // Remove frontmatter (--- at the beginning)
@@ -75,6 +73,10 @@ const paths: Record<string, string[]> = {
   "web-api-interface": [],
   "webgl-extension": [],
   "webgl-extension-method": ["methods", "method"],
+  "webassembly-interface": [],
+  "webassembly-instance-method": ["methods", "method"],
+  "webassembly-instance-property": ["properties", "property"],
+  "webassembly-static-method": ["methods", "method"],
 };
 
 function generatePath(content: string): string[] | undefined {
@@ -87,8 +89,11 @@ function extractSlug(content: string): string[] {
   const match = content.match(/\nslug: (.+)\n/)!;
   const url = match[1].split(":").pop()!;
   const normalized = url.endsWith("_static") ? url.slice(0, -7) : url;
-  const parts = normalized.split("/").slice(2); // skip `Web/API/...`
-  return parts; // Keep only top-level and member name
+  const parts = normalized.split("/");
+  if (parts[0].toLowerCase() === "web") {
+    return parts.slice(2);
+  }
+  return parts.slice(3);
 }
 
 function ensureLeaf(obj: Record<string, any>, keys: string[]) {
@@ -127,7 +132,11 @@ export async function generateDescriptions(): Promise<{
   }
 
   const results: Record<string, any> = {};
-  const indexPaths = await walkDirectory(basePath);
+  const indexPaths = await Promise.all(
+    inputPaths.map(
+      async (path) => await walkDirectory(new URL(path, basePath)),
+    ),
+  ).then((res) => res.flat());
 
   await Promise.all(
     indexPaths.map(async (fileURL) => {
