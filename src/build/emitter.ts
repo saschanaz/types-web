@@ -1165,10 +1165,12 @@ export function emitWebIdl(
       optionsType: string,
     ) {
       printer.printLine(
-        `${prefix}${addOrRemove}EventListener<K extends keyof ${iParent.name
+        `${prefix}${addOrRemove}EventListener<K extends keyof ${
+          iParent.name
         }EventMap>(type: K, listener: (this: ${nameWithForwardedTypes(
           i,
-        )}, ev: ${iParent.name
+        )}, ev: ${
+          iParent.name
         }EventMap[K]) => any, options?: boolean | ${optionsType}): void;`,
       );
     }
@@ -1444,7 +1446,7 @@ export function emitWebIdl(
     }
     const methods = { ...i.methods?.method };
     delete methods.toJSON;
-    return !mapToArray(methods).filter(m => !m.static).length;
+    return !mapToArray(methods).filter((m) => !m.static).length;
   }
 
   function emitInterface(i: Browser.Interface) {
@@ -1811,14 +1813,14 @@ export function emitWebIdl(
     const sequenceTypedefs = !webidl.typedefs
       ? []
       : webidl.typedefs.typedef
-        .filter((typedef) => Array.isArray(typedef.type))
-        .map((typedef) => ({
-          ...typedef,
-          type: (typedef.type as Browser.Typed[]).filter(
-            (t) => t.type === "sequence",
-          ),
-        }))
-        .filter((typedef) => typedef.type.length);
+          .filter((typedef) => Array.isArray(typedef.type))
+          .map((typedef) => ({
+            ...typedef,
+            type: (typedef.type as Browser.Typed[]).filter(
+              (t) => t.type === "sequence",
+            ),
+          }))
+          .filter((typedef) => typedef.type.length);
     const sequenceTypedefMap = arrayToMap(
       sequenceTypedefs,
       (t) => t.name,
