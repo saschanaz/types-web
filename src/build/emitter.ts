@@ -1165,12 +1165,10 @@ export function emitWebIdl(
       optionsType: string,
     ) {
       printer.printLine(
-        `${prefix}${addOrRemove}EventListener<K extends keyof ${
-          iParent.name
+        `${prefix}${addOrRemove}EventListener<K extends keyof ${iParent.name
         }EventMap>(type: K, listener: (this: ${nameWithForwardedTypes(
           i,
-        )}, ev: ${
-          iParent.name
+        )}, ev: ${iParent.name
         }EventMap[K]) => any, options?: boolean | ${optionsType}): void;`,
       );
     }
@@ -1427,12 +1425,38 @@ export function emitWebIdl(
     }
   }
 
+  function isEmptyInterface(i: Browser.Interface) {
+    if (
+      i.preventNominal ||
+      i.extends ||
+      i.implements ||
+      i.iterator ||
+      i.overrideIndexSignatures ||
+      i.noInterfaceObject
+    ) {
+      return false;
+    }
+    if (mapToArray(i.properties?.property).length) {
+      return false;
+    }
+    if (mapToArray(i.constants?.constant).length) {
+      return false;
+    }
+    const methods = { ...i.methods?.method };
+    delete methods.toJSON;
+    return !mapToArray(methods).filter(m => !m.static).length;
+  }
+
   function emitInterface(i: Browser.Interface) {
     printer.clearStack();
     emitInterfaceEventMap(i);
 
     emitInterfaceDeclaration(i);
     printer.increaseIndent();
+
+    if (isEmptyInterface(i)) {
+      printer.printLine(`__brand: "${i.name}";`);
+    }
 
     emitMembers(/*prefix*/ "", EmitScope.InstanceOnly, i);
     emitConstants(i);
@@ -1787,14 +1811,14 @@ export function emitWebIdl(
     const sequenceTypedefs = !webidl.typedefs
       ? []
       : webidl.typedefs.typedef
-          .filter((typedef) => Array.isArray(typedef.type))
-          .map((typedef) => ({
-            ...typedef,
-            type: (typedef.type as Browser.Typed[]).filter(
-              (t) => t.type === "sequence",
-            ),
-          }))
-          .filter((typedef) => typedef.type.length);
+        .filter((typedef) => Array.isArray(typedef.type))
+        .map((typedef) => ({
+          ...typedef,
+          type: (typedef.type as Browser.Typed[]).filter(
+            (t) => t.type === "sequence",
+          ),
+        }))
+        .filter((typedef) => typedef.type.length);
     const sequenceTypedefMap = arrayToMap(
       sequenceTypedefs,
       (t) => t.name,

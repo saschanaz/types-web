@@ -1586,6 +1586,7 @@ declare namespace WebAssembly {
 
     /** [MDN Reference](https://developer.mozilla.org/docs/WebAssembly/Reference/JavaScript_interface/Module) */
     interface Module {
+        __brand: "Module";
     }
 
     var Module: {
