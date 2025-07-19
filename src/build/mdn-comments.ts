@@ -1,6 +1,9 @@
 import fs from "fs/promises";
 const basePath = new URL("../../inputfiles/mdn/files/en-us/", import.meta.url);
-const inputPaths = ["web/api/", "webassembly/reference/javascript_interface/"];
+const subdirectories = [
+  "web/api/",
+  "webassembly/reference/javascript_interface/",
+];
 
 function extractSummary(markdown: string): string {
   // Remove frontmatter (--- at the beginning)
@@ -89,11 +92,12 @@ function extractSlug(content: string): string[] {
   const match = content.match(/\nslug: (.+)\n/)!;
   const url = match[1].split(":").pop()!;
   const normalized = url.endsWith("_static") ? url.slice(0, -7) : url;
-  const parts = normalized.split("/");
-  if (parts[0].toLowerCase() === "web") {
-    return parts.slice(2);
+  for (const subdirectory of subdirectories) {
+    if (normalized.toLowerCase().startsWith(subdirectory)) {
+      return normalized.slice(subdirectory.length).split("/");
+    }
   }
-  return parts.slice(3);
+  return [];
 }
 
 function ensureLeaf(obj: Record<string, any>, keys: string[]) {
@@ -133,9 +137,7 @@ export async function generateDescriptions(): Promise<{
 
   const results: Record<string, any> = {};
   const indexPaths = await Promise.all(
-    inputPaths.map(
-      async (path) => await walkDirectory(new URL(path, basePath)),
-    ),
+    subdirectories.map((dir) => walkDirectory(new URL(dir, basePath))),
   ).then((res) => res.flat());
 
   await Promise.all(
@@ -147,7 +149,7 @@ export async function generateDescriptions(): Promise<{
       const content = await fs.readFile(fileURL, "utf-8");
       const slug = extractSlug(content);
       const generatedPath = generatePath(content);
-      if (!slug || slug.length === 0 || !generatedPath) return;
+      if (!slug.length || !generatedPath) return;
 
       const summary = extractSummary(content);
       insertComment(results, slug, summary, generatedPath);
