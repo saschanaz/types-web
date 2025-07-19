@@ -1,6 +1,7 @@
-declare const assertNotAssignable: <T>() => <T1>(
+declare const assertNotAssignable: <T1, T2>(
   _x: T1,
-) => T1 extends T
+  _y: T2,
+) => T2 extends T1
   ? { error: "Right side should not be assignable to left side" }
   : () => void;
 
@@ -10,6 +11,6 @@ document.body.innerHTML = "foo";
 document.body.innerHTML = policy.createHTML("foo");
 
 declare const position: GeolocationPosition;
-assertNotAssignable<typeof document.head.innerHTML>()(position)();
+assertNotAssignable(document.head.innerHTML, position)();
 
 const html: string = document.body.innerHTML;
