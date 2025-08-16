@@ -11059,7 +11059,7 @@ interface Element extends Node, ARIAMixin, Animatable, ChildNode, NonDocumentTyp
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Element/fullscreenerror_event) */
     onfullscreenerror: ((this: Element, ev: Event) => any) | null;
     /**
-     * The **`outerHTML`** attribute of the Element DOM interface gets the serialized HTML fragment describing the element including its descendants.
+     * The **`outerHTML`** attribute of the Element interface gets or sets the HTML or XML markup of the element and its descendants, omitting any shadow tree in both cases.
      *
      * [MDN Reference](https://developer.mozilla.org/docs/Web/API/Element/outerHTML)
      */
@@ -16385,7 +16385,7 @@ interface HTMLOrSVGElement {
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/HTMLElement/dataset) */
     readonly dataset: DOMStringMap;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/HTMLElement/nonce) */
-    nonce?: string;
+    nonce: string;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/HTMLElement/tabIndex) */
     tabIndex: number;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/HTMLElement/blur) */
