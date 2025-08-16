@@ -151,7 +151,7 @@ const go = async () => {
 async function updatePackageJSON(pkg, packagePath) {
   const pkgJSONPath = new URL("package.json", packagePath);
   const packageText = fs.readFileSync(pkgJSONPath, "utf8");
-  /** @type {import("./template/package.json")} */
+  /** @type {typeof import("./template/package.json")} */
   const packageJSON = JSON.parse(packageText);
   packageJSON.name = pkg.name;
   packageJSON.description = pkg.description;
@@ -196,7 +196,7 @@ async function updatePackageJSON(pkg, packagePath) {
 /**
  * Copies the README and adds some rudimentary templating to the file.
  * @param {Package} pkg
- * @param {import("./template/package.json")} pkgJSON
+ * @param {typeof import("./template/package.json")} pkgJSON
  * @param {URL} writePath
  */
 function copyREADME(pkg, pkgJSON, writePath) {
