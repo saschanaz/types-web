@@ -12989,7 +12989,7 @@ interface GlobalEventHandlersEventMap {
     "focusout": FocusEvent;
     "formdata": FormDataEvent;
     "gotpointercapture": PointerEvent;
-    "input": Event;
+    "input": InputEvent;
     "invalid": Event;
     "keydown": KeyboardEvent;
     "keypress": KeyboardEvent;
@@ -13130,7 +13130,7 @@ interface GlobalEventHandlers {
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Element/gotpointercapture_event) */
     ongotpointercapture: ((this: GlobalEventHandlers, ev: PointerEvent) => any) | null;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Element/input_event) */
-    oninput: ((this: GlobalEventHandlers, ev: Event) => any) | null;
+    oninput: ((this: GlobalEventHandlers, ev: InputEvent) => any) | null;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/HTMLInputElement/invalid_event) */
     oninvalid: ((this: GlobalEventHandlers, ev: Event) => any) | null;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Element/keydown_event) */
@@ -39600,7 +39600,7 @@ declare var onformdata: ((this: Window, ev: FormDataEvent) => any) | null;
 /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Element/gotpointercapture_event) */
 declare var ongotpointercapture: ((this: Window, ev: PointerEvent) => any) | null;
 /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Element/input_event) */
-declare var oninput: ((this: Window, ev: Event) => any) | null;
+declare var oninput: ((this: Window, ev: InputEvent) => any) | null;
 /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/HTMLInputElement/invalid_event) */
 declare var oninvalid: ((this: Window, ev: Event) => any) | null;
 /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Element/keydown_event) */
