@@ -1953,6 +1953,14 @@
                             "type": "MessageEvent"
                         }
                     ]
+                },
+                "properties": {
+                    "property": {
+                        "readyState": {
+                            "name": "readyState",
+                            "overrideType": "0 | 1 | 2 | 3"
+                        }
+                    }
                 }
             },
             "WebTransportDatagramDuplexStream": {
@@ -3520,7 +3528,7 @@
                                             "overrideType": "LockGrantedCallback<T>"
                                         }
                                     ],
-                                    "overrideType": "Promise<T>"
+                                    "overrideType": "Promise<Awaited<T>>"
                                 },
                                 "1": {
                                     "typeParameters": [
@@ -3534,7 +3542,7 @@
                                             "overrideType": "LockGrantedCallback<T>"
                                         }
                                     ],
-                                    "overrideType": "Promise<T>"
+                                    "overrideType": "Promise<Awaited<T>>"
                                 }
                             }
                         }
